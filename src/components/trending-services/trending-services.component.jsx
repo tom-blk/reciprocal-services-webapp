@@ -2,10 +2,17 @@ import { services } from "../../datamodels/services/services-examples"
 import ServiceCard from "../service-card/service-card.component"
 
 const TrendingServices = () => {
+
+    const servicesWithDescendingWeeklyOrders = services.sort(function(a, b){return b.weeklyOrderCount - a.weeklyOrderCount});
+
+    console.log(servicesWithDescendingWeeklyOrders);
+
+    const servicesWithMostWeeklyOrders = servicesWithDescendingWeeklyOrders.slice(0,3);
+
     return(
         <div>
         {
-            services.map((service) => {
+            servicesWithMostWeeklyOrders.map((service) => {
                 return(
                     <ServiceCard
                         key={service.id} 
