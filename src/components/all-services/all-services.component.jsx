@@ -1,7 +1,6 @@
-import { services } from "../../datamodels/services/services-examples"
 import ServiceCard from "../service-card/service-card.component"
 
-const TrendingServices = () => {
+const AllServices = ({ services }) => {
     return(
         <div>
         {
@@ -19,4 +18,4 @@ const TrendingServices = () => {
     )
 }
 
-export default TrendingServices
+export default AllServices
