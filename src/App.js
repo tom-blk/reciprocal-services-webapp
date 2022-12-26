@@ -6,6 +6,7 @@ import LogIn from './routes/login/login.component';
 import RecentAssociates from './routes/recent-associates/recent-associates.component';
 import UserProfile from './routes/user-profile/user-profile.component';
 import Services from './routes/services/services.component';
+import Providers from './routes/providers/providers.component';
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
       <Route path='/' element={<Nav/>}>
         <Route index element={<Home/>}/>
         <Route path='/services' element={<Services/>}/>
+        <Route path='/providers' element={<Providers/>}/>
         <Route path='/recentAssociates' element={<RecentAssociates/>}/>
         <Route path='/userProfile' element={<UserProfile/>}/>
         <Route path='/login' element={<LogIn/>}/>

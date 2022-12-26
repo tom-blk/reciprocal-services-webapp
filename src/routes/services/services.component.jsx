@@ -1,8 +1,7 @@
 import SearchBar from "../../components/search-bar/search-bar.component"
 import { services } from "../../datamodels/services/services-examples"
-import ServiceCard from "../../components/service-card/service-card.component"
 import { useEffect, useState } from "react"
-import AllServices from "../../components/all-services/all-services.component"
+import ServiceList from "../../components/services-list/service-list.component"
 
 const Services = () => {
 
@@ -29,8 +28,8 @@ const Services = () => {
 
     return(
         <div className="services-container">
-            <SearchBar className="services-searchbar" onSearchChange={onSearchChange}/>
-            <AllServices services={filteredServices}/>
+            <SearchBar className="services-search-bar" onSearchChange={onSearchChange}/>
+            <ServiceList services={filteredServices}/>
         </div>
     )
 }

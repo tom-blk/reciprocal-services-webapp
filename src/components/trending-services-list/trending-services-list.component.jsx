@@ -1,7 +1,7 @@
 import { services } from "../../datamodels/services/services-examples"
 import ServiceCard from "../service-card/service-card.component"
 
-const TrendingServices = () => {
+const TrendingServicesList = () => {
 
     const servicesWithDescendingWeeklyOrders = services.sort(function(a, b){return b.weeklyOrderCount - a.weeklyOrderCount});
 
@@ -26,4 +26,4 @@ const TrendingServices = () => {
     )
 }
 
-export default TrendingServices
+export default TrendingServicesList

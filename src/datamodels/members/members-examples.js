@@ -43,7 +43,7 @@ const member2 = {
 const member3 = {
     id: 3,
     firstName: "Santa",
-    lastName: "Clause",
+    lastName: "Claus",
     email: "santa@presents.net",
     profilePicture: "",
     dob: "00-00-0000",

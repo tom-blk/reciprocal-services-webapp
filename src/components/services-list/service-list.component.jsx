@@ -1,6 +1,6 @@
 import ServiceCard from "../service-card/service-card.component"
 
-const AllServices = ({ services }) => {
+const ServiceList = ({ services }) => {
     return(
         <div>
         {
@@ -18,4 +18,4 @@ const AllServices = ({ services }) => {
     )
 }
 
-export default AllServices
+export default ServiceList
