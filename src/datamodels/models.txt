@@ -1,0 +1,21 @@
+person{
+    id,
+    firstName,
+    lastName,
+    email,
+    profilePicture,
+    DOB,
+    providableServices[],
+    credits, //need to figure out a way to quantify efforts (maybe based on average time to learn a skill multiplied by base hourly rate)
+    rating, //mandatory, based on cards/items with pre-defined content (ex. proactive, untrustworthy, ...), should not take longer than 30 second to avoid attention exhaustion
+    previousReceivingAssociates,
+    previousProvidingAssociates
+}
+
+services{
+    id,
+    name,
+    description,
+    creditsPerHour,
+    avgTimeToAcquire //maybe based on time to complete bachelors or apprenticeship in months
+}
