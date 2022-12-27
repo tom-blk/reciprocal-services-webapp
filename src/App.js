@@ -3,10 +3,10 @@ import { Route, Routes } from 'react-router';
 import Home from './routes/home/home.component';
 import Nav from './routes/nav/nav.component';
 import LogIn from './routes/login/login.component';
-import RecentAssociates from './routes/recent-associates/recent-associates.component';
 import UserProfile from './routes/user-profile/user-profile.component';
 import Services from './routes/services/services.component';
 import Providers from './routes/providers/providers.component';
+import Transactions from './routes/transactions/transactions.component';
 
 const App = () => {
   return (
@@ -15,7 +15,7 @@ const App = () => {
         <Route index element={<Home/>}/>
         <Route path='/services' element={<Services/>}/>
         <Route path='/providers' element={<Providers/>}/>
-        <Route path='/recentAssociates' element={<RecentAssociates/>}/>
+        <Route path='/transactions' element={<Transactions/>}/>
         <Route path='/userProfile' element={<UserProfile/>}/>
         <Route path='/login' element={<LogIn/>}/>
       </Route>
