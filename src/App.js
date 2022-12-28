@@ -7,6 +7,7 @@ import UserProfile from './routes/user-profile/user-profile.component';
 import Services from './routes/services/services.component';
 import Providers from './routes/providers/providers.component';
 import Transactions from './routes/transactions/transactions.component';
+import SignUp from './routes/sign-up/sign-up.component';
 
 const App = () => {
   return (
@@ -17,8 +18,9 @@ const App = () => {
         <Route path='/providers' element={<Providers/>}/>
         <Route path='/transactions' element={<Transactions/>}/>
         <Route path='/userProfile' element={<UserProfile/>}/>
-        <Route path='/login' element={<LogIn/>}/>
       </Route>
+      <Route path='/login' element={<LogIn/>}/>
+      <Route path='/sign-up' element={<SignUp/>}/>
     </Routes>
   );
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import auth from "../../utils/firebase";
+import { auth } from "../../utils/firebase/firebase.utils";
 import { Link } from "react-router-dom";
 
 const LogIn = () => {
@@ -13,19 +13,14 @@ const LogIn = () => {
 
     const [user, setUser] = useState(undefined);
 
-    useEffect(() => {
-        console.log(errorCode, errorMessage)
-    }, [errorMessage])
-
     const signIn = () => {
-        console.log(email, password)
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
+                setErrorCode('');
+                setErrorMessage('');
                 setUser(userCredential.user);
-                console.log('logged in')
             })
             .catch((error) => {
-                console.log('error')
                 setErrorCode(error.code);
                 setErrorMessage(error.message);
             });
@@ -44,9 +39,16 @@ const LogIn = () => {
                 placeholder="password"
                 onChange={e => setPassword(e.target.value)}
             />
+            {
+                errorCode & errorMessage != ""
+                ?
+                <div style={{color: "red"}}></div>
+                :
+                <></>
+            }
             <button onClick={e => signIn()}>Login</button>
-            <button>Sign Up</button>
-            <Link to='/signup'>I forgot my password...</Link>
+            <Link to='/sign-up'><button>Sign Up</button></Link>
+            <Link to='/sign-up'>I forgot my password...</Link>
         </div> 
     )
 }
