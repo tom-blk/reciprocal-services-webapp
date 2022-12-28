@@ -1,4 +1,4 @@
-const UserProfile = () => {
+const ProviderProfile = () => {
     return(
         <div>
             <div className="profile-pic" style={{backgroundColor: "blue", height: "50px", width: "50px"}}></div>
@@ -11,4 +11,4 @@ const UserProfile = () => {
     )
 }
 
-export default UserProfile
+export default ProviderProfile
