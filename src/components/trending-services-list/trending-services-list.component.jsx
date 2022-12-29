@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { services } from "../../datamodels/services/services-examples"
 import ServiceCard from "../service-card/service-card.component"
 
@@ -14,11 +15,12 @@ const TrendingServicesList = () => {
         {
             servicesWithMostWeeklyOrders.map((service) => {
                 return(
-                    <ServiceCard
-                        key={service.id} 
-                        title={service.name} 
-                        description={service.description}
-                    />
+                    <Link key={service.id} to={`/services/${service.id}`}>
+                        <ServiceCard
+                            title={service.name} 
+                            description={service.description}
+                        />
+                    </Link>
                 )
             })
         }

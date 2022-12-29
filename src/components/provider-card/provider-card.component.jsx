@@ -1,11 +1,7 @@
-import { useNavigate } from "react-router"
-
-const ProviderCard = ({ id, firstName, lastName }) => {
-
-    const navigate = useNavigate();
+const ProviderCard = ({ firstName, lastName }) => {
 
     return(
-        <div className="provider-card-container" onClick={(e) => navigate(`${id}`)}>
+        <div className="provider-card-container">
             <h3 className="provider-card-last-name">{firstName + ' ' +lastName}</h3>
         </div>
     )

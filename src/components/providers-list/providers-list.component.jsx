@@ -1,4 +1,5 @@
 import ProviderCard from "../provider-card/provider-card.component"
+import { Link } from "react-router-dom"
 
 const ProvidersList = ({ providers }) => {
     return(
@@ -6,12 +7,12 @@ const ProvidersList = ({ providers }) => {
         {
             providers.map((provider) => {
                 return(
+                <Link key={provider.id} to={`${provider.id}`}>
                     <ProviderCard
-                        key={provider.id} 
-                        id={provider.id}
                         firstName={provider.firstName} 
                         lastName={provider.lastName}
                     />
+                </Link>
                 )
             })
         }

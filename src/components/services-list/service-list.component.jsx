@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import ServiceCard from "../service-card/service-card.component"
 
 const ServiceList = ({ services }) => {
@@ -6,11 +7,12 @@ const ServiceList = ({ services }) => {
         {
             services.map((service) => {
                 return(
-                    <ServiceCard
-                        key={service.id} 
-                        title={service.name} 
-                        description={service.description}
-                    />
+                    <Link key={service.id} to={`${service.id}`}>
+                        <ServiceCard
+                            title={service.name} 
+                            description={service.description}
+                        />
+                    </Link>
                 )
             })
         }

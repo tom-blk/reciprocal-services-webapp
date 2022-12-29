@@ -1,5 +1,5 @@
 const service0 = {
-    id: 0,
+    id: 3,
     name: "Knitting",
     description: "Production of textile products.",
     creditsPerHour: 2,
@@ -19,7 +19,7 @@ const service1 = {
 }
 
 const service2= {
-    id: 2,
+    id: 0,
     name: "Security",
     description: "Personal protection from possible threats.",
     creditsPerHour: 6,
@@ -29,7 +29,7 @@ const service2= {
 }
 
 const service3 = {
-    id: 3,
+    id: 4,
     name: "Electronics",
     description: "Design and implementation of electical circuits",
     creditsPerHour: 12,
@@ -39,7 +39,7 @@ const service3 = {
 }
 
 const service4 = {
-    id: 4,
+    id: 2,
     name: "Covert Ops",
     description: "Accomplishment of tasks without raising awareness of third parties.",
     creditsPerHour: 24,
