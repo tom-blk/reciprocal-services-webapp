@@ -8,6 +8,7 @@ import Services from './routes/services/services.component';
 import Providers from './routes/providers/providers.component';
 import Transactions from './routes/transactions/transactions.component';
 import SignUp from './routes/sign-up/sign-up.component';
+import ProviderCard from './components/provider-card/provider-card.component';
 
 const App = () => {
   return (
@@ -15,7 +16,9 @@ const App = () => {
       <Route path='/' element={<Nav/>}>
         <Route index element={<Home/>}/>
         <Route path='/services' element={<Services/>}/>
-        <Route path='/providers' element={<Providers/>}/>
+        <Route path='/providers' element={<Providers/>}>
+          <Route path=":userId" element={<ProviderCard/>} />
+        </Route>
         <Route path='/transactions' element={<Transactions/>}/>
         <Route path='/userProfile' element={<UserProfile/>}/>
       </Route>

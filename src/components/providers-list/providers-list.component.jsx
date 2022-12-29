@@ -8,6 +8,7 @@ const ProvidersList = ({ providers }) => {
                 return(
                     <ProviderCard
                         key={provider.id} 
+                        id={provider.id}
                         firstName={provider.firstName} 
                         lastName={provider.lastName}
                     />
