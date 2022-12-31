@@ -3,6 +3,10 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../utils/firebase/firebase.utils";
 import { Link } from "react-router-dom";
 
+
+import './login.styles.scss'
+import MaxSizeContainer from "../../utils/max-size-container/max-size-container.component";
+
 const LogIn = () => {
     
     const [email, setEmail] = useState('');
@@ -27,29 +31,33 @@ const LogIn = () => {
     }
 
     return(
-       <div>
-            <p>Login</p>
-            <input 
-                type={"email"} 
-                placeholder="email" 
-                onChange={e => setEmail(e.target.value)}
-            />
-            <input 
-                type={"password"} 
-                placeholder="password"
-                onChange={e => setPassword(e.target.value)}
-            />
-            {
-                errorCode & errorMessage != ""
-                ?
-                <div style={{color: "red"}}></div>
-                :
-                <></>
-            }
-            <button onClick={e => signIn()}>Login</button>
-            <Link to='/sign-up'><button>Sign Up</button></Link>
-            <Link to='/sign-up'>I forgot my password...</Link>
-        </div> 
+        <MaxSizeContainer>
+            <div className="login-container">
+                <p>Login</p>
+                <input 
+                    className="input email-input"
+                    type={"email"} 
+                    placeholder="email" 
+                    onChange={e => setEmail(e.target.value)}
+                />
+                <input 
+                    className="input password-input"
+                    type={"password"} 
+                    placeholder="password"
+                    onChange={e => setPassword(e.target.value)}
+                />
+                {
+                    errorCode & errorMessage != ""
+                    ?
+                    <div style={{color: "red"}}></div>
+                    :
+                    <></>
+                }
+                <div onClick={e => signIn()} className="button login-button" >Login</div>
+                <Link to='/sign-up'><div className="button sign-up-button">Sign Up</div></Link>
+                <Link to='/sign-up' className="forgot-password-prompt">I forgot my password...</Link>
+            </div> 
+        </MaxSizeContainer>
     )
 }
 

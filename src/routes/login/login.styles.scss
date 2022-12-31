@@ -1,0 +1,32 @@
+.login-container{
+    display: grid;
+    justify-content: center;
+    gap: 10%;
+}
+
+.input{
+    padding: 4%;
+}
+
+.button{
+    width: 100%;
+    display: grid;
+    justify-content: center;
+    padding: 2%;
+    border-radius: 5px;
+}
+
+.login-button{
+    background-color: darkgreen;
+    color: white
+}
+
+.sign-up-button{
+    color: darkgreen;
+    border: 1px solid darkgreen;
+}
+
+.forgot-password-prompt{
+    color: darkgreen;
+    font-size: var(--font-small);
+}
