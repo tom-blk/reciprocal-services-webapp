@@ -3,6 +3,8 @@ import { members } from "../../datamodels/members/members-examples"
 import { useEffect, useState } from "react"
 import ProvidersList from "../../components/providers-list/providers-list.component"
 
+import "./providers.styles.scss";
+
 const Providers = () => {
 
     const [searchString, setSearchString] = useState('');
@@ -31,7 +33,7 @@ const Providers = () => {
 
     return(
         <div className="providers-container">
-            <SearchBar className="providers-search-bar" onSearchChange={onSearchChange}/>
+            <SearchBar className="providers-search-bar" onSearchChange={onSearchChange} placeholder={"Providers"}/>
             <ProvidersList providers={filteredProviders}/>
         </div>
     )

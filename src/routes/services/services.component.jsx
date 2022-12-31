@@ -3,6 +3,8 @@ import { services } from "../../datamodels/services/services-examples"
 import { useEffect, useState } from "react"
 import ServiceList from "../../components/services-list/service-list.component"
 
+import "./services.styles.scss"
+
 const Services = () => {
 
     const [searchString, setSearchString] = useState('');
@@ -28,7 +30,7 @@ const Services = () => {
 
     return(
         <div className="services-container">
-            <SearchBar className="services-search-bar" onSearchChange={onSearchChange}/>
+            <SearchBar className="services-search-bar" onSearchChange={onSearchChange} placeholder={"Services"}/>
             <ServiceList services={filteredServices}/>
         </div>
     )

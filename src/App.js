@@ -1,4 +1,4 @@
-import './App.css';
+import './App.styles.scss';
 import { Route, Routes } from 'react-router';
 import Home from './routes/home/home.component';
 import Nav from './routes/nav/nav.component';
@@ -8,8 +8,9 @@ import Services from './routes/services/services.component';
 import Providers from './routes/providers/providers.component';
 import Transactions from './routes/transactions/transactions.component';
 import SignUp from './routes/sign-up/sign-up.component';
-import ProviderProfile from './components/provider-profile/provider-profile.component';
 import ServicePage from './components/service-page/service-page.component';
+import ProviderProfilePage from './components/provider-profile-page/provider-profile-page.component';
+import TransactionPage from './components/transaction-page/transaction-page.component';
 
 const App = () => {
   return (
@@ -22,9 +23,12 @@ const App = () => {
         </Route >
         <Route path='/providers'>
           <Route index element={<Providers/>}/>
-          <Route path=':providerId' element={<ProviderProfile/>} />
+          <Route path=':providerId' element={<ProviderProfilePage/>} />
         </Route>
-        <Route path='/transactions' element={<Transactions/>} />
+        <Route path='/transactions' >
+          <Route index element={<Transactions/>}/>
+          <Route path=':transactionId' element={<TransactionPage/>}/>
+        </Route>
         <Route path='/userProfile' element={<UserProfile/>} />
       </Route>
       <Route path='/login' element={<LogIn/>} />

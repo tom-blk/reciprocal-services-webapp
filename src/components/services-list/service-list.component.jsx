@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom"
 import ServiceCard from "../service-card/service-card.component"
 
+import "./service-list.styles.scss";
+
 const ServiceList = ({ services }) => {
     return(
-        <div>
+        <div className="service-list-container">
         {
             services.map((service) => {
                 return(

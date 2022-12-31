@@ -1,3 +1,5 @@
+import "./service-card.styles.scss"
+
 const ServiceCard = ({title, description}) => {
     return(
         <div className="service-card-container">

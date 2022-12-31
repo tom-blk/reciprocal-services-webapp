@@ -1,6 +1,11 @@
-const TransactionCard = () => {
+const TransactionCard = ({transaction}) => {
     return(
-        <div>Transaction Card</div>
+        <div>
+            <div>{transaction.dateIssued}</div>
+            <div>{transaction.receivingUserId}</div>
+            <div>{transaction.providingUserId}</div>
+            <div>{transaction.creditsAwarded}</div>
+        </div>
     )
 }
 

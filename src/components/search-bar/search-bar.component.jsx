@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-const SearchBar = ({className, onSearchChange }) => {
+const SearchBar = ({className, onSearchChange, placeholder }) => {
 
     
 
@@ -9,7 +9,7 @@ const SearchBar = ({className, onSearchChange }) => {
             className={`search-bar ${className}`}
             onChange={e => onSearchChange(e.target.value.toLocaleLowerCase())} 
             type={"search"} 
-            placeholder="Search For Services..."
+            placeholder={`Search For ${placeholder}...`}
         />
     )
 }
