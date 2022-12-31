@@ -3,6 +3,7 @@ import { Fragment, useState } from "react"
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../utils/firebase/firebase.utils";
 import { useNavigate } from "react-router";
+import MaxSizeContainer from "../../utils/max-size-container/max-size-container.component";
 
 const SignUp = () => {
 
@@ -46,6 +47,7 @@ const SignUp = () => {
     }
 
     return(
+        <MaxSizeContainer>
         <div>
             <h3>Signup</h3>
             <div>Input your Email Address</div>
@@ -70,6 +72,7 @@ const SignUp = () => {
                 <Fragment/>
             }
         </div>
+        </MaxSizeContainer>
     )
 }
 

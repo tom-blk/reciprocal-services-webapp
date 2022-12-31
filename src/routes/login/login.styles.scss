@@ -1,7 +1,8 @@
 .login-container{
     display: grid;
-    justify-content: center;
-    gap: 10%;
+    width: 30%;
+    justify-items: center;
+    gap: 5%;
 }
 
 .input{
@@ -14,11 +15,14 @@
     justify-content: center;
     padding: 2%;
     border-radius: 5px;
+    &:hover{
+        cursor: pointer;
+    }
 }
 
 .login-button{
     background-color: darkgreen;
-    color: white
+    color: white;
 }
 
 .sign-up-button{
