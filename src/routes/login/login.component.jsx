@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../utils/firebase/firebase.utils";
 import { Link, useNavigate } from "react-router-dom";
@@ -27,6 +27,7 @@ const LogIn = () => {
                 setUser(userCredential.user);
             })
             .then(() => {
+                console.log(user);
                 setTimeout(() => {
                     navigate('/')
                 }, 3000)
@@ -54,7 +55,7 @@ const LogIn = () => {
                     onChange={e => setPassword(e.target.value)}
                 />
                 {
-                    errorCode & errorMessage != ""
+                    errorCode & errorMessage !== ""
                     ?
                     <div style={{color: "red"}}></div>
                     :

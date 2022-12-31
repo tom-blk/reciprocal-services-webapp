@@ -22,7 +22,7 @@ const SignUp = () => {
 
     const signUp = () => {
         console.log("signup fired")
-        if(email != "" & password === confirmedPassword){
+        if(email !== "" & password === confirmedPassword){
             createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredentials) => {
                     setErrorCode("");
@@ -30,6 +30,7 @@ const SignUp = () => {
                     setUser(userCredentials.user)
                 })
                 .then(() => {
+                    console.log(user);
                     setDisplaySuccess(true)
                     setTimeout(() => {
                         navigate('/')
@@ -58,7 +59,7 @@ const SignUp = () => {
             <input type="password" placeholder="Confirm Password" onChange={e => setConfirmedPassword(e.target.value)}/>
             <button onClick={e => signUp()}>Join Us!</button>
             {
-                errorCode || errorMessage != ""
+                errorCode || errorMessage !== ""
                 ?
                 <div style={{color: "red"}}>{errorCode + " " + errorMessage}</div>
                 :
