@@ -1,32 +1,16 @@
-.login-container{
+.auth-pages-container{
+    justify-self: center;
+    margin-top: 10%;
+    width: 20%;
+    height: 40%;
     display: grid;
     justify-items: center;
-    gap: 5%;
+    gap: 8%;
 }
 
-.input{
-    padding: 4%;
-}
-
-.button{
+.auth-input{
     width: 100%;
-    display: grid;
-    justify-content: center;
-    padding: 2%;
-    border-radius: 5px;
-    &:hover{
-        cursor: pointer;
-    }
-}
-
-.login-button{
-    background-color: darkgreen;
-    color: white;
-}
-
-.sign-up-button{
-    color: darkgreen;
-    border: 1px solid darkgreen;
+    padding: 4%;
 }
 
 .forgot-password-prompt{

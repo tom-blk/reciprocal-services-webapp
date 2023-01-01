@@ -39,33 +39,31 @@ const LogIn = () => {
     }
 
     return(
-        <MaxSizeContainer>
-            <div className="login-container">
-                <p className="heading">Login</p>
-                <input 
-                    className="input email-input"
-                    type={"email"} 
-                    placeholder="email" 
-                    onChange={e => setEmail(e.target.value)}
-                />
-                <input 
-                    className="input password-input"
-                    type={"password"} 
-                    placeholder="password"
-                    onChange={e => setPassword(e.target.value)}
-                />
-                {
-                    errorCode & errorMessage !== ""
-                    ?
-                    <div style={{color: "red"}}></div>
-                    :
-                    <></>
-                }
-                <div onClick={e => signIn()} className="button login-button" >Login</div>
-                <Link to='/sign-up' className="button sign-up-button">Sign Up</Link>
-                <Link to='/sign-up' className="forgot-password-prompt">I forgot my password...</Link>
-            </div> 
-        </MaxSizeContainer>
+        <div className="login-container">
+            <div className="heading">Login</div>
+            <input 
+                className="input email-input"
+                type={"email"} 
+                placeholder="email" 
+                onChange={e => setEmail(e.target.value)}
+            />
+            <input 
+                className="input password-input"
+                type={"password"} 
+                placeholder="password"
+                onChange={e => setPassword(e.target.value)}
+            />
+            {
+                errorCode & errorMessage !== ""
+                ?
+                <div style={{color: "red"}}></div>
+                :
+                <></>
+            }
+            <div onClick={e => signIn()} className="button confirm-button" >Login</div>
+            <Link to='/sign-up' className="button secondary-confirm-button">Sign Up</Link>
+            <Link to='/sign-up' className="forgot-password-prompt">I forgot my password...</Link>
+        </div> 
     )
 }
 

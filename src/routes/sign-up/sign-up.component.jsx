@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react"
+import { Fragment, useEffect, useState } from "react"
 
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../utils/firebase/firebase.utils";
@@ -13,12 +13,17 @@ const SignUp = () => {
 
     const [errorCode, setErrorCode] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const [errorCodeVisible, setErrorCodeVisible] = useState(false);
 
     const [displaySuccess, setDisplaySuccess] = useState(false);
 
     const [user, setUser] = useState(undefined);
 
     const navigate = useNavigate()
+
+    useEffect(() => {
+        
+    }, [errorCodeVisible === true])
 
     const signUp = () => {
         console.log("signup fired")
@@ -42,38 +47,66 @@ const SignUp = () => {
                     setErrorMessage(error.message);
                 })
         } else {
-            setErrorCode("Content Missing:")
+            checkEmailAndPassword();
+        }
+    }
+
+    const checkEmailAndPassword = () => {
+        if(email === "") {
+            setErrorCode(`Content Missing: Email ${email} is not complete.`)
             setErrorMessage("Please check your input data.")
+        } else if(password === "") {
+            setErrorCode(`No Password chosen.`)
+            setErrorMessage("Please choose a password")
+        } else if(password !== confirmedPassword) {
+            setErrorCode(`Password Mismatch:`)
+            setErrorMessage("The two passwords you entered don't match.")
         }
     }
 
     return(
-        <MaxSizeContainer>
-        <div>
+        <div className="auth-pages-container">
             <h3>Signup</h3>
             <div>Input your Email Address</div>
-            <input type="email" placeholder="Email" onChange={e => setEmail(e.target.value)}/>
+            <input 
+                type="email" 
+                placeholder="Email" 
+                className="auth-input"
+                onChange={e => setEmail(e.target.value)}
+            />
             <div>Select A Password</div>
-            <input type="password" placeholder="Password" onChange={e => setPassword(e.target.value)}/>
+            <input 
+                type="password" 
+                placeholder="Password" 
+                className="auth-input"
+                onChange={e => setPassword(e.target.value)}
+            />
             <div>Confirm Your Password</div>
-            <input type="password" placeholder="Confirm Password" onChange={e => setConfirmedPassword(e.target.value)}/>
-            <button onClick={e => signUp()}>Join Us!</button>
+            <input 
+                type="password" 
+                placeholder="Confirm Password" 
+                className="auth-input"
+                onChange={e => setConfirmedPassword(e.target.value)}
+            />
+            <div 
+                className="button confirm-button"
+                onClick={e => signUp()} 
+            >Join Us!</div>
             {
-                errorCode || errorMessage !== ""
+                errorCodeVisible
                 ?
-                <div style={{color: "red"}}>{errorCode + " " + errorMessage}</div>
+                <div className="error-message">{errorCode + " " + errorMessage}</div>
                 :
                 <Fragment/>
             }
             {
                 displaySuccess
                 ?
-                <div style={{color: "green"}}>Account Successfully Created, You Will Be Redirected To Home</div>
+                <div className="success-message">Account Successfully Created, You Will Be Redirected To Home</div>
                 :
                 <Fragment/>
             }
         </div>
-        </MaxSizeContainer>
     )
 }
 
