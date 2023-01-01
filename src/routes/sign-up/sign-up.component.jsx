@@ -3,7 +3,6 @@ import { Fragment, useEffect, useState } from "react"
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../utils/firebase/firebase.utils";
 import { useNavigate } from "react-router";
-import MaxSizeContainer from "../../utils/max-size-container/max-size-container.component";
 
 const SignUp = () => {
 
@@ -11,8 +10,8 @@ const SignUp = () => {
     const [password, setPassword] = useState("");
     const [confirmedPassword, setConfirmedPassword] = useState("");
 
-    const [errorCode, setErrorCode] = useState("");
-    const [errorMessage, setErrorMessage] = useState("");
+    const [errorCode, setErrorCode] = useState(undefined);
+    const [errorMessage, setErrorMessage] = useState(undefined);
     const [errorCodeVisible, setErrorCodeVisible] = useState(false);
 
     const [displaySuccess, setDisplaySuccess] = useState(false);
@@ -22,20 +21,25 @@ const SignUp = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
+        if(errorCode !== undefined){
+            setErrorCodeVisible(true);
+            setTimeout(() => {
+                setErrorCodeVisible(false);
+                setErrorCode(undefined);
+                setErrorMessage(undefined);
+            }, 4000)  
+        }
         
-    }, [errorCodeVisible === true])
+    }, [errorCode, errorMessage])
 
     const signUp = () => {
         console.log("signup fired")
-        if(email !== "" & password === confirmedPassword){
+        if(email !== "" & password === confirmedPassword & password !== ""){
             createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredentials) => {
-                    setErrorCode("");
-                    setErrorMessage("");
                     setUser(userCredentials.user)
                 })
                 .then(() => {
-                    console.log(user);
                     setDisplaySuccess(true)
                     setTimeout(() => {
                         navigate('/')
@@ -47,11 +51,11 @@ const SignUp = () => {
                     setErrorMessage(error.message);
                 })
         } else {
-            checkEmailAndPassword();
+            checkEmailAndPasswordValidity();
         }
     }
 
-    const checkEmailAndPassword = () => {
+    const checkEmailAndPasswordValidity = () => {
         if(email === "") {
             setErrorCode(`Content Missing: Email ${email} is not complete.`)
             setErrorMessage("Please check your input data.")

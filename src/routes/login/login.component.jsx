@@ -5,7 +5,6 @@ import { Link, useNavigate } from "react-router-dom";
 
 
 import './login.styles.scss'
-import MaxSizeContainer from "../../utils/max-size-container/max-size-container.component";
 
 const LogIn = () => {
 
@@ -39,16 +38,16 @@ const LogIn = () => {
     }
 
     return(
-        <div className="login-container">
+        <div className="auth-pages-container">
             <div className="heading">Login</div>
             <input 
-                className="input email-input"
+                className="input auth-input"
                 type={"email"} 
                 placeholder="email" 
                 onChange={e => setEmail(e.target.value)}
             />
             <input 
-                className="input password-input"
+                className="input auth-input"
                 type={"password"} 
                 placeholder="password"
                 onChange={e => setPassword(e.target.value)}
