@@ -5,7 +5,7 @@ import "./providers-list.styles.scss"
 
 const ProvidersList = ({ providers }) => {
     return(
-        <div className="providers-list-container">
+        <div className="card-list">
         {
             providers.map((provider) => {
                 return(
