@@ -21,6 +21,7 @@ const TrendingServicesList = () => {
                         <ServiceCard
                             title={service.name} 
                             description={service.description}
+                            icon={service.icon}
                         />
                     </Link>
                 )

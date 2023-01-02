@@ -5,7 +5,7 @@ import "./service-list.styles.scss";
 
 const ServiceList = ({ services }) => {
     return(
-        <div className="service-list-container">
+        <div className="card-list">
         {
             services.map((service) => {
                 return(
@@ -13,6 +13,7 @@ const ServiceList = ({ services }) => {
                         <ServiceCard
                             title={service.name} 
                             description={service.description}
+                            icon={service.icon}
                         />
                     </Link>
                 )

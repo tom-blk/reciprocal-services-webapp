@@ -1,3 +1,6 @@
+import { Link } from "react-router-dom";
+import TransactionCard from "../../components/transaction-card/transaction-card.component"
+import { transactions } from "../../datamodels/transactions/transactions-examples.js"
 import TrendingServicesList from "../../components/trending-services-list/trending-services-list.component";
 
 const Home = () => {
@@ -7,6 +10,19 @@ const Home = () => {
         <h2>Trending Services: </h2>
         <TrendingServicesList/>
         <h2>Pending Transactions: </h2>
+        <div className="card-list">
+        {
+                transactions.map((transaction) => {
+                    if(transaction.completed !== true){
+                       return(
+                            <Link key={transaction.id} to={`/transactions/${transaction.id}`}>
+                                <TransactionCard transaction={transaction}/>
+                            </Link>
+                        ) 
+                    } 
+                })
+        }
+        </div>
       </div>
     );
   }
