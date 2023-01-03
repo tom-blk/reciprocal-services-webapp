@@ -8,18 +8,18 @@ const TransactionsList = ({completed}) => {
 
     return(
         <div className="card-list">
-        {
-            transactions.map((transaction) => {
-                if(transaction.completed === completed){
-                return(
-                        <div key={transaction.id} onClick={e => navigate(`/transactions/${transaction.id}`)}>
-                            <TransactionCard transaction={transaction}/>
-                        </div>
-                    ) 
-                } 
-            })
-        }
-    </div>
+            {
+                transactions.map((transaction) => {
+                    if(transaction.completed === completed){
+                    return(
+                            <div key={transaction.id} onClick={e => navigate(`/transactions/${transaction.id}`)}>
+                                <TransactionCard transaction={transaction}/>
+                            </div>
+                        ) 
+                    } 
+                })
+            }
+        </div>
     )
 }
 

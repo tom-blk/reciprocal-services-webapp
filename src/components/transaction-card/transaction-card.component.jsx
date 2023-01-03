@@ -42,7 +42,6 @@ const TransactionCard = ({transaction}) => {
         <div className="card">
             <div>{`Date Issued: ${transaction.dateIssued}`}</div>
             <div>{`Provided Service: ${findService()}`}</div>
-            <div>{transaction.receivingUserId}</div>
             <div>{`Provided by: ${findProvidingUser()}`}</div>
             <div>{`Credits Awarded: ${transaction.creditsAwarded}`}</div>
             {

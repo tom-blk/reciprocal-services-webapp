@@ -11,8 +11,7 @@ const ProvidersList = ({ providers }) => {
                 return(
                 <Link key={provider.id} to={`${provider.id}`}>
                     <ProviderCard
-                        firstName={provider.firstName} 
-                        lastName={provider.lastName}
+                        provider={provider} 
                     />
                 </Link>
                 )
