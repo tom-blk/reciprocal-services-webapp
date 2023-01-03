@@ -1,6 +1,6 @@
 import './profile-avatar.styles.scss';
 
-const ProfileAvatar = ({picture}) => {
+const ProfileAvatar = ({picture, size}) => {
 
     const renderProfilePic = () => {
         if(!picture){
@@ -10,8 +10,23 @@ const ProfileAvatar = ({picture}) => {
         }
     }
 
+    const assertSize = () => {
+        if(size==="card"){
+            return '--profile-avatar-size-card'
+        } else if(size==="page"){
+            return '--profile-avatar-size-page'
+        }
+    }
+
     return(
-        <div className="profile-avatar-container" style={{backgroundImage: `url(${renderProfilePic()})`}}/>
+        <div 
+            className="profile-avatar-container" 
+            style={{
+                backgroundImage: `url(${renderProfilePic()})`,
+                width: `var(${assertSize()})`,
+                height: `var(${assertSize()})`
+            }}
+        />
     )
 }
 

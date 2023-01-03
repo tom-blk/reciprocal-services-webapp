@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import { useParams } from "react-router"
 import { members } from "../../datamodels/members/members-examples";
 import { services } from "../../datamodels/services/services-examples";
+import ProfileAvatar from "../profile-avatar/profile-avatar.component";
 
 const ProviderProfilePage = () => {
 
@@ -17,7 +18,7 @@ const ProviderProfilePage = () => {
                 currentProvider != undefined
                 ?
                 <div>
-                    <div className="profile-pic" style={{backgroundColor: "blue", height: "50px", width: "50px"}}></div>
+                    <ProfileAvatar picture={currentProvider.profilePicture} size={'page'}/>
                     <h3>{currentProvider.firstName + " " + currentProvider.lastName}</h3>
                     <div>{'@' + currentProvider.userName}</div>
                     <div>Location + Radius/Mobile/Stationary</div>
