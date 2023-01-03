@@ -1,7 +1,18 @@
 const UserProfile = () => {
+
+    const icon = false;
+
+    const renderProfilePic = () => {
+        if(!icon){
+            return "https://www.svgrepo.com/download/390671/profile-user-avatar-man-person.svg";
+        } else {
+            return icon;
+        }
+    }
+
     return(
         <div>
-            <div className="profile-pic" style={{backgroundColor: "blue", height: "50px", width: "50px"}}></div>
+            <img className="image-icon" src={renderProfilePic()}/>
             <h3>Full Name</h3>
             <div>{'@' + 'username'}</div>
             <div>Location + Radius/Mobile/Stationary</div>
