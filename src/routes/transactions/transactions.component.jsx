@@ -1,36 +1,15 @@
-import { Link } from "react-router-dom";
-import TransactionCard from "../../components/transaction-card/transaction-card.component";
-import { transactions } from "../../datamodels/transactions/transactions-examples";
+import { Fragment } from "react";
+import TransactionsList from "../../components/transactions-list/transactions-list.component";
 
 const Transactions = () => {
 
     return(
-        <div>
+        <Fragment>
             <div>Pending Transactions</div>
-            {
-                transactions.map((transaction) => {
-                    if(transaction.completed !== true){
-                       return(
-                            <Link key={transaction.id} to={`/transactions/${transaction.id}`}>
-                                <TransactionCard transaction={transaction}/>
-                            </Link>
-                        ) 
-                    } 
-                })
-            }
+            <TransactionsList completed={false}/>
             <div>Completed Transactions</div>
-            {
-                transactions.map((transaction) => {
-                    if(transaction.completed === true){
-                        return(
-                            <Link key={transaction.id} to={`/transactions/${transaction.id}`}>
-                                <TransactionCard transaction={transaction}/>
-                            </Link>
-                        )
-                    } 
-                })
-            }
-        </div>
+            <TransactionsList completed={true}/>
+        </Fragment>
     )
 }
 

@@ -8,8 +8,6 @@ const TrendingServicesList = () => {
 
     const servicesWithDescendingWeeklyOrders = services.sort(function(a, b){return b.weeklyOrderCount - a.weeklyOrderCount});
 
-    console.log(servicesWithDescendingWeeklyOrders);
-
     const servicesWithMostWeeklyOrders = servicesWithDescendingWeeklyOrders.slice(0,3);
 
     return(

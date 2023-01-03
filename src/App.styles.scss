@@ -18,6 +18,10 @@
     border: 2px solid darkgreen;
     border-radius: 15px;
     padding: 10px;
+
+    &:hover{
+        cursor: pointer;
+    }
 }
 
 .image-icon{

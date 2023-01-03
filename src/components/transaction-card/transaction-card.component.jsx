@@ -1,16 +1,16 @@
 import { services } from "../../datamodels/services/services-examples";
 import { members } from "../../datamodels/members/members-examples";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
+import Modal from "../modal/modal.component";
 
 const TransactionCard = ({transaction}) => {
 
-    useEffect(() => {
-        if(transaction.completed === false){
-            setTransactionIsComplete(false);
-        }
-    }, [])
-
     const [transactionIsComplete, setTransactionIsComplete] = useState(false);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+
+    useEffect(() => {
+        transaction.completed = !transaction.completed
+    }, [transactionIsComplete])
 
     const findService = () => {
         return(services.find(service => service.id === transaction.serviceId).name)
@@ -21,20 +21,21 @@ const TransactionCard = ({transaction}) => {
         return(providingUser.firstName + " " + providingUser.lastName)
     }
 
-    const modifyTransactionStatus = () => {
-        transaction.completed = !transaction.completed
+    const modifyTransactionStatusAndCloseModal = (e) => {
+        e.stopPropagation();
+        setTransactionIsComplete(!transactionIsComplete);
+        setModalIsOpen(false);
     }
 
-    const renderTransactionText = () => {
-        if(transactionIsComplete){
-            return(
-                "Done!"
-            )
-        } else {
-            return(
-                "Complete Transaction"
-            )
-        }
+    const openModal = (e) => {
+        e.stopPropagation();
+        if(!transactionIsComplete)
+        setModalIsOpen(true);
+    }
+
+    const closeModal = (e) => {
+        e.stopPropagation();
+        setModalIsOpen(false);
     }
 
     return(
@@ -44,12 +45,30 @@ const TransactionCard = ({transaction}) => {
             <div>{transaction.receivingUserId}</div>
             <div>{`Provided by: ${findProvidingUser()}`}</div>
             <div>{`Credits Awarded: ${transaction.creditsAwarded}`}</div>
-            <div 
-                className={'button' + transactionIsComplete ? 'inactive-button' : 'confirm-button'}
-                onClick={e => modifyTransactionStatus()}
-            >
-                {renderTransactionText()}
-            </div>
+            {
+                transaction.completed
+                ?
+                <Fragment/>
+                :
+                <div 
+                    className={`button ${transactionIsComplete ? 'inactive-button' : 'confirm-button'}`}
+                    onClick={e => openModal(e)}
+                >
+                    {transactionIsComplete ? "Done!" : "Complete Transaction"}
+                </div>
+            }
+            {
+                modalIsOpen
+                ?
+                <Modal 
+                    heading={"Confirm Completion"} 
+                    text={"Do you really wish to confirm that this transation has been completed?"}
+                    onConfirm={modifyTransactionStatusAndCloseModal}
+                    onClose={closeModal}
+                />
+                :
+                <Fragment/>
+            }
         </div>
     )
 }
