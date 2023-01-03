@@ -52,6 +52,17 @@
     border: 1px solid darkgreen;
 }
 
+.cancel-button{
+    color: red;
+    border: 1px solid red;
+}
+
+.inactive-button{
+    color: white;
+    background-color: darkgray;
+    border: 1px solid black;
+}
+
 .error-message{
     position: absolute;
     bottom: 10%;

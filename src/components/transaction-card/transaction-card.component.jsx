@@ -45,7 +45,7 @@ const TransactionCard = ({transaction}) => {
             <div>{`Provided by: ${findProvidingUser()}`}</div>
             <div>{`Credits Awarded: ${transaction.creditsAwarded}`}</div>
             <div 
-                className="button confirm-button"
+                className={'button' + transactionIsComplete ? 'inactive-button' : 'confirm-button'}
                 onClick={e => modifyTransactionStatus()}
             >
                 {renderTransactionText()}
