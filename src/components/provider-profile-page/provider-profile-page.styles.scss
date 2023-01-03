@@ -1,0 +1,12 @@
+.povider-profile-heading-container{
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+.provider-profile-body-container{
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}

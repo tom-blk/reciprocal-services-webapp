@@ -1,12 +1,17 @@
 import { Fragment } from "react";
-import { useParams } from "react-router"
+import { useNavigate, useParams } from "react-router"
 import { members } from "../../datamodels/members/members-examples";
 import { services } from "../../datamodels/services/services-examples";
 import ProfileAvatar from "../profile-avatar/profile-avatar.component";
+import ServiceCard from "../service-card/service-card.component";
+
+import './provider-profile-page.styles.scss';
 
 const ProviderProfilePage = () => {
 
     let { providerId } = useParams();
+
+    const navigate = useNavigate();
 
     const providerIdInt = parseInt(providerId);
     
@@ -17,22 +22,35 @@ const ProviderProfilePage = () => {
             {
                 currentProvider != undefined
                 ?
-                <div>
-                    <ProfileAvatar picture={currentProvider.profilePicture} size={'page'}/>
-                    <h3>{currentProvider.firstName + " " + currentProvider.lastName}</h3>
-                    <div>{'@' + currentProvider.userName}</div>
-                    <div>Location + Radius/Mobile/Stationary</div>
-                    <div>{currentProvider.profileDescription}</div>
-                    <div>Skilllist</div>
-                    {
-                        services.map((service) => {
-                            if(currentProvider.providableServices.includes(service.id)){
-                                return(
-                                    <div key={service.id}>{service.name}</div>
-                                )
-                            }
-                        })
-                    }
+                <div className="page-container">
+                    <div className="povider-profile-heading-container">
+                        <ProfileAvatar picture={currentProvider.profilePicture} size={'page'}/>
+                        <div>
+                            <h3>{currentProvider.firstName + " " + currentProvider.lastName}</h3>
+                            <div className="user-name">{'@' + currentProvider.userName}</div>
+                        </div> 
+                    </div>
+                    <div className="provider-profile-body-container">
+                        <div>Location + Radius/Mobile/Stationary</div>
+                        <div>{currentProvider.profileDescription}</div>
+                        <h3>Skills</h3>
+                        {
+                            services.map((service) => {
+                                if(currentProvider.providableServices.includes(service.id)){
+                                    return(
+                                        <div key={service.id} onClick={e => navigate(`/services/${service.id}`)}>
+                                            <ServiceCard
+                                                title={service.name} 
+                                                description={service.description}
+                                                icon={service.icon}
+                                            />
+                                        </div>
+                                    )
+                                }
+                            })
+                        }
+                    </div>
+                    
                 </div>
                 :
                 <div>Sorry, but there is nothing here...</div>

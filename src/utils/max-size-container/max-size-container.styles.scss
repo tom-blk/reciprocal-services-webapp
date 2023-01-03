@@ -2,6 +2,7 @@
     display: grid;
     width: 100vw;
     height: 100vh;
+    background-color: var(--color-background-dark);
 }
 
 .content-container{
@@ -9,4 +10,5 @@
     margin-left: auto;
     margin-right: auto;
     display: grid;
+    background-color: var(--color-background-light);
 }
