@@ -59,8 +59,8 @@ const LogIn = () => {
                 :
                 <></>
             }
-            <div onClick={e => signIn()} className="button confirm-button" >Login</div>
-            <Link to='/sign-up' className="button secondary-confirm-button">Sign Up</Link>
+            <div onClick={e => signIn()} className="button confirm-button text" >Login</div>
+            <Link to='/sign-up' className="button secondary-confirm-button text">Sign Up</Link>
             <Link to='/sign-up' className="forgot-password-prompt">I forgot my password...</Link>
         </div> 
     )

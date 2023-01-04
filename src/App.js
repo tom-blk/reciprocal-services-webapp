@@ -17,7 +17,6 @@ import MaxSizeContainer from './utils/max-size-container/max-size-container.comp
 
 const App = () => {
   return (
-    <MaxSizeContainer>
       <Routes>
         <Route path='/' element={<Nav/>} >
           <Route index element={<Home/>} />
@@ -38,7 +37,6 @@ const App = () => {
         <Route path='/login' element={<LogIn/>} />
         <Route path='/sign-up' element={<SignUp/>} />
       </Routes>
-    </MaxSizeContainer>
   );
 }
 

@@ -36,12 +36,12 @@ const UserProfile = () => {
             <div className="povider-profile-heading-container">
                 <ProfileAvatar size="page" picture={testUser.profilePicture}/>
                 <div>
-                    <h3>{`${testUser.firstName} ${testUser.lastName}`}</h3>
-                    <div className="user-name">{`@${testUser.userName}`}</div>
+                    <div className="heading-primary">{`${testUser.firstName} ${testUser.lastName}`}</div>
+                    <div className="sub-text">{`@${testUser.userName}`}</div>
                 </div>
             </div>
             <div>Location + Radius/Mobile/Stationary</div>
-            <div>Providable Services:</div>
+            <div className="heading-secondary">Providable Services</div>
             <div className="card-list">
             {
                 userServices.map((service) => {
@@ -60,7 +60,7 @@ const UserProfile = () => {
             }
             </div>
             <div>{testUser.profileDescription}</div>
-            <h3>Active Services</h3>
+            <div className="heading-secondary">Active Services</div>
             {
                 activeUserTransactions.map(transaction => {
                     return(
