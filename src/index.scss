@@ -1,6 +1,7 @@
 * {
   margin: 0;
   box-sizing: border-box;
+  color: var(--color-font-primary)
 }
 
 body {
@@ -18,7 +19,6 @@ code {
 
 a{
   text-decoration: none;
-  color: black;
   width: initial;
   height: initial;
 }
@@ -39,9 +39,12 @@ a{
   --profile-avatar-size-card: 50px;
   --profile-avatar-size-page: 100px;
 
-  --color-background-dark: #7c7c7c;
-  --color-background-light: #ffffff;
+  --color-primary-accent: #145438;
+  --color-secondary-accent: #e2ece9;
+  --color-tertiary-accent: #ffffff;
+  --color-quarternary-accent: #897943;
+  --color-quinary-accent: #332a28;
 
-  --color-font-primary: #000000;
-  --color-font-secondary: #666565;
+  --color-font-primary: black;
+  --color-font-secondary: #8aaa66;
 }

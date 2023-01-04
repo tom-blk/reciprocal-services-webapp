@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import ProvidersList from "../../components/providers-list/providers-list.component"
 
 import "./providers.styles.scss";
+import PageContainer from "../../utils/page-container/page-container.component";
 
 const Providers = () => {
 
@@ -32,10 +33,10 @@ const Providers = () => {
     }
 
     return(
-        <div className="providers-container">
+        <PageContainer>
             <SearchBar className="providers-search-bar" onSearchChange={onSearchChange} placeholder={"Providers"}/>
             <ProvidersList providers={filteredProviders}/>
-        </div>
+        </PageContainer>
     )
 }
 

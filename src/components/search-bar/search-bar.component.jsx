@@ -1,3 +1,5 @@
+import "./search-bar.styles.scss"
+
 const SearchBar = ({className, onSearchChange, placeholder }) => {
 
     

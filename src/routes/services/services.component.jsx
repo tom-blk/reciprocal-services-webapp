@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import ServiceList from "../../components/services-list/service-list.component"
 
 import "./services.styles.scss"
+import PageContainer from "../../utils/page-container/page-container.component"
 
 const Services = () => {
 
@@ -29,10 +30,10 @@ const Services = () => {
     }
 
     return(
-        <div className="services-container">
+        <PageContainer>
             <SearchBar className="services-search-bar" onSearchChange={onSearchChange} placeholder={"Services"}/>
             <ServiceList services={filteredServices}/>
-        </div>
+        </PageContainer>
     )
 }
 
