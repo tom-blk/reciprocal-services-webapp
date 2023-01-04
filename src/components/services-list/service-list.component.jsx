@@ -17,6 +17,7 @@ const ServiceList = ({ services }) => {
                             title={service.name} 
                             description={service.description}
                             icon={service.icon}
+                            orderButtonExists={false}
                         />
                     </div>
                 )

@@ -43,6 +43,7 @@ const ProviderProfilePage = () => {
                                                 title={service.name} 
                                                 description={service.description}
                                                 icon={service.icon}
+                                                orderButtonExists={true}
                                             />
                                         </div>
                                     )
