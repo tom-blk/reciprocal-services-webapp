@@ -3,6 +3,9 @@ import { useNavigate } from "react-router";
 import { members } from "../../datamodels/members/members-examples"
 import { services } from "../../datamodels/services/services-examples";
 import ServiceCard from "../../components/service-card/service-card.component";
+import { transactions } from "../../datamodels/transactions/transactions-examples";
+import TransactionCard from "../../components/transaction-card/transaction-card.component";
+import ProfileAvatar from "../../components/profile-avatar/profile-avatar.component";
 
 const UserProfile = () => {
 
@@ -10,28 +13,32 @@ const UserProfile = () => {
 
     const [userServices, setUserServices] = useState([])
 
-    const navigate = useNavigate();
+    const [activeUserTransactions, setActiveUserTransactions] = useState([])
 
-    const renderProfilePic = () => {
-        if(!testUser.profilePicture){
-            return "https://www.svgrepo.com/download/390671/profile-user-avatar-man-person.svg";
-        } else {
-            return testUser.profilePicture;
-        }
-    }
+    const navigate = useNavigate();
 
     useEffect(() => {
         setUserServices(
             services.filter(
                 service => {return(testUser.providableServices.includes(service.id))}
-            ))
+            )
+        )
+        setActiveUserTransactions(
+            transactions.filter(
+                transaction => {return(testUser.id === transaction.providingUserId)}
+            )
+        )
     }, [])
 
     return(
-        <div>
-            <img className="image-icon" src={renderProfilePic()}/>
-            <h3>{`${testUser.firstName} ${testUser.lastName}`}</h3>
-            <div>{`@${testUser.userName}`}</div>
+        <div className="page-container">
+            <div className="povider-profile-heading-container">
+                <ProfileAvatar size="page" picture={testUser.profilePicture}/>
+                <div>
+                    <h3>{`${testUser.firstName} ${testUser.lastName}`}</h3>
+                    <div className="user-name">{`@${testUser.userName}`}</div>
+                </div>
+            </div>
             <div>Location + Radius/Mobile/Stationary</div>
             <div>Providable Services:</div>
             <div className="card-list">
@@ -52,6 +59,14 @@ const UserProfile = () => {
             }
             </div>
             <div>{testUser.profileDescription}</div>
+            <h3>Active Services</h3>
+            {
+                activeUserTransactions.map(transaction => {
+                    return(
+                        <TransactionCard transaction={transaction}/>
+                    )
+                })
+            }
         </div>
     )
 }
