@@ -28,7 +28,7 @@ const service2= {
     creditsPerHour: 6,
     avgTimeToAcquire: 12,
     providers: [2],
-    weeklyOrderCount: 82
+    weeklyOrderCount: 8230
 }
 
 const service3 = {

@@ -1,6 +1,6 @@
 .auth-pages-container{
     justify-self: center;
-    margin-top: 10%;
+    align-self: center;
     width: 20%;
     height: 40%;
     display: grid;
@@ -14,6 +14,6 @@
 }
 
 .forgot-password-prompt{
-    color: darkgreen;
+    color: var(--color-quarternary-accent);
     font-size: var(--font-small);
 }
