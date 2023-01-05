@@ -32,7 +32,7 @@ const ServicePage = () => {
                     {
                         serviceProviders.map(provider => {
                             return(
-                                <ProviderCard key={provider.id} provider={provider}/>
+                                <ProviderCard orderButton={true} key={provider.id} provider={provider}/>
                             )
                         })
                     }
