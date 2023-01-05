@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { useNavigate, useParams } from "react-router"
+import { useParams } from "react-router"
 import { members } from "../../datamodels/members/members-examples";
 import { services } from "../../datamodels/services/services-examples";
 import RoundImageContainer from "../profile-avatar/round-image-container.component";
@@ -11,16 +11,16 @@ const ProviderProfilePage = () => {
 
     let { providerId } = useParams();
 
-    const navigate = useNavigate();
-
     const providerIdInt = parseInt(providerId);
     
     const currentProvider = members.find(provider => provider.id === providerIdInt)
 
+    const currentProviderServices = services.filter(service => {return currentProvider.providableServices.includes(service.id)})
+
     return(
         <Fragment>
             {
-                currentProvider != undefined
+                currentProvider !== undefined
                 ?
                 <div className="page-container">
                     <div className="povider-profile-heading-container">
@@ -35,19 +35,14 @@ const ProviderProfilePage = () => {
                         <div>{currentProvider.profileDescription}</div>
                         <h3>Skills</h3>
                         {
-                            services.map((service) => {
-                                if(currentProvider.providableServices.includes(service.id)){
+                            currentProviderServices.map((service) => {
                                     return(
-                                        <div key={service.id} onClick={e => navigate(`/services/${service.id}`)}>
-                                            <ServiceCard
-                                                title={service.name} 
-                                                description={service.description}
-                                                icon={service.icon}
-                                                orderButtonExists={true}
-                                            />
-                                        </div>
+                                        <ServiceCard
+                                            key={service.id}
+                                            service={service}
+                                            orderButtonExists={true}
+                                        />
                                     )
-                                }
                             })
                         }
                     </div>

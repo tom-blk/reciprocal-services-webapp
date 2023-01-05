@@ -1,19 +1,14 @@
 import { Fragment, useState } from "react";
+import { useNavigate } from "react-router";
 import Modal from '../modal/modal.component'
 import RoundImageContainer from "../profile-avatar/round-image-container.component";
 import "./service-card.styles.scss";
 
-const ServiceCard = ({title, description, icon, orderButtonExists}) => {
+const ServiceCard = ({service, orderButtonExists}) => {
 
     const [modalIsOpen, setModalIsOpen] = useState()
 
-    const renderIcon = () => {
-        if(!icon){
-            return "https://www.svgrepo.com/download/382142/service.svg";
-        } else {
-            return icon;
-        }
-    }
+    const navigate = useNavigate();
 
     const createTransactionAndCloseModal = (e) => {
         e.stopPropagation();
@@ -32,11 +27,11 @@ const ServiceCard = ({title, description, icon, orderButtonExists}) => {
     }
 
     return(
-        <div className="card service-card">
-            <RoundImageContainer picture={icon} size={"card"}/>
+        <div onClick={e => navigate(`/services/${service.id}`)} className="card service-card">
+            <RoundImageContainer picture={service.icon} size={"card"}/>
             <div className="card-data-container">
-                <div className="heading-secondary">{title}</div>
-                <div className="text">{description}</div>
+                <div className="heading-secondary">{service.title}</div>
+                <div className="text">{service.description}</div>
             </div>
             {
                 orderButtonExists
@@ -55,7 +50,7 @@ const ServiceCard = ({title, description, icon, orderButtonExists}) => {
                 ?
                 <Modal
                     heading={"Order Service"}
-                    text={`Do you wish to book the ${title} service from this provider?`}
+                    text={`Do you wish to book the ${service.title} service from this provider?`}
                     onConfirm={createTransactionAndCloseModal}
                     onClose={closeModal}
                 />

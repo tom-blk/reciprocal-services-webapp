@@ -19,7 +19,7 @@ const ServicePage = () => {
     return(
         <Fragment>
             {
-                currentService != undefined
+                currentService !== undefined
                 ?
                 <PageContainer>
                     <div className="transaction-page-heading">
@@ -32,7 +32,7 @@ const ServicePage = () => {
                     {
                         serviceProviders.map(provider => {
                             return(
-                                <ProviderCard provider={provider}/>
+                                <ProviderCard key={provider.id} provider={provider}/>
                             )
                         })
                     }

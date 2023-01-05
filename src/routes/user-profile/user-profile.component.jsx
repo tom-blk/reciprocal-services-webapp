@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
 import { members } from "../../datamodels/members/members-examples"
 import { services } from "../../datamodels/services/services-examples";
 import ServiceCard from "../../components/service-card/service-card.component";
@@ -15,8 +14,6 @@ const UserProfile = () => {
     const [userServices, setUserServices] = useState([])
 
     const [activeUserTransactions, setActiveUserTransactions] = useState([])
-
-    const navigate = useNavigate();
 
     useEffect(() => {
         setUserServices(
@@ -46,14 +43,11 @@ const UserProfile = () => {
             {
                 userServices.map((service) => {
                     return(
-                            <div key={service.id} onClick={e => navigate(`/services/${service.id}`)}>
                             <ServiceCard
-                                title={service.name} 
-                                description={service.description}
-                                icon={service.icon}
+                                key={service.id}
+                                service={service}
                                 orderButtonExists={false}
                             />
-                            </div>
                         ) 
                     } 
                 )
@@ -64,7 +58,7 @@ const UserProfile = () => {
             {
                 activeUserTransactions.map(transaction => {
                     return(
-                        <TransactionCard transaction={transaction}/>
+                        <TransactionCard key={transaction.id} transaction={transaction}/>
                     )
                 })
             }
