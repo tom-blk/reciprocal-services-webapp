@@ -1,10 +1,10 @@
-import ProfileAvatar from "../profile-avatar/profile-avatar.component";
+import RoundImageContainer from "../profile-avatar/round-image-container.component";
 
 const ProviderCard = ({ provider }) => {
 
     return(
         <div className="card">
-            <ProfileAvatar picture={provider.profilePicture} size={'card'}/>
+            <RoundImageContainer picture={provider.profilePicture} size={'card'}/>
             <div className="heading-secondary">{provider.firstName + ' ' + provider.lastName}</div>
         </div>
     )

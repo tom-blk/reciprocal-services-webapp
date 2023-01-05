@@ -1,8 +1,8 @@
 import './profile-avatar.styles.scss';
 
-const ProfileAvatar = ({picture, size}) => {
+const RoundImageContainer = ({picture, size, className}) => {
 
-    const renderProfilePic = () => {
+    const renderPicture = () => {
         if(!picture){
             return "https://www.svgrepo.com/download/316857/profile-simple.svg";
         } else {
@@ -20,9 +20,9 @@ const ProfileAvatar = ({picture, size}) => {
 
     return(
         <div 
-            className="profile-avatar-container" 
+            className={`round-image-container ${className}`} 
             style={{
-                backgroundImage: `url(${renderProfilePic()})`,
+                backgroundImage: `url(${renderPicture()})`,
                 width: `var(${assertSize()})`,
                 height: `var(${assertSize()})`
             }}
@@ -30,4 +30,4 @@ const ProfileAvatar = ({picture, size}) => {
     )
 }
 
-export default ProfileAvatar
+export default RoundImageContainer

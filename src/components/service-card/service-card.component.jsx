@@ -1,5 +1,6 @@
 import { Fragment, useState } from "react";
 import Modal from '../modal/modal.component'
+import RoundImageContainer from "../profile-avatar/round-image-container.component";
 import "./service-card.styles.scss";
 
 const ServiceCard = ({title, description, icon, orderButtonExists}) => {
@@ -32,7 +33,7 @@ const ServiceCard = ({title, description, icon, orderButtonExists}) => {
 
     return(
         <div className="card service-card">
-            <img className="image-icon" src={renderIcon()}/>
+            <RoundImageContainer picture={icon} size={"card"}/>
             <div className="card-data-container">
                 <div className="heading-secondary">{title}</div>
                 <div className="text">{description}</div>

@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { useNavigate, useParams } from "react-router"
 import { members } from "../../datamodels/members/members-examples";
 import { services } from "../../datamodels/services/services-examples";
-import ProfileAvatar from "../profile-avatar/profile-avatar.component";
+import RoundImageContainer from "../profile-avatar/round-image-container.component";
 import ServiceCard from "../service-card/service-card.component";
 
 import './provider-profile-page.styles.scss';
@@ -24,7 +24,7 @@ const ProviderProfilePage = () => {
                 ?
                 <div className="page-container">
                     <div className="povider-profile-heading-container">
-                        <ProfileAvatar picture={currentProvider.profilePicture} size={'page'}/>
+                        <RoundImageContainer picture={currentProvider.profilePicture} size={'page'}/>
                         <div>
                             <h3>{currentProvider.firstName + " " + currentProvider.lastName}</h3>
                             <div className="user-name">{'@' + currentProvider.userName}</div>

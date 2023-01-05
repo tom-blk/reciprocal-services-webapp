@@ -5,8 +5,8 @@ import { services } from "../../datamodels/services/services-examples";
 import ServiceCard from "../../components/service-card/service-card.component";
 import { transactions } from "../../datamodels/transactions/transactions-examples";
 import TransactionCard from "../../components/transaction-card/transaction-card.component";
-import ProfileAvatar from "../../components/profile-avatar/profile-avatar.component";
 import PageContainer from "../../utils/page-container/page-container.component";
+import RoundImageContainer from "../../components/profile-avatar/round-image-container.component";
 
 const UserProfile = () => {
 
@@ -34,7 +34,7 @@ const UserProfile = () => {
     return(
         <PageContainer>
             <div className="povider-profile-heading-container">
-                <ProfileAvatar size="page" picture={testUser.profilePicture}/>
+                <RoundImageContainer size="page" picture={testUser.profilePicture}/>
                 <div>
                     <div className="heading-primary">{`${testUser.firstName} ${testUser.lastName}`}</div>
                     <div className="sub-text">{`@${testUser.userName}`}</div>
