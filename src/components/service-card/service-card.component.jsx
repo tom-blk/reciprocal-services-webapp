@@ -6,13 +6,14 @@ import "./service-card.styles.scss";
 
 const ServiceCard = ({service, orderButtonExists}) => {
 
+    const [serviceOrdered, setServiceOrdered] = useState(false);
     const [modalIsOpen, setModalIsOpen] = useState()
 
     const navigate = useNavigate();
 
-    const createTransactionAndCloseModal = (e) => {
+    const orderServiceAndCloseModal = (e) => {
         e.stopPropagation();
-        //createTransaction()
+        setServiceOrdered(true);
         setModalIsOpen(false);
     }
 
@@ -37,10 +38,10 @@ const ServiceCard = ({service, orderButtonExists}) => {
                 orderButtonExists
                 ?
                 <div 
-                    className="button confirm-button"
+                    className={`button ${serviceOrdered ? "inactive-button" : "confirm-button"}`}
                     onClick={e => openModal(e)}
                 >
-                    Order Service
+                    { serviceOrdered ? 'Service Ordered!' : 'Order Service'}
                 </div>
                 :
                 <Fragment/>
@@ -51,7 +52,7 @@ const ServiceCard = ({service, orderButtonExists}) => {
                 <Modal
                     heading={"Order Service"}
                     text={`Do you wish to book the ${service.title} service from this provider?`}
-                    onConfirm={createTransactionAndCloseModal}
+                    onConfirm={orderServiceAndCloseModal}
                     onClose={closeModal}
                 />
                 :

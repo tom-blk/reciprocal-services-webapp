@@ -11,7 +11,6 @@ import SignUp from './routes/sign-up/sign-up.component';
 import ServicePage from './components/service-page/service-page.component';
 import ProviderProfilePage from './components/provider-profile-page/provider-profile-page.component';
 import TransactionPage from './components/transaction-page/transaction-page.component';
-import MaxSizeContainer from './utils/max-size-container/max-size-container.component';
 
 //https://www.svgrepo.com/
 

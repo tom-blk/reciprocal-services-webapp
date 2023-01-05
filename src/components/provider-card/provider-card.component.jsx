@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import Modal from "../modal/modal.component";
 import RoundImageContainer from "../profile-avatar/round-image-container.component";
 
-const ProviderCard = ({ provider, orderButton }) => {
+const ProviderCard = ({ provider, orderButtonExists }) => {
 
     const navigate = useNavigate()
 
@@ -32,12 +32,13 @@ const ProviderCard = ({ provider, orderButton }) => {
             <RoundImageContainer picture={provider.profilePicture} size={'card'}/>
             <div className="heading-secondary">{provider.firstName + ' ' + provider.lastName}</div>
             {
-                orderButton
+                orderButtonExists
                 ?
-                <div className={`button ${serviceOrdered ? "inactive-button" : "confirm-button"}`}
-                    onClick={e => openModal()}
+                <div 
+                    className={`button ${serviceOrdered ? "inactive-button" : "confirm-button"}`}
+                    onClick={e => openModal(e)}
                 >
-                    {serviceOrdered ? "Done!" : "Order Service"}
+                    {serviceOrdered ? "Service Ordered!" : "Order Service"}
                 </div>
                 :
                 <Fragment/>
