@@ -6,14 +6,18 @@ import { transactions } from "../../datamodels/transactions/transactions-example
 import TransactionCard from "../../components/transaction-card/transaction-card.component";
 import PageContainer from "../../utils/page-container/page-container.component";
 import RoundImageContainer from "../../components/profile-avatar/round-image-container.component";
+import EditButton from "../../components/edit-button/edit-button.component";
+import { useNavigate } from "react-router";
 
 const UserProfile = () => {
 
     const testUser = members[1];
 
-    const [userServices, setUserServices] = useState([])
+    const [userServices, setUserServices] = useState([]);
 
-    const [activeUserTransactions, setActiveUserTransactions] = useState([])
+    const [activeUserTransactions, setActiveUserTransactions] = useState([]);
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         setUserServices(
@@ -27,6 +31,10 @@ const UserProfile = () => {
             )
         )
     }, [])
+
+    const navigateToUserEditProfile = () => {
+        navigate('/userProfile-edit')
+    }
 
     return(
         <PageContainer>
@@ -62,6 +70,7 @@ const UserProfile = () => {
                     )
                 })
             }
+            <EditButton navigate={navigateToUserEditProfile} size="50px"/>
         </PageContainer>
     )
 }
