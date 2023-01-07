@@ -2,22 +2,25 @@ import { services } from "../../datamodels/services/services-examples";
 import { members } from "../../datamodels/members/members-examples";
 import { Fragment, useEffect, useState } from "react";
 import Modal from "../modal/modal.component";
+import { useNavigate } from "react-router";
 
 const TransactionCard = ({transaction}) => {
 
     const [transactionIsComplete, setTransactionIsComplete] = useState(false);
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         transaction.completed = !transaction.completed
     }, [transactionIsComplete])
 
     const findService = () => {
-        return(services.find(service => service.id === transaction.serviceId).name)
+        return(services.find(service => service.id === transaction.service_id).name)
     }
 
     const findProvidingUser = () => {
-        const providingUser = members.find(provider => provider.id === transaction.providingUserId);
+        const providingUser = members.find(provider => provider.id === transaction.providing_user_id);
         return(providingUser.firstName + " " + providingUser.lastName)
     }
 
@@ -39,11 +42,11 @@ const TransactionCard = ({transaction}) => {
     }
 
     return(
-        <div className="card">
-            <div>{`Date Issued: ${transaction.dateIssued}`}</div>
+        <div className="card" onClick={e => navigate(`/transactions/${transaction.id}`)}>
+            <div>{`Date Issued: ${transaction.date_issued}`}</div>
             <div>{`Provided Service: ${findService()}`}</div>
             <div>{`Provided by: ${findProvidingUser()}`}</div>
-            <div>{`Credits Awarded: ${transaction.creditsAwarded}`}</div>
+            <div>{`Credits Awarded: ${transaction.credits_awarded}`}</div>
             {
                 transaction.completed
                 ?

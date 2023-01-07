@@ -1,23 +1,18 @@
-import { transactions } from "../../datamodels/transactions/transactions-examples";
 import TransactionCard from "../transaction-card/transaction-card.component";
-import { useNavigate } from "react-router";
 
-const TransactionsList = ({completed}) => {
+const TransactionsList = ({completed, transactions}) => {
 
-    const navigate = useNavigate();
+    console.log(transactions);
 
     return(
         <div className="card-list">
             {
                 transactions.map((transaction) => {
-                    if(transaction.completed === completed){
                     return(
-                            <div key={transaction.id} onClick={e => navigate(`/transactions/${transaction.id}`)}>
-                                <TransactionCard transaction={transaction}/>
-                            </div>
+                            <TransactionCard key={transaction.id} transaction={transaction}/>
                         ) 
                     } 
-                })
+                )
             }
         </div>
     )
