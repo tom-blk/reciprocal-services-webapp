@@ -23,7 +23,7 @@ const Providers = () => {
 
     useEffect(() => {
         filterProviders();
-    }, [searchString])
+    }, [searchString, providers])
 
     const getProviders = () => {
         a.get(`http://localhost:5000/get-all-users`)

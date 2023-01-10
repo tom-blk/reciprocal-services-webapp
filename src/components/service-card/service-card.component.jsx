@@ -31,7 +31,7 @@ const ServiceCard = ({service, orderButtonExists}) => {
         <div onClick={e => navigate(`/services/${service.id}`)} className="card service-card">
             <RoundImageContainer picture={service.icon} size={"card"}/>
             <div className="card-data-container">
-                <div className="heading-secondary">{service.title}</div>
+                <div className="heading-secondary">{service.name}</div>
                 <div className="text">{service.description}</div>
             </div>
             {

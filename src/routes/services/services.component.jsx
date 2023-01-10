@@ -1,21 +1,39 @@
 import SearchBar from "../../components/search-bar/search-bar.component"
-import { services } from "../../datamodels/services/services-examples"
 import { useEffect, useState } from "react"
 import ServiceList from "../../components/services-list/service-list.component"
 
 import "./services.styles.scss"
 import PageContainer from "../../utils/page-container/page-container.component"
 
+import axios from "axios"
+
 const Services = () => {
 
     const [searchString, setSearchString] = useState('');
-    const [fetchedServices, setFetchedServices] = useState(services);
+    const [services, setServices] = useState([]);
 
-    const [filteredServices, setFilteredServices] = useState(fetchedServices);
+    const [filteredServices, setFilteredServices] = useState(services);
+
+    const a = axios;
+
+    useEffect(() => {
+        getServices();
+    }, [])
 
     useEffect(() => {
         filterServices();
-    }, [searchString])
+    }, [searchString, services])
+
+    const getServices = () => {
+        a.get(`http://localhost:5000/get-all-services`)
+        .then(response => {
+            setServices(response.data)
+            console.log(response.data)
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    }
 
     const onSearchChange = (userInput) => {
         setSearchString(userInput)
@@ -23,7 +41,7 @@ const Services = () => {
 
     const filterServices = () => {
         setFilteredServices(
-            fetchedServices.filter(
+            services.filter(
                 service => {return service.name.toLocaleLowerCase().includes(searchString)}
             )
         )
