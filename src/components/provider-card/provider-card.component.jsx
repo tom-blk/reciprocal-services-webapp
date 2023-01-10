@@ -29,8 +29,8 @@ const ProviderCard = ({ provider, orderButtonExists }) => {
 
     return(
         <div onClick={e => navigate(`/providers/${provider.id}`)} className="card">
-            <RoundImageContainer picture={provider.profilePicture} size={'card'}/>
-            <div className="heading-secondary">{provider.firstName + ' ' + provider.lastName}</div>
+            <RoundImageContainer picture={provider.profile_picture} size={'card'}/>
+            <div className="heading-secondary">{provider.first_name + ' ' + provider.last_name}</div>
             {
                 orderButtonExists
                 ?

@@ -6,16 +6,35 @@ import ProvidersList from "../../components/providers-list/providers-list.compon
 import "./providers.styles.scss";
 import PageContainer from "../../utils/page-container/page-container.component";
 
+import axios from "axios";
+
 const Providers = () => {
 
     const [searchString, setSearchString] = useState('');
-    const [fetchedProviders, setFetchedProviders] = useState(members);
+    const [providers, setProviders] = useState([]);
 
-    const [filteredProviders, setFilteredProviders] = useState(fetchedProviders);
+    const [filteredProviders, setFilteredProviders] = useState(providers);
+
+    const a = axios;
+
+    useEffect(() => {
+        getProviders();
+    }, [])
 
     useEffect(() => {
         filterProviders();
     }, [searchString])
+
+    const getProviders = () => {
+        a.get(`http://localhost:5000/get-all-users`)
+        .then(response => {
+            setProviders(response.data)
+            console.log(response.data)
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    }
 
     const onSearchChange = (userInput) => {
         setSearchString(userInput)
@@ -23,9 +42,9 @@ const Providers = () => {
 
     const filterProviders = () => {
         setFilteredProviders(
-            fetchedProviders.filter(
+            providers.filter(
                 provider => {
-                    const fullProviderName = provider.firstName.concat(' ', provider.lastName);
+                    const fullProviderName = provider.first_name.concat(' ', provider.last_name);
                     return fullProviderName.toLocaleLowerCase().includes(searchString);
                 }
             )

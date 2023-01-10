@@ -1,4 +1,5 @@
-import { Fragment } from "react";
+import axios from "axios";
+import { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router"
 import { members } from "../../datamodels/members/members-examples";
 import { services } from "../../datamodels/services/services-examples";
@@ -9,13 +10,34 @@ import './provider-profile-page.styles.scss';
 
 const ProviderProfilePage = () => {
 
+    const a = axios;
+
+    const [currentProviderServices, setCurrentProviderServices] = useState([]);
+
+    useEffect(() => {
+        getCurrentProviderServices();
+    }, [])
+
+    const getCurrentProviderServices = () => {
+        a.get(`http://localhost:5000/get-user-related-services/${members[0].id}`, {
+            params: {
+                userId: members[0].id
+            }
+        })
+        .then(response => {
+            setCurrentProviderServices(response.data)
+            console.log(response.data)
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    }
+
     let { providerId } = useParams();
 
     const providerIdInt = parseInt(providerId);
     
     const currentProvider = members.find(provider => provider.id === providerIdInt)
-
-    const currentProviderServices = services.filter(service => {return currentProvider.providableServices.includes(service.id)})
 
     return(
         <Fragment>
@@ -35,6 +57,8 @@ const ProviderProfilePage = () => {
                         <div>{currentProvider.profileDescription}</div>
                         <h3>Skills</h3>
                         {
+                            currentProviderServices.length > 0
+                            ?
                             currentProviderServices.map((service) => {
                                     return(
                                         <ServiceCard
@@ -44,6 +68,8 @@ const ProviderProfilePage = () => {
                                         />
                                     )
                             })
+                            :
+                            <div className="text">This provider is not currently offering any services</div>
                         }
                     </div>
                     

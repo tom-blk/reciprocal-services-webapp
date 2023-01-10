@@ -9,11 +9,10 @@ const ProvidersList = ({ providers }) => {
         {
             providers.map((provider) => {
                 return(
-                <Link key={provider.id} to={`${provider.id}`}>
                     <ProviderCard
+                        key={provider.id}
                         provider={provider} 
                     />
-                </Link>
                 )
             })
         }
