@@ -1,18 +1,23 @@
+import { Fragment } from "react";
 import TransactionCard from "../transaction-card/transaction-card.component";
 
-const TransactionsList = ({completed, transactions}) => {
+const TransactionsList = ({ transactions }) => {
 
     console.log(transactions);
 
     return(
         <div className="card-list">
             {
+                transactions 
+                ?
                 transactions.map((transaction) => {
                     return(
                             <TransactionCard key={transaction.id} transaction={transaction}/>
                         ) 
                     } 
                 )
+                :
+                <div className="text">No Transactions currently pending...</div>
             }
         </div>
     )
