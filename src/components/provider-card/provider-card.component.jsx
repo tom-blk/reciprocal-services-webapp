@@ -3,7 +3,9 @@ import { useNavigate } from "react-router";
 import Modal from "../modal/modal.component";
 import RoundImageContainer from "../profile-avatar/round-image-container.component";
 
-const ProviderCard = ({ provider, orderButtonExists }) => {
+const ProviderCard = ({ user, orderButtonExists }) => {
+
+    const {id, firstName, lastName, profilePicture} = user;
 
     const navigate = useNavigate()
 
@@ -28,9 +30,9 @@ const ProviderCard = ({ provider, orderButtonExists }) => {
     }
 
     return(
-        <div onClick={e => navigate(`/providers/${provider.id}`)} className="card">
-            <RoundImageContainer picture={provider.profile_picture} size={'card'}/>
-            <div className="heading-secondary">{provider.first_name + ' ' + provider.last_name}</div>
+        <div onClick={e => navigate(`/providers/${id}`)} className="card">
+            <RoundImageContainer picture={profilePicture} size={'card'}/>
+            <div className="heading-secondary">{firstName + ' ' + lastName}</div>
             {
                 orderButtonExists
                 ?

@@ -10,24 +10,21 @@ import axios from "axios"
 const Services = () => {
 
     const [searchString, setSearchString] = useState('');
-    const [services, setServices] = useState([]);
-
-    const [filteredServices, setFilteredServices] = useState(services);
-
-    const a = axios;
+    const [superficialServiceDetails, setSuperficialServiceDetails] = useState([]);
+    const [filteredServices, setFilteredServices] = useState(superficialServiceDetails);
 
     useEffect(() => {
-        getServices();
+        getSuperficialServiceDetails();
     }, [])
 
     useEffect(() => {
         filterServices();
-    }, [searchString, services])
+    }, [searchString, superficialServiceDetails])
 
-    const getServices = () => {
-        a.get(`http://localhost:5000/get-all-services`)
+    const getSuperficialServiceDetails = () => {
+        axios.get(`http://localhost:5000/get-superficial-service-details`)
         .then(response => {
-            setServices(response.data)
+            setSuperficialServiceDetails(response.data)
             console.log(response.data)
         })
         .catch(error => {
@@ -41,7 +38,7 @@ const Services = () => {
 
     const filterServices = () => {
         setFilteredServices(
-            services.filter(
+            superficialServiceDetails.filter(
                 service => {return service.name.toLocaleLowerCase().includes(searchString)}
             )
         )

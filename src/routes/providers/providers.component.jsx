@@ -11,24 +11,24 @@ import axios from "axios";
 const Providers = () => {
 
     const [searchString, setSearchString] = useState('');
-    const [providers, setProviders] = useState([]);
+    const [superficialUserDetails, setSuperficialUserDetails] = useState([]);
 
-    const [filteredProviders, setFilteredProviders] = useState(providers);
+    const [filteredUsers, setFilteredUsers] = useState(superficialUserDetails);
 
     const a = axios;
 
     useEffect(() => {
-        getProviders();
+        getSuperficialUserDetails();
     }, [])
 
     useEffect(() => {
-        filterProviders();
-    }, [searchString, providers])
+        filterUsers();
+    }, [searchString, superficialUserDetails])
 
-    const getProviders = () => {
-        a.get(`http://localhost:5000/get-all-users`)
+    const getSuperficialUserDetails = () => {
+        a.get(`http://localhost:5000/get-superficial-user-details`)
         .then(response => {
-            setProviders(response.data)
+            setSuperficialUserDetails(response.data)
             console.log(response.data)
         })
         .catch(error => {
@@ -40,12 +40,12 @@ const Providers = () => {
         setSearchString(userInput)
     }
 
-    const filterProviders = () => {
-        setFilteredProviders(
-            providers.filter(
-                provider => {
-                    const fullProviderName = provider.first_name.concat(' ', provider.last_name);
-                    return fullProviderName.toLocaleLowerCase().includes(searchString);
+    const filterUsers = () => {
+        setFilteredUsers(
+            superficialUserDetails.filter(
+                user => {
+                    const fullUserName = user.firstName.concat(' ', user.lastName);
+                    return fullUserName.toLocaleLowerCase().includes(searchString);
                 }
             )
         )
@@ -54,7 +54,7 @@ const Providers = () => {
     return(
         <PageContainer>
             <SearchBar className="providers-search-bar" onSearchChange={onSearchChange} placeholder={"Providers"}/>
-            <ProvidersList providers={filteredProviders}/>
+            <ProvidersList users={filteredUsers}/>
         </PageContainer>
     )
 }

@@ -6,6 +6,8 @@ import { members } from "../../datamodels/members/members-examples";
 
 const Transactions = () => {
 
+    const testUserId = 2;
+
     const a = axios;
 
     const [openTransactions, setOpenTransactions] = useState([]);
@@ -16,9 +18,9 @@ const Transactions = () => {
     }, [])
 
     const getOpenTransactions = () => {
-        a.get(`http://localhost:5000/get-user-specific-open-transactions/${members[0].id}`, {
+        a.get(`http://localhost:5000/get-user-specific-open-transactions/${testUserId}`, {
             params: {
-                userId: members[0].id
+                userId: testUserId
             }
         })
         .then(response => {

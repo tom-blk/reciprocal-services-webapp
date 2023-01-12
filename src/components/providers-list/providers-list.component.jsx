@@ -3,15 +3,15 @@ import { Link } from "react-router-dom"
 
 import "./providers-list.styles.scss"
 
-const ProvidersList = ({ providers }) => {
+const ProvidersList = ({ users }) => {
     return(
         <div className="card-list">
         {
-            providers.map((provider) => {
+            users.map((user) => {
                 return(
                     <ProviderCard
-                        key={provider.id}
-                        provider={provider} 
+                        key={user.id}
+                        user={user} 
                     />
                 )
             })

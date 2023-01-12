@@ -4,24 +4,53 @@ import { Fragment, useEffect, useState } from "react";
 import Modal from "../modal/modal.component";
 import { useNavigate } from "react-router";
 
+import axios from "axios";
+
 const TransactionCard = ({transaction}) => {
 
     const [transactionIsComplete, setTransactionIsComplete] = useState(false);
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
+    const [service, setService] = useState(undefined);
+    const [provider, setProvider] = useState(undefined);
+
     const navigate = useNavigate();
+
+    const a = axios;
 
     useEffect(() => {
         transaction.completed = !transaction.completed
     }, [transactionIsComplete])
 
-    const findService = () => {
-        return(services.find(service => service.id === transaction.service_id).name)
+    useEffect(() => {
+        getService()
+        getProvider()
+    }, [])
+
+    const getService = () => {
+        a.post(`http://localhost:5000/get-single-service/${transaction.serviceId}`, {
+            serviceId: transaction.serviceId
+        })
+        .then(response => {
+            setService(response.data)
+            console.log(response.data)
+        })
+        .catch(error => {
+            console.log(error)
+        })
     }
 
-    const findProvidingUser = () => {
-        const providingUser = members.find(provider => provider.id === transaction.providing_user_id);
-        return(providingUser.firstName + " " + providingUser.lastName)
+    const getProvider = () => {
+        a.post(`http://localhost:5000/get-single-user/${transaction.providerId}`, {
+            providerId: transaction.providerId
+        })
+        .then(response => {
+            setProvider(response.data)
+            console.log(response.data)
+        })
+        .catch(error => {
+            console.log(error)
+        })
     }
 
     const modifyTransactionStatusAndCloseModal = (e) => {
@@ -43,10 +72,10 @@ const TransactionCard = ({transaction}) => {
 
     return(
         <div className="card" onClick={e => navigate(`/transactions/${transaction.id}`)}>
-            <div>{`Date Issued: ${transaction.date_issued}`}</div>
-            <div>{`Provided Service: ${findService()}`}</div>
-            <div>{`Provided by: ${findProvidingUser()}`}</div>
-            <div>{`Credits Awarded: ${transaction.credits_awarded}`}</div>
+            <div>{`Date Issued: ${transaction.dateIssued}`}</div>
+            <div>{`Provided Service: ${service ? service.name : 'Error Loading the Service...'}`}</div>
+            <div>{`Provided by: ${provider ? provider.firstName + provider.lastName : 'Error Loading the Provider...'}`}</div>
+            <div>{`Credits Awarded: ${transaction.creditsAwarded ?  transaction.creditsAwarded : "TDB"}`}</div>
             {
                 transaction.completed
                 ?
