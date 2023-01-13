@@ -9,6 +9,12 @@ import axios from "axios";
 const TransactionCard = ({transaction}) => {
 
     const [transactionIsComplete, setTransactionIsComplete] = useState(false);
+    const [transactionOrdered, setTransactionOrdered] = useState();
+    const [orderConfirmed, setOrderConfirmed] = useState();
+    const [orderCompleted, setOrderCompleted] = useState();
+    const [completionConfirmed, setCompletionConfirmed] = useState();
+    const [orderDenied, setOrderDenied] = useState();
+
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
     const [service, setService] = useState(undefined);
@@ -26,6 +32,20 @@ const TransactionCard = ({transaction}) => {
         getService()
         getProvider()
     }, [])
+
+    const assertCompletionStatus = () => {
+        if(transactionOrdered & !orderConfirmed & !orderDenied & !orderCompleted & !completionConfirmed){
+            return('order-pending-button')
+        } else if(transactionOrdered & !orderConfirmed & orderDenied & !orderCompleted & !completionConfirmed){
+            return('order-denied-button')
+        } else if(transactionOrdered & orderConfirmed & !orderDenied & !orderCompleted & !completionConfirmed){
+            return('order-confirmed-button')
+        } else if(transactionOrdered & orderConfirmed & !orderDenied & orderCompleted & !completionConfirmed){
+            return('order-completed-button')
+        } else if(transactionOrdered & orderConfirmed & !orderDenied & orderCompleted & completionConfirmed){
+            return('order-done-button')
+        }
+    }
 
     const getService = () => {
         a.post(`http://localhost:5000/get-single-service/${transaction.serviceId}`, {
