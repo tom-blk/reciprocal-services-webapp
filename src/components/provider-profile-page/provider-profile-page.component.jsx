@@ -53,7 +53,7 @@ const ProviderProfilePage = () => {
                 ?
                 <div className="page-container">
                     <div className="povider-profile-heading-container">
-                        <RoundImageContainer picture={user.profilePicture} size={'page'}/>
+                        <RoundImageContainer picture={user.profilePicture} serviceOrUser={'user'} size={'page'}/>
                         <div>
                             <h3>{user.firstName + " " + user.lastName}</h3>
                             <div className="user-name">{'@' + user.userName}</div>

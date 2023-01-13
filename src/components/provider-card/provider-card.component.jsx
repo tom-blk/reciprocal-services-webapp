@@ -31,7 +31,7 @@ const ProviderCard = ({ user, orderButtonExists }) => {
 
     return(
         <div onClick={e => navigate(`/providers/${id}`)} className="card">
-            <RoundImageContainer picture={profilePicture} size={'card'}/>
+            <RoundImageContainer picture={profilePicture} serviceOrUser={'user'} size={'card'}/>
             <div className="heading-secondary">{firstName + ' ' + lastName}</div>
             {
                 orderButtonExists

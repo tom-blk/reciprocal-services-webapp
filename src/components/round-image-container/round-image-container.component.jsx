@@ -1,10 +1,14 @@
 import './profile-avatar.styles.scss';
 
-const RoundImageContainer = ({picture, size, className}) => {
+const RoundImageContainer = ({picture, serviceOrUser, size, className}) => {
 
     const renderPicture = () => {
         if(!picture){
-            return "https://www.svgrepo.com/download/316857/profile-simple.svg";
+            if(serviceOrUser === 'user'){
+                return "https://www.svgrepo.com/download/316857/profile-simple.svg";
+            } else if(serviceOrUser === 'service'){
+                return "https://www.svgrepo.com/download/382142/service.svg";
+            }
         } else {
             return picture;
         }
