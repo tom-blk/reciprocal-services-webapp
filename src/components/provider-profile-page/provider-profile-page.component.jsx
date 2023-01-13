@@ -3,7 +3,7 @@ import { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router"
 import { members } from "../../datamodels/members/members-examples";
 import { services } from "../../datamodels/services/services-examples";
-import RoundImageContainer from "../profile-avatar/round-image-container.component";
+import RoundImageContainer from "../round-image-container/round-image-container.component";
 import ServiceCard from "../service-card/service-card.component";
 
 import './provider-profile-page.styles.scss';
@@ -12,12 +12,12 @@ const ProviderProfilePage = () => {
 
     const { providerId } = useParams();
 
-    const [user, setUser] = useState();
-    const [currentProviderServices, setCurrentProviderServices] = useState([]);
+    const [user, setUser] = useState(undefined);
+    const [providerServices, setProviderServices] = useState([]);
 
     useEffect(() => {
         getFullUserDetails();
-        getCurrentProviderServices();
+        getProviderServices();
     }, [])
 
     const getFullUserDetails = () => {
@@ -33,24 +33,18 @@ const ProviderProfilePage = () => {
         })
     }
 
-    const getCurrentProviderServices = () => {
+    const getProviderServices = () => {
         axios.post(`http://localhost:5000/get-user-specific-services/${providerId}`, {
             userId: providerId
         })
         .then(response => {
-            setCurrentProviderServices(response.data)
+            setProviderServices(response.data)
             console.log(response.data)
         })
         .catch(error => {
             console.log(error)
         })
     }
-
-    
-
-    const providerIdInt = parseInt(providerId);
-    
-    const currentProvider = members.find(provider => provider.id === providerIdInt)
 
     return(
         <Fragment>
@@ -70,9 +64,9 @@ const ProviderProfilePage = () => {
                         <div>{user.profileDescription}</div>
                         <h3>Skills</h3>
                         {
-                            currentProviderServices.length > 0
+                            providerServices.length > 0
                             ?
-                            currentProviderServices.map((service) => {
+                            providerServices.map((service) => {
                                     return(
                                         <ServiceCard
                                             key={service.id}

@@ -1,40 +1,72 @@
-import { Fragment } from "react";
+import axios from "axios";
+import { Fragment, useState, useEffect, useContext } from "react";
 import { useParams } from "react-router"
-import { members } from "../../datamodels/members/members-examples";
-import { services } from "../../datamodels/services/services-examples";
+import { AppContext } from "../../context/app-context";
 import PageContainer from "../../utils/page-container/page-container.component";
-import RoundImageContainer from "../profile-avatar/round-image-container.component";
+import RoundImageContainer from "../round-image-container/round-image-container.component";
 import ProviderCard from "../provider-card/provider-card.component";
 
 const ServicePage = () => {
 
     let { serviceId } = useParams(); 
 
-    const serviceIdInt = parseInt(serviceId);
-    
-    const currentService = services.find(service => service.id === serviceIdInt)
+    const appContext = useContext(AppContext);
 
-    const serviceProviders = members.filter(member => {return(member.providableServices.includes(currentService.id))})
+    const [service, setService] = useState(undefined);
+    const [serviceProviders, setServiceProviders] = useState([]);
+
+    useEffect(() => {
+        getFullServiceDetails();
+        getServiceProviders();
+    }, [])
+    
+    const getFullServiceDetails = () => {
+        axios.post(`http://localhost:5000/get-full-service-details/${serviceId}`, {
+            serviceId: serviceId
+        })
+        .then(response => {
+            setService(response.data)
+        })
+        .catch(error => {
+            appContext.displayErrorMessage(error)
+        })
+    }
+
+    const getServiceProviders = () => {
+        axios.post(`http://localhost:5000/get-service-specific-users/${serviceId}`, {
+            serviceId: serviceId
+        })
+        .then(response => {
+            setServiceProviders(response.data)
+        })
+        .catch(error => {
+            appContext.displayErrorMessage(error)
+        })
+    }
 
     return(
         <Fragment>
             {
-                currentService !== undefined
+                service !== undefined
                 ?
                 <PageContainer>
                     <div className="transaction-page-heading">
-                        <RoundImageContainer picture={currentService.icon} size={'page'}/>
-                        <div className="heading-primary">{currentService.name}</div>
+                        <RoundImageContainer picture={service.icon} size={'page'}/>
+                        <div className="heading-primary">{service.name}</div>
                     </div>
-                    <div className="heading-secondary">{`Credits per Hour: ${currentService.creditsPerHour}`}</div>
-                    <div className="text">{currentService.description}</div>
+                    <div className="heading-secondary">{`Credits per Hour: ${service.creditsPerHour}`}</div>
+                    <div className="text">{service.description}</div>
                     <div className="heading-secondary">Providers:</div>
                     {
+                        serviceProviders.length > 0
+                        ?
                         serviceProviders.map(provider => {
                             return(
-                                <ProviderCard orderButtonExists={true} key={provider.id} provider={provider}/>
+                                <ProviderCard orderButtonExists={true} key={provider.id} user={provider}/>
                             )
                         })
+                        :
+                        <div className="text">There currently are no providers offering this service...</div>
                     }
                 </PageContainer>
                 :

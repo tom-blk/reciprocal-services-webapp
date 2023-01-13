@@ -1,9 +1,8 @@
 import { Fragment, useContext, useEffect, useState } from "react";
-import { members } from "../../datamodels/members/members-examples"
 import ServiceCard from "../../components/service-card/service-card.component";
 import TransactionCard from "../../components/transaction-card/transaction-card.component";
 import PageContainer from "../../utils/page-container/page-container.component";
-import RoundImageContainer from "../../components/profile-avatar/round-image-container.component";
+import RoundImageContainer from "../../components/round-image-container/round-image-container.component";
 import EditButton from "../../components/edit-button/edit-button.component";
 import { useNavigate } from "react-router";
 import axios from "axios";

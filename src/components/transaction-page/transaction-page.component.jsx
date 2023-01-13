@@ -3,7 +3,7 @@ import { transactions } from "../../datamodels/transactions/transactions-example
 import PageContainer from "../../utils/page-container/page-container.component";
 import { members } from "../../datamodels/members/members-examples";
 import { services } from "../../datamodels/services/services-examples";
-import RoundImageContainer from "../profile-avatar/round-image-container.component";
+import RoundImageContainer from "../round-image-container/round-image-container.component";
 
 import "./transaction-page.styles.scss"
 

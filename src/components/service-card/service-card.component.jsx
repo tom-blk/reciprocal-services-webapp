@@ -1,15 +1,17 @@
 import { Fragment, useState } from "react";
 import { useNavigate } from "react-router";
 import Modal from '../modal/modal.component'
-import RoundImageContainer from "../profile-avatar/round-image-container.component";
+import RoundImageContainer from "../round-image-container/round-image-container.component";
 import "./service-card.styles.scss";
 
 const ServiceCard = ({service, orderButtonExists}) => {
 
-    const [serviceOrdered, setServiceOrdered] = useState(false);
-    const [modalIsOpen, setModalIsOpen] = useState()
+    const {id, icon, name, description} = service;
 
     const navigate = useNavigate();
+
+    const [serviceOrdered, setServiceOrdered] = useState(false);
+    const [modalIsOpen, setModalIsOpen] = useState()
 
     const orderServiceAndCloseModal = (e) => {
         e.stopPropagation();
@@ -28,11 +30,11 @@ const ServiceCard = ({service, orderButtonExists}) => {
     }
 
     return(
-        <div onClick={e => navigate(`/services/${service.id}`)} className="card service-card">
-            <RoundImageContainer picture={service.icon} size={"card"}/>
+        <div onClick={e => navigate(`/services/${id}`)} className="card service-card">
+            <RoundImageContainer picture={icon} size={"card"}/>
             <div className="card-data-container">
-                <div className="heading-secondary">{service.name}</div>
-                <div className="text">{service.description}</div>
+                <div className="heading-secondary">{name}</div>
+                <div className="text">{description}</div>
             </div>
             {
                 orderButtonExists

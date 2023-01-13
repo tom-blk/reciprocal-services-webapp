@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react";
 import { useNavigate } from "react-router";
 import Modal from "../modal/modal.component";
-import RoundImageContainer from "../profile-avatar/round-image-container.component";
+import RoundImageContainer from "../round-image-container/round-image-container.component";
 
 const ProviderCard = ({ user, orderButtonExists }) => {
 

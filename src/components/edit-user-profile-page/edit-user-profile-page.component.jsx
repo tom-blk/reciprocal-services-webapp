@@ -1,11 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { members } from "../../datamodels/members/members-examples"
-import { services } from "../../datamodels/services/services-examples";
-import ServiceCard from "../../components/service-card/service-card.component";
-import { transactions } from "../../datamodels/transactions/transactions-examples";
-import TransactionCard from "../../components/transaction-card/transaction-card.component";
 import PageContainer from "../../utils/page-container/page-container.component";
-import RoundImageContainer from "../../components/profile-avatar/round-image-container.component";
+import RoundImageContainer from "../../components/round-image-container/round-image-container.component";
 
 const EditUserProfile = () => {
 

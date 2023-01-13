@@ -4,6 +4,15 @@ export const AppContext = createContext();
 
 export const AppContextProvider = (input) => {
 
+    const [errorMessage, setErrorMessage] = useState(undefined); //TODO: Will be displayed in max size container
+
+    const displayErrorMessage = (errorMessage) => {
+        setErrorMessage(errorMessage);
+        setTimeout(() => {
+            setErrorMessage(undefined);
+        }, 4000)
+    }
+
     useEffect(() => {
         
     }, [])
@@ -14,7 +23,8 @@ export const AppContextProvider = (input) => {
 
     return (
         <AppContext.Provider value={{
-            testUser
+            testUser,
+            displayErrorMessage
         }}>
             {input.children}
         </AppContext.Provider>
