@@ -10,19 +10,32 @@ import './provider-profile-page.styles.scss';
 
 const ProviderProfilePage = () => {
 
-    const a = axios;
+    const { providerId } = useParams();
 
+    const [user, setUser] = useState();
     const [currentProviderServices, setCurrentProviderServices] = useState([]);
 
     useEffect(() => {
+        getFullUserDetails();
         getCurrentProviderServices();
     }, [])
 
+    const getFullUserDetails = () => {
+        axios.post(`http://localhost:5000/get-full-user-details/${providerId}`, {
+            userId: providerId
+        })
+        .then(response => {
+            setUser(response.data)
+            console.log(response.data)
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    }
+
     const getCurrentProviderServices = () => {
-        a.get(`http://localhost:5000/get-user-related-services/${members[0].id}`, {
-            params: {
-                userId: members[0].id
-            }
+        axios.post(`http://localhost:5000/get-user-specific-services/${providerId}`, {
+            userId: providerId
         })
         .then(response => {
             setCurrentProviderServices(response.data)
@@ -33,7 +46,7 @@ const ProviderProfilePage = () => {
         })
     }
 
-    let { providerId } = useParams();
+    
 
     const providerIdInt = parseInt(providerId);
     
@@ -42,19 +55,19 @@ const ProviderProfilePage = () => {
     return(
         <Fragment>
             {
-                currentProvider !== undefined
+                user !== undefined
                 ?
                 <div className="page-container">
                     <div className="povider-profile-heading-container">
-                        <RoundImageContainer picture={currentProvider.profilePicture} size={'page'}/>
+                        <RoundImageContainer picture={user.profilePicture} size={'page'}/>
                         <div>
-                            <h3>{currentProvider.firstName + " " + currentProvider.lastName}</h3>
-                            <div className="user-name">{'@' + currentProvider.userName}</div>
+                            <h3>{user.firstName + " " + user.lastName}</h3>
+                            <div className="user-name">{'@' + user.userName}</div>
                         </div> 
                     </div>
                     <div className="provider-profile-body-container">
                         <div>Location + Radius/Mobile/Stationary</div>
-                        <div>{currentProvider.profileDescription}</div>
+                        <div>{user.profileDescription}</div>
                         <h3>Skills</h3>
                         {
                             currentProviderServices.length > 0
