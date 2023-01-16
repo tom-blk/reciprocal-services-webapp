@@ -6,54 +6,33 @@ import { useNavigate } from "react-router";
 
 import axios from "axios";
 
+import "./transaction-card.styles.scss";
+import useTransactionCompletionStatus from "../../hooks/useTransactionCompletionStatus";
+
 const TransactionCard = ({transaction}) => {
 
+    const navigate = useNavigate()
+
     const [transactionIsComplete, setTransactionIsComplete] = useState(false);
-    const [transactionOrdered, setTransactionOrdered] = useState();
-    const [orderConfirmed, setOrderConfirmed] = useState();
-    const [orderCompleted, setOrderCompleted] = useState();
-    const [completionConfirmed, setCompletionConfirmed] = useState();
-    const [orderDenied, setOrderDenied] = useState();
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
     const [service, setService] = useState(undefined);
     const [provider, setProvider] = useState(undefined);
 
-    const navigate = useNavigate();
-
-    const a = axios;
-
-    useEffect(() => {
-        transaction.completed = !transaction.completed
-    }, [transactionIsComplete])
+    const transactionStatus = useTransactionCompletionStatus(transaction);
 
     useEffect(() => {
         getService()
         getProvider()
     }, [])
 
-    const assertCompletionStatus = () => {
-        if(transactionOrdered & !orderConfirmed & !orderDenied & !orderCompleted & !completionConfirmed){
-            return('order-pending-button')
-        } else if(transactionOrdered & !orderConfirmed & orderDenied & !orderCompleted & !completionConfirmed){
-            return('order-denied-button')
-        } else if(transactionOrdered & orderConfirmed & !orderDenied & !orderCompleted & !completionConfirmed){
-            return('order-confirmed-button')
-        } else if(transactionOrdered & orderConfirmed & !orderDenied & orderCompleted & !completionConfirmed){
-            return('order-completed-button')
-        } else if(transactionOrdered & orderConfirmed & !orderDenied & orderCompleted & completionConfirmed){
-            return('order-done-button')
-        }
-    }
-
     const getService = () => {
-        a.post(`http://localhost:5000/get-single-service/${transaction.serviceId}`, {
+        axios.post(`http://localhost:5000/get-full-service-details/${transaction.serviceId}`, {
             serviceId: transaction.serviceId
         })
         .then(response => {
             setService(response.data)
-            console.log(response.data)
         })
         .catch(error => {
             console.log(error)
@@ -61,12 +40,11 @@ const TransactionCard = ({transaction}) => {
     }
 
     const getProvider = () => {
-        a.post(`http://localhost:5000/get-single-user/${transaction.providerId}`, {
-            providerId: transaction.providerId
+        axios.post(`http://localhost:5000/get-full-user-details/${transaction.providingUserId}`, {
+            userId: transaction.providingUserId
         })
         .then(response => {
             setProvider(response.data)
-            console.log(response.data)
         })
         .catch(error => {
             console.log(error)
@@ -95,17 +73,17 @@ const TransactionCard = ({transaction}) => {
             <div>{`Date Issued: ${transaction.dateIssued}`}</div>
             <div>{`Provided Service: ${service ? service.name : 'Error Loading the Service...'}`}</div>
             <div>{`Provided by: ${provider ? provider.firstName + provider.lastName : 'Error Loading the Provider...'}`}</div>
-            <div>{`Credits Awarded: ${transaction.creditsAwarded ?  transaction.creditsAwarded : "TDB"}`}</div>
+            <div>{`Credits Awarded: ${transaction.creditsAwarded ?  transaction.creditsAwarded : "TBD"}`}</div>
             {
                 transaction.completed
                 ?
                 <Fragment/>
                 :
                 <div 
-                    className={`button ${transactionIsComplete ? 'inactive-button' : 'confirm-button'}`}
+                    className={`button ${transactionStatus.className}`}
                     onClick={e => openModal(e)}
                 >
-                    {transactionIsComplete ? "Done!" : "Complete Transaction"}
+                    {transactionStatus.text}
                 </div>
             }
             {

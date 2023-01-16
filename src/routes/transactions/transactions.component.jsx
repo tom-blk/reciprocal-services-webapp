@@ -1,12 +1,12 @@
 import TransactionsList from "../../components/transactions-list/transactions-list.component";
 import PageContainer from "../../utils/page-container/page-container.component";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { members } from "../../datamodels/members/members-examples";
+import { useContext, useEffect, useState } from "react";
+import { AppContext } from "../../context/app-context";
 
 const Transactions = () => {
 
-    const testUserId = 2;
+    const appContext = useContext(AppContext);
 
     const a = axios;
 
@@ -18,10 +18,8 @@ const Transactions = () => {
     }, [])
 
     const getOpenTransactions = () => {
-        a.get(`http://localhost:5000/get-user-specific-open-transactions/${testUserId}`, {
-            params: {
-                userId: testUserId
-            }
+        a.post(`http://localhost:5000/get-user-specific-open-transactions/${appContext.testUser.id}`, {
+            userId: appContext.testUser.id
         })
         .then(response => {
             setOpenTransactions(response.data)

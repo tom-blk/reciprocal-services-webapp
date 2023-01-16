@@ -1,0 +1,25 @@
+.order-pending-button{
+    background-color: rgba(225, 255, 0, 0.664);
+    color: white;
+}
+
+.order-denied-button{
+    background-color: rgba(255, 0, 0, 0.664);
+    color: white;
+}
+
+.order-confirmed-button{
+    color: var(--color-primary-accent);
+    border: 1px solid var(--color-primary-accent);
+}
+
+.order-completed-button{
+    background-color: var(--color-primary-accent);
+    color: white;
+}
+
+.order-done-button{
+    color: white;
+    background-color: darkgray;
+    border: 1px solid black;
+}
