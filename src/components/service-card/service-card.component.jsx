@@ -1,6 +1,5 @@
 import { Fragment, useState } from "react";
 import { useNavigate } from "react-router";
-import Modal from '../modal/modal.component'
 import RoundImageContainer from "../round-image-container/round-image-container.component";
 import "./service-card.styles.scss";
 
@@ -45,18 +44,6 @@ const ServiceCard = ({service, orderButtonExists}) => {
                 >
                     { serviceOrdered ? 'Service Ordered!' : 'Order Service'}
                 </div>
-                :
-                <Fragment/>
-            }
-            {
-                modalIsOpen
-                ?
-                <Modal
-                    heading={"Order Service"}
-                    text={`Do you wish to book the ${service.title} service from this provider?`}
-                    onConfirm={orderServiceAndCloseModal}
-                    onClose={closeModal}
-                />
                 :
                 <Fragment/>
             }

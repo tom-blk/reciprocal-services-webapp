@@ -8,22 +8,32 @@ const Transactions = () => {
 
     const appContext = useContext(AppContext);
 
-    const a = axios;
-
     const [openTransactions, setOpenTransactions] = useState([]);
     const [completedTransactions, setCompletedTransactions] = useState([]);
 
     useEffect(() => {
-        getOpenTransactions();
+        getUserSpecificOpenTransactions();
+        getUserSpecificCompletedTransactions();
     }, [])
 
-    const getOpenTransactions = () => {
-        a.post(`http://localhost:5000/get-user-specific-open-transactions/${appContext.testUser.id}`, {
+    const getUserSpecificOpenTransactions = () => {
+        axios.post(`http://localhost:5000/get-user-specific-open-transactions/${appContext.testUser.id}`, {
             userId: appContext.testUser.id
         })
         .then(response => {
             setOpenTransactions(response.data)
-            console.log(response.data)
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    }
+
+    const getUserSpecificCompletedTransactions = () => {
+        axios.post(`http://localhost:5000/get-user-specific-completed-transactions/${appContext.testUser.id}`, {
+            userId: appContext.testUser.id
+        })
+        .then(response => {
+            setCompletedTransactions(response.data)
         })
         .catch(error => {
             console.log(error)
@@ -35,7 +45,7 @@ const Transactions = () => {
             <div>Pending Transactions</div>
             <TransactionsList completed={false} transactions={openTransactions}/>
             <div>Completed Transactions</div>
-            <TransactionsList completed={true} transactions={openTransactions}/>
+            <TransactionsList completed={true} transactions={completedTransactions}/>
         </PageContainer>
     )
 }

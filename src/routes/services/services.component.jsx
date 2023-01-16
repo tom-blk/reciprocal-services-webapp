@@ -1,13 +1,16 @@
 import SearchBar from "../../components/search-bar/search-bar.component"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import ServiceList from "../../components/services-list/service-list.component"
 
 import "./services.styles.scss"
 import PageContainer from "../../utils/page-container/page-container.component"
 
 import axios from "axios"
+import { AppContext } from "../../context/app-context"
 
 const Services = () => {
+
+    const appContext = useContext(AppContext);
 
     const [searchString, setSearchString] = useState('');
     const [superficialServiceDetails, setSuperficialServiceDetails] = useState([]);
@@ -28,7 +31,7 @@ const Services = () => {
             console.log(response.data)
         })
         .catch(error => {
-            console.log(error)
+            appContext.displayErrorMessage(error)
         })
     }
 

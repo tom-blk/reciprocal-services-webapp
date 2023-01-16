@@ -1,9 +1,6 @@
-import { Fragment } from "react";
 import TransactionCard from "../transaction-card/transaction-card.component";
 
 const TransactionsList = ({ transactions }) => {
-
-    console.log(transactions);
 
     return(
         <div className="card-list">

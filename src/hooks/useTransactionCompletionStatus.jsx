@@ -18,7 +18,7 @@ function useTransactionCompletionStatus(transaction) {
         completionStatus.text = 'Your Request was Accepted by the Provider';
     } else if(transactionOrdered & orderConfirmed & !orderDenied & orderCompleted & !completionConfirmed){
         completionStatus.className = 'order-completed-button'
-        completionStatus.text = 'Confirm Completion of the Request';
+        completionStatus.text = 'The Provider has Completed the Task - Click Here To Confirm!';
     } else if(transactionOrdered & orderConfirmed & !orderDenied & orderCompleted & completionConfirmed){
         completionStatus.className = 'order-done-button'
         completionStatus.text = 'This Transaction has been Completed!';
