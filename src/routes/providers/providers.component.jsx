@@ -1,21 +1,22 @@
 import SearchBar from "../../components/search-bar/search-bar.component"
 import { members } from "../../datamodels/members/members-examples"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import ProvidersList from "../../components/providers-list/providers-list.component"
 
 import "./providers.styles.scss";
 import PageContainer from "../../utils/page-container/page-container.component";
 
 import axios from "axios";
+import { AppContext } from "../../context/app-context";
 
 const Providers = () => {
+
+    const appContext = useContext(AppContext);
 
     const [searchString, setSearchString] = useState('');
     const [superficialUserDetails, setSuperficialUserDetails] = useState([]);
 
     const [filteredUsers, setFilteredUsers] = useState(superficialUserDetails);
-
-    const a = axios;
 
     useEffect(() => {
         getSuperficialUserDetails();
@@ -26,13 +27,12 @@ const Providers = () => {
     }, [searchString, superficialUserDetails])
 
     const getSuperficialUserDetails = () => {
-        a.get(`http://localhost:5000/get-superficial-user-details`)
+        axios.get(`http://localhost:5000/get-superficial-user-details`)
         .then(response => {
             setSuperficialUserDetails(response.data)
-            console.log(response.data)
         })
         .catch(error => {
-            console.log(error)
+            appContext.displayErrorMessage(error);
         })
     }
 

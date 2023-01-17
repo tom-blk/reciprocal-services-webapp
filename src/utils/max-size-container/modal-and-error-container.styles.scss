@@ -1,8 +1,9 @@
 .modal-and-error-container{
-    justify-self: center;
-
     position: fixed;
     display: grid;
+    top: 90%;
+    left: 50%;
+    transform: translate(-90%, -50%);
 }
 
 .error-message{

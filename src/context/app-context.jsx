@@ -5,13 +5,18 @@ export const AppContext = createContext();
 export const AppContextProvider = (input) => {
 
     const [modalIsOpen, setModalIsOpen] = useState(false); //TODO: Will be displayed in max size container
-    const [errorMessage, setErrorMessage] = useState(undefined); //TODO: Will be displayed in max size container
+    const [errorMessages, setErrorMessages] = useState([]); //TODO: Will be displayed in max size container
 
     const displayErrorMessage = (errorMessage) => {
-        setErrorMessage(errorMessage);
+        console.log(errorMessages);
+        var array = errorMessages
+        array.unshift(errorMessage)
+        setErrorMessages(array);
         setTimeout(() => {
-            setErrorMessage(undefined);
-        }, 400000)
+            var array = errorMessages;
+            array.pop();
+            setErrorMessages(array);
+        }, 4000)
     }
 
     useEffect(() => {
@@ -26,7 +31,7 @@ export const AppContextProvider = (input) => {
         <AppContext.Provider value={{
             testUser,
             displayErrorMessage,
-            errorMessage
+            errorMessages
         }}>
             {input.children}
         </AppContext.Provider>

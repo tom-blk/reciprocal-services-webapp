@@ -18,9 +18,17 @@ const ModalAndErrorContainer = () => {
                 <Fragment/>
             }
             {
-                appContext.errorMessage
+                appContext.errorMessages
                 ?
-                <div className="error-message">An Error occurred.</div>
+                <div>
+                {
+                    appContext.errorMessages.map(() => {
+                        return(
+                            <div className="error-message">{appContext.errorMessages.length}</div>
+                        )
+                    })
+                }
+                </div> 
                 :
                 <Fragment/>
             }
