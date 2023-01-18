@@ -1,4 +1,4 @@
-import './profile-avatar.styles.scss';
+import './round-image-container.styles.scss';
 
 const RoundImageContainer = ({picture, serviceOrUser, size, className}) => {
 

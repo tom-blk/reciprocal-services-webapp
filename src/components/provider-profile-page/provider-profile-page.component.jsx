@@ -1,8 +1,6 @@
 import axios from "axios";
 import { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router"
-import { members } from "../../datamodels/members/members-examples";
-import { services } from "../../datamodels/services/services-examples";
 import RoundImageContainer from "../round-image-container/round-image-container.component";
 import ServiceCard from "../service-card/service-card.component";
 

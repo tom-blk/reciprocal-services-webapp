@@ -1,7 +1,6 @@
 import { Fragment, useState } from "react";
 import { useNavigate } from "react-router";
 import RoundImageContainer from "../round-image-container/round-image-container.component";
-import "./service-card.styles.scss";
 
 const ServiceCard = ({service, orderButtonExists}) => {
 

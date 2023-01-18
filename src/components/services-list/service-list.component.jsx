@@ -1,7 +1,5 @@
 import ServiceCard from "../service-card/service-card.component"
 
-import "./service-list.styles.scss";
-
 const ServiceList = ({ services }) => {
 
     return(
