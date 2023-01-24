@@ -5,6 +5,7 @@ import { AppContext } from "../../context/app-context";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../utils/firebase/firebase.utils";
 import { useNavigate } from "react-router";
+import { useEffect } from "react";
 
 const emptySignUpForm = {
     email: '',
@@ -23,14 +24,18 @@ const SignUp = () => {
 
     const [user, setUser] = useState(undefined);
 
+    useEffect(() => {
+        console.log(user);
+    }, [user])
+
     const handleSignUpFormChange = (event) => {
         const {name, value} = event.target;
 
-        setSignUpForm({...signUpForm, [name]: value})
+        setSignUpForm({ ...signUpForm, [name]: value })
     }
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+    const handleSubmit = async () => {
+        //because the submit 'button' is actually a div, the submit behaviour is non-standard and doesn't require e.preventDefault()
 
         if(email === ''){
             appContext.displayErrorMessage(new Error('Error: Email is missing.'))
@@ -48,30 +53,23 @@ const SignUp = () => {
         }
 
         try {
-            const response = await createUserWithEmailAndPassword(auth, email, password)
-        } catch(error){
-            appContext.displayErrorMessage(error)
-        }
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredentials) => {
-                setUser(userCredentials.user)
-            })
-            .then(() => {
-                appContext.displaySuccessMessage('Account successfully created!')
+            const response = await createUserWithEmailAndPassword(auth, email, password);
+
+            setUser(response.user)
+
+            appContext.displaySuccessMessage('Account successfully created!')
                 setTimeout(() => {
                     navigate('/')
                 }, 3000)
-            })
-            .catch(error => {
-                console.log(error)
-                appContext.displayErrorMessage(error.message)
-            })
+        } catch(error){
+            appContext.displayErrorMessage(error)
+        }
     }
 
     return(
         <div className="auth-pages-container">
             <h3>Signup</h3>
-            <form onSubmit={() => {handleSubmit()}}>
+            <form>
                 <label>Input your Email Address</label>
                 <input 
                     required
@@ -104,7 +102,7 @@ const SignUp = () => {
                 />
                 <div 
                     className="button confirm-button"
-                    onClick={() => document.form.submit()}
+                    onClick={() => handleSubmit()}
                 >
                     Join Us!
                 </div>

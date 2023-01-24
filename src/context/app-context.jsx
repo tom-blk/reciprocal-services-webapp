@@ -9,32 +9,30 @@ export const AppContextProvider = (input) => {
     const [successMessages, setSuccessMessages] = useState([]); //TODO: Will be displayed in max size container
 
     const displayErrorMessage = (errorMessage) => {
-        console.log(errorMessages);
-        var array = errorMessages
-        array.unshift(errorMessage)
-        setErrorMessages(array);
-        setTimeout(() => {
-            var array = errorMessages;
-            array.pop();
-            setErrorMessages(array);
-        }, 4000)
+        setErrorMessages(errorMessages.concat(errorMessages.length));
     }
 
-    const displaySuccessMessage = (successMessage) => {
-        console.log(successMessages);
-        var array = successMessages
-        array.unshift(successMessage)
-        setSuccessMessages(array);
-        setTimeout(() => {
-            var array = successMessages;
-            array.pop();
-            setSuccessMessages(array);
-        }, 4000)
+    const displaySuccessMessage = (successMessage) => {        
+        setSuccessMessages(successMessages.concat(successMessage));
     }
 
     useEffect(() => {
-        
-    }, [])
+        console.log(errorMessages);
+        if(errorMessages <= 0)
+        return;
+        setTimeout(() => {
+            setErrorMessages(errorMessages.slice(0, -1));
+        }, 4000)
+    }, [errorMessages])
+
+    useEffect(() => {
+        console.log(successMessages);
+        if(successMessages <= 0)
+        return;
+        setTimeout(() => {
+            setSuccessMessages(successMessages.slice(0, -1));
+        }, 4000)
+    }, [successMessages])
 
     const testUser = {
         id: 1
