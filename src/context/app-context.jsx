@@ -6,6 +6,7 @@ export const AppContextProvider = (input) => {
 
     const [modalIsOpen, setModalIsOpen] = useState(false); //TODO: Will be displayed in max size container
     const [errorMessages, setErrorMessages] = useState([]); //TODO: Will be displayed in max size container
+    const [successMessages, setSuccessMessages] = useState([]); //TODO: Will be displayed in max size container
 
     const displayErrorMessage = (errorMessage) => {
         console.log(errorMessages);
@@ -16,6 +17,18 @@ export const AppContextProvider = (input) => {
             var array = errorMessages;
             array.pop();
             setErrorMessages(array);
+        }, 4000)
+    }
+
+    const displaySuccessMessage = (successMessage) => {
+        console.log(successMessages);
+        var array = successMessages
+        array.unshift(successMessage)
+        setSuccessMessages(array);
+        setTimeout(() => {
+            var array = successMessages;
+            array.pop();
+            setSuccessMessages(array);
         }, 4000)
     }
 
@@ -31,6 +44,7 @@ export const AppContextProvider = (input) => {
         <AppContext.Provider value={{
             testUser,
             displayErrorMessage,
+            displaySuccessMessage,
             errorMessages
         }}>
             {input.children}
