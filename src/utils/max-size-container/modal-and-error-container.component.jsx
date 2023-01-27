@@ -14,8 +14,7 @@ const ModalAndErrorContainer = () => {
         <div className="modal-and-error-container">
             { modalContext.modalIsOpen && <Modal heading={"Test"} text={"Test text"}/> }
             {
-                errorContext.errorMessages
-                ?
+                errorContext.errorMessages &&
                 <div>
                 {
                     errorContext.errorMessages.map(() => {
@@ -25,8 +24,6 @@ const ModalAndErrorContainer = () => {
                     })
                 }
                 </div> 
-                :
-                <Fragment/>
             }
         </div>
     )
