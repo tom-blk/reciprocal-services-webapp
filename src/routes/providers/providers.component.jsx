@@ -1,5 +1,4 @@
 import SearchBar from "../../components/search-bar/search-bar.component"
-import { members } from "../../datamodels/members/members-examples"
 import { useContext, useEffect, useState } from "react"
 import ProvidersList from "../../components/providers-list/providers-list.component"
 
@@ -7,11 +6,11 @@ import "./providers.styles.scss";
 import PageContainer from "../../utils/page-container/page-container.component";
 
 import axios from "axios";
-import { AppContext } from "../../context/app-context";
+import { ErrorContext } from "../../context/error.context";
 
 const Providers = () => {
 
-    const appContext = useContext(AppContext);
+    const errorContext = useContext(ErrorContext);
 
     const [searchString, setSearchString] = useState('');
     const [superficialUserDetails, setSuperficialUserDetails] = useState([]);
@@ -32,7 +31,7 @@ const Providers = () => {
             setSuperficialUserDetails(response.data)
         })
         .catch(error => {
-            appContext.displayErrorMessage(error);
+            errorContext.displayErrorMessage(error);
         })
     }
 

@@ -2,11 +2,11 @@ import TransactionsList from "../../components/transactions-list/transactions-li
 import PageContainer from "../../utils/page-container/page-container.component";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
-import { AppContext } from "../../context/app-context";
+import { UserContext } from "../../context/user.context";
 
 const Transactions = () => {
 
-    const appContext = useContext(AppContext);
+    const userContext = useContext(UserContext);
 
     const [openTransactions, setOpenTransactions] = useState([]);
     const [completedTransactions, setCompletedTransactions] = useState([]);
@@ -17,8 +17,8 @@ const Transactions = () => {
     }, [])
 
     const getUserSpecificOpenTransactions = () => {
-        axios.post(`http://localhost:5000/get-user-specific-open-transactions/${appContext.testUser.id}`, {
-            userId: appContext.testUser.id
+        axios.post(`http://localhost:5000/get-user-specific-open-transactions/${userContext.testUser.id}`, {
+            userId: userContext.testUser.id
         })
         .then(response => {
             setOpenTransactions(response.data)
@@ -29,8 +29,8 @@ const Transactions = () => {
     }
 
     const getUserSpecificCompletedTransactions = () => {
-        axios.post(`http://localhost:5000/get-user-specific-completed-transactions/${appContext.testUser.id}`, {
-            userId: appContext.testUser.id
+        axios.post(`http://localhost:5000/get-user-specific-completed-transactions/${userContext.testUser.id}`, {
+            userId: userContext.testUser.id
         })
         .then(response => {
             setCompletedTransactions(response.data)

@@ -5,7 +5,7 @@ import axios from "axios";
 
 import "./transaction-card.styles.scss";
 import useTransactionCompletionStatus from "../../hooks/useTransactionCompletionStatus";
-import { AppContext } from "../../context/app-context";
+import { ModalContext } from "../../context/modal.context";
 
 const TransactionCard = ({transaction}) => {
 
@@ -13,7 +13,7 @@ const TransactionCard = ({transaction}) => {
 
     const transactionStatus = useTransactionCompletionStatus(transaction);
 
-    const appContext = useContext(AppContext);
+    const modalContext = useContext(ModalContext);
 
     const [service, setService] = useState(undefined);
     const [provider, setProvider] = useState(undefined);
@@ -49,7 +49,7 @@ const TransactionCard = ({transaction}) => {
 
     const openModal = (e) => {
         e.stopPropagation();
-        appContext.setModalIsOpen(true);
+        modalContext.setModalIsOpen(true);
     }
 
     return(

@@ -1,10 +1,9 @@
 import React, { createContext, useEffect, useState } from "react";
 
-export const AppContext = createContext();
+export const ErrorContext = createContext();
 
-export const AppContextProvider = (input) => {
+export const ErrorContextProvider = (input) => {
 
-    const [modalIsOpen, setModalIsOpen] = useState(false); //TODO: Will be displayed in max size container
     const [errorMessages, setErrorMessages] = useState([]); //TODO: Will be displayed in max size container
 
     //Function below and useEFfect for ErrorMessage handling need to be optimized
@@ -21,19 +20,16 @@ export const AppContextProvider = (input) => {
         }, 4000)
     }, [errorMessages])
 
-    const testUser = {
-        id: 1
+    const value = {
+        errorMessages,
+        displayErrorMessage
     }
 
     return (
-        <AppContext.Provider value={{
-            testUser,
-            displayErrorMessage,
-            errorMessages
-        }}>
+        <ErrorContext.Provider value={value}>
             {input.children}
-        </AppContext.Provider>
+        </ErrorContext.Provider>
     );
 }
 
-export default AppContextProvider;
+export default ErrorContextProvider;

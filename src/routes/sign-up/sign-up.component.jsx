@@ -1,11 +1,10 @@
 import { useContext, useState } from "react"
 
-import { AppContext } from "../../context/app-context";
-
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../utils/firebase/firebase.utils";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
+import { ErrorContext } from "../../context/error.context";
 
 const emptySignUpForm = {
     email: '',
@@ -17,7 +16,7 @@ const SignUp = () => {
 
     const navigate = useNavigate()
 
-    const appContext = useContext(AppContext);
+    const errorContext = useContext(ErrorContext);
 
     const [signUpForm, setSignUpForm] = useState(emptySignUpForm);
     const {email, password, confirmedPassword} = signUpForm;
@@ -38,17 +37,17 @@ const SignUp = () => {
         //because the submit 'button' is actually a div, the submit behaviour is non-standard and doesn't require e.preventDefault()
 
         if(email === ''){
-            appContext.displayErrorMessage(new Error('Error: Email is missing.'))
+            errorContext.displayErrorMessage(new Error('Error: Email is missing.'))
             return;
         }
 
         if(password === ''){
-            appContext.displayErrorMessage(new Error('Error: Password is missing.'))
+            errorContext.displayErrorMessage(new Error('Error: Password is missing.'))
             return;
         }
 
         if(password !== confirmedPassword){
-            appContext.displayErrorMessage(new Error('Error: Passwords do not match.'))
+            errorContext.displayErrorMessage(new Error('Error: Passwords do not match.'))
             return;
         }
 
@@ -57,12 +56,12 @@ const SignUp = () => {
 
             setUser(response.user)
 
-            appContext.displaySuccessMessage('Account successfully created!')
+            errorContext.displaySuccessMessage('Account successfully created!')
                 setTimeout(() => {
                     navigate('/')
                 }, 3000)
         } catch(error){
-            appContext.displayErrorMessage(error)
+            errorContext.displayErrorMessage(error)
         }
     }
 

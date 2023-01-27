@@ -1,30 +1,26 @@
 import { Fragment, useContext } from "react";
-import { AppContext } from "../../context/app-context";
+import { ErrorContext } from "../../context/error.context";
+import { ModalContext } from "../../context/modal.context";
 import Modal from '../modal/modal.component';
 
 import './modal-and-error-container.styles.scss';
 
 const ModalAndErrorContainer = () => {
 
-    const appContext = useContext(AppContext)
+    const errorContext = useContext(ErrorContext)
+    const modalContext = useContext(ModalContext)
 
     return(
         <div className="modal-and-error-container">
+            { modalContext.modalIsOpen && <Modal heading={"Test"} text={"Test text"}/> }
             {
-                appContext.modalIsOpen
-                ?
-                <Modal heading={"Test"} text={"Test text"}/>
-                :
-                <Fragment/>
-            }
-            {
-                appContext.errorMessages
+                errorContext.errorMessages
                 ?
                 <div>
                 {
-                    appContext.errorMessages.map(() => {
+                    errorContext.errorMessages.map(() => {
                         return(
-                            <div className="error-message">{appContext.errorMessages.length}</div>
+                            <div className="error-message">{errorContext.errorMessages.length}</div>
                         )
                     })
                 }

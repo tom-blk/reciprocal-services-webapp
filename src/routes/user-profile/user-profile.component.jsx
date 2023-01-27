@@ -6,13 +6,13 @@ import RoundImageContainer from "../../components/round-image-container/round-im
 import EditButton from "../../components/edit-button/edit-button.component";
 import { useNavigate } from "react-router";
 import axios from "axios";
-import { AppContext } from "../../context/app-context";
+import { UserContext } from "../../context/user.context";
 
 const UserProfile = () => {
 
-    const appContext = useContext(AppContext);
+    const userContext = useContext(UserContext);
 
-    const {id} = appContext.testUser;
+    const {id} = userContext.testUser;
 
     const [user, setUser] = useState(undefined);
     const [userServices, setUserServices] = useState([]);
