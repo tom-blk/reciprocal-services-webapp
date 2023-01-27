@@ -1,0 +1,31 @@
+.button{
+    width: 80%;
+    display: grid;
+    justify-content: center;
+    padding: 2%;
+    border-radius: 5px;
+    &:hover{
+        cursor: pointer;
+    }
+}
+
+.confirm{
+    background-color: var(--color-primary-accent);
+    color: white;
+}
+
+.secondary-confirm{
+    color: var(--color-primary-accent);
+    border: 1px solid var(--color-primary-accent);
+}
+
+.cancel{
+    color: red;
+    border: 1px solid red;
+}
+
+.inactive{
+    color: white;
+    background-color: darkgray;
+    border: 1px solid black;
+}

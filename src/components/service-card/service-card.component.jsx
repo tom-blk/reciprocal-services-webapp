@@ -1,5 +1,7 @@
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
+import ButtonComponent from "../button/button.component";
+import CardComponent from "../card/card.component";
 import RoundImageContainer from "../round-image-container/round-image-container.component";
 
 const ServiceCard = ({service, orderButtonExists}) => {
@@ -10,6 +12,8 @@ const ServiceCard = ({service, orderButtonExists}) => {
 
     const [serviceOrdered, setServiceOrdered] = useState(false);
     const [modalIsOpen, setModalIsOpen] = useState()
+
+    const onClickHandler = () => navigate(`/services/${id}`)
 
     const orderServiceAndCloseModal = (e) => {
         e.stopPropagation();
@@ -28,25 +32,21 @@ const ServiceCard = ({service, orderButtonExists}) => {
     }
 
     return(
-        <div onClick={e => navigate(`/services/${id}`)} className="card service-card">
+        <CardComponent onClickHandler={onClickHandler} className="card service-card">
             <RoundImageContainer picture={icon} serviceOrUser={'service'} size={'card'}/>
             <div className="card-data-container">
                 <div className="heading-secondary">{name}</div>
                 <div className="text">{description}</div>
             </div>
             {
-                orderButtonExists
-                ?
-                <div 
-                    className={`button ${serviceOrdered ? "inactive-button" : "confirm-button"}`}
+                orderButtonExists &&
+                <ButtonComponent buttonType={serviceOrdered ? 'inactive' : 'confirm'}
                     onClick={e => openModal(e)}
                 >
-                    { serviceOrdered ? 'Service Ordered!' : 'Order Service'}
-                </div>
-                :
-                <Fragment/>
+                    {serviceOrdered ? 'Service Ordered!' : 'Order Service'}
+                </ButtonComponent>
             }
-        </div>
+        </CardComponent>
     )
 }
 

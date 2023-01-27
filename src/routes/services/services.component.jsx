@@ -8,6 +8,9 @@ import PageContainer from "../../utils/page-container/page-container.component"
 import axios from "axios"
 import { ErrorContext } from "../../context/error.context"
 
+
+import { services } from "../../datamodels/services/services-examples"
+ 
 const Services = () => {
 
     const errorContext = useContext(ErrorContext);
@@ -27,10 +30,11 @@ const Services = () => {
     const getSuperficialServiceDetails = () => {
         axios.get(`http://localhost:5000/get-superficial-service-details`)
         .then(response => {
-            setSuperficialServiceDetails(response.data)
+            setSuperficialServiceDetails(services) //undo to response
             console.log(response.data)
         })
         .catch(error => {
+            setSuperficialServiceDetails(services) //undo to delete everything
             errorContext.displayErrorMessage(error)
         })
     }
