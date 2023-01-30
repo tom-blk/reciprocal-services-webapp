@@ -6,6 +6,8 @@ import axios from "axios";
 import "./transaction-card.styles.scss";
 import useTransactionCompletionStatus from "../../hooks/useTransactionCompletionStatus";
 import { ModalContext } from "../../context/modal.context";
+import CardComponent from "../card/card.component";
+import ButtonComponent from "../button/button.component";
 
 const TransactionCard = ({transaction}) => {
 
@@ -53,18 +55,18 @@ const TransactionCard = ({transaction}) => {
     }
 
     return(
-        <div className="card" onClick={e => navigate(`/transactions/${transaction.id}`)}>
+        <CardComponent onClick={e => navigate(`/transactions/${transaction.id}`)}>
             <div>{`Date Issued: ${transaction.dateIssued}`}</div>
             <div>{`Provided Service: ${service ? service.name : 'Error Loading the Service...'}`}</div>
             <div>{`Provided by: ${provider ? provider.firstName + provider.lastName : 'Error Loading the Provider...'}`}</div>
             <div>{`Credits Awarded: ${transaction.creditsAwarded ?  transaction.creditsAwarded : "TBD"}`}</div>
-            <div 
-                className={`button ${transactionStatus.className}`}
+            <ButtonComponent 
+                buttonType={transactionStatus.className}
                 onClick={e => openModal(e)}
             >
                 {transactionStatus.text}
-            </div>
-        </div>
+            </ButtonComponent>
+        </CardComponent>
     )
 }
 
