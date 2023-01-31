@@ -17,9 +17,9 @@ const ModalAndErrorContainer = () => {
                 alertContext.errorMessages &&
                 <div>
                 {
-                    alertContext.errorMessages.map(() => {
+                    alertContext.errorMessages.map((alert) => {
                         return(
-                            <div className="error-message">{alertContext.errorMessages.length}</div>
+                            <div className="error-message">{alert}</div>
                         )
                     })
                 }

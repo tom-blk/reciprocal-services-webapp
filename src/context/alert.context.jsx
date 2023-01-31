@@ -4,25 +4,36 @@ export const AlertContext = createContext();
 
 export const AlertContextProvider = (input) => {
 
-    const [errorMessages, setErrorMessages] = useState([]); //TODO: Will be displayed in max size container
+    const [errorMessages, setErrorMessages] = useState([]);
+    const [successMessages, setSuccessMessages] = useState([]);
 
     //Function below and useEFfect for ErrorMessage handling need to be optimized
     const displayErrorMessage = (errorMessage) => {
-        setErrorMessages(errorMessages.concat(errorMessages.length));
+        setErrorMessages(errorMessages.concat(`Error ${errorMessages.length + 1}`));
+        setTimeout(() => {
+            setErrorMessages([])
+        }, 4000)
+    }
+
+    const displaySuccessMessage = (successMessage) => {
+        setSuccessMessages(successMessages.concat(successMessage));
+        setTimeout(() => {
+            setSuccessMessages([])
+        }, 4000)
     }
 
     useEffect(() => {
         console.log(errorMessages);
-        if(errorMessages.length <= 0)
-        return;
-        setTimeout(() => {
-            setErrorMessages([]);
-        }, 4000)
     }, [errorMessages])
+
+    useEffect(() => {
+        console.log(successMessages);
+    }, [successMessages])
 
     const value = {
         errorMessages,
-        displayErrorMessage
+        displayErrorMessage,
+        displaySuccessMessage
     }
 
     return (
