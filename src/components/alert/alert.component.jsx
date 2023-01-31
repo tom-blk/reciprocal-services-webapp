@@ -1,4 +1,6 @@
-import React from 'react'
+import React from 'react';
+
+import './alert.styles.scss';
 
 const AlertComponent = ({alertType, children}) => {
   return (

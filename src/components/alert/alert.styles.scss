@@ -1,9 +1,13 @@
 .alert{
-    position: absolute;
-    bottom: 10%;
+    justify-self: center;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+
     border-radius: 10px;
-    width: 40%;
+    width: 40vw;
     padding: 5%;
+
     animation-name: opacity-shift;
     animation-duration: 4s;
     animation-fill-mode: forwards;
@@ -11,15 +15,15 @@
 }
 
 .error-message{
-    border: 1px solid red;
-    color: red;
-    background-color: rgba(255,230,230, 0.8);
+    border: 1px solid var(--color-error-text-and-border);
+    color: var(--color-error-text-and-border);
+    background-color: var(--color-error-background);
 }
 
 .success-message{
-    border: 1px solid var(--color-background-primary);
-    color: var(--color-background-primary);
-    background-color: rgba(230,255,230, 0.8);
+    border: 1px solid var(--color-success-text-and-border);
+    color: var(--color-success-text-and-border);
+    background-color: var(--color-success-background);
 }
 
 @keyframes opacity-shift {

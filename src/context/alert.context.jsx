@@ -17,9 +17,9 @@ export const AlertContextProvider = (input) => {
 
     const displaySuccessMessage = (successMessage) => {
         setSuccessMessages(successMessages.concat(successMessage));
-        setTimeout(() => {
+        /* setTimeout(() => {
             setSuccessMessages([])
-        }, 4000)
+        }, 4000) */
     }
 
     useEffect(() => {
@@ -32,6 +32,7 @@ export const AlertContextProvider = (input) => {
 
     const value = {
         errorMessages,
+        successMessages,
         displayErrorMessage,
         displaySuccessMessage
     }

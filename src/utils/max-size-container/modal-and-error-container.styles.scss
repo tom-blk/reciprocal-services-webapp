@@ -5,31 +5,3 @@
     left: 50%;
     transform: translate(-90%, -50%);
 }
-
-.error-message{
-    justify-self: center;
-    display: grid;
-    justify-content: center;
-    align-content: center;
-
-    background-color: rgba(255,230,230, 0.8);
-    border: 1px solid red;
-    color: red;
-    border-radius: 10px;
-
-    width: 40vw;
-    height: 10vh;
-    padding: 5%;
-
-    animation-name: opacity-shift;
-    animation-duration: 4s;
-    animation-fill-mode: forwards;
-    animation-iteration-count: 1;
-}
-
-@keyframes opacity-shift {
-    0% {opacity: 0;}
-    10% {opacity: 100;}
-    90% {opacity: 100;}
-    100% {opacity: 0;}
-  }
