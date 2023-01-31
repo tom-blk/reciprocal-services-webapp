@@ -4,9 +4,9 @@ import './button.styles.scss';
 
 const ButtonComponent = ({buttonType, children}) => {
   return (
-    <div className={`button ${buttonType}`}>
+    <button className={`button ${buttonType}`}>
         {children}
-    </div>
+    </button>
   )
 }
 

@@ -4,7 +4,8 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../utils/firebase/firebase.utils";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
-import { ErrorContext } from "../../context/error.context";
+import { AlertContext } from "../../context/alert.context";
+import ButtonComponent from "../../components/button/button.component";
 
 const emptySignUpForm = {
     email: '',
@@ -16,7 +17,7 @@ const SignUp = () => {
 
     const navigate = useNavigate()
 
-    const errorContext = useContext(ErrorContext);
+    const alertContext = useContext(AlertContext);
 
     const [signUpForm, setSignUpForm] = useState(emptySignUpForm);
     const {email, password, confirmedPassword} = signUpForm;
@@ -33,21 +34,21 @@ const SignUp = () => {
         setSignUpForm({ ...signUpForm, [name]: value })
     }
 
-    const handleSubmit = async () => {
-        //because the submit 'button' is actually a div, the submit behaviour is non-standard and doesn't require e.preventDefault()
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
         if(email === ''){
-            errorContext.displayErrorMessage(new Error('Error: Email is missing.'))
+            alertContext.displayErrorMessage(new Error('Error: Email is missing.'))
             return;
         }
 
         if(password === ''){
-            errorContext.displayErrorMessage(new Error('Error: Password is missing.'))
+            alertContext.displayErrorMessage(new Error('Error: Password is missing.'))
             return;
         }
 
         if(password !== confirmedPassword){
-            errorContext.displayErrorMessage(new Error('Error: Passwords do not match.'))
+            alertContext.displayErrorMessage(new Error('Error: Passwords do not match.'))
             return;
         }
 
@@ -56,19 +57,19 @@ const SignUp = () => {
 
             setUser(response.user)
 
-            errorContext.displaySuccessMessage('Account successfully created!')
+            alertContext.displaySuccessMessage('Account successfully created!')
                 setTimeout(() => {
                     navigate('/')
                 }, 3000)
         } catch(error){
-            errorContext.displayErrorMessage(error)
+            alertContext.displayErrorMessage(error)
         }
     }
 
     return(
         <div className="auth-pages-container">
             <h3>Signup</h3>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <label>Input your Email Address</label>
                 <input 
                     required
@@ -99,12 +100,12 @@ const SignUp = () => {
                     className="auth-input"
                     onChange={handleSignUpFormChange}
                 />
-                <div 
-                    className="button confirm-button"
-                    onClick={() => handleSubmit()}
+                <ButtonComponent 
+                    type='submit'
+                    buttonType='confirm'
                 >
                     Join Us!
-                </div>
+                </ButtonComponent>
             </form>
         </div>
     )

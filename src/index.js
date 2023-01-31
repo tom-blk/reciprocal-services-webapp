@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.scss';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
-import ErrorContextProvider from './context/error.context';
+import AlertContextProvider from './context/alert.context';
 import ModalContextProvider from './context/modal.context';
 import UserContextProvider from './context/user.context';
 
@@ -12,11 +12,11 @@ root.render(
   <React.StrictMode>
       <BrowserRouter>
         <UserContextProvider>
-          <ErrorContextProvider>
+          <AlertContextProvider>
             <ModalContextProvider>
               <App />
             </ModalContextProvider>
-          </ErrorContextProvider>
+          </AlertContextProvider>
         </UserContextProvider>
       </BrowserRouter>
   </React.StrictMode>

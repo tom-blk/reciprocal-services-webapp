@@ -1,8 +1,8 @@
 import React, { createContext, useEffect, useState } from "react";
 
-export const ErrorContext = createContext();
+export const AlertContext = createContext();
 
-export const ErrorContextProvider = (input) => {
+export const AlertContextProvider = (input) => {
 
     const [errorMessages, setErrorMessages] = useState([]); //TODO: Will be displayed in max size container
 
@@ -26,10 +26,10 @@ export const ErrorContextProvider = (input) => {
     }
 
     return (
-        <ErrorContext.Provider value={value}>
+        <AlertContext.Provider value={value}>
             {input.children}
-        </ErrorContext.Provider>
+        </AlertContext.Provider>
     );
 }
 
-export default ErrorContextProvider;
+export default AlertContextProvider;

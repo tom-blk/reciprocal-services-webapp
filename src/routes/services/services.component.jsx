@@ -6,11 +6,11 @@ import "./services.styles.scss"
 import PageContainer from "../../utils/page-container/page-container.component"
 
 import axios from "axios"
-import { ErrorContext } from "../../context/error.context"
+import { AlertContext } from "../../context/alert.context"
  
 const Services = () => {
 
-    const errorContext = useContext(ErrorContext);
+    const alertContext = useContext(AlertContext);
 
     const [searchString, setSearchString] = useState('');
     const [superficialServiceDetails, setSuperficialServiceDetails] = useState([]);
@@ -31,7 +31,7 @@ const Services = () => {
             console.log(response.data)
         })
         .catch(error => {
-            errorContext.displayErrorMessage(error)
+            alertContext.displayErrorMessage(error)
         })
     }
 
