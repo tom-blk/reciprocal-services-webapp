@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Fragment, useState, useEffect, useContext } from "react";
 import { useParams } from "react-router"
-import { AlertContext } from "../../context/alert.context";
+import { AlertMessageContext } from "../../context/alert-message.context";
 import PageContainer from "../../utils/page-container/page-container.component";
 import RoundImageContainer from "../round-image-container/round-image-container.component";
 import ProviderCard from "../provider-card/provider-card.component";
@@ -10,7 +10,8 @@ const ServicePage = () => {
 
     let { serviceId } = useParams(); 
 
-    const alertContext = useContext(AlertContext);
+    const alertMessageContext = useContext(AlertMessageContext);
+    const {displayError} = alertMessageContext;
 
     const [service, setService] = useState(undefined);
     const [serviceProviders, setServiceProviders] = useState([]);
@@ -28,7 +29,7 @@ const ServicePage = () => {
             setService(response.data)
         })
         .catch(error => {
-            alertContext.displayErrorMessage(error)
+            displayError(error)
         })
     }
 
@@ -40,7 +41,7 @@ const ServicePage = () => {
             setServiceProviders(response.data)
         })
         .catch(error => {
-            alertContext.displayErrorMessage(error)
+            displayError(error)
         })
     }
 

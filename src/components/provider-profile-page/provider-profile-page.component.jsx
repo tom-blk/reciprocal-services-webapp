@@ -1,12 +1,17 @@
 import axios from "axios";
+import { useContext } from "react";
 import { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router"
+import { AlertMessageContext } from "../../context/alert-message.context";
 import RoundImageContainer from "../round-image-container/round-image-container.component";
 import ServiceCard from "../service-card/service-card.component";
 
 import './provider-profile-page.styles.scss';
 
 const ProviderProfilePage = () => {
+
+    const alertMessageContext = useContext(AlertMessageContext);
+    const {displayError} = alertMessageContext;
 
     const { providerId } = useParams();
 
@@ -27,7 +32,7 @@ const ProviderProfilePage = () => {
             console.log(response.data)
         })
         .catch(error => {
-            console.log(error)
+            displayError(error.message)
         })
     }
 
@@ -40,7 +45,7 @@ const ProviderProfilePage = () => {
             console.log(response.data)
         })
         .catch(error => {
-            console.log(error)
+            displayError(error.message)
         })
     }
 

@@ -1,25 +1,25 @@
 import React, { createContext, useEffect, useState } from "react";
 
-export const AlertContext = createContext();
+export const AlertMessageContext = createContext();
 
-export const AlertContextProvider = (input) => {
+export const AlertMessageContextProvider = (input) => {
 
-    const [errorMessages, setErrorMessages] = useState([]);
+    const [errorMessages, setErrors] = useState([]);
     const [successMessages, setSuccessMessages] = useState([]);
 
     //Function below and useEFfect for ErrorMessage handling need to be optimized
-    const displayErrorMessage = (errorMessage) => {
-        setErrorMessages(errorMessages.concat(`Error ${errorMessages.length + 1}`));
+    const displayError = (error) => {
+        setErrors(errorMessages.concat(error.message));
         setTimeout(() => {
-            setErrorMessages([])
+            setErrors([])
         }, 4000)
     }
 
     const displaySuccessMessage = (successMessage) => {
         setSuccessMessages(successMessages.concat(successMessage));
-        /* setTimeout(() => {
+        setTimeout(() => {
             setSuccessMessages([])
-        }, 4000) */
+        }, 4000)
     }
 
     useEffect(() => {
@@ -33,15 +33,15 @@ export const AlertContextProvider = (input) => {
     const value = {
         errorMessages,
         successMessages,
-        displayErrorMessage,
+        displayError,
         displaySuccessMessage
     }
 
     return (
-        <AlertContext.Provider value={value}>
+        <AlertMessageContext.Provider value={value}>
             {input.children}
-        </AlertContext.Provider>
+        </AlertMessageContext.Provider>
     );
 }
 
-export default AlertContextProvider;
+export default AlertMessageContextProvider;

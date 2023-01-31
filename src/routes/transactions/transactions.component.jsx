@@ -3,10 +3,12 @@ import PageContainer from "../../utils/page-container/page-container.component";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/user.context";
+import { AlertMessageContext } from "../../context/alert-message.context";
 
 const Transactions = () => {
 
     const userContext = useContext(UserContext);
+    const { displayError } = useContext(AlertMessageContext);
 
     const [openTransactions, setOpenTransactions] = useState([]);
     const [completedTransactions, setCompletedTransactions] = useState([]);
@@ -24,7 +26,7 @@ const Transactions = () => {
             setOpenTransactions(response.data)
         })
         .catch(error => {
-            console.log(error)
+            displayError(error)
         })
     }
 
@@ -36,7 +38,7 @@ const Transactions = () => {
             setCompletedTransactions(response.data)
         })
         .catch(error => {
-            console.log(error)
+            displayError(error)
         })
     }
 

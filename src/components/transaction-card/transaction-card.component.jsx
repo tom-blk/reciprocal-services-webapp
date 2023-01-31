@@ -8,14 +8,17 @@ import useTransactionCompletionStatus from "../../hooks/useTransactionCompletion
 import { ModalContext } from "../../context/modal.context";
 import CardComponent from "../card/card.component";
 import ButtonComponent from "../button/button.component";
+import { AlertMessageContext } from "../../context/alert-message.context";
 
 const TransactionCard = ({transaction}) => {
+
+    const { displayError } = useContext(AlertMessageContext);
+
+    const modalContext = useContext(ModalContext);
 
     const navigate = useNavigate()
 
     const transactionStatus = useTransactionCompletionStatus(transaction);
-
-    const modalContext = useContext(ModalContext);
 
     const [service, setService] = useState(undefined);
     const [provider, setProvider] = useState(undefined);
@@ -33,7 +36,7 @@ const TransactionCard = ({transaction}) => {
             setService(response.data)
         })
         .catch(error => {
-            console.log(error)
+            displayError(error)
         })
     }
 
@@ -45,7 +48,7 @@ const TransactionCard = ({transaction}) => {
             setProvider(response.data)
         })
         .catch(error => {
-            console.log(error)
+            displayError(error)
         })
     }
 

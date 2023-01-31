@@ -4,7 +4,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../utils/firebase/firebase.utils";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
-import { AlertContext } from "../../context/alert.context";
+import { AlertMessageContext } from "../../context/alert-message.context";
 import ButtonComponent from "../../components/button/button.component";
 
 const emptySignUpForm = {
@@ -17,7 +17,7 @@ const SignUp = () => {
 
     const navigate = useNavigate()
 
-    const alertContext = useContext(AlertContext);
+    const { displayError, displaySuccessMessage } = useContext(AlertMessageContext);
 
     const [signUpForm, setSignUpForm] = useState(emptySignUpForm);
     const {email, password, confirmedPassword} = signUpForm;
@@ -38,17 +38,17 @@ const SignUp = () => {
         e.preventDefault();
 
         if(email === ''){
-            alertContext.displayErrorMessage(new Error('Error: Email is missing.'))
+            displayError(new Error('Error: Email is missing.'))
             return;
         }
 
         if(password === ''){
-            alertContext.displayErrorMessage(new Error('Error: Password is missing.'))
+            displayError(new Error('Error: Password is missing.'))
             return;
         }
 
         if(password !== confirmedPassword){
-            alertContext.displayErrorMessage(new Error('Error: Passwords do not match.'))
+            displayError(new Error('Error: Passwords do not match.'))
             return;
         }
 
@@ -57,12 +57,12 @@ const SignUp = () => {
 
             setUser(response.user)
 
-            alertContext.displaySuccessMessage('Account successfully created!')
+            displaySuccessMessage('Account successfully created!')
                 setTimeout(() => {
                     navigate('/')
                 }, 3000)
         } catch(error){
-            alertContext.displayErrorMessage(error)
+            displayError(error)
         }
     }
 

@@ -7,10 +7,12 @@ import EditButton from "../../components/edit-button/edit-button.component";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import { UserContext } from "../../context/user.context";
+import { AlertMessageContext } from "../../context/alert-message.context";
 
 const UserProfile = () => {
 
     const userContext = useContext(UserContext);
+    const { displayError } = useContext(AlertMessageContext);
 
     const {id} = userContext.testUser;
 
@@ -42,7 +44,7 @@ const UserProfile = () => {
             getUserTransactions();
         })
         .catch(error => {
-            console.log(error)
+            displayError(error)
         })
     }
 
@@ -54,7 +56,7 @@ const UserProfile = () => {
             setActiveUserTransactions(response.data)
         })
         .catch(error => {
-            console.log(error)
+            displayError(error)
         })
     }
 
@@ -66,7 +68,7 @@ const UserProfile = () => {
             setUserServices(response.data)
         })
         .catch(error => {
-            console.log(error)
+            displayError(error)
         })
     }
 

@@ -3,22 +3,22 @@ import ReactDOM from 'react-dom/client';
 import './index.scss';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
-import AlertContextProvider from './context/alert.context';
+import AlertMessageContextProvider from './context/alert-message.context';
 import ModalContextProvider from './context/modal.context';
 import UserContextProvider from './context/user.context';
-import AlertList from './components/alert-list/alert-list.component';
+import AlertMessageList from './components/alert-message-list/alert-message-list.component';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
       <BrowserRouter>
         <UserContextProvider>
-          <AlertContextProvider>
+          <AlertMessageContextProvider>
             <ModalContextProvider>
               <App />
-              <AlertList />
+              <AlertMessageList />
             </ModalContextProvider>
-          </AlertContextProvider>
+          </AlertMessageContextProvider>
         </UserContextProvider>
       </BrowserRouter>
   </React.StrictMode>
