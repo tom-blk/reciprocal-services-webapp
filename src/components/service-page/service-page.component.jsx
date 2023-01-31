@@ -10,8 +10,7 @@ const ServicePage = () => {
 
     let { serviceId } = useParams(); 
 
-    const alertMessageContext = useContext(AlertMessageContext);
-    const {displayError} = alertMessageContext;
+    const {displayError} = useContext(AlertMessageContext);
 
     const [service, setService] = useState(undefined);
     const [serviceProviders, setServiceProviders] = useState([]);
