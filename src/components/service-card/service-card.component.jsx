@@ -1,34 +1,34 @@
+import { Fragment, useContext } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { ModalContext } from "../../context/modal.context";
 import ButtonComponent from "../button/button.component";
 import CardComponent from "../card/card.component";
 import RoundImageContainer from "../round-image-container/round-image-container.component";
 
 const ServiceCard = ({service, orderButtonExists}) => {
+    const { id, icon, name, description } = service;
 
-    const {id, icon, name, description} = service;
+    const { toggleModal } = useContext(ModalContext);
 
     const navigate = useNavigate();
 
     const [serviceOrdered, setServiceOrdered] = useState(false);
-    const [modalIsOpen, setModalIsOpen] = useState()
 
     const onClickHandler = () => navigate(`/services/${id}`)
 
     const orderServiceAndCloseModal = (e) => {
         e.stopPropagation();
         setServiceOrdered(true);
-        setModalIsOpen(false);
     }
 
     const openModal = (e) => {
         e.stopPropagation();
-        setModalIsOpen(true);
+        toggleModal(<OrderServiceModal service={service}/>);
     }
 
     const closeModal = (e) => {
         e.stopPropagation();
-        setModalIsOpen(false);
     }
 
     return(
@@ -41,7 +41,7 @@ const ServiceCard = ({service, orderButtonExists}) => {
             {
                 orderButtonExists &&
                 <ButtonComponent buttonType={serviceOrdered ? 'inactive' : 'confirm'}
-                    onClick={e => openModal(e)}
+                    onClickHandler={openModal}
                 >
                     {serviceOrdered ? 'Service Ordered!' : 'Order Service'}
                 </ButtonComponent>
@@ -51,3 +51,15 @@ const ServiceCard = ({service, orderButtonExists}) => {
 }
 
 export default ServiceCard
+
+//THE FOLLOWING COMPONENT GETS PASSED TO THE MODAL VIA toggleModal()
+
+const OrderServiceModal = (service) => {
+    return(
+        <Fragment>
+            <h2>{`Do you really wish to order the service ${service.title}?`}</h2>
+            <ButtonComponent buttonType={'confirm'}>{'Confirm'}</ButtonComponent>
+            <ButtonComponent buttonType={'cancel'}>{'Cancel'}</ButtonComponent>
+        </Fragment>
+    )
+}

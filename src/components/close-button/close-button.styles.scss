@@ -1,0 +1,9 @@
+.close-button{
+    color: black;
+    border-radius: 50%;
+    background-color: white;
+
+    &:hover{
+        cursor: pointer;
+    }
+}

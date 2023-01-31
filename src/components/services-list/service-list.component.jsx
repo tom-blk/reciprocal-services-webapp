@@ -1,6 +1,11 @@
+import { useContext } from "react"
+import { ModalContext } from "../../context/modal.context"
+import ButtonComponent from "../button/button.component"
 import ServiceCard from "../service-card/service-card.component"
 
 const ServiceList = ({ services }) => {
+
+    const {toggleModal} = useContext(ModalContext);
 
     return(
         <div className="card-list">

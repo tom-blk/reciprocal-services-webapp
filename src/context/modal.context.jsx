@@ -4,11 +4,19 @@ export const ModalContext = createContext();
 
 export const ModalContextProvider = (input) => {
 
-    const [modalIsOpen, setModalIsOpen] = useState(false); //TODO: Will be displayed in max size container
+    const [modalIsOpen, setModalIsOpen] = useState(true);
+    const [modalType, setModalType] = useState();
+
+    //EACH COMPONENT DECIDES FOR ITSELF WHAT KIND OF MODAL TO RENDER BASED ON THE MODAL TYPE (REACT COMPONENT) THAT GETS PASSED TO THE TOGGLE MODAL FUNCTION
+    const toggleModal = (modalType) => {
+        setModalType(modalType);
+        setModalIsOpen(!modalIsOpen);
+    }
 
     const value = {
+        toggleModal,
         modalIsOpen,
-        setModalIsOpen
+        modalType
     }
 
     return (

@@ -7,6 +7,7 @@ import AlertMessageContextProvider from './context/alert-message.context';
 import ModalContextProvider from './context/modal.context';
 import UserContextProvider from './context/user.context';
 import AlertMessageList from './components/alert-message-list/alert-message-list.component';
+import Modal from './components/modal/modal.component';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -17,6 +18,7 @@ root.render(
             <ModalContextProvider>
               <App />
               <AlertMessageList />
+              <Modal/>
             </ModalContextProvider>
           </AlertMessageContextProvider>
         </UserContextProvider>

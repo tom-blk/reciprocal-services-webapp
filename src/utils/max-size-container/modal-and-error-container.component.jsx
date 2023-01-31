@@ -1,6 +1,5 @@
-import { useContext } from "react";
+/* import { useContext } from "react";
 import { ModalContext } from "../../context/modal.context";
-import Modal from '../modal/modal.component';
 
 import './modal-and-error-container.styles.scss';
 
@@ -15,4 +14,4 @@ const ModalAndErrorContainer = () => {
     )
 }
 
-export default ModalAndErrorContainer
+export default ModalAndErrorContainer */
