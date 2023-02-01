@@ -1,7 +1,8 @@
-import './modal.styles.scss';
 import { Fragment, useContext } from 'react';
 import { ModalContext } from '../../context/modal.context';
 import CloseButton from '../close-button/close-button.component';
+
+import './modal.styles.css';
 
 const Modal = ({children}) => {
 
@@ -14,10 +15,9 @@ const Modal = ({children}) => {
             modalIsOpen 
             &&
             <div className='modal-overlay' onClick={e => toggleModal()}>
-                <div className="modal-container">
+                <div className="modal-container" onClick={e => {e.stopPropagation()}}>
                     <CloseButton onClickHandler={toggleModal}/>
                     {modalType}
-                    <p>Test</p>
                 </div>
             </div>
             }

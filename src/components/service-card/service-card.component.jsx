@@ -24,7 +24,7 @@ const ServiceCard = ({service, orderButtonExists}) => {
 
     const openModal = (e) => {
         e.stopPropagation();
-        toggleModal(<OrderServiceModal service={service}/>);
+        toggleModal(<OrderServiceModal serviceName={name}/>);
     }
 
     const closeModal = (e) => {
@@ -54,12 +54,15 @@ export default ServiceCard
 
 //THE FOLLOWING COMPONENT GETS PASSED TO THE MODAL VIA toggleModal()
 
-const OrderServiceModal = (service) => {
+const OrderServiceModal = ({serviceName}) => {
+
+    const { toggleModal } = useContext(ModalContext);
+
     return(
         <Fragment>
-            <h2>{`Do you really wish to order the service ${service.title}?`}</h2>
+            <h2>{`Do you really wish to order the service ${serviceName}?`}</h2>
             <ButtonComponent buttonType={'confirm'}>{'Confirm'}</ButtonComponent>
-            <ButtonComponent buttonType={'cancel'}>{'Cancel'}</ButtonComponent>
+            <ButtonComponent onClickHandler={toggleModal} buttonType={'cancel'}>{'Cancel'}</ButtonComponent>
         </Fragment>
     )
 }

@@ -1,4 +1,5 @@
 import './close-button.styles.scss';
+import { ReactComponent as CrossSymbol} from '../../assets/vectors/cross.svg';
 
 const CloseButton = ({onClickHandler}) => {
   return (
@@ -6,7 +7,7 @@ const CloseButton = ({onClickHandler}) => {
         className='close-button'
         onClick={e => {onClickHandler()}}
     >
-            &times;
+            <CrossSymbol/>
     </div>
   )
 }

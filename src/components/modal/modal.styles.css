@@ -21,9 +21,14 @@
 
     background-color: rgba(255,255,255,0.8);
 
-    display: flex;
+    display: grid;
     flex-direction: column;
     gap: 15px;
     align-items: center;
     justify-items: center;
+}
+
+.modal-container .close-button{
+    align-self: flex-start;
+    justify-self: right;
 }

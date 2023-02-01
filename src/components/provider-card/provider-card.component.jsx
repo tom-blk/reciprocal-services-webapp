@@ -1,8 +1,12 @@
-import { Fragment, useState } from "react";
+import { Fragment, useContext, useState } from "react";
 import { useNavigate } from "react-router";
+import { ModalContext } from "../../context/modal.context";
+import ButtonComponent from "../button/button.component";
 import RoundImageContainer from "../round-image-container/round-image-container.component";
 
 const ProviderCard = ({ user, orderButtonExists }) => {
+
+    const { toggleModal } = useContext(ModalContext);
 
     const {id, firstName, lastName, profilePicture} = user;
 
@@ -19,8 +23,7 @@ const ProviderCard = ({ user, orderButtonExists }) => {
 
     const openModal = (e) => {
         e.stopPropagation();
-        if(!serviceOrdered)
-        setModalIsOpen(true);
+        toggleModal(<OrderServiceModal firstName={firstName} lastName={lastName}/>);
     }
 
     const closeModal = (e) => {
@@ -34,18 +37,29 @@ const ProviderCard = ({ user, orderButtonExists }) => {
             <div className="heading-secondary">{firstName + ' ' + lastName}</div>
             {
                 orderButtonExists
-                ?
-                <div 
-                    className={`button ${serviceOrdered ? "inactive-button" : "confirm-button"}`}
-                    onClick={e => openModal(e)}
+                &&
+                <ButtonComponent
+                    buttonType={serviceOrdered ? "inactive" : "confirm"}
+                    onClickHandler={e => openModal(e)}
                 >
                     {serviceOrdered ? "Service Ordered!" : "Order Service"}
-                </div>
-                :
-                <Fragment/>
+                </ButtonComponent>
             }
         </div>
     )
 }
 
 export default ProviderCard
+
+const OrderServiceModal = ({ firstName, lastName }) => {
+
+    const { toggleModal } = useContext(ModalContext);
+
+    return(
+        <Fragment>
+            <h2>{`Do you really wish to order this service from ${firstName} ${lastName}?`}</h2>
+            <ButtonComponent buttonType={'confirm'}>{'Confirm'}</ButtonComponent>
+            <ButtonComponent buttonType={'cancel'} onClickHandler={toggleModal}>{'Cancel'}</ButtonComponent>
+        </Fragment>
+    )
+}
