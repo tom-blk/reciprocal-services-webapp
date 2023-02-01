@@ -4,7 +4,7 @@ export const ModalContext = createContext();
 
 export const ModalContextProvider = (input) => {
 
-    const [modalIsOpen, setModalIsOpen] = useState(true);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
     const [modalType, setModalType] = useState();
 
     //EACH COMPONENT DECIDES FOR ITSELF WHAT KIND OF MODAL TO RENDER BASED ON THE MODAL TYPE (REACT COMPONENT) THAT GETS PASSED TO THE TOGGLE MODAL FUNCTION

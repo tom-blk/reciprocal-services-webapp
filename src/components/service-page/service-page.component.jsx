@@ -62,7 +62,12 @@ const ServicePage = () => {
                         ?
                         serviceProviders.map(provider => {
                             return(
-                                <ProviderCard orderButtonExists={true} key={provider.id} user={provider}/>
+                                <ProviderCard 
+                                    key={provider.id}
+                                    orderButtonExists={true} 
+                                    user={provider} 
+                                    serviceId={serviceId}
+                                />
                             )
                         })
                         :
