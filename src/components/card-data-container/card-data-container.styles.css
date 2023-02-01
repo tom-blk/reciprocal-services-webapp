@@ -1,0 +1,6 @@
+.card-data-container{
+    text-align: left;
+    display: flex;
+    gap: var(--space-3);
+    align-items: center;
+}

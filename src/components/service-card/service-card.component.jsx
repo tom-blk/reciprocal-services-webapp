@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import { ModalContext } from "../../context/modal.context";
 import ButtonComponent from "../button/button.component";
+import CardDataContainer from "../card-data-container/card-data-container.component";
 import CardComponent from "../card/card.component";
 import RoundImageContainer from "../round-image-container/round-image-container.component";
 
@@ -17,11 +18,6 @@ const ServiceCard = ({service, orderButtonExists}) => {
 
     const onClickHandler = () => navigate(`/services/${id}`)
 
-    const orderServiceAndCloseModal = (e) => {
-        e.stopPropagation();
-        setServiceOrdered(true);
-    }
-
     const openModal = (e) => {
         e.stopPropagation();
         toggleModal(<OrderServiceModal serviceName={name}/>);
@@ -33,11 +29,11 @@ const ServiceCard = ({service, orderButtonExists}) => {
 
     return(
         <CardComponent onClickHandler={onClickHandler} className="card service-card">
-            <RoundImageContainer picture={icon} serviceOrUser={'service'} size={'card'}/>
-            <div className="card-data-container">
+            <CardDataContainer>
+                <RoundImageContainer picture={icon} serviceOrUser={'service'} size={'card'}/>
                 <div className="heading-secondary">{name}</div>
                 <div className="text">{description}</div>
-            </div>
+            </CardDataContainer>
             {
                 orderButtonExists &&
                 <ButtonComponent buttonType={serviceOrdered ? 'inactive' : 'confirm'}

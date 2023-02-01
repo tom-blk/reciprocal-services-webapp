@@ -1,6 +1,10 @@
 .card{
     width: 100%;
     display: flex;
+    justify-content: space-between;
+    grid-template-columns: 1fr 1fr 2fr;
+
+
     align-items: center;
     text-align: center;
     gap: var(--space-4);
@@ -12,4 +16,8 @@
     &:hover{
         cursor: pointer;
     }
+}
+
+.card .button{
+    flex-basis: 30%;
 }

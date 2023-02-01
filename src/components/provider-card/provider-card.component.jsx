@@ -10,6 +10,8 @@ import { createTransaction } from "../../api/transactions/create-transaction";
 import ButtonComponent from "../button/button.component";
 import RoundImageContainer from "../round-image-container/round-image-container.component";
 
+import CardDataContainer from "../card-data-container/card-data-container.component";
+
 const ProviderCard = ({ user, serviceId, orderButtonExists }) => {
 
     const { toggleModal } = useContext(ModalContext);
@@ -33,8 +35,10 @@ const ProviderCard = ({ user, serviceId, orderButtonExists }) => {
 
     return(
         <div onClick={e => navigate(`/providers/${id}`)} className="card">
-            <RoundImageContainer picture={profilePicture} serviceOrUser={'user'} size={'card'}/>
-            <div className="heading-secondary">{firstName + ' ' + lastName}</div>
+            <CardDataContainer>
+                <RoundImageContainer picture={profilePicture} serviceOrUser={'user'} size={'card'}/>
+                <div className="heading-secondary">{firstName + ' ' + lastName}</div>  
+            </CardDataContainer>
             {
                 orderButtonExists
                 &&
