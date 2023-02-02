@@ -1,9 +1,9 @@
-import TransactionsList from "../../components/transactions-list/transactions-list.component";
 import PageContainer from "../../utils/page-container/page-container.component";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/user.context";
 import { AlertMessageContext } from "../../context/alert-message.context";
+import OutgoingOrdersList from "../../components/outgoing-orders-list/outgoing-orders-list.component";
 
 const Transactions = () => {
 
@@ -44,10 +44,10 @@ const Transactions = () => {
 
     return(
         <PageContainer>
-            <div>Pending Transactions</div>
-            <TransactionsList completed={false} transactions={openTransactions}/>
-            <div>Completed Transactions</div>
-            <TransactionsList completed={true} transactions={completedTransactions}/>
+            <div>Pending Orders</div>
+            <OutgoingOrdersList completed={false} orders={openTransactions}/>
+            <div>Completed Orders</div>
+            <OutgoingOrdersList completed={true} orders={completedTransactions}/>
         </PageContainer>
     )
 }

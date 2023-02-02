@@ -1,6 +1,5 @@
 import { Fragment, useContext, useEffect, useState } from "react";
 import ServiceCard from "../../components/service-card/service-card.component";
-import TransactionCard from "../../components/transaction-card/transaction-card.component";
 import PageContainer from "../../utils/page-container/page-container.component";
 import RoundImageContainer from "../../components/round-image-container/round-image-container.component";
 import EditButton from "../../components/edit-button/edit-button.component";
@@ -8,6 +7,7 @@ import { useNavigate } from "react-router";
 import axios from "axios";
 import { UserContext } from "../../context/user.context";
 import { AlertMessageContext } from "../../context/alert-message.context";
+import OutgoingOrderCard from "../../components/outgoing-order-card/outgoing-order-card.component";
 
 const UserProfile = () => {
 
@@ -77,50 +77,50 @@ const UserProfile = () => {
     }
 
     return(
-            <PageContainer>
+        <PageContainer>
+            {
+                user
+                ?
+                <Fragment>
+                <div className="povider-profile-heading-container">
+                    <RoundImageContainer size="page" picture={user.profilePicture}/>
+                    <div>
+                        <div className="heading-primary">{`${user.firstName} ${user.lastName}`}</div>
+                        <div className="sub-text">{`@${user.userName}`}</div>
+                    </div>
+                </div>
+                <div>Location + Radius/Mobile/Stationary</div>
+                <div className="heading-secondary">Providable Services</div>
+                <div className="card-list">
                 {
-                    user
-                    ?
-                    <Fragment>
-                    <div className="povider-profile-heading-container">
-                        <RoundImageContainer size="page" picture={user.profilePicture}/>
-                        <div>
-                            <div className="heading-primary">{`${user.firstName} ${user.lastName}`}</div>
-                            <div className="sub-text">{`@${user.userName}`}</div>
-                        </div>
-                    </div>
-                    <div>Location + Radius/Mobile/Stationary</div>
-                    <div className="heading-secondary">Providable Services</div>
-                    <div className="card-list">
-                    {
-                        userServices.map((service) => {
-                            return(
-                                    <ServiceCard
-                                        key={service.id}
-                                        service={service}
-                                        orderButtonExists={false}
-                                    />
-                                ) 
-                            } 
-                        )
-                    }
-                    </div>
-                    <div>{user.profileDescription}</div>
-                    <div className="heading-secondary">Active Services</div>
-                    {
-                        activeUserTransactions.map(transaction => {
-                            return(
-                                <TransactionCard key={transaction.id} transaction={transaction}/>
-                            )
-                        })
-                    }
-                    <EditButton navigate={navigateToUserEditProfile} size="50px"/>
-                    </Fragment>
-                    :
-                    <div className="text">Sorry, this user is not available...</div>
+                    userServices.map((service) => {
+                        return(
+                                <ServiceCard
+                                    key={service.id}
+                                    service={service}
+                                    orderButtonExists={false}
+                                />
+                            ) 
+                        } 
+                    )
                 }
-                
-            </PageContainer>
+                </div>
+                <div>{user.profileDescription}</div>
+                <div className="heading-secondary">Active Services</div>
+                {
+                    activeUserTransactions.map(transaction => {
+                        return(
+                            <OutgoingOrderCard key={transaction.id} transaction={transaction}/>
+                        )
+                    })
+                }
+                <EditButton navigate={navigateToUserEditProfile} size="50px"/>
+                </Fragment>
+                :
+                <div className="text">Sorry, this user is not available...</div>
+            }
+            
+        </PageContainer>
     )
 }
 

@@ -14,7 +14,7 @@ function useTransactionCompletionStatus(transaction) {
         completionStatus.className = 'order-denied'
         completionStatus.text = 'Your Request was Denied by the Provider';
     } else if(transactionOrdered & orderConfirmed & !orderDenied & !orderCompleted & !completionConfirmed){
-        completionStatus.className = 'secondary-confrim'
+        completionStatus.className = 'secondary-confirm'
         completionStatus.text = 'Your Request was Accepted by the Provider';
     } else if(transactionOrdered & orderConfirmed & !orderDenied & orderCompleted & !completionConfirmed){
         completionStatus.className = 'confirm'

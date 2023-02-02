@@ -3,10 +3,11 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/user.context";
 import { AlertMessageContext } from "../../context/alert-message.context";
 
-import TransactionsList from "../../components/transactions-list/transactions-list.component";
+import IncomingOrdersList from "../../components/incoming-orders-list/incoming-orders-list.component";
 import PageContainer from "../../utils/page-container/page-container.component";
 
 import { getIncomingOrders, getIncomingPendingOrders, getIncomingCompletedOrders } from "../../api/transactions/get-incoming-orders";
+
 
 const IncomingOrders = () => {
 
@@ -26,11 +27,11 @@ const IncomingOrders = () => {
     return(
         <PageContainer>
             <div>Incoming Orders</div>
-            <TransactionsList completed={false} transactions={incomingOrders}/>
+            <IncomingOrdersList completed={false} orders={incomingOrders}/>
             <div>Pending Orders</div>
-            <TransactionsList completed={false} transactions={pendingOrders}/>
+            <IncomingOrdersList completed={false} orders={pendingOrders}/>
             <div>Completed Orders</div>
-            <TransactionsList completed={true} transactions={completedOrders}/>
+            <IncomingOrdersList completed={true} orders={completedOrders}/>
         </PageContainer>
     )
 }
