@@ -3,7 +3,6 @@ import { useNavigate } from "react-router";
 
 import axios from "axios";
 
-import "./transaction-card.styles.scss";
 import useTransactionCompletionStatus from "../../hooks/useTransactionCompletionStatus";
 import { ModalContext } from "../../context/modal.context";
 import CardComponent from "../card/card.component";

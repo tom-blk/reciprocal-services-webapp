@@ -4,6 +4,7 @@
     justify-content: center;
     padding: 2%;
     border-radius: 5px;
+
     &:hover{
         cursor: pointer;
     }
@@ -28,4 +29,14 @@
     color: white;
     background-color: darkgray;
     border: 1px solid black;
+}
+
+.order-pending{
+    background-color: rgba(223, 200, 0, 0.664);
+    color: white;
+}
+
+.order-denied{
+    background-color: rgba(255, 0, 0, 0.664);
+    color: white;
 }

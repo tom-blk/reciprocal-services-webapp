@@ -1,5 +1,5 @@
-import './App.styles.scss';
 import { Route, Routes } from 'react-router';
+
 import Home from './routes/home/home.component';
 import Nav from './routes/nav/nav.component';
 import LogIn from './routes/login/login.component';
@@ -12,8 +12,9 @@ import ServicePage from './components/service-page/service-page.component';
 import ProviderProfilePage from './components/provider-profile-page/provider-profile-page.component';
 import TransactionPage from './components/transaction-page/transaction-page.component';
 import EditUserProfile from './components/edit-user-profile-page/edit-user-profile-page.component';
+import IncomingOrders from './routes/incoming-orders/incoming-orders.component';
 
-//https://www.svgrepo.com/
+import './App.styles.scss';
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
             <Route index element={<Transactions/>}/>
             <Route path=':transactionId' element={<TransactionPage/>}/>
           </Route>
+          <Route path='/incoming-orders' element={<IncomingOrders/>} />
           <Route path='/userProfile' element={<UserProfile/>} />
         </Route>
         <Route path='/login' element={<LogIn/>} />

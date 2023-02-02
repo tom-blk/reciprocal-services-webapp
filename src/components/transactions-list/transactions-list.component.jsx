@@ -5,7 +5,7 @@ const TransactionsList = ({ transactions }) => {
     return(
         <div className="card-list">
             {
-                transactions 
+                transactions.length>0 
                 ?
                 transactions.map((transaction) => {
                     return(
