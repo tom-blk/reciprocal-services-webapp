@@ -1,17 +1,14 @@
-import { Fragment, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 
 import { ModalContext } from "../../context/modal.context";
-import { UserContext } from "../../context/user.context";
-import { AlertMessageContext } from "../../context/alert-message.context";
-
-import { createOrder } from "../../api/orders/create-order";
 
 import ButtonComponent from "../button/button.component";
 import RoundImageContainer from "../round-image-container/round-image-container.component";
 import CardDataContainer from "../card-data-container/card-data-container.component";
+import OrderServiceModal from "../modal/orderServiceModal";
 
-const ProviderCard = ({ user, serviceId, orderButtonExists }) => {
+const ProviderCard = ({ user, serviceId, serviceName, orderButtonExists }) => {
 
     const { toggleModal } = useContext(ModalContext);
 
@@ -29,6 +26,7 @@ const ProviderCard = ({ user, serviceId, orderButtonExists }) => {
                 providingUserFirstName={firstName} 
                 providingUserLastName={lastName} 
                 serviceId={serviceId}
+                serviceName={serviceName}
                 serviceOrderedCallback={setServiceOrderedHandler}
             />
         );
@@ -59,30 +57,3 @@ const ProviderCard = ({ user, serviceId, orderButtonExists }) => {
 }
 
 export default ProviderCard
-
-const OrderServiceModal = ({ providingUserId, providingUserFirstName, providingUserLastName, serviceId, serviceOrderedCallback }) => {
-
-    const { toggleModal } = useContext(ModalContext);
-    const { testUser } = useContext(UserContext);
-    const { displayError, displaySuccessMessage } = useContext(AlertMessageContext);
-
-    const orderData = {
-        serviceId: serviceId,
-        providingUserId: providingUserId,
-        receivingUserId: testUser.id
-    }
-
-    const onClickHandler = () => {
-        createOrder(orderData, displaySuccessMessage, displayError);
-        serviceOrderedCallback();
-        toggleModal();
-    }
-
-    return(
-        <Fragment>
-            <h2>{`Do you really wish to order this service from ${providingUserFirstName} ${providingUserLastName}?`}</h2>
-            <ButtonComponent buttonType={'confirm'} onClickHandler={onClickHandler}>{'Confirm'}</ButtonComponent>
-            <ButtonComponent buttonType={'cancel'} onClickHandler={toggleModal}>{'Cancel'}</ButtonComponent>
-        </Fragment>
-    )
-}

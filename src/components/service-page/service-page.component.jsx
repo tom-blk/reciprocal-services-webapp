@@ -66,7 +66,8 @@ const ServicePage = () => {
                                     key={provider.id}
                                     orderButtonExists={true} 
                                     user={provider} 
-                                    serviceId={serviceId}
+                                    serviceId={service.id}
+                                    serviceName={service.name}
                                 />
                             )
                         })

@@ -1,16 +1,14 @@
-import { Fragment, useContext } from "react";
+import { useContext } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { ModalContext } from "../../context/modal.context";
-import { UserContext } from "../../context/user.context";
-import { AlertMessageContext } from "../../context/alert-message.context";
 import ButtonComponent from "../button/button.component";
 import CardDataContainer from "../card-data-container/card-data-container.component";
 import CardComponent from "../card/card.component";
+import OrderServiceModal from "../modal/orderServiceModal";
 import RoundImageContainer from "../round-image-container/round-image-container.component";
-import { createOrder } from "../../api/orders/create-order";
 
-const ServiceCard = ({ service, providingUserId, orderButtonExists }) => {
+const ServiceCard = ({ service, providingUserId, providingUserFirstName, providingUserLastName, orderButtonExists }) => {
     const { id, icon, name, description } = service;
 
     const { toggleModal } = useContext(ModalContext);
@@ -23,7 +21,20 @@ const ServiceCard = ({ service, providingUserId, orderButtonExists }) => {
 
     const openModal = (e) => {
         e.stopPropagation();
-        toggleModal(<OrderServiceModal serviceId={id} serviceName={name} providingUserId={providingUserId} />);
+        toggleModal(
+            <OrderServiceModal
+                providingUserId={providingUserId} 
+                providingUserFirstName={providingUserFirstName}
+                providingUserLastName={providingUserLastName}
+                serviceId={id} 
+                serviceName={name} 
+                serviceOrderedCallback={setServiceOrderedHandler}
+            />
+        );
+    }
+
+    const setServiceOrderedHandler = () => {
+        setServiceOrdered(true);
     }
 
     return(
@@ -46,31 +57,3 @@ const ServiceCard = ({ service, providingUserId, orderButtonExists }) => {
 }
 
 export default ServiceCard
-
-//THE FOLLOWING COMPONENT GETS PASSED TO THE MODAL VIA toggleModal()
-
-const OrderServiceModal = ({ providingUserId, serviceId, serviceName }) => {
-
-    const { toggleModal } = useContext(ModalContext);
-    const { testUser } = useContext(UserContext);
-    const { displayError, displaySuccessMessage } = useContext(AlertMessageContext);
-
-    const orderData = {
-        serviceId: serviceId,
-        providingUserId: providingUserId,
-        receivingUserId: testUser.id
-    }
-
-    const onClickHandler = () => {
-        createOrder(orderData, displaySuccessMessage, displayError);
-        toggleModal();
-    }
-
-    return(
-        <Fragment>
-            <h2>{`Do you really wish to Order the Service ${serviceName} from  this Provider?`}</h2>
-            <ButtonComponent buttonType={'confirm'} onClickHandler={onClickHandler}>{'Confirm'}</ButtonComponent>
-            <ButtonComponent buttonType={'cancel'} onClickHandler={toggleModal}>{'Cancel'}</ButtonComponent>
-        </Fragment>
-    )
-}
