@@ -1,76 +1,28 @@
 import { Fragment, useContext, useEffect, useState } from "react";
-import ServiceCard from "../../components/service-card/service-card.component";
+import ServicesList from "../../components/services-list/services-list.component";
 import PageContainer from "../../utils/page-container/page-container.component";
 import RoundImageContainer from "../../components/round-image-container/round-image-container.component";
 import EditButton from "../../components/edit-button/edit-button.component";
 import { useNavigate } from "react-router";
-import axios from "axios";
 import { UserContext } from "../../context/user.context";
 import { AlertMessageContext } from "../../context/alert-message.context";
-import OutgoingOrderCard from "../../components/outgoing-order-card/outgoing-order-card.component";
+import { getFullUser } from "../../api/users/get-single-user";
+import { getUserSpecificServices } from "../../api/services/get-user-specific-services";
 
 const UserProfile = () => {
 
-    const userContext = useContext(UserContext);
+    const { testUser } = useContext(UserContext);
     const { displayError } = useContext(AlertMessageContext);
-
-    const {id} = userContext.testUser;
 
     const [user, setUser] = useState(undefined);
     const [userServices, setUserServices] = useState([]);
-    const [activeUserTransactions, setActiveUserTransactions] = useState([]);
-
-    const a = axios
 
     const navigate = useNavigate()
 
     useEffect(() => {
-        getUser();
+        getFullUser(testUser.id, displayError).then(response => setUser(response))
+        getUserSpecificServices(testUser.id, displayError).then(response => setUserServices(response));
     }, [])
-
-    useEffect(() => {
-
-    }, [user])
-
-    const getUser = () => {
-        a.post(`http://localhost:5000/get-single-user/${id}`, {
-            userId: id
-        })
-        .then(response => {
-            setUser(response.data)
-        })
-        .then(() => {
-            getUserServices();
-            getUserTransactions();
-        })
-        .catch(error => {
-            displayError(error)
-        })
-    }
-
-    const getUserTransactions = () => {
-        a.post(`http://localhost:5000/get-user-specific-open-transactions/${id}`, {
-            userId: id
-        })
-        .then(response => {
-            setActiveUserTransactions(response.data)
-        })
-        .catch(error => {
-            displayError(error)
-        })
-    }
-
-    const getUserServices = () => {
-        a.post(`http://localhost:5000/get-user-specific-services/${id}`, {
-            userId: id
-        })
-        .then(response => {
-            setUserServices(response.data)
-        })
-        .catch(error => {
-            displayError(error)
-        })
-    }
 
     const navigateToUserEditProfile = () => {
         navigate('/userProfile-edit')
@@ -82,44 +34,24 @@ const UserProfile = () => {
                 user
                 ?
                 <Fragment>
-                <div className="povider-profile-heading-container">
-                    <RoundImageContainer size="page" picture={user.profilePicture}/>
-                    <div>
-                        <div className="heading-primary">{`${user.firstName} ${user.lastName}`}</div>
-                        <div className="sub-text">{`@${user.userName}`}</div>
+                    <div className="povider-profile-heading-container">
+                        <RoundImageContainer size="page" serviceOrUser={'user'} picture={user.profilePicture}/>
+                        <div>
+                            <h1>{`${user.firstName} ${user.lastName}`}</h1>
+                            <div className="sub-text">{`@${user.userName}`}</div>
+                        </div>
                     </div>
-                </div>
-                <div>Location + Radius/Mobile/Stationary</div>
-                <div className="heading-secondary">Providable Services</div>
-                <div className="card-list">
-                {
-                    userServices.map((service) => {
-                        return(
-                                <ServiceCard
-                                    key={service.id}
-                                    service={service}
-                                    orderButtonExists={false}
-                                />
-                            ) 
-                        } 
-                    )
-                }
-                </div>
-                <div>{user.profileDescription}</div>
-                <div className="heading-secondary">Active Services</div>
-                {
-                    activeUserTransactions.map(transaction => {
-                        return(
-                            <OutgoingOrderCard key={transaction.id} transaction={transaction}/>
-                        )
-                    })
-                }
-                <EditButton navigate={navigateToUserEditProfile} size="50px"/>
+                    <span>{`Rating: ${user.rating ? user.rating : '-'}`}</span>
+                    <span>Location</span>
+                    <span>{user.mobility ? 'Traveling Radius: ' + user.mobility : 'Not Traveling for Orders.'}</span>
+                    <h2>Providable Services</h2>
+                    <ServicesList services={userServices}/>
+                    <div>{user.profileDescription}</div>
+                    <EditButton onClickHandler={navigateToUserEditProfile} size="50px"/>
                 </Fragment>
                 :
                 <div className="text">Sorry, this user is not available...</div>
             }
-            
         </PageContainer>
     )
 }

@@ -1,11 +1,6 @@
-import { useContext } from "react"
-import { ModalContext } from "../../context/modal.context"
-import ButtonComponent from "../button/button.component"
 import ServiceCard from "../service-card/service-card.component"
 
-const ServiceList = ({ services }) => {
-
-    const {toggleModal} = useContext(ModalContext);
+const ServicesList = ({ services }) => {
 
     return(
         <div className="card-list">
@@ -24,4 +19,4 @@ const ServiceList = ({ services }) => {
     )
 }
 
-export default ServiceList
+export default ServicesList

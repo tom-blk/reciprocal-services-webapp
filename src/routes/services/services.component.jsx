@@ -1,6 +1,6 @@
 import SearchBar from "../../components/search-bar/search-bar.component"
 import { useContext, useEffect, useState } from "react"
-import ServiceList from "../../components/services-list/service-list.component"
+import ServicesList from "../../components/services-list/services-list.component"
 
 import "./services.styles.scss"
 import PageContainer from "../../utils/page-container/page-container.component"
@@ -50,7 +50,7 @@ const Services = () => {
     return(
         <PageContainer>
             <SearchBar className="services-search-bar" onSearchChange={onSearchChange} placeholder={"Services"}/>
-            <ServiceList services={filteredServices}/>
+            <ServicesList services={filteredServices}/>
         </PageContainer>
     )
 }
