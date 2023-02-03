@@ -6,7 +6,7 @@ import { AlertMessageContext } from "../../context/alert-message.context";
 import IncomingOrdersList from "../../components/incoming-orders-list/incoming-orders-list.component";
 import PageContainer from "../../utils/page-container/page-container.component";
 
-import { getIncomingOrders, getIncomingPendingOrders, getIncomingCompletedOrders } from "../../api/transactions/get-incoming-orders";
+import { getIncomingOrders, getIncomingPendingOrders, getIncomingCompletedOrders } from "../../api/orders/get-incoming-orders";
 
 
 const IncomingOrders = () => {

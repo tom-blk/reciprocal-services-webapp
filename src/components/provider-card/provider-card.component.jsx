@@ -5,11 +5,10 @@ import { ModalContext } from "../../context/modal.context";
 import { UserContext } from "../../context/user.context";
 import { AlertMessageContext } from "../../context/alert-message.context";
 
-import { createTransaction } from "../../api/transactions/create-transaction";
+import { createOrder } from "../../api/orders/create-order";
 
 import ButtonComponent from "../button/button.component";
 import RoundImageContainer from "../round-image-container/round-image-container.component";
-
 import CardDataContainer from "../card-data-container/card-data-container.component";
 
 const ProviderCard = ({ user, serviceId, orderButtonExists }) => {
@@ -21,16 +20,22 @@ const ProviderCard = ({ user, serviceId, orderButtonExists }) => {
     const navigate = useNavigate()
 
     const [serviceOrdered, setServiceOrdered] = useState(false);
-    const [modalIsOpen, setModalIsOpen] = useState(false);
 
     const openModal = (e) => {
         e.stopPropagation();
-        toggleModal(<OrderServiceModal providingUserId={id} providingUserFirstName={firstName} providingUserLastName={lastName} serviceId={serviceId}/>);
+        toggleModal(
+            <OrderServiceModal 
+                providingUserId={id} 
+                providingUserFirstName={firstName} 
+                providingUserLastName={lastName} 
+                serviceId={serviceId}
+                serviceOrderedCallback={setServiceOrderedHandler}
+            />
+        );
     }
 
-    const closeModal = (e) => {
-        e.stopPropagation();
-        setModalIsOpen(false);
+    const setServiceOrderedHandler = () => {
+        setServiceOrdered(true);
     }
 
     return(
@@ -44,7 +49,7 @@ const ProviderCard = ({ user, serviceId, orderButtonExists }) => {
                 &&
                 <ButtonComponent
                     buttonType={serviceOrdered ? "inactive" : "confirm"}
-                    onClickHandler={e => openModal(e)}
+                    onClickHandler={serviceOrdered ? undefined : e => openModal(e)}
                 >
                     {serviceOrdered ? "Service Ordered!" : "Order Service"}
                 </ButtonComponent>
@@ -55,20 +60,21 @@ const ProviderCard = ({ user, serviceId, orderButtonExists }) => {
 
 export default ProviderCard
 
-const OrderServiceModal = ({ providingUserId, providingUserFirstName, providingUserLastName, serviceId }) => {
+const OrderServiceModal = ({ providingUserId, providingUserFirstName, providingUserLastName, serviceId, serviceOrderedCallback }) => {
 
     const { toggleModal } = useContext(ModalContext);
     const { testUser } = useContext(UserContext);
     const { displayError, displaySuccessMessage } = useContext(AlertMessageContext);
 
-    const transactionData = {
+    const orderData = {
         serviceId: serviceId,
         providingUserId: providingUserId,
         receivingUserId: testUser.id
     }
 
     const onClickHandler = () => {
-        createTransaction(transactionData, displaySuccessMessage, displayError);
+        createOrder(orderData, displaySuccessMessage, displayError);
+        serviceOrderedCallback();
         toggleModal();
     }
 

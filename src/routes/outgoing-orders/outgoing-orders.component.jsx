@@ -5,7 +5,7 @@ import { UserContext } from "../../context/user.context";
 import { AlertMessageContext } from "../../context/alert-message.context";
 import OutgoingOrdersList from "../../components/outgoing-orders-list/outgoing-orders-list.component";
 
-const Transactions = () => {
+const OutgoingOrders = () => {
 
     const userContext = useContext(UserContext);
     const { displayError } = useContext(AlertMessageContext);
@@ -52,4 +52,4 @@ const Transactions = () => {
     )
 }
 
-export default Transactions
+export default OutgoingOrders

@@ -2,12 +2,12 @@ import TrendingServicesList from "../../components/trending-services-list/trendi
 import PageContainer from "../../utils/page-container/page-container.component";
 import { useEffect } from "react";
 import IncomingOrdersList from "../../components/incoming-orders-list/incoming-orders-list.component";
-import { getIncomingOrders } from "../../api/transactions/get-incoming-orders";
+import { getIncomingOrders } from "../../api/orders/get-incoming-orders";
 import { useContext } from "react";
 import { UserContext } from "../../context/user.context";
 import { AlertMessageContext } from "../../context/alert-message.context";
 import { useState } from "react";
-import { getActionableOutgoingOrders } from "../../api/transactions/get-outgoing-orders";
+import { getActionableOutgoingOrders } from "../../api/orders/get-outgoing-orders";
 import OutgoingOrderList from "../../components/outgoing-orders-list/outgoing-orders-list.component";
 
 const Home = () => {

@@ -74,6 +74,7 @@ const ProviderProfilePage = () => {
                                         <ServiceCard
                                             key={service.id}
                                             service={service}
+                                            providingUserId={providerId}
                                             orderButtonExists={true}
                                         />
                                     )
