@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router"
 import { AlertMessageContext } from "../../context/alert-message.context";
+import RatingComponent from "../rating-component/rating.component";
 import RoundImageContainer from "../round-image-container/round-image-container.component";
 import ServiceCard from "../service-card/service-card.component";
 
@@ -64,6 +65,7 @@ const ProviderProfilePage = () => {
                     </div>
                     <div className="provider-profile-body-container">
                         <div>Location + Radius/Mobile/Stationary</div>
+                        <RatingComponent rating={3}/>
                         <div>{user.profileDescription}</div>
                         <h3>Skills</h3>
                         {

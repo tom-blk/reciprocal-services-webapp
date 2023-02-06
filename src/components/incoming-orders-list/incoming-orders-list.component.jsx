@@ -5,7 +5,7 @@ const IncomingOrdersList = ({ orders }) => {
     return(
         <div className="card-list">
             {
-                orders.length>0 
+                orders
                 ?
                 orders.map((order) => {
                     return(

@@ -22,6 +22,10 @@ const Home = () => {
     getIncomingOrders(testUser.id, displayError).then(response => setIncomingOrders(response));
     getActionableOutgoingOrders(testUser.id, displayError).then(response => setActionableOutgoingOrders(response))
   }, [])
+ 
+  useEffect(() => {
+    console.log(incomingOrders);
+  }, [incomingOrders])
 
   return (
     <PageContainer>
