@@ -3,8 +3,10 @@
     flex-direction: column;
     gap: var(--space-4);
 
-    position: absolute;
+    position: fixed;
     bottom: 10%;
     left: 50%;
     transform: translateX(-50%);
+
+    z-index: 10;
 }

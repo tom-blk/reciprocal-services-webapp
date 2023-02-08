@@ -1,22 +1,25 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
-import axios from "axios";
+import { ModalContext } from "../../context/modal.context";
+import { AlertMessageContext } from "../../context/alert-message.context";
 
 import useOutgoingOrderStatus from "../../hooks/useOutgoingOrderStatus";
-import { ModalContext } from "../../context/modal.context";
+
 import CardComponent from "../card/card.component";
 import ButtonComponent from "../button/button.component";
-import { AlertMessageContext } from "../../context/alert-message.context";
+import ConfirmOrderCompletionModalComponent from "../modal/confirm-order-completion-modal.component";
+
 import { getFullService } from "../../api/services/get-single-service";
 import { getFullUser } from "../../api/users/get-single-user";
 import { nextOrderStage } from "../../api/orders/modify-order-status";
 
+
 const OutgoingOrderCard = ({order}) => {
 
-    const { displayError } = useContext(AlertMessageContext);
+    const { displayError, displaySuccessMessage } = useContext(AlertMessageContext);
 
-    const modalContext = useContext(ModalContext);
+    const {toggleModal} = useContext(ModalContext);
 
     const navigate = useNavigate()
 
@@ -30,15 +33,19 @@ const OutgoingOrderCard = ({order}) => {
         getFullUser(order.providingUserId, displayError).then(response => setProvider(response)); 
     }, [])
 
-
-    const nextOrderStageButtonOnClick = (e) => {
-        e.stopPropagation();
-        nextOrderStage(order.id, orderStatus.nextStage , displayError)
+    const advanceOrderStageInModal = (e) => {
+        nextOrderStage(order.id, orderStatus.nextStage, displaySuccessMessage, displayError)
     }
 
-    const openModal = (e) => {
+    const onClickHandler = (e) => {
         e.stopPropagation();
-        modalContext.setModalIsOpen(true);
+        if(orderStatus.nextStage)
+        toggleModal(
+            <ConfirmOrderCompletionModalComponent 
+                providerId={provider.id} 
+                confirmedCompletionCallback={advanceOrderStageInModal}
+            />
+        )
     }
 
     return(
@@ -49,7 +56,7 @@ const OutgoingOrderCard = ({order}) => {
             <div>{`Credits Awarded: ${order.creditsAwarded ?  order.creditsAwarded : "TBD"}`}</div>
             <ButtonComponent 
                 buttonType={orderStatus.className}
-                onClickHandler={nextOrderStageButtonOnClick}
+                onClickHandler={onClickHandler}
             >
                 {orderStatus.text}
             </ButtonComponent>

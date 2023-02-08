@@ -2,11 +2,11 @@ import { ReactComponent as Star} from '../../assets/vectors/star.svg'
 
 import './rating-star.styles.css';
 
-const RatingStarComponent = ({ clickable }) => {
+const RatingStarComponent = ({ starNumber, onClickHandler, color }) => {
 
     return(
-        <div className={`star-container ${clickable ? 'clickable' : null}`}>
-            <Star style={{color: 'yellow'}}/>
+        <div onClick={e => onClickHandler(starNumber)} className={'star-container'}>
+            <Star style={{color: color, verticalAlign: 'middle'}}/>
         </div>
     )
 }

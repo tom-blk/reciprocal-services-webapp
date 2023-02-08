@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const nextOrderStage = async (orderId, newOrderStatus, onErrorFunction) => {
+export const nextOrderStage = async (orderId, newOrderStatus, onSuccessFunction, onErrorFunction) => {
 
     let url = '';
 
@@ -21,18 +21,20 @@ export const nextOrderStage = async (orderId, newOrderStatus, onErrorFunction) =
         const response = await axios.put(`http://localhost:5000/${url}/${orderId}`, {
             orderId: orderId,
         })
+        onSuccessFunction('Confirmed.')
         return response.data;
     }catch(error){
         onErrorFunction(error);
     }
 }
 
-export const denyOrder = async (orderId, onErrorFunction) => {
+export const denyOrder = async (orderId, onSuccessFunction, onErrorFunction) => {
 
     try{
         const response = await axios.put(`http://localhost:5000/deny-order/${orderId}`, {
             orderId: orderId,
         })
+        onSuccessFunction('Order denied.')
         return response.data;
     }catch(error){
         onErrorFunction(error);

@@ -13,12 +13,12 @@ import ButtonComponent from "../button/button.component";
 import { getFullUser } from "../../api/users/get-single-user";
 import { getFullService } from "../../api/services/get-single-service";
 import { denyOrder, nextOrderStage } from "../../api/orders/modify-order-status";
-
+import ConfirmOrCancelModal from "../modal/confirm-or-cancel-modal.component";
+ 
 const IncomingOrderCard = ({order}) => {
 
-    const { displayError } = useContext(AlertMessageContext);
-
-    const modalContext = useContext(ModalContext);
+    const { displayError, displaySuccessMessage } = useContext(AlertMessageContext);
+    const {toggleModal} = useContext(ModalContext);
 
     const navigate = useNavigate();
 
@@ -32,14 +32,33 @@ const IncomingOrderCard = ({order}) => {
         getFullUser(order.receivingUserId, displayError).then(response => setRecipient(response));
     }, [])
 
-    const nextOrderStageButtonOnClick = (e) => {
-        e.stopPropagation();
-        nextOrderStage(order.id, orderStatus.nextStage , displayError)
+    const advanceOrderStageInModal = (e) => {
+        nextOrderStage(order.id, orderStatus.nextStage, displaySuccessMessage, displayError);
+    }
+
+    const denyOrderInModal = () => {
+        denyOrder(order.id, displaySuccessMessage, displayError);
     }
 
     const declineButtonOnClick = (e) => {
         e.stopPropagation();
-        denyOrder(order.id, displayError);
+        toggleModal(
+            <ConfirmOrCancelModal
+                prompt={'Do You Really Want to Deny this Order?'}
+                onConfirm={denyOrderInModal}         
+            />
+        )
+    }
+
+    const nextOrderStageButtonOnClick = (e) => {
+        e.stopPropagation();
+        if(orderStatus.nextStage)
+        toggleModal(
+            <ConfirmOrCancelModal
+                prompt={'Do You Really Want to Proceed with this Order?'}
+                onConfirm={advanceOrderStageInModal}         
+            />
+        )
     }
 
     return(
@@ -51,7 +70,6 @@ const IncomingOrderCard = ({order}) => {
                 buttonType={orderStatus.className}
                 onClickHandler={nextOrderStageButtonOnClick}
             >
-            
                 {orderStatus.text}
             </ButtonComponent>
             {

@@ -1,18 +1,17 @@
 .rating-container{
-    background-color: rgb(252, 206, 0);
-    background-clip: text;
-
     display: flex;
     align-items: center;
 }
 
 .stars-container{
-    background-color: rgb(252, 206, 0);
-    background-clip: text;
     width: 20%;
 
     display: flex;
     align-items: center;
+}
+
+.clickable :hover{
+    cursor: pointer;
 }
 
 .rating-number{
