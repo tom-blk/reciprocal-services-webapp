@@ -2,40 +2,32 @@ import TrendingServicesList from "../../components/trending-services-list/trendi
 import PageContainer from "../../utils/page-container/page-container.component";
 import { useEffect } from "react";
 import IncomingOrdersList from "../../components/incoming-orders-list/incoming-orders-list.component";
-import { getIncomingOrders } from "../../api/orders/get-incoming-orders";
 import { useContext } from "react";
 import { UserContext } from "../../context/user.context";
 import { AlertMessageContext } from "../../context/alert-message.context";
-import { useState } from "react";
-import { getActionableOutgoingOrders } from "../../api/orders/get-outgoing-orders";
 import OutgoingOrderList from "../../components/outgoing-orders-list/outgoing-orders-list.component";
+import { OrderContext } from "../../context/order.context";
 
 const Home = () => {
 
   const { testUser } = useContext(UserContext)
   const { displayError } = useContext(AlertMessageContext);
-
-  const [incomingOrders, setIncomingOrders] = useState([]);
-  const [actionableOutgoingOrders, setActionableOutgoingOrders] = useState([]);
+  const { getAndSetOrderWithSpecificStatusAndDirection, outgoingOrders, incomingOrders } = useContext(OrderContext)
 
   useEffect(() => {
-    getIncomingOrders(testUser.id, displayError).then(response => setIncomingOrders(response));
-    getActionableOutgoingOrders(testUser.id, displayError).then(response => setActionableOutgoingOrders(response))
+    getAndSetOrderWithSpecificStatusAndDirection(testUser.id, 'incoming', 'new', displayError);
+    getAndSetOrderWithSpecificStatusAndDirection(testUser.id, 'outgoing', 'fulfilled', displayError);
   }, [])
- 
-  useEffect(() => {
-    console.log(incomingOrders);
-  }, [incomingOrders])
 
   return (
     <PageContainer>
-      <div className="heading-primary">home</div>
-      <div className="heading-secondary">trending services</div>
+      <h1>home</h1>
+      <h2>trending services</h2>
       <TrendingServicesList/>
-      <div className="heading-secondary">incoming orders</div>
-      <IncomingOrdersList completed={false} orders={incomingOrders}/>
-      <div className="heading-secondary">updates on your outgoing orders</div>
-      <OutgoingOrderList completed={false} orders={actionableOutgoingOrders}/>
+      <h2>incoming orders</h2>
+      <IncomingOrdersList completed={false} orders={incomingOrders.new}/>
+      <h2>updates on your outgoing orders</h2>
+      <OutgoingOrderList completed={false} orders={outgoingOrders.fulfilled}/>
     </PageContainer>
   );
 }

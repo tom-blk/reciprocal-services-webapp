@@ -3,7 +3,7 @@ import axios from 'axios';
 export const createOrder = async (orderData, onSuccessFunction, onErrorFunction) => {
     
     try{
-        const response = await axios.post(`http://localhost:5000/create-transaction`, {
+        const response = await axios.post(`http://localhost:5000/create-order`, {
             serviceId: orderData.serviceId,
             providingUserId: orderData.providingUserId,
             receivingUserId: orderData.receivingUserId,

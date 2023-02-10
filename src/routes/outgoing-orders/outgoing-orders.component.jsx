@@ -4,50 +4,26 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/user.context";
 import { AlertMessageContext } from "../../context/alert-message.context";
 import OutgoingOrdersList from "../../components/outgoing-orders-list/outgoing-orders-list.component";
+import { OrderContext } from "../../context/order.context";
 
 const OutgoingOrders = () => {
 
-    const userContext = useContext(UserContext);
+    const { getAndSetAllOrdersWithSpecificDirection, outgoingOrders } = useContext(OrderContext)
+    const { testUser } = useContext(UserContext);
     const { displayError } = useContext(AlertMessageContext);
 
-    const [openTransactions, setOpenTransactions] = useState([]);
-    const [completedTransactions, setCompletedTransactions] = useState([]);
 
     useEffect(() => {
-        getUserSpecificOpenTransactions();
-        getUserSpecificCompletedTransactions();
+        getAndSetAllOrdersWithSpecificDirection(testUser.id, 'outgoing', displayError);
     }, [])
 
-    const getUserSpecificOpenTransactions = () => {
-        axios.post(`http://localhost:5000/get-user-specific-open-transactions/${userContext.testUser.id}`, {
-            userId: userContext.testUser.id
-        })
-        .then(response => {
-            setOpenTransactions(response.data)
-        })
-        .catch(error => {
-            displayError(error)
-        })
-    }
-
-    const getUserSpecificCompletedTransactions = () => {
-        axios.post(`http://localhost:5000/get-user-specific-completed-transactions/${userContext.testUser.id}`, {
-            userId: userContext.testUser.id
-        })
-        .then(response => {
-            setCompletedTransactions(response.data)
-        })
-        .catch(error => {
-            displayError(error)
-        })
-    }
 
     return(
         <PageContainer>
             <div>Pending Orders</div>
-            <OutgoingOrdersList completed={false} orders={openTransactions}/>
+            <OutgoingOrdersList completed={false} orders={[...outgoingOrders.new, ...outgoingOrders.accepted, ...outgoingOrders.fulfilled]}/>
             <div>Completed Orders</div>
-            <OutgoingOrdersList completed={true} orders={completedTransactions}/>
+            <OutgoingOrdersList completed={true} orders={[...outgoingOrders.completed, ...outgoingOrders.denied]}/>
         </PageContainer>
     )
 }

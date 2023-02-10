@@ -1,37 +1,30 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 
 import { UserContext } from "../../context/user.context";
 import { AlertMessageContext } from "../../context/alert-message.context";
+import { OrderContext } from "../../context/order.context";
 
 import IncomingOrdersList from "../../components/incoming-orders-list/incoming-orders-list.component";
 import PageContainer from "../../utils/page-container/page-container.component";
-
-import { getIncomingOrders, getIncomingPendingOrders, getIncomingCompletedOrders } from "../../api/orders/get-incoming-orders";
-
 
 const IncomingOrders = () => {
 
     const { testUser } = useContext(UserContext);
     const { displayError } = useContext(AlertMessageContext);
-
-    const [incomingOrders, setIncomingOrders] = useState([]);
-    const [pendingOrders, setPendingOrders] = useState([]);
-    const [completedOrders, setCompletedOrders] = useState([]);
+    const { getAndSetAllOrdersWithSpecificDirection, incomingOrders } = useContext(OrderContext);
 
     useEffect(() => {
-        getIncomingOrders(testUser.id, displayError).then(response => setIncomingOrders(response))
-        getIncomingPendingOrders(testUser.id, displayError).then(response => setPendingOrders(response))
-        getIncomingCompletedOrders(testUser.id, displayError).then(response => setCompletedOrders(response))
+        getAndSetAllOrdersWithSpecificDirection(testUser.id, 'incoming', displayError);
     }, [])
 
     return(
         <PageContainer>
             <div>Incoming Orders</div>
-            <IncomingOrdersList completed={false} orders={incomingOrders}/>
+            <IncomingOrdersList completed={false} orders={[...incomingOrders.new]}/>
             <div>Pending Orders</div>
-            <IncomingOrdersList completed={false} orders={pendingOrders}/>
+            <IncomingOrdersList completed={false} orders={[...incomingOrders.accepted, ...incomingOrders.fulfilled]}/>
             <div>Completed Orders</div>
-            <IncomingOrdersList completed={true} orders={completedOrders}/>
+            <IncomingOrdersList completed={true} orders={[...incomingOrders.completed, ...incomingOrders.denied]}/>
         </PageContainer>
     )
 }

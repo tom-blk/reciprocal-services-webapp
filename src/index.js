@@ -8,6 +8,7 @@ import ModalContextProvider from './context/modal.context';
 import UserContextProvider from './context/user.context';
 import AlertMessageList from './components/alert-message-list/alert-message-list.component';
 import Modal from './components/modal/modal.component';
+import OrderContextProvider from './context/order.context';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,11 +16,13 @@ root.render(
       <BrowserRouter>
         <UserContextProvider>
           <AlertMessageContextProvider>
-            <ModalContextProvider>
-              <App />
-              <AlertMessageList />
-              <Modal/>
-            </ModalContextProvider>
+            <OrderContextProvider>
+              <ModalContextProvider>
+                <App />
+                <AlertMessageList />
+                <Modal/>
+              </ModalContextProvider>
+            </OrderContextProvider>
           </AlertMessageContextProvider>
         </UserContextProvider>
       </BrowserRouter>
