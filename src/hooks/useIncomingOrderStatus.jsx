@@ -1,6 +1,4 @@
-function useIncomingOrderStatus(transaction) {
-
-  const { transactionOrdered, orderConfirmed, orderDenied, orderCompleted, completionConfirmed } = transaction;
+function useIncomingOrderStatus(status) {
 
     const incomingOrderStatus = {
       nextStage: undefined,
@@ -8,26 +6,32 @@ function useIncomingOrderStatus(transaction) {
       text: undefined,
     }
 
-    if(transactionOrdered & !orderConfirmed & !orderDenied & !orderCompleted & !completionConfirmed){
-        incomingOrderStatus.nextStage = 'confirmed';
+    switch(status){
+      case 1:
+        incomingOrderStatus.nextStage = 2;
         incomingOrderStatus.className = 'confirm';
         incomingOrderStatus.text = 'Accept Order';
-    } else if(transactionOrdered & !orderConfirmed & orderDenied & !orderCompleted & !completionConfirmed){
-        incomingOrderStatus.nextStage = undefined;
-        incomingOrderStatus.className = 'order-denied'
-        incomingOrderStatus.text = 'You have Denied this Order';
-    } else if(transactionOrdered & orderConfirmed & !orderDenied & !orderCompleted & !completionConfirmed){
-        incomingOrderStatus.nextStage = 'completed';
-        incomingOrderStatus.className = 'secondary-confirm'
-        incomingOrderStatus.text = 'Complete Order';
-    } else if(transactionOrdered & orderConfirmed & !orderDenied & orderCompleted & !completionConfirmed){
-        incomingOrderStatus.nextStage = undefined;
+        break;
+      case 2:
+        incomingOrderStatus.nextStage = 3;
         incomingOrderStatus.className = 'confirm'
+        incomingOrderStatus.text = 'Complete Order';
+        break;
+      case 3:
+        incomingOrderStatus.nextStage = undefined;
+        incomingOrderStatus.className = 'secondary-confirm'
         incomingOrderStatus.text = 'Order Completed! Waiting for the Recipient to Confirm';
-    } else if(transactionOrdered & orderConfirmed & !orderDenied & orderCompleted & completionConfirmed){
+        break;
+      case 4:
         incomingOrderStatus.nextStage = undefined;
         incomingOrderStatus.className = 'inactive'
         incomingOrderStatus.text = 'The Recipient has Confirmed the Completion';
+        break;
+      case 5:
+        incomingOrderStatus.nextStage = undefined;
+        incomingOrderStatus.className = 'order-denied'
+        incomingOrderStatus.text = 'You have Denied this Order';
+        break;
     }
 
   return incomingOrderStatus;

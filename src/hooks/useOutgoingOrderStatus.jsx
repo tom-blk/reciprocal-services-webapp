@@ -1,34 +1,37 @@
-function useOutgoingOrderStatus(transaction) {
-
-  const { transactionOrdered, orderConfirmed, orderDenied, orderCompleted, completionConfirmed } = transaction;
+function useOutgoingOrderStatus(status) {
 
     const outgoingOrderStatus = {
       nextStage: undefined,
       className: undefined,
       text: undefined,
-      denied: 'denied'
     }
 
-    if(transactionOrdered & !orderConfirmed & !orderDenied & !orderCompleted & !completionConfirmed){
+    switch(status){
+      case 1:
         outgoingOrderStatus.nextStage = undefined;
         outgoingOrderStatus.className = 'order-pending';
         outgoingOrderStatus.text = 'Your Request was Sent to the Provider';
-    } else if(transactionOrdered & !orderConfirmed & orderDenied & !orderCompleted & !completionConfirmed){
-        outgoingOrderStatus.nextStage = undefined;
-        outgoingOrderStatus.className = 'order-denied'
-        outgoingOrderStatus.text = 'Your Request was Denied by the Provider';
-    } else if(transactionOrdered & orderConfirmed & !orderDenied & !orderCompleted & !completionConfirmed){
+        break;
+      case 2:
         outgoingOrderStatus.nextStage = undefined;
         outgoingOrderStatus.className = 'secondary-confirm'
-        outgoingOrderStatus.text = 'Your Request was Accepted by the Provider';
-    } else if(transactionOrdered & orderConfirmed & !orderDenied & orderCompleted & !completionConfirmed){
-        outgoingOrderStatus.nextStage = 'completion-confirmed';
+        outgoingOrderStatus.text = 'The Provider has Accepted your Order!';
+        break;
+      case 3:
+        outgoingOrderStatus.nextStage = 4;
         outgoingOrderStatus.className = 'confirm'
         outgoingOrderStatus.text = 'The Provider has Completed the Task. Click Here To Confirm!';
-    } else if(transactionOrdered & orderConfirmed & !orderDenied & orderCompleted & completionConfirmed){
+        break;
+      case 4:
         outgoingOrderStatus.nextStage = undefined;
-        outgoingOrderStatus.className = 'inactive';
-        outgoingOrderStatus.text = 'This Transaction has been Completed!';
+        outgoingOrderStatus.className = 'inactive'
+        outgoingOrderStatus.text = 'The Provider has Completed the Task. Click Here To Confirm!';
+        break;
+      case 5:
+        outgoingOrderStatus.nextStage = undefined;
+        outgoingOrderStatus.className = 'order-denied';
+        outgoingOrderStatus.text = 'Your Request was Denied by the Provider';
+        break;
     }
 
   return outgoingOrderStatus;

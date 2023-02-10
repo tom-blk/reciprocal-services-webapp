@@ -7,7 +7,7 @@ export const OrderContextProvider = (input) => {
 
     //ORDER STATUS IS EITHER 1 (ordered) 2 (accepted) 3 (completed) 4 (completion confirmed) 5 (order denied)
 
-    const outgoingOrdersTemplate = {
+    const ordersTemplate = {
         new: [],
         accepted: [],
         fulfilled: [],
@@ -15,24 +15,8 @@ export const OrderContextProvider = (input) => {
         denied: []
     }
 
-    const incomingOrdersTemplate = {
-        new: [],
-        accepted: [],
-        fulfilled: [],
-        completed: [],
-        denied: []
-    }
-
-    const [outgoingOrders, setOutgoingOrders] = useState(outgoingOrdersTemplate);
-    const [incomingOrders, setIncomingOrders] = useState(incomingOrdersTemplate);
-
-    useEffect(() => {
-        console.log(outgoingOrders);
-    }, [outgoingOrders])
-
-    useEffect(() => {
-        console.log(incomingOrders);
-    }, [incomingOrders])
+    const [outgoingOrders, setOutgoingOrders] = useState(ordersTemplate);
+    const [incomingOrders, setIncomingOrders] = useState(ordersTemplate);
 
     const getAndSetAllOrdersWithSpecificDirection = (userId, orderDirection, onErrorFunction) => {
         getAllOrdersWithSpecificDirection(userId, orderDirection, onErrorFunction).then(
@@ -81,6 +65,8 @@ export const OrderContextProvider = (input) => {
             }
         );
     }
+
+
 
     const value = {
         getAndSetAllOrdersWithSpecificDirection,

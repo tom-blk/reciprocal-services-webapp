@@ -1,27 +1,13 @@
 import axios from "axios";
 
-export const nextOrderStage = async (orderId, newOrderStatus, onSuccessFunction, onErrorFunction) => {
-
-    let url = '';
-
-    switch(newOrderStatus){
-        case undefined:
-            return;
-        case 'confirmed':
-            url = 'confirm-order';
-            break;
-        case 'completed':
-            url = 'complete-order';
-            break;
-        case 'completion-confirmed': 
-            url = 'confirm-order-completion'
-    }
+export const modifyOrderStatus = async (orderId, newOrderStatus, onSuccessFunction, onErrorFunction) => {
 
     try{
-        const response = await axios.put(`http://localhost:5000/${url}/${orderId}`, {
+        const response = await axios.put(`http://localhost:5000/modify-order-status/${orderId}`, {
+            status: newOrderStatus,
             orderId: orderId,
         })
-        onSuccessFunction('Confirmed.')
+        onSuccessFunction('Confirmed Order Update.')
         return response.data;
     }catch(error){
         onErrorFunction(error);

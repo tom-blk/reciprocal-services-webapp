@@ -12,7 +12,7 @@ import ConfirmOrderCompletionModalComponent from "../modal/confirm-order-complet
 
 import { getFullService } from "../../api/services/get-single-service";
 import { getFullUser } from "../../api/users/get-single-user";
-import { nextOrderStage } from "../../api/orders/modify-order-status";
+import { modifyOrderStatus } from "../../api/orders/modify-order-status";
 
 
 const OutgoingOrderCard = ({order}) => {
@@ -23,10 +23,11 @@ const OutgoingOrderCard = ({order}) => {
 
     const navigate = useNavigate()
 
-    const orderStatus = useOutgoingOrderStatus(order);
-
     const [service, setService] = useState(undefined);
     const [provider, setProvider] = useState(undefined);
+    const [orderStatus, setOrderStatus] = useState(order.status);
+
+    const orderStatusHook = useOutgoingOrderStatus(orderStatus);
 
     useEffect(() => {
         getFullService(order.serviceId, displayError).then(response => setService(response));
@@ -34,12 +35,15 @@ const OutgoingOrderCard = ({order}) => {
     }, [])
 
     const advanceOrderStageInModal = (e) => {
-        nextOrderStage(order.id, orderStatus.nextStage, displaySuccessMessage, displayError)
+        if(orderStatusHook.nextStage)
+        modifyOrderStatus(order.id, orderStatusHook.nextStage, displaySuccessMessage, displayError).then(
+            setOrderStatus(orderStatus + 1)
+        )
     }
 
     const onClickHandler = (e) => {
         e.stopPropagation();
-        if(orderStatus.nextStage)
+        if(orderStatusHook.nextStage)
         toggleModal(
             <ConfirmOrderCompletionModalComponent 
                 providerId={provider.id} 
@@ -55,10 +59,10 @@ const OutgoingOrderCard = ({order}) => {
             <div>{`Provided by: ${provider ? provider.firstName + ' ' + provider.lastName : 'Error Loading the Provider...'}`}</div>
             <div>{`Credits Awarded: ${order.creditsAwarded ?  order.creditsAwarded : "TBD"}`}</div>
             <ButtonComponent 
-                buttonType={orderStatus.className}
+                buttonType={orderStatusHook.className}
                 onClickHandler={onClickHandler}
             >
-                {orderStatus.text}
+                {orderStatusHook.text}
             </ButtonComponent>
         </CardComponent>
     )

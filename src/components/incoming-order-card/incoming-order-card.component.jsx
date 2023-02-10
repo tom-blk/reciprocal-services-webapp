@@ -12,7 +12,7 @@ import ButtonComponent from "../button/button.component";
 
 import { getFullUser } from "../../api/users/get-single-user";
 import { getFullService } from "../../api/services/get-single-service";
-import { denyOrder, nextOrderStage } from "../../api/orders/modify-order-status";
+import { modifyOrderStatus } from "../../api/orders/modify-order-status";
 import ConfirmOrCancelModal from "../modal/confirm-or-cancel-modal.component";
  
 const IncomingOrderCard = ({order}) => {
@@ -22,22 +22,28 @@ const IncomingOrderCard = ({order}) => {
 
     const navigate = useNavigate();
 
-    const orderStatus = useIncomingOrderStatus(order);
-
     const [service, setService] = useState(undefined);
     const [recipient, setRecipient] = useState(undefined);
+    const [orderStatus, setOrderStatus] = useState(order.status)
+
+    const orderStatusHook = useIncomingOrderStatus(orderStatus);
 
     useEffect(() => {
         getFullService(order.serviceId, displayError).then(response => setService(response));
         getFullUser(order.receivingUserId, displayError).then(response => setRecipient(response));
     }, [])
 
-    const advanceOrderStageInModal = (e) => {
-        nextOrderStage(order.id, orderStatus.nextStage, displaySuccessMessage, displayError);
+    const advanceOrderStageInModal = () => {
+        if(orderStatusHook.nextStage)
+        modifyOrderStatus(order.id, orderStatusHook.nextStage, displaySuccessMessage, displayError).then(
+            setOrderStatus(orderStatus + 1)
+        )
     }
 
     const denyOrderInModal = () => {
-        denyOrder(order.id, displaySuccessMessage, displayError);
+        modifyOrderStatus(order.id, 5, displaySuccessMessage, displayError).then(
+            setOrderStatus(5)
+        )
     }
 
     const declineButtonOnClick = (e) => {
@@ -52,7 +58,7 @@ const IncomingOrderCard = ({order}) => {
 
     const nextOrderStageButtonOnClick = (e) => {
         e.stopPropagation();
-        if(orderStatus.nextStage)
+        if(orderStatusHook.nextStage)
         toggleModal(
             <ConfirmOrCancelModal
                 prompt={'Do You Really Want to Proceed with this Order?'}
@@ -67,13 +73,13 @@ const IncomingOrderCard = ({order}) => {
             <div>{`Requested Service: ${service ? service.name : 'Error Loading the Service...'}`}</div>
             <div>{`Recipient: ${recipient ? recipient.firstName + ' ' + recipient.lastName : 'Error Loading the Provider...'}`}</div>
             <ButtonComponent 
-                buttonType={orderStatus.className}
+                buttonType={orderStatusHook.className}
                 onClickHandler={nextOrderStageButtonOnClick}
             >
-                {orderStatus.text}
+                {orderStatusHook.text}
             </ButtonComponent>
             {
-                orderStatus.nextStage === 'confirmed' &&
+                orderStatusHook.nextStage === 2 &&
                 <ButtonComponent
                     buttonType={'cancel'}
                     onClickHandler={declineButtonOnClick}
