@@ -4,7 +4,7 @@ import { UserContext } from "../../context/user.context";
 import { AlertMessageContext } from "../../context/alert-message.context";
 import { OrderContext } from "../../context/order.context";
 
-import IncomingOrdersList from "../../components/incoming-orders-list/incoming-orders-list.component";
+import OrdersList from "../../components/orders-list/orders-list.component";
 import PageContainer from "../../utils/page-container/page-container.component";
 
 const IncomingOrders = () => {
@@ -20,11 +20,11 @@ const IncomingOrders = () => {
     return(
         <PageContainer>
             <div>Incoming Orders</div>
-            <IncomingOrdersList completed={false} orders={[...incomingOrders.new]}/>
+            <OrdersList orders={[...incomingOrders.new]}/>
             <div>Pending Orders</div>
-            <IncomingOrdersList completed={false} orders={[...incomingOrders.accepted, ...incomingOrders.fulfilled]}/>
+            <OrdersList orders={[...incomingOrders.accepted, ...incomingOrders.fulfilled]}/>
             <div>Completed Orders</div>
-            <IncomingOrdersList completed={true} orders={[...incomingOrders.completed, ...incomingOrders.denied]}/>
+            <OrdersList orders={[...incomingOrders.completed, ...incomingOrders.denied]}/>
         </PageContainer>
     )
 }

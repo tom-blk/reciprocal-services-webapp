@@ -9,7 +9,7 @@ import Providers from './routes/providers/providers.component';
 import SignUp from './routes/sign-up/sign-up.component';
 import ServicePage from './components/service-page/service-page.component';
 import ProviderProfilePage from './components/provider-profile-page/provider-profile-page.component';
-import TransactionPage from './components/transaction-page/transaction-page.component';
+import OrderPage from './components/order-page/order-page.component';
 import EditUserProfile from './components/edit-user-profile-page/edit-user-profile-page.component';
 import IncomingOrders from './routes/incoming-orders/incoming-orders.component';
 import OutgoingOrders from './routes/outgoing-orders/outgoing-orders.component';
@@ -32,9 +32,12 @@ const App = () => {
           </Route>
           <Route path='/outgoing-orders' >
             <Route index element={<OutgoingOrders/>}/>
-            <Route path=':transactionId' element={<TransactionPage/>}/>
+            <Route path=':orderId' element={<OrderPage/>}/>
           </Route>
-          <Route path='/incoming-orders' element={<IncomingOrders/>} />
+          <Route path='/incoming-orders'>
+            <Route index element={<IncomingOrders/>}/>
+            <Route path=':orderId' element={<OrderPage/>}/>
+          </Route>
           <Route path='/userProfile' element={<UserProfile/>} />
         </Route>
         <Route path='/login' element={<LogIn/>} />

@@ -26,3 +26,15 @@ export const getAllOrdersWithSpecificDirection = async (userId, orderDirection, 
         onErrorFunction(error);
     }
 }
+
+export const getSingleOrder = async (orderId, onErrorFunction) => {
+    
+    try{
+        const response = await axios.post(`http://localhost:5000/get-single-order/${orderId}`, {
+            orderId: orderId
+        })
+        return response.data;
+    } catch(error){
+        onErrorFunction(error);
+    }
+}

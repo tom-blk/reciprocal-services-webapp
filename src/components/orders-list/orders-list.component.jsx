@@ -1,6 +1,6 @@
-import OutgoingOrderCard from "../outgoing-order-card/outgoing-order-card.component";
+import OrderCard from "../order-card/order-card.component";
 
-const OutgoingOrdersList = ({ orders }) => {
+const OrdersList = ({ orders }) => {
 
     return(
         <div className="card-list">
@@ -9,7 +9,7 @@ const OutgoingOrdersList = ({ orders }) => {
                 ?
                 orders.map((order) => {
                     return(
-                            <OutgoingOrderCard key={order.id} order={order}/>
+                            <OrderCard key={order.id} order={order}/>
                         ) 
                     } 
                 )
@@ -20,4 +20,4 @@ const OutgoingOrdersList = ({ orders }) => {
     )
 }
 
-export default OutgoingOrdersList
+export default OrdersList
