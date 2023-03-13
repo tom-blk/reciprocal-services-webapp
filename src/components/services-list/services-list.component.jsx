@@ -5,6 +5,7 @@ const ServicesList = ({ services }) => {
     return(
         <div className="card-list">
         {
+            services &&
             services.map((service) => {
                 return(
                     <ServiceCard

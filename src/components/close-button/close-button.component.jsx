@@ -5,7 +5,7 @@ const CloseButton = ({onClickHandler}) => {
   return (
     <div 
         className='close-button'
-        onClick={e => {onClickHandler()}}
+        onClick={e => onClickHandler()}
     >
             <CrossSymbol/>
     </div>
