@@ -18,14 +18,6 @@ export const OrderContextProvider = (input) => {
     const [outgoingOrders, setOutgoingOrders] = useState(ordersTemplate);
     const [incomingOrders, setIncomingOrders] = useState(ordersTemplate);
 
-    useEffect(() => {
-        console.log(outgoingOrders.denied);
-    }, [outgoingOrders])
-
-    useEffect(() => {
-        console.log(incomingOrders.denied);
-    }, [incomingOrders])
-
     const getAndSetAllOrdersWithSpecificDirection = (userId, orderDirection, onErrorFunction) => {
         getAllOrdersWithSpecificDirection(userId, orderDirection, onErrorFunction).then(
             response => {

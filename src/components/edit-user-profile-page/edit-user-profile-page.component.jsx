@@ -9,7 +9,9 @@ import { AlertMessageContext } from "../../context/alert-message.context";
 import { getFullUser } from "../../api/users/get-single-user";
 import { getUserSpecificServices } from "../../api/services/get-user-specific-services";
 import MaxSizeContainer from "../../utils/max-size-container/max-size-container.component";
-import CloseButton from "../close-button/close-button.component";
+import SelectableServicesList from "../selectable-services-list/selectable-services-list.component";
+import { getSuperficialServiceDetails } from "../../api/services/get-all-services";
+import ButtonComponent from "../button/button.component";
 
 const EditUserProfile = () => {
 
@@ -17,18 +19,12 @@ const EditUserProfile = () => {
     const { displayError } = useContext(AlertMessageContext)
 
     const [user, setUser] = useState(undefined);
-    const [userServices, setUserServices] = useState(undefined);
+    const [allServices, setAllServices] = useState([]);
+    const [userServices, setUserServices] = useState([]);
 
     useEffect(() => {
         getFullUser(testUser.id, displayError).then(response => setUser(response));
-        getUserSpecificServices(testUser.id, displayError).then(response => setUserServices(response));
     }, [])
-
-    const removeService = (serviceId) => {
-        setUserServices(userServices.filter(service => {
-            return service.id != serviceId;
-        }))
-    }
 
     return(
         <MaxSizeContainer>
@@ -46,14 +42,9 @@ const EditUserProfile = () => {
                         <h2>Description</h2>
                         <input type="text" value={user.description} onChange={e => {setUser({...user, description: e.target.value})}}/>
                         <h2>Services</h2>  
-                        {
-                            userServices &&
-                            userServices.map((service) => {
-                                return(
-                                    <span><div key={service.id}>{service.name}</div><CloseButton onClickHandler={removeService}/></span>
-                                )
-                            })
-                        }
+                        <SelectableServicesList userId={testUser.id}/>
+                        <ButtonComponent buttonType={'confirm'}>Confirm</ButtonComponent>
+                        <ButtonComponent buttonType={'cancel'}>Cancel</ButtonComponent>
                     </Fragment>
                     :
                     <span>Something went wrong...</span>

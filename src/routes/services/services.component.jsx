@@ -5,8 +5,8 @@ import ServicesList from "../../components/services-list/services-list.component
 import "./services.styles.scss"
 import PageContainer from "../../utils/page-container/page-container.component"
 
-import axios from "axios"
 import { AlertMessageContext } from "../../context/alert-message.context"
+import { getSuperficialServiceDetails } from "../../api/services/get-all-services"
  
 const Services = () => {
 
@@ -17,23 +17,12 @@ const Services = () => {
     const [filteredServices, setFilteredServices] = useState(superficialServiceDetails);
 
     useEffect(() => {
-        getSuperficialServiceDetails();
+        getSuperficialServiceDetails(displayError).then(response => setSuperficialServiceDetails(response));
     }, [])
 
     useEffect(() => {
         filterServices();
     }, [searchString, superficialServiceDetails])
-
-    const getSuperficialServiceDetails = () => {
-        axios.get(`http://localhost:5000/get-superficial-service-details`)
-        .then(response => {
-            setSuperficialServiceDetails(response.data)
-            console.log(response.data)
-        })
-        .catch(error => {
-            displayError(error)
-        })
-    }
 
     const onSearchChange = (userInput) => {
         setSearchString(userInput)

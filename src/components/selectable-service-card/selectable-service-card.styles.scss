@@ -1,0 +1,11 @@
+.selectable-service-card{
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    border-radius: 7px;
+}
+
+.selectable-service-card-active{
+    color: white;
+    background-color: var(--color-primary-accent);
+}
