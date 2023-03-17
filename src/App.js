@@ -15,6 +15,7 @@ import IncomingOrders from './routes/incoming-orders/incoming-orders.component';
 import OutgoingOrders from './routes/outgoing-orders/outgoing-orders.component';
 
 import './App.styles.scss';
+import SelectableServicesList from './components/selectable-services-list/selectable-services-list.component';
 
 
 const App = () => {
@@ -42,7 +43,10 @@ const App = () => {
         </Route>
         <Route path='/login' element={<LogIn/>} />
         <Route path='/sign-up' element={<SignUp/>} />
-        <Route path='/userProfile-edit' element={<EditUserProfile/>} />
+        <Route path='/userProfile-edit'>
+          <Route index element={<EditUserProfile/>}/>
+          <Route path='/userProfile-edit/edit-services' element={<SelectableServicesList/>}/> 
+        </Route>
       </Routes>
   );
 }

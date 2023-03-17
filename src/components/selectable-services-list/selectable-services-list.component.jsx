@@ -1,9 +1,15 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router';
 
 import { getSuperficialServiceDetails } from '../../api/services/get-all-services';
 import { getUserSpecificServices } from '../../api/services/get-user-specific-services';
+import { updateUserSpecificServices } from '../../api/services/update-user-specific-services';
 
 import { AlertMessageContext } from '../../context/alert-message.context';
+import { UserContext } from '../../context/user.context';
+import MaxSizeContainer from '../../utils/max-size-container/max-size-container.component';
+import PageContainer from '../../utils/page-container/page-container.component';
+import ButtonComponent from '../button/button.component';
 import SearchBar from '../search-bar/search-bar.component';
 
 import SelectableServiceCard from '../selectable-service-card/selectable-service-card.component';
@@ -12,20 +18,23 @@ import './selectable-services-list.styles.scss';
 
 const SelectableServicesList = ({userId}) => {
 
-    const { displayError } = useContext(AlertMessageContext);
+    const { displayError, displaySuccessMessage } = useContext(AlertMessageContext);
+    const { testUser } = useContext(UserContext);
+
+    const navigate = useNavigate();
 
     const [allServicesWithoutUserServices, setAllServicesWithoutUserServices] = useState([]);
     const [userServices, setUserServices] = useState([]);
-    const [activeServiceIds, setActiveServiceIds] = useState([]); //Keeps track of what was selected so it can be sent to the backend without causing optical changes in the lists due to mapping
+    const [selectedServiceIds, setSelectedServiceIds] = useState([]); //Keeps track of what was selected so it can be sent to the backend without causing optical changes in the lists due to mapping
     const [searchString, setSearchString] = useState('')
     const [filteredServices, setFilteredServices] = useState([]);
 
 
     useEffect(() => {
-        getUserSpecificServices(userId, displayError)
+        getUserSpecificServices(testUser.id, displayError)
             .then(response => {
                 setUserServices(response) 
-                setActiveServiceIds(extractIdsIntoNewArray(response))
+                setSelectedServiceIds(extractIdsIntoNewArray(response))
             })
     }, [])
 
@@ -52,15 +61,6 @@ const SelectableServicesList = ({userId}) => {
                 service => {return service.name.toLocaleLowerCase().includes(searchString)}
             )
         )
-    }
-
-
-    const sortServicesAlphabetically = (services) => {
-        return(services.sort((a, b) => {
-            if(a.name < b.name) return -1;
-            if(a.name > b.name) return 1;
-            return 0;
-        }))
     }
 
 
@@ -97,7 +97,6 @@ const SelectableServicesList = ({userId}) => {
             }
         })
 
-        sortServicesAlphabetically(selectionCollection);
         sortServicesBySelectionStatus(selectionCollection);
         
         return selectionCollection;
@@ -114,39 +113,49 @@ const SelectableServicesList = ({userId}) => {
         let serviceIndex = findServiceIndex(tempServices, clickedService);
         
         const modifySelectedServiceIdsConditionally = () => {
-            if(activeServiceIds.includes(clickedService.id))
-                return activeServiceIds.filter(serviceId => (serviceId !== tempServices[serviceIndex].id));
-            if(!activeServiceIds.includes(clickedService.id))
-                return activeServiceIds.concat(clickedService.id);
+            if(selectedServiceIds.includes(clickedService.id))
+                return selectedServiceIds.filter(serviceId => (serviceId !== tempServices[serviceIndex].id));
+            if(!selectedServiceIds.includes(clickedService.id))
+                return selectedServiceIds.concat(clickedService.id);
         }
 
-        setActiveServiceIds(modifySelectedServiceIdsConditionally);
+        setSelectedServiceIds(modifySelectedServiceIdsConditionally);
 
         tempServices[serviceIndex].isSelected = !tempServices[serviceIndex].isSelected;
 
         setAllServicesWithoutUserServices(tempServices);
     }
 
+    const confirmButtonOnClickHandler = () => {
+        updateUserSpecificServices(testUser.id, selectedServiceIds, displayError)
+            .then(displaySuccessMessage('Services Successfully Updated!'));
+    }
+
+    const cancelButtonOnClickHandler = () => navigate(`/userProfile-edit`)
 
     return (
-        <Fragment>
-        <SearchBar 
-            placeholder={'Services'}
-            onSearchChange={onSearchChange}
-        />
-        <div className='selectable-services-list'>
-            {
-                filteredServices
-                &&
-                filteredServices.map(service => {
-                       return(
-                            <SelectableServiceCard key={service.id} onClickHandler={onServiceCardClick} service={service} serviceName={service.name}/>
+        <MaxSizeContainer>
+            <PageContainer>
+                <SearchBar 
+                    placeholder={'Services'}
+                    onSearchChange={onSearchChange}
+                />
+                <div className='selectable-services-list'>
+                    {
+                        filteredServices
+                        &&
+                        filteredServices.map(service => {
+                            return(
+                                    <SelectableServiceCard key={service.id} onClickHandler={onServiceCardClick} service={service} serviceName={service.name}/>
+                                )
+                            }
                         )
                     }
-                )
-            }
-        </div>
-        </Fragment>
+                </div>
+                <ButtonComponent buttonType={'confirm'} onClickHandler={confirmButtonOnClickHandler}>Save Changes</ButtonComponent>
+                <ButtonComponent buttonType={'cancel'} onClickHandler={cancelButtonOnClickHandler}>Discard Changes</ButtonComponent>
+            </PageContainer>
+        </MaxSizeContainer>
     )
 }
 

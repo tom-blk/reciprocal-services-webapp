@@ -7,11 +7,11 @@ import { UserContext } from "../../context/user.context";
 import { AlertMessageContext } from "../../context/alert-message.context";
 
 import { getFullUser } from "../../api/users/get-single-user";
-import { getUserSpecificServices } from "../../api/services/get-user-specific-services";
 import MaxSizeContainer from "../../utils/max-size-container/max-size-container.component";
-import SelectableServicesList from "../selectable-services-list/selectable-services-list.component";
-import { getSuperficialServiceDetails } from "../../api/services/get-all-services";
 import ButtonComponent from "../button/button.component";
+import ServicesList from "../services-list/services-list.component";
+import { getUserSpecificServices } from "../../api/services/get-user-specific-services";
+import { useNavigate } from "react-router";
 
 const EditUserProfile = () => {
 
@@ -22,9 +22,14 @@ const EditUserProfile = () => {
     const [allServices, setAllServices] = useState([]);
     const [userServices, setUserServices] = useState([]);
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         getFullUser(testUser.id, displayError).then(response => setUser(response));
+        getUserSpecificServices(testUser.id, displayError).then(response => setUserServices(response));
     }, [])
+
+    const editServicesButtonOnClickHandler = () => navigate(`/userProfile-edit/edit-services`)
 
     return(
         <MaxSizeContainer>
@@ -42,8 +47,9 @@ const EditUserProfile = () => {
                         <h2>Description</h2>
                         <input type="text" value={user.description} onChange={e => {setUser({...user, description: e.target.value})}}/>
                         <h2>Services</h2>  
-                        <SelectableServicesList userId={testUser.id}/>
-                        <ButtonComponent buttonType={'confirm'}>Confirm</ButtonComponent>
+                        <ServicesList services={userServices}/>
+                        <ButtonComponent buttonType={'confirm'} onClickHandler={editServicesButtonOnClickHandler}>Edit Your Services</ButtonComponent>
+                        <ButtonComponent buttonType={'confirm'}>Save Changes</ButtonComponent>
                         <ButtonComponent buttonType={'cancel'}>Cancel</ButtonComponent>
                     </Fragment>
                     :
