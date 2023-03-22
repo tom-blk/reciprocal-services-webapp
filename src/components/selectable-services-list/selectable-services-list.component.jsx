@@ -24,7 +24,7 @@ const SelectableServicesList = ({userId}) => {
     const navigate = useNavigate();
 
     const [allServicesWithoutUserServices, setAllServicesWithoutUserServices] = useState([]);
-    const [userServices, setUserServices] = useState([]);
+    const [userServiceIds, setUserServiceIds] = useState([]);
     const [selectedServiceIds, setSelectedServiceIds] = useState([]); //Keeps track of what was selected so it can be sent to the backend without causing optical changes in the lists due to mapping
     const [searchString, setSearchString] = useState('')
     const [filteredServices, setFilteredServices] = useState([]);
@@ -33,7 +33,7 @@ const SelectableServicesList = ({userId}) => {
     useEffect(() => {
         getUserSpecificServices(testUser.id, displayError)
             .then(response => {
-                setUserServices(response) 
+                setUserServiceIds(extractIdsIntoNewArray(response)) 
                 setSelectedServiceIds(extractIdsIntoNewArray(response))
             })
     }, [])
@@ -41,8 +41,8 @@ const SelectableServicesList = ({userId}) => {
 
     useEffect(() => {
         getSuperficialServiceDetails(displayError)
-            .then(response => setAllServicesWithoutUserServices(assignSelectionStatusAndReturnServices(response, userServices)));
-    }, [userServices])
+            .then(response => setAllServicesWithoutUserServices(assignSelectionStatusAndReturnServices(response, userServiceIds)));
+    }, [userServiceIds])
 
 
     useEffect(() => {
@@ -84,22 +84,22 @@ const SelectableServicesList = ({userId}) => {
     }
 
 
-    const assignSelectionStatusAndReturnServices = (selectionCollection, selectedServices) => {
-        const compareServiceId = (service1, service2) => {
-            return service1.id === service2.id
+    const assignSelectionStatusAndReturnServices = (allServices, selectedServiceIds) => {
+        const compareServiceId = (service, selectedServiceId) => {
+            return service.id === selectedServiceId
         }
         
-        selectionCollection.forEach(service => {
-            if(selectedServices.some(userService => compareServiceId(service, userService))){
+        allServices.forEach(service => {
+            if(selectedServiceIds.some(selectedServiceId => compareServiceId(service, selectedServiceId))){
                 service.isSelected = true;
             } else {
                 service.isSelected = false;
             }
         })
 
-        sortServicesBySelectionStatus(selectionCollection);
+        sortServicesBySelectionStatus(allServices);
         
-        return selectionCollection;
+        return allServices;
     }
 
 
@@ -127,7 +127,7 @@ const SelectableServicesList = ({userId}) => {
     }
 
     const confirmButtonOnClickHandler = () => {
-        updateUserSpecificServices(testUser.id, selectedServiceIds, displayError)
+        updateUserSpecificServices(testUser.id, userServiceIds, selectedServiceIds, displayError)
             .then(displaySuccessMessage('Services Successfully Updated!'));
     }
 

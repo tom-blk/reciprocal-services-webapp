@@ -1,11 +1,27 @@
 import axios from "axios"
 
-export const updateUserSpecificServices = async (userId, serviceIds, onErrrorFunction) => {
+export const updateUserSpecificServices = async (userId, userServiceIds, selectedServiceIds, onErrrorFunction) => {
+
+    let serviceIdsToBeAdded = [];
+    let serviceIdsToBeRemoved = [];
+
+    userServiceIds.forEach(serviceId => {
+        if(!selectedServiceIds.includes(serviceId)){
+            serviceIdsToBeRemoved.push(serviceId)
+        }
+    })
+
+    selectedServiceIds.forEach(serviceId => {
+        if(!userServiceIds.includes(serviceId)){
+            serviceIdsToBeAdded.push(serviceId)
+        }
+    })
 
     try{
         const response = await axios.post(`http://localhost:5000/update-user-specific-services`, {
             userId: userId,
-            serviceIds: serviceIds
+            serviceIdsToBeAdded: serviceIdsToBeAdded,
+            serviceIdsToBeRemoved: serviceIdsToBeRemoved,
         })
 
         return response.data;
