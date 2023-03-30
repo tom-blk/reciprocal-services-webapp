@@ -7,12 +7,14 @@ import ButtonComponent from "../button/button.component";
 import RoundImageContainer from "../round-image-container/round-image-container.component";
 import CardDataContainer from "../card-data-container/card-data-container.component";
 import OrderServiceModal from "../modal/orderServiceModal";
+import CardComponent from "../card/card.component";
+import RatingDisplayComponent from "../rating-display-component/rating-display.component";
 
 const ProviderCard = ({ user, serviceId, serviceName, orderButtonExists }) => {
 
     const { toggleModal } = useContext(ModalContext);
 
-    const {id, firstName, lastName, profilePicture} = user;
+    const {id, firstName, lastName, profilePicture, rating} = user;
 
     const navigate = useNavigate()
 
@@ -36,11 +38,16 @@ const ProviderCard = ({ user, serviceId, serviceName, orderButtonExists }) => {
         setServiceOrdered(true);
     }
 
+    const onClickHandler = () => {
+        navigate(`/providers/${id}`)
+    }
+
     return(
-        <div onClick={e => navigate(`/providers/${id}`)} className="card">
+        <CardComponent onClickHandler={onClickHandler} className="card">
             <CardDataContainer>
                 <RoundImageContainer picture={profilePicture} serviceOrUser={'user'} size={'card'}/>
                 <div className="heading-secondary">{firstName + ' ' + lastName}</div>  
+                <RatingDisplayComponent rating={rating}/>
             </CardDataContainer>
             {
                 orderButtonExists
@@ -52,7 +59,7 @@ const ProviderCard = ({ user, serviceId, serviceName, orderButtonExists }) => {
                     {serviceOrdered ? "Service Ordered!" : "Order Service"}
                 </ButtonComponent>
             }
-        </div>
+        </CardComponent>
     )
 }
 

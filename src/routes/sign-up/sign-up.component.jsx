@@ -68,8 +68,8 @@ const SignUp = () => {
 
     return(
         <div className="auth-pages-container">
-            <h3>Signup</h3>
-            <form onSubmit={handleSubmit}>
+            <form className="auth-pages-centered" onSubmit={handleSubmit}>
+                <h3>Signup</h3>
                 <label>Input your Email Address</label>
                 <input 
                     required

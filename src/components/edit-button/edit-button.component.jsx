@@ -11,7 +11,7 @@ const EditButton = ({size, onClickHandler}) => {
             <div 
                 onClick={e => onClickHandler()}
                 style={{height: size, width: size, backgroundImage: `url(${backgroundImage})`}} 
-                className="edit-button"
+                className="edit-button main-hover"
             />
         </Fragment>
     )

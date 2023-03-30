@@ -8,14 +8,8 @@
     align-items: center;
     text-align: center;
     gap: var(--space-4);
-    border: 2px solid var(--color-quinary-accent);
-    background-color: var(--color-tertiary-accent);
+    border: 2px solid var(--color-secondary-accent);
     padding: 10px;
-    box-shadow: 1px 2px 3px #727171;
-
-    &:hover{
-        cursor: pointer;
-    }
 }
 
 .card .button{

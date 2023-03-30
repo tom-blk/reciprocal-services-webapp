@@ -8,6 +8,13 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: linear-gradient(to right, var(--color-background-primary), var(--color-background-secondary), var(--color-background-primary));
+  color: var(--color-secondary-accent);
+}
+
+@font-face {
+  font-family: 'STR';
+  src: local('STR'), url(./fonts/STR.ttf) format('truetype');
 }
 
 code {
@@ -16,7 +23,7 @@ code {
 }
 
 a{
-  color: black;
+  color: white;
   text-decoration: none;
   width: initial;
   height: initial;
@@ -38,11 +45,13 @@ span{
 
 :root{
   --content-width: 960px;
+  --nav-width: 1024px;
 
   --font-small: 12px;
   --font-normal: 16px;
   --font-large: 24px;
   --font-very-large: 30px;
+  --font-banner: 50px;
 
   --space-1: 2px;
   --space-2: 4px;
@@ -53,11 +62,16 @@ span{
   --profile-avatar-size-card: 50px;
   --profile-avatar-size-page: 100px;
 
-  --color-primary-accent: #145438;
-  --color-secondary-accent: #e2ece9;
-  --color-tertiary-accent: #ffffff;
-  --color-quarternary-accent: #897943;
-  --color-quinary-accent: #aab4b1;
+  --color-background-primary: #040424;
+  --color-background-secondary: #141457;
+
+  --color-primary-accent: #48ffe0;
+
+  --color-secondary-accent: #cdfff7;
+  --color-secondary-accent-complement: #141457;
+
+  --color-tertiary-accent: #897943;
+  --color-quaternary-accent: #aab4b1;
 
   --color-error-text-and-border: #810000;
   --color-error-background: #ffc6c6c7;

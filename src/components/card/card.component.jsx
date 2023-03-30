@@ -4,7 +4,7 @@ import './card.styles.scss';
 
 const CardComponent = ({onClickHandler, children}) => {
   return (
-    <div className='card' onClick={e => onClickHandler()}>
+    <div className='card main-hover' onClick={e => onClickHandler()}>
         {children}
     </div>
   )

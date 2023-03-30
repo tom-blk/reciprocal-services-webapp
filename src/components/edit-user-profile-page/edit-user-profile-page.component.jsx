@@ -19,7 +19,6 @@ const EditUserProfile = () => {
     const { displayError } = useContext(AlertMessageContext)
 
     const [user, setUser] = useState(undefined);
-    const [allServices, setAllServices] = useState([]);
     const [userServices, setUserServices] = useState([]);
 
     const navigate = useNavigate();

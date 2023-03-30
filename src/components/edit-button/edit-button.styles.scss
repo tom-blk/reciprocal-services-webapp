@@ -1,16 +1,10 @@
 .edit-button{
     position: absolute;
     right: 20%;
-    background-color: white;
-    border: 2px solid var(--color-quinary-accent);
+    background-color: var(--color-secondary-accent);
     border-radius: 50%;
 
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-
-    &:hover{
-        cursor: pointer;
-        border-color: var(--color-primary-accent);
-    }
 }

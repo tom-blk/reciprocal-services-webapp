@@ -15,11 +15,13 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 99;
+    color: var(--color-secondary-accent);
 
     padding: 30px;
     width: 50%;
 
-    background-color: rgba(255,255,255,0.8);
+    background-color: var(--color-background-primary);
+    border: 2px solid var(--color-secondary-accent);
 
     display: grid;
     flex-direction: column;

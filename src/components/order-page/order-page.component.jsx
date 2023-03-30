@@ -102,10 +102,13 @@ const OrderPage = () => {
                 <Fragment>
                     <div className="transaction-page-heading">
                         <RoundImageContainer picture={service.icon} size={'page'}/>
-                        <h1>{`Order Of ${service.name} at ${tempOrder.dateIssued}`}</h1>
+                        <h1>{`Order Of ${service.name} at ${tempOrder.dateIssued.toLocaleString()}`}</h1>
                     </div>
                     <span>{`${orderStatusHook.correspondingUserRole}: ${correspondingUser.firstName} ${correspondingUser.lastName}`}</span>
-                    <span>{`credits awarded: ${tempOrder.creditsAwarded}`}</span>
+                    <span>Message: 
+                        <pre>{tempOrder.message}</pre>
+                    </span>
+                    <span>{tempOrder.creditsAwarded && `credits awarded: ${tempOrder.creditsAwarded}`}</span>
                     <ButtonComponent 
                         buttonType={orderStatusHook.buttonClassName}
                         onClickHandler={buttonOnClickHandler}

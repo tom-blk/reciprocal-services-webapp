@@ -44,7 +44,7 @@ const ConfirmOrderCompletionModalComponent = ({providerId, confirmedCompletionCa
                 })
             }
         </div>
-        <ButtonComponent buttonType={'confirm'} onClickHandler={confirmRatingAndCloseModal}>Confirm Rating and Order Completion</ButtonComponent>
+        <ButtonComponent buttonType={'secondary-confirm'} onClickHandler={confirmRatingAndCloseModal}>Confirm Rating and Order Completion</ButtonComponent>
     </Fragment>
     )
 }

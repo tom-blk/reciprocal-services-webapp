@@ -17,11 +17,18 @@ const OrderServiceModal = ({ providingUserId, providingUserFirstName, providingU
     const { testUser } = useContext(UserContext);
     const { displayError, displaySuccessMessage } = useContext(AlertMessageContext);
 
-    const orderData = {
+    const orderDataTemplate = {
         serviceId: serviceId,
         providingUserId: providingUserId,
         receivingUserId: testUser.id,
+        message: ''
     }
+
+    const [orderData, setOrderData] = useState(orderDataTemplate);
+
+    useEffect(() => {
+        console.log(orderData)
+    }, [orderData])
 
     const onClickHandler = () => {
         createOrder(orderData, displaySuccessMessage, displayError);
@@ -29,10 +36,16 @@ const OrderServiceModal = ({ providingUserId, providingUserFirstName, providingU
         toggleModal();
     }
 
+    const onOrderMessageChangeHandler = (e) => {
+        setOrderData({ ...orderData, message: e.target.value })
+    }
+
     return(
         <Fragment>
             <h2>{`Do you really wish to order the service ${serviceName} from ${providingUserFirstName} ${providingUserLastName}?`}</h2>
-            <ButtonComponent buttonType={'confirm'} onClickHandler={onClickHandler}>{'Confirm'}</ButtonComponent>
+            <span>Message:</span>
+            <textarea onChange={e => onOrderMessageChangeHandler(e)} style={{width:'70%'}} type='text' rows='10'></textarea>
+            <ButtonComponent buttonType={'secondary-confirm secondary-confirm-hover'} onClickHandler={onClickHandler}>{'Confirm'}</ButtonComponent>
             <ButtonComponent buttonType={'cancel'} onClickHandler={toggleModal}>{'Cancel'}</ButtonComponent>
         </Fragment>
     )

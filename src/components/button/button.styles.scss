@@ -1,8 +1,11 @@
 .button{
     display: grid;
     justify-content: center;
-    padding: 2%;
-    border-radius: 5px;
+    padding: var(--space-4);
+    border-radius: 10px;
+
+    border: none;
+    background: none;
 
     &:hover{
         cursor: pointer;
@@ -10,20 +13,34 @@
 }
 
 .confirm{
-    background-color: var(--color-primary-accent);
-    color: white;
+    background-color: var(--color-secondary-accent);
+    color: var(--color-secondary-accent-complement);
+
+    &:hover{
+        box-shadow: 1px 1px 3px #48ffe0, -1px -1px 3px #06ffac, -1px 1px 3px #48ffe0, 1px -1px 3px #06ffac;
+    }
 }
 
 .secondary-confirm{
-    color: var(--color-primary-accent);
+    background-color: var(--color-secondary-accent);
+    color: var(--color-secondary-accent-complement);
     background-color: white;
-    border: 1px solid var(--color-primary-accent);
+}
+
+.secondary-confirm-hover{
+    //Secondary Confirm Button is mainly used as an inactive button in the transaction status, thats why hover is not always needed and can be applied
+    &:hover{
+        box-shadow: 1px 1px 3px #ffffff, -1px -1px 3px #ffffff, -1px 1px 3px #ffffff, 1px -1px 3px #ffffff;
+    }
 }
 
 .cancel{
     color: red;
     background-color: white;
-    border: 1px solid red;
+
+    &:hover{
+        box-shadow: 1px 1px 3px #ff0000, -1px -1px 3px #ff0000, -1px 1px 3px #ff0000, 1px -1px 3px #ff0000;
+    }
 }
 
 .inactive{
@@ -33,11 +50,11 @@
 }
 
 .order-pending{
-    background-color: rgba(223, 200, 0, 0.664);
+    background-color: #d19900;
     color: white;
 }
 
 .order-denied{
-    background-color: rgba(255, 0, 0, 0.664);
+    background-color: #940000;
     color: white;
 }

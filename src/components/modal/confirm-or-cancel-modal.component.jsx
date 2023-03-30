@@ -14,7 +14,7 @@ const ConfirmOrCancelModal = ({prompt, onConfirm}) => {
     return (
         <Fragment>
             <h2>{prompt}</h2>
-            <ButtonComponent buttonType={'confirm'} onClickHandler={confirmAndCloseModal}>Confirm</ButtonComponent>
+            <ButtonComponent buttonType={'secondary-confirm'} onClickHandler={confirmAndCloseModal}>Confirm</ButtonComponent>
             <ButtonComponent buttonType={'cancel'} onClickHandler={toggleModal}>Cancel</ButtonComponent>
         </Fragment>
     )

@@ -14,9 +14,9 @@ import SearchBar from '../search-bar/search-bar.component';
 
 import SelectableServiceCard from '../selectable-service-card/selectable-service-card.component';
 
-import './selectable-services-list.styles.scss';
+import './edit-user-services-list.styles.scss';
 
-const SelectableServicesList = ({userId}) => {
+const EditUserServicesList = ({userId}) => {
 
     const { displayError, displaySuccessMessage } = useContext(AlertMessageContext);
     const { testUser } = useContext(UserContext);
@@ -159,4 +159,4 @@ const SelectableServicesList = ({userId}) => {
     )
 }
 
-export default SelectableServicesList
+export default EditUserServicesList

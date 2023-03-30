@@ -21,7 +21,7 @@
     width: 90%;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: var(--space-4);
 }
 
 .image-icon{
@@ -33,6 +33,25 @@
     //background image needs to be set in the element itself via inline-styles
     height: 50px;
     width: 50px;
+}
+
+.main-hover{
+    box-shadow: 1px 1px 3px #48ffe0, -1px -1px 3px #06ffac;
+
+    &:hover{
+        cursor: pointer;
+        animation: on-hover-animation .3s;
+        animation-fill-mode: forwards;
+    }
+}
+
+@keyframes on-hover-animation{
+    0%{
+        box-shadow: 0;
+    }
+    100%{
+        box-shadow: 2px 2px 5px #48ffe0, -2px -2px 5px #06ffac, 2px -2px 5px #06ffac, -2px 2px 5px #06ffac;
+    }
 }
 
 

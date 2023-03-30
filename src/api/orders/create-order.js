@@ -7,6 +7,7 @@ export const createOrder = async (orderData, onSuccessFunction, onErrorFunction)
             serviceId: orderData.serviceId,
             providingUserId: orderData.providingUserId,
             receivingUserId: orderData.receivingUserId,
+            message: orderData.message,
             dateIssued: new Date(),
         })
         onSuccessFunction('Service successfuly ordered. Check your outgoing orders to see the status of your order.')

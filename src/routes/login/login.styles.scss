@@ -1,11 +1,15 @@
 .auth-pages-container{
-    justify-self: center;
-    align-self: center;
-    width: 20%;
-    height: 40%;
+    height: 100vh;
     display: grid;
     justify-items: center;
-    gap: 8%;
+    align-items: center;
+}
+
+.auth-pages-centered{
+    width: 15%;
+    display: grid;
+    justify-items: center;
+    gap: var(--space-4);
 }
 
 .auth-input{
