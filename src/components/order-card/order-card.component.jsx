@@ -83,10 +83,22 @@ const OrderCard = ({order}) => {
 
     return(
         <CardComponent onClickHandler={cardOnClickHandler}>
-            <div>{`Date Issued: ${order.dateIssued}`}</div>
-            <div>{`Provided Service: ${service ? service.name : 'Error Loading the Service...'}`}</div>
-            <div>{`Provided by: ${provider ? provider.firstName + ' ' + provider.lastName : 'Error Loading the Provider...'}`}</div>
-            <div>{`Credits Awarded: ${order.creditsAwarded ?  order.creditsAwarded : "TBD"}`}</div>
+            <div>
+                <div className="bold">Date Issued: </div>
+                <div>{order.dateIssued}</div>
+            </div>
+            <div>
+                <div className="bold">Provided Service: </div>
+                <div>{service ? service.name : 'Error Loading the Service...'}</div>
+            </div>
+            <div>
+                <div className="bold">Provided by: </div>
+                <div>{provider ? provider.firstName + ' ' + provider.lastName : 'Error Loading the Provider...'}</div>
+            </div>
+            <div>
+                <div className="bold">Credits Awarded: </div>
+                <div>{order.creditsAwarded ?  order.creditsAwarded : "TBD"}</div>
+            </div>
             <ButtonComponent 
                 buttonType={orderStatusHook.buttonClassName}
                 onClickHandler={buttonOnClickHandler}
@@ -100,7 +112,7 @@ const OrderCard = ({order}) => {
                     buttonType={'cancel'}
                     onClickHandler={declineButtonOnClickHandler}
                 >
-                            Decline Order
+                    Decline Order
                 </ButtonComponent>
             }
         </CardComponent>

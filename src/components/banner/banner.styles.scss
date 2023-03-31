@@ -1,0 +1,20 @@
+.banner{
+    font-family: str;
+    font-size: var(--font-banner);
+
+    animation: banner-intro-animation 3s;
+    animation-fill-mode: forwards;
+
+    &:hover{
+        cursor: pointer;
+        animation: banner-flicker-animation infinite 1s;
+    }
+}
+
+.header{
+    font-size: var(--font-banner);
+}
+
+.footer{
+    font-size: var(--font-large);
+}

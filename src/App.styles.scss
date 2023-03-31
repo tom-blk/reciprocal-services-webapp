@@ -15,6 +15,10 @@
     color: var(--color-font-secondary);
 }
 
+.bold{
+    font-weight: bold;
+}
+
 .card-list{
     margin-left: auto;
     margin-right: auto;
@@ -48,9 +52,11 @@
 @keyframes on-hover-animation{
     0%{
         box-shadow: 0;
+        transform: scale(1);
     }
     100%{
         box-shadow: 2px 2px 5px #48ffe0, -2px -2px 5px #06ffac, 2px -2px 5px #06ffac, -2px 2px 5px #06ffac;
+        transform: scale(1.002);
     }
 }
 

@@ -1,0 +1,14 @@
+.service-card-main-data-container{
+    width: 100%;
+    text-align: left;
+    display: flex;
+    gap: var(--space-3);
+    align-items: center;
+    justify-content: space-between;
+}
+
+.service-card-left-data-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

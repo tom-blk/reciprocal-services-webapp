@@ -8,7 +8,7 @@ export const createOrder = async (orderData, onSuccessFunction, onErrorFunction)
             providingUserId: orderData.providingUserId,
             receivingUserId: orderData.receivingUserId,
             message: orderData.message,
-            dateIssued: new Date(),
+            dateIssued: new Date().toISOString().slice(0, 19).replace('T', ' ')
         })
         onSuccessFunction('Service successfuly ordered. Check your outgoing orders to see the status of your order.')
         console.log(response);

@@ -7,6 +7,7 @@ import PageContainer from "../../utils/page-container/page-container.component"
 
 import { AlertMessageContext } from "../../context/alert-message.context"
 import { getSuperficialServiceDetails } from "../../api/services/get-all-services"
+import ButtonComponent from "../../components/button/button.component"
  
 const Services = () => {
 

@@ -8,6 +8,8 @@ import CardComponent from "../card/card.component";
 import OrderServiceModal from "../modal/orderServiceModal";
 import RoundImageContainer from "../round-image-container/round-image-container.component";
 
+import './service-card.styles.scss';
+
 const ServiceCard = ({ service, providingUserId, providingUserFirstName, providingUserLastName, orderButtonExists }) => {
     const { id, icon, name, description } = service;
 
@@ -39,11 +41,18 @@ const ServiceCard = ({ service, providingUserId, providingUserFirstName, providi
 
     return(
         <CardComponent onClickHandler={onClickHandler} className="card service-card">
-            <CardDataContainer>
-                <RoundImageContainer picture={icon} serviceOrUser={'service'} size={'card'}/>
-                <div className="heading-secondary">{name}</div>
-                <div className="text">{description}</div>
-            </CardDataContainer>
+            <div className="service-card-main-data-container">
+                <div className="service-card-left-data-container">
+                    <RoundImageContainer picture={icon} serviceOrUser={'service'} size={'card'}/>
+                    <div>
+                        <div className="heading-secondary">{name}</div>
+                        <div className="text">{description}</div> 
+                    </div>
+                </div>
+                {
+                    !orderButtonExists && <div className="heading-secondary">? Providers</div>
+                }
+            </div>
             {
                 orderButtonExists &&
                 <ButtonComponent buttonType={serviceOrdered ? 'inactive' : 'confirm'}

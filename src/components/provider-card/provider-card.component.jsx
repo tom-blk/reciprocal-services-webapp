@@ -10,6 +10,8 @@ import OrderServiceModal from "../modal/orderServiceModal";
 import CardComponent from "../card/card.component";
 import RatingDisplayComponent from "../rating-display-component/rating-display.component";
 
+import './provider-card.styles.scss';
+
 const ProviderCard = ({ user, serviceId, serviceName, orderButtonExists }) => {
 
     const { toggleModal } = useContext(ModalContext);
@@ -44,11 +46,12 @@ const ProviderCard = ({ user, serviceId, serviceName, orderButtonExists }) => {
 
     return(
         <CardComponent onClickHandler={onClickHandler} className="card">
-            <CardDataContainer>
-                <RoundImageContainer picture={profilePicture} serviceOrUser={'user'} size={'card'}/>
-                <div className="heading-secondary">{firstName + ' ' + lastName}</div>  
-                <RatingDisplayComponent rating={rating}/>
-            </CardDataContainer>
+            <div className="provider-card-main-data-container">
+                <div className="provider-card-left-data-container">
+                    <RoundImageContainer picture={profilePicture} serviceOrUser={'user'} size={'card'}/>
+                    <div className="heading-secondary">{firstName + ' ' + lastName}</div>  
+                    <RatingDisplayComponent rating={rating}/>
+                </div>
             {
                 orderButtonExists
                 &&
@@ -59,6 +62,7 @@ const ProviderCard = ({ user, serviceId, serviceName, orderButtonExists }) => {
                     {serviceOrdered ? "Service Ordered!" : "Order Service"}
                 </ButtonComponent>
             }
+            </div>
         </CardComponent>
     )
 }
