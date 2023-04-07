@@ -2,6 +2,8 @@ import ServiceCard from "../service-card/service-card.component"
 
 const ServicesList = ({ services }) => {
 
+    const loadingPlaceholderCards = [1, 2, 3];
+
     return(
         <div className="card-list">
         {

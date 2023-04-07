@@ -1,13 +1,24 @@
 import './round-image-container.styles.scss';
 
+import { ReactComponent as ServiceIcon } from '../../assets/vectors/service.svg';
+import { ReactComponent as AvatarIcon } from '../../assets/vectors/avatar.svg';
+
 const RoundImageContainer = ({picture, serviceOrUser, size, className}) => {
 
     const renderPicture = () => {
         if(!picture){
             if(serviceOrUser === 'user'){
-                return "https://www.svgrepo.com/download/316857/profile-simple.svg";
+                return <AvatarIcon
+                    width={assertSize()}
+                    height={assertSize()}
+                    fill={getComputedStyle(document.body).getPropertyValue('--color-primary-accent')}
+                />;
             } else if(serviceOrUser === 'service'){
-                return "https://www.svgrepo.com/download/382142/service.svg";
+                return <ServiceIcon
+                    width={assertSize()}
+                    height={assertSize()}
+                    fill={getComputedStyle(document.body).getPropertyValue('--color-primary-accent')}
+                />;
             }
         } else {
             return picture;
@@ -16,21 +27,14 @@ const RoundImageContainer = ({picture, serviceOrUser, size, className}) => {
 
     const assertSize = () => {
         if(size==="card"){
-            return '--profile-avatar-size-card'
+            return getComputedStyle(document.body).getPropertyValue('--profile-avatar-size-card')
         } else if(size==="page"){
-            return '--profile-avatar-size-page'
+            return getComputedStyle(document.body).getPropertyValue('--profile-avatar-size-page') 
         }
     }
 
     return(
-        <div 
-            className={`round-image-container ${className}`} 
-            style={{
-                backgroundImage: `url(${renderPicture()})`,
-                width: `var(${assertSize()})`,
-                height: `var(${assertSize()})`
-            }}
-        />
+        renderPicture()
     )
 }
 

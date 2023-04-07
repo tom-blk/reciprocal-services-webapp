@@ -9,6 +9,8 @@ import OrderServiceModal from "../modal/orderServiceModal";
 import RoundImageContainer from "../round-image-container/round-image-container.component";
 
 import './service-card.styles.scss';
+import { LoadingComponentBars, LoadingComponentCirlce } from "../loading/loading.components";
+import RatingDisplayComponent from "../rating-display-component/rating-display.component";
 
 const ServiceCard = ({ service, providingUserId, providingUserFirstName, providingUserLastName, orderButtonExists }) => {
     const { id, icon, name, description } = service;
@@ -46,21 +48,22 @@ const ServiceCard = ({ service, providingUserId, providingUserFirstName, providi
                     <RoundImageContainer picture={icon} serviceOrUser={'service'} size={'card'}/>
                     <div>
                         <div className="heading-secondary">{name}</div>
-                        <div className="text">{description}</div> 
+                        <div className="text">{description}</div>
                     </div>
                 </div>
+                { !orderButtonExists && <div className="heading-secondary">? Providers</div> }
                 {
-                    !orderButtonExists && <div className="heading-secondary">? Providers</div>
+                    orderButtonExists 
+                    &&
+                    <ButtonComponent 
+                        buttonType={serviceOrdered ? 'inactive' : 'confirm'}
+                        onClickHandler={openModal}
+                    >
+                        {serviceOrdered ? 'Service Ordered!' : 'Order Service'}
+                    </ButtonComponent>
                 }
             </div>
-            {
-                orderButtonExists &&
-                <ButtonComponent buttonType={serviceOrdered ? 'inactive' : 'confirm'}
-                    onClickHandler={openModal}
-                >
-                    {serviceOrdered ? 'Service Ordered!' : 'Order Service'}
-                </ButtonComponent>
-            }
+            
         </CardComponent>
     )
 }

@@ -1,11 +1,22 @@
 .provider-card-main-data-container{
+    width: 100%;
+    text-align: left;
     display: flex;
+    gap: var(--space-3);
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
 
 .provider-card-left-data-container{
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: var(--space-3);
+}
+
+.provider-card-right-data-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: var(--space-3);
 }

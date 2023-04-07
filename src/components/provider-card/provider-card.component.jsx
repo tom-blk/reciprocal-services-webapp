@@ -50,18 +50,21 @@ const ProviderCard = ({ user, serviceId, serviceName, orderButtonExists }) => {
                 <div className="provider-card-left-data-container">
                     <RoundImageContainer picture={profilePicture} serviceOrUser={'user'} size={'card'}/>
                     <div className="heading-secondary">{firstName + ' ' + lastName}</div>  
-                    <RatingDisplayComponent rating={rating}/>
+                    
                 </div>
-            {
-                orderButtonExists
-                &&
-                <ButtonComponent
-                    buttonType={serviceOrdered ? "inactive" : "confirm"}
-                    onClickHandler={serviceOrdered ? undefined : e => openModal(e)}
-                >
-                    {serviceOrdered ? "Service Ordered!" : "Order Service"}
-                </ButtonComponent>
-            }
+                <div className="provider-card-right-data-container">
+                    <RatingDisplayComponent rating={rating}/>
+                    {
+                        orderButtonExists
+                        &&
+                        <ButtonComponent
+                            buttonType={serviceOrdered ? "inactive" : "confirm"}
+                            onClickHandler={serviceOrdered ? undefined : e => openModal(e)}
+                        >
+                            {serviceOrdered ? "Service Ordered!" : "Order Service"}
+                        </ButtonComponent>
+                    }
+                </div>
             </div>
         </CardComponent>
     )
