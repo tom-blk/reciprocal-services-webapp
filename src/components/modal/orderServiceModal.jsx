@@ -44,7 +44,7 @@ const OrderServiceModal = ({ providingUserId, providingUserFirstName, providingU
         <Fragment>
             <h2>{`Do you really wish to order the service ${serviceName} from ${providingUserFirstName} ${providingUserLastName}?`}</h2>
             <span>Message:</span>
-            <textarea onChange={e => onOrderMessageChangeHandler(e)} style={{width:'70%'}} type='text' rows='10'></textarea>
+            <textarea className="text-area" onChange={e => onOrderMessageChangeHandler(e)} style={{width:'70%'}} type='text' rows='10'></textarea>
             <ButtonComponent buttonType={'secondary-confirm secondary-confirm-hover'} onClickHandler={onClickHandler}>{'Confirm'}</ButtonComponent>
             <ButtonComponent buttonType={'cancel'} onClickHandler={toggleModal}>{'Cancel'}</ButtonComponent>
         </Fragment>

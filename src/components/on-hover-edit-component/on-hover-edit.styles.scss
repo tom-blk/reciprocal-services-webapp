@@ -1,0 +1,29 @@
+.on-hover-edit-container{
+    position: relative;
+    height: 100px;
+    width: 100px;
+
+}
+
+.on-hover-edit-children-div{
+    position: absolute;
+
+    width: min-content;
+    height: min-content;
+    padding: 0;
+
+    &:hover{
+        background-color: #64646462;
+    }
+
+    &:hover + .on-hover-edit-image{
+        display: block;
+    }
+}
+
+.on-hover-edit-image{
+    position: absolute;
+    display: none;
+    height: 100px;
+    width: 100px;
+}

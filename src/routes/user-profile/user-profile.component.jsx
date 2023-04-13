@@ -49,9 +49,10 @@ const UserProfile = () => {
                     <RatingDisplayComponent rating={user.rating}/>
                     <span>Location</span>
                     <span>{user.mobility ? 'Traveling Radius: ' + user.mobility : 'Not Traveling for Orders.'}</span>
+                    <h2>Description</h2>
+                    <div>{user.profileDescription}</div>
                     <h2>Providable Services</h2>
                     <ServicesList services={userServices}/>
-                    <div>{user.profileDescription}</div>
                     <EditButton onClickHandler={navigateToUserEditProfile} size="50px"/>
                 </Fragment>
                 :

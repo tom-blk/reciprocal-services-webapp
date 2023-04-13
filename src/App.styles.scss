@@ -19,6 +19,19 @@
     font-weight: bold;
 }
 
+.text-area{
+    padding: var(--space-3);
+    background-color: #cefff7;
+    color: var(--color-secondary-accent-complement);
+    border-radius: 5px;
+    box-shadow: 1px 1px 0px #48ffe0, -1px -1px 0px #06ffac, 1px -1px 0px #06ffac, -1px 1px 0px #06ffac;
+
+    &:hover{
+        animation: select-text-area .2s;
+        animation-fill-mode: forwards;
+    }
+}
+
 .card-list{
     margin-left: auto;
     margin-right: auto;
@@ -57,6 +70,24 @@
     100%{
         box-shadow: 2px 2px 5px #48ffe0, -2px -2px 5px #06ffac, 2px -2px 5px #06ffac, -2px 2px 5px #06ffac;
         transform: scale(1.002);
+    }
+}
+
+.text-area::placeholder{
+    color: #141457c2;
+}
+
+@keyframes select-text-area{
+    0% {
+        border-radius: 0;
+        transform: scale(1);
+        box-shadow: 1px 1px 1px #48ffe0, -1px -1px 1px #06ffac, 1px -1px 1px #06ffac, -1px 1px 1px #06ffac;
+    }
+
+    100% {
+        border-radius: 7px;
+        transform: scale(1.01);
+        box-shadow: 1px 1px 2px #48ffe0, -1px -1px 2px #06ffac, 1px -1px 2px #06ffac, -1px 1px 2px #06ffac;
     }
 }
 
