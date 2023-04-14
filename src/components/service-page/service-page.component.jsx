@@ -51,7 +51,7 @@ const ServicePage = () => {
                 ?
                 <PageContainer>
                     <div className="transaction-page-heading">
-                        <RoundImageContainer picture={service.icon} serviceOrUser={'service'} size={'page'}/>
+                        <RoundImageContainer picture={service.icon} serviceOrUser={'service'} size={'round-image-container-page'}/>
                         <div className="heading-primary">{service.name}</div>
                     </div>
                     <div className="heading-secondary">{`Credits per Hour: ${service.creditsPerHour}`}</div>

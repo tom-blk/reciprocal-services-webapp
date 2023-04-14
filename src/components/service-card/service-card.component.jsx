@@ -45,7 +45,7 @@ const ServiceCard = ({ service, providingUserId, providingUserFirstName, providi
         <CardComponent onClickHandler={onClickHandler} className="card service-card">
             <div className="service-card-main-data-container">
                 <div className="service-card-left-data-container">
-                    <RoundImageContainer picture={icon} serviceOrUser={'service'} size={'card'}/>
+                    <RoundImageContainer picture={icon} serviceOrUser={'service'} size={'round-image-container-card'}/>
                     <div>
                         <div className="heading-secondary">{name}</div>
                         <div className="text">{description}</div>

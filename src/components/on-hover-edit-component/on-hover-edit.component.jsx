@@ -1,14 +1,17 @@
 import React from 'react'
+import {ReactComponent as PenSVG} from '../../assets/vectors/pen.svg';
 
 import './on-hover-edit.styles.scss';
 
-export const OnHoverEdit = ({children}) => {
+export const OnHoverEdit = ({size, onClickFunction, children}) => {
   return (
-    <div className='on-hover-edit-container'>
+    <div onClick={e => onClickFunction()} className={`on-hover-edit-container ${size}`}>
         <div className='on-hover-edit-children-div'>
             {children}
         </div>
-        <img className='on-hover-edit-image' src={'https://www.svgrepo.com/download/433660/pen-o.svg'}/>
+        <div className='on-hover-edit-image'>
+          <PenSVG />
+        </div>
     </div>
     
     

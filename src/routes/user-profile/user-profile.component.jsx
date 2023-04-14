@@ -40,7 +40,7 @@ const UserProfile = () => {
                 ?
                 <Fragment>
                     <div className="povider-profile-heading-container">
-                        <RoundImageContainer size="page" serviceOrUser={'user'} picture={user.profilePicture}/>
+                        <RoundImageContainer size="round-image-container-page" serviceOrUser={'user'} picture={user.profilePicture}/>
                         <div>
                             <h1>{`${user.firstName} ${user.lastName}`}</h1>
                             <span className="sub-text">{`@${user.userName}`}</span>

@@ -48,7 +48,7 @@ const ProviderCard = ({ user, serviceId, serviceName, orderButtonExists }) => {
         <CardComponent onClickHandler={onClickHandler} className="card">
             <div className="provider-card-main-data-container">
                 <div className="provider-card-left-data-container">
-                    <RoundImageContainer picture={profilePicture} serviceOrUser={'user'} size={'card'}/>
+                    <RoundImageContainer picture={profilePicture} serviceOrUser={'user'} size={'round-image-container-card'}/>
                     <div className="heading-secondary">{firstName + ' ' + lastName}</div>  
                     
                 </div>

@@ -34,6 +34,10 @@ const EditUserProfile = () => {
         console.log(user)
     }, [user])
 
+    const selectNewProfilePicture = () => {
+        return
+    }
+
     const editServicesButtonOnClickHandler = () => navigate(`/userProfile-edit/edit-services`);
 
     const cancelButtonOnClickHandler = () => navigate('/userProfile');
@@ -50,8 +54,8 @@ const EditUserProfile = () => {
                     ?
                     <Fragment>
                         <h2>Profile Picture</h2>
-                        <OnHoverEdit>
-                            <RoundImageContainer size="page" serviceOrUser={'user'} picture={user.profilePicture}/>
+                        <OnHoverEdit onClickFunction={selectNewProfilePicture} size={'round-image-container-page'}>
+                            <RoundImageContainer size={'round-image-container-page'} serviceOrUser={'user'} picture={user.profilePicture}/>
                         </OnHoverEdit>
                         <h2>First Name</h2>
                         <input className="text-area" type="text" value={user.firstName} onChange={e => {setUser({...user, firstName: e.target.value})}}/>

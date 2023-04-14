@@ -8,28 +8,20 @@ const RoundImageContainer = ({picture, serviceOrUser, size, className}) => {
     const renderPicture = () => {
         if(!picture){
             if(serviceOrUser === 'user'){
-                return <AvatarIcon
-                    width={assertSize()}
-                    height={assertSize()}
-                    fill={getComputedStyle(document.body).getPropertyValue('--color-primary-accent')}
-                />;
+                return(
+                    <div className={size}>
+                        <AvatarIcon fill={getComputedStyle(document.body).getPropertyValue('--color-primary-accent')}/>
+                    </div>
+                ) 
             } else if(serviceOrUser === 'service'){
-                return <ServiceIcon
-                    width={assertSize()}
-                    height={assertSize()}
-                    fill={getComputedStyle(document.body).getPropertyValue('--color-primary-accent')}
-                />;
+                return(
+                    <div className={size}>
+                        <ServiceIcon fill={getComputedStyle(document.body).getPropertyValue('--color-primary-accent')}/>
+                    </div>
+                ) 
             }
         } else {
             return picture;
-        }
-    }
-
-    const assertSize = () => {
-        if(size==="card"){
-            return getComputedStyle(document.body).getPropertyValue('--profile-avatar-size-card')
-        } else if(size==="page"){
-            return getComputedStyle(document.body).getPropertyValue('--profile-avatar-size-page') 
         }
     }
 
