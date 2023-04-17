@@ -14,6 +14,8 @@ import { getUserSpecificServices } from "../../api/services/get-user-specific-se
 
 import { useNavigate } from "react-router";
 
+import './user-profile.styles.scss';
+
 const UserProfile = () => {
 
     const { testUser } = useContext(UserContext);
@@ -39,12 +41,15 @@ const UserProfile = () => {
                 user
                 ?
                 <Fragment>
-                    <div className="povider-profile-heading-container">
-                        <RoundImageContainer size="round-image-container-page" serviceOrUser={'user'} picture={user.profilePicture}/>
-                        <div>
-                            <h1>{`${user.firstName} ${user.lastName}`}</h1>
-                            <span className="sub-text">{`@${user.userName}`}</span>
+                    <div className="profile-heading-and-edit-button-container">
+                        <div className="povider-profile-heading-container">
+                            <RoundImageContainer size="round-image-container-page" serviceOrUser={'user'} picture={user.profilePicture}/>
+                            <div>
+                                <h1>{`${user.firstName} ${user.lastName}`}</h1>
+                                <span className="sub-text">{`@${user.userName}`}</span>
+                            </div>
                         </div>
+                        <EditButton size={getComputedStyle(document.body).getPropertyValue('--round-button')}/>
                     </div>
                     <RatingDisplayComponent rating={user.rating}/>
                     <span>Location</span>
@@ -53,7 +58,6 @@ const UserProfile = () => {
                     <div>{user.profileDescription}</div>
                     <h2>Providable Services</h2>
                     <ServicesList services={userServices}/>
-                    <EditButton onClickHandler={navigateToUserEditProfile} size="50px"/>
                 </Fragment>
                 :
                 <span>Sorry, this user is not available...</span>
