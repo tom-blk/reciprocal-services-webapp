@@ -1,28 +1,37 @@
 import { Web3Storage } from "web3.storage";
-import { useContext } from "react";
-import { AlertMessageContext } from "../../context/alert-message.context";
 
-const { displayError, displaySuccessMessage } = useContext(AlertMessageContext);
+const client = new Web3Storage({ token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDYwNzczRDBiMTNkNWU1YzRlNTU4NjlDMEY5Y2JFNjRFNzJlZjJCZTQiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2ODI1MDQxODI4MTUsIm5hbWUiOiJwcm9tZXRoZXVzLXRva2VuIn0.m8aLgQtzZ3h9bX9JcdIqBzPCyyvblojEVZfhkrlmjLA'});
 
-const client = new Web3Storage({ token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDYwNzczRDBiMTNkNWU1YzRlNTU4NjlDMEY5Y2JFNjRFNzJlZjJCZTQiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2ODI1MDQxODI4MTUsIm5hbWUiOiJwcm9tZXRoZXVzLXRva2VuIn0.m8aLgQtzZ3h9bX9JcdIqBzPCyyvblojEVZfhkrlmjLA});
-
-export const uploadFile = async () => {
+export const uploadFile = async (file, onSuccessFunction, onErrorFunction) => {
 
     try{
         const rootCid = await client.put(file);
-        displaySuccessMessage('Upload Successful!');
+        onSuccessFunction('Upload Successful!');
         return rootCid;
     } catch(error){
-        displayError(error);
+        onErrorFunction(error);
     }
 }
 
-export const retrieveFile = async (rootCid) => {
+export const retrieveFile = async (rootCid, onErrorFunction) => {
 
     try{
         const response = await client.get(rootCid);
-        return response;
+        const files = await response.files();
+        return files;
     }catch(error){
-        displayError(error);
+        onErrorFunction(error);
+    }
+}
+
+export const getFileUrl = async (rootCid, onErrorFunction) => {
+
+    try{
+        const response = await client.get(rootCid);
+        const files = await response.files();
+        console.log(response)
+        return URL.createObjectURL(files[0]);
+    }catch(error){
+        onErrorFunction(error);
     }
 }

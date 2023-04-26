@@ -21,7 +21,7 @@ const RoundImageContainer = ({picture, serviceOrUser, size, className}) => {
                 ) 
             }
         } else {
-            return picture;
+            return <img src={picture} className={size}></img>;
         }
     }
 

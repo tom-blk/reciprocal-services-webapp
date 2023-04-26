@@ -15,6 +15,7 @@ import { getUserSpecificServices } from "../../api/services/get-user-specific-se
 import { useNavigate } from "react-router";
 
 import './user-profile.styles.scss';
+import { getFileUrl, retrieveFile } from "../../utils/web3storage/web3storage";
 
 const UserProfile = () => {
 
@@ -22,14 +23,20 @@ const UserProfile = () => {
     const { displayError } = useContext(AlertMessageContext);
 
     const [user, setUser] = useState(undefined);
+    const [profilePicture, setProifilePicture] = useState(undefined);
     const [userServices, setUserServices] = useState([]);
 
     const navigate = useNavigate()
 
     useEffect(() => {
-        getFullUser(testUser.id, displayError).then(response => setUser(response))
+        getFullUser(testUser.id, displayError).then(response => setUser(response));
         getUserSpecificServices(testUser.id, displayError).then(response => setUserServices(response));
     }, [])
+
+    useEffect(() => {
+        if(user)
+        getFileUrl(user.profilePicture, displayError).then(response => setProifilePicture(response));
+    }, [user])
 
     const navigateToUserEditProfile = () => {
         navigate('/userProfile-edit')
@@ -43,7 +50,7 @@ const UserProfile = () => {
                 <Fragment>
                     <div className="profile-heading-and-edit-button-container">
                         <div className="povider-profile-heading-container">
-                            <RoundImageContainer size="round-image-container-page" serviceOrUser={'user'} picture={user.profilePicture}/>
+                            <RoundImageContainer size="round-image-container-page" serviceOrUser={'user'} picture={profilePicture}/>
                             <div>
                                 <h1>{`${user.firstName} ${user.lastName}`}</h1>
                                 <span className="sub-text">{`@${user.userName}`}</span>
