@@ -5,6 +5,7 @@ import { AlertMessageContext } from "../../context/alert-message.context";
 import PageContainer from "../../utils/page-container/page-container.component";
 import RoundImageContainer from "../round-image-container/round-image-container.component";
 import ProviderCard from "../provider-card/provider-card.component";
+import { getServiceSpecificUsers } from "../../api/users/get-service-specific-users";
 
 const ServicePage = () => {
 
@@ -17,7 +18,7 @@ const ServicePage = () => {
 
     useEffect(() => {
         getFullServiceDetails();
-        getServiceProviders();
+        getServiceSpecificUsers(serviceId, displayError).then(response => {setServiceProviders(response); console.log(response)})
     }, [])
     
     const getFullServiceDetails = () => {
@@ -26,18 +27,6 @@ const ServicePage = () => {
         })
         .then(response => {
             setService(response.data)
-        })
-        .catch(error => {
-            displayError(error)
-        })
-    }
-
-    const getServiceProviders = () => {
-        axios.post(`http://localhost:5000/get-service-specific-users/${serviceId}`, {
-            serviceId: serviceId
-        })
-        .then(response => {
-            setServiceProviders(response.data)
         })
         .catch(error => {
             displayError(error)
@@ -54,7 +43,7 @@ const ServicePage = () => {
                         <RoundImageContainer picture={service.icon} serviceOrUser={'service'} size={'round-image-container-page'}/>
                         <div className="heading-primary">{service.name}</div>
                     </div>
-                    <div className="heading-secondary">{`Credits per Hour: ${service.creditsPerHour}`}</div>
+                    <div className="heading-secondary">{`Average Credits per Hour: ${service.creditsPerHour}`}</div>
                     <div className="text">{service.description}</div>
                     <div className="heading-secondary">Providers:</div>
                     {

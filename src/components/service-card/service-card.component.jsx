@@ -1,25 +1,34 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { ModalContext } from "../../context/modal.context";
 import ButtonComponent from "../button/button.component";
-import CardDataContainer from "../card-data-container/card-data-container.component";
 import CardComponent from "../card/card.component";
 import OrderServiceModal from "../modal/orderServiceModal";
 import RoundImageContainer from "../round-image-container/round-image-container.component";
 
 import './service-card.styles.scss';
-import { LoadingComponentBars, LoadingComponentCirlce } from "../loading/loading.components";
-import RatingDisplayComponent from "../rating-display-component/rating-display.component";
+import { AlertMessageContext } from "../../context/alert-message.context";
+import { getServiceProviderCount } from "../../api/services/get-service-provider-count";
 
 const ServiceCard = ({ service, providingUserId, providingUserFirstName, providingUserLastName, orderButtonExists }) => {
     const { id, icon, name, description } = service;
 
     const { toggleModal } = useContext(ModalContext);
+    const { displayError } = useContext(AlertMessageContext);
 
     const navigate = useNavigate();
 
     const [serviceOrdered, setServiceOrdered] = useState(false);
+    const [serviceProviderCount, setServiceProviderCount] = useState(0);
+
+    useEffect(() => {
+        getServiceProviderCount(service.id, displayError).then(response => setServiceProviderCount(response));
+    }, [])
+
+    useEffect(() => {
+        console.log(serviceProviderCount);
+    }, [serviceProviderCount])
 
     const onClickHandler = () => navigate(`/services/${id}`)
 
@@ -51,7 +60,7 @@ const ServiceCard = ({ service, providingUserId, providingUserFirstName, providi
                         <div className="text">{description}</div>
                     </div>
                 </div>
-                { !orderButtonExists && <div className="heading-secondary">? Providers</div> }
+                { !orderButtonExists && <div className="heading-secondary">{`${serviceProviderCount.providerCount} Providers`}</div> }
                 {
                     orderButtonExists 
                     &&
