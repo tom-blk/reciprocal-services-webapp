@@ -35,6 +35,7 @@ const UserProfile = () => {
 
     useEffect(() => {
         if(user)
+        if(user.profilePicture)
         getFileUrl(user.profilePicture, displayError).then(response => setProifilePicture(response));
     }, [user])
 
@@ -56,7 +57,7 @@ const UserProfile = () => {
                                 <span className="sub-text">{`@${user.userName}`}</span>
                             </div>
                         </div>
-                        <EditButton size={getComputedStyle(document.body).getPropertyValue('--round-button')}/>
+                        <EditButton size={getComputedStyle(document.body).getPropertyValue('--round-button')} onClickHandler={navigateToUserEditProfile}/>
                     </div>
                     <RatingDisplayComponent rating={user.rating}/>
                     <span>Location</span>

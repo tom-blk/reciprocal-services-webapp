@@ -153,7 +153,7 @@ const EditUserServicesList = ({userId}) => {
                     }
                 </div>
                 <ButtonComponent buttonType={'confirm'} onClickHandler={confirmButtonOnClickHandler}>Save Changes</ButtonComponent>
-                <ButtonComponent buttonType={'cancel'} onClickHandler={cancelButtonOnClickHandler}>Discard Changes</ButtonComponent>
+                <ButtonComponent buttonType={'cancel'} onClickHandler={cancelButtonOnClickHandler}>Cancel</ButtonComponent>
             </PageContainer>
         </MaxSizeContainer>
     )

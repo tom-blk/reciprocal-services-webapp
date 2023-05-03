@@ -14,14 +14,19 @@ import { getUserSpecificServices } from "../../api/services/get-user-specific-se
 import { useNavigate } from "react-router";
 import { updateUser } from "../../api/users/update-user";
 import { OnHoverEdit } from "../on-hover-edit-component/on-hover-edit.component";
+import { getFileUrl } from "../../utils/web3storage/web3storage";
+import { ModalContext } from "../../context/modal.context";
+import SelectProfilePictureModal from "../modal/select-profile-picture-modal.component";
 
 const EditUserProfile = () => {
 
     const { testUser } = useContext(UserContext);
     const { displayError, displaySuccessMessage } = useContext(AlertMessageContext);
+    const { toggleModal } = useContext(ModalContext);
 
     const [user, setUser] = useState(undefined);
     const [userServices, setUserServices] = useState([]);
+    const [profilePicture, setProifilePicture] = useState(undefined);
 
     const navigate = useNavigate();
 
@@ -31,11 +36,18 @@ const EditUserProfile = () => {
     }, [])
 
     useEffect(() => {
-        console.log(user)
+        if(user)
+        if(user.profilePicture)
+        getFileUrl(user.profilePicture, displayError).then(response => setProifilePicture(response));
     }, [user])
 
     const selectNewProfilePicture = () => {
-        return
+        toggleModal(
+            <SelectProfilePictureModal
+                userId={user.id}
+                profilePictureCid={user.profilePicture}
+            />
+        );
     }
 
     const editServicesButtonOnClickHandler = () => navigate(`/userProfile-edit/edit-services`);
@@ -55,7 +67,7 @@ const EditUserProfile = () => {
                     <Fragment>
                         <h2>Profile Picture</h2>
                         <OnHoverEdit onClickFunction={selectNewProfilePicture} size={'round-image-container-page'}>
-                            <RoundImageContainer size={'round-image-container-page'} serviceOrUser={'user'} picture={user.profilePicture}/>
+                            <RoundImageContainer size={'round-image-container-page'} serviceOrUser={'user'} picture={profilePicture}/>
                         </OnHoverEdit>
                         <h2>First Name</h2>
                         <input className="text-area" type="text" value={user.firstName} onChange={e => {setUser({...user, firstName: e.target.value})}}/>
