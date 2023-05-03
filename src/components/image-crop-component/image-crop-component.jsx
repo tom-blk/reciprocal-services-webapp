@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 
 import ReactCrop from 'react-image-crop'
 import ButtonComponent from '../button/button.component'
@@ -15,15 +15,7 @@ const ImageCropComponent = ({handleCroppedImage, onCancel}) => {
     const [src, setSrc] = useState();
     const [percentCrop, setPercentCrop] = useState({unit: '%', x: 0, y: 0, width: 0, height: 0});
 
-    useEffect(() => {
-        console.log(percentCrop.x);
-    }, [percentCrop])
-
     const [croppedImage, setCroppedImage] = useState(undefined);
-
-    useEffect(() => {
-        console.log(croppedImage);
-    }, [croppedImage])
 
     const onCropComplete = () => {
         if (src && percentCrop.width && percentCrop.height)
@@ -39,15 +31,7 @@ const ImageCropComponent = ({handleCroppedImage, onCancel}) => {
             const scaleY = image.naturalHeight / image.height;
             canvas.width = image.naturalWidth / 100 * percentCrop.width;
             canvas.height = image.naturalHeight / 100 * percentCrop.height;
-            console.log('Width: ' + image.width);
-            console.log('Height: ' + image.height);
             const ctx = canvas.getContext('2d');
-            console.log('image natural width ' + image.naturalWidth)
-            console.log('crop x' + percentCrop.x)
-            console.log('dx: ' + image.naturalWidth / 100 * percentCrop.x)
-            console.log('dy: ' + image.naturalWidth / 100 * percentCrop.y)
-            console.log('sx: ' + image.naturalWidth / 100 * percentCrop.width)
-            console.log('sy: ' + image.naturalWidth / 100 * percentCrop.width)
             ctx.drawImage(
             image,
             image.naturalWidth / 100 * percentCrop.x,
