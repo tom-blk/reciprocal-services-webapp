@@ -1,11 +1,7 @@
 .round-image-container{
-    border: 3px solid var(--color-quinary-accent);
+    display: flex;
+    border: 2px solid var(--color-secondary-accent);
     border-radius: 50%;
-
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-
-    width: 500px;
-    height: 500px;
+    align-items: center;
+    overflow: hidden;
 }

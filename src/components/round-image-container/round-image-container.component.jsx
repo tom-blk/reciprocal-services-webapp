@@ -26,7 +26,11 @@ const RoundImageContainer = ({picture, serviceOrUser, size, className}) => {
     }
 
     return(
-        renderPicture()
+        <div className='round-image-container'>
+            {
+                renderPicture()
+            }
+        </div>
     )
 }
 
