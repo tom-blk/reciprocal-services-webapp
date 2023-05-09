@@ -8,14 +8,12 @@ import { UserContext } from '../../context/user.context';
 import 'react-image-crop/src/ReactCrop.scss'
 import './image-crop.styles.scss';
 
-const ImageCropComponent = ({handleCroppedImage, onCancel}) => {
+const ImageCropComponent = ({handleCroppedImage, optionalWidth}) => {
 
     const {testUser} = useContext(UserContext);
 
     const [src, setSrc] = useState();
     const [percentCrop, setPercentCrop] = useState({unit: '%', x: 0, y: 0, width: 0, height: 0});
-
-    const [croppedImage, setCroppedImage] = useState(undefined);
 
     const onCropComplete = () => {
         if (src && percentCrop.width && percentCrop.height)
@@ -44,14 +42,9 @@ const ImageCropComponent = ({handleCroppedImage, onCancel}) => {
             image.naturalHeight / 100 * percentCrop.height,
             )
             canvas.toBlob((blob) => {
-                setCroppedImage(new File([blob], `cropped-profile-picture-user-${testUser.id}`))
+                handleCroppedImage(new File([blob], `cropped-profile-picture-user-${testUser.id}`))
             })
         }
-    }
-
-    const checkAndHandleCroppedImageImage = () => {
-        if(croppedImage)
-        handleCroppedImage(croppedImage)
     }
 
     return (
@@ -63,12 +56,12 @@ const ImageCropComponent = ({handleCroppedImage, onCancel}) => {
                 onChange={(e) => setSrc(URL.createObjectURL(e.target.files[0]))}
             />
             {src && (
-                <ReactCrop src={src} aspect={1} minHeight={100} minWidth={100} circularCrop ruleOfThirds crop={percentCrop} onChange={(crop, percentCrop) => setPercentCrop(percentCrop)} onComplete={onCropComplete} >
-                    <img src={src}/>
-                </ReactCrop>
+                <div style={optionalWidth && {width:`${optionalWidth}`}}>
+                    <ReactCrop src={src} aspect={1} circularCrop ruleOfThirds crop={percentCrop} onChange={(crop, percentCrop) => setPercentCrop(percentCrop)} onComplete={onCropComplete} >
+                        <img src={src}/>
+                    </ReactCrop>
+                </div>
             )}
-            <ButtonComponent buttonType={'secondary-confirm secondary-confirm-hover'} onClickHandler={checkAndHandleCroppedImageImage}>{'Confirm'}</ButtonComponent>
-            <ButtonComponent buttonType={'cancel'} onClickHandler={onCancel}>{'Cancel'}</ButtonComponent>
         </div>
     );
 }

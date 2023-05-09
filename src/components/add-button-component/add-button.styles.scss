@@ -1,0 +1,15 @@
+.add-button{
+    display: grid;
+    justify-content: center;
+    padding: var(--space-3);
+    border-radius: 6px;
+
+    background-color: var(--color-secondary-accent);
+    color: var(--color-secondary-accent-complement);
+    box-shadow: 1px 1px 1px #48ffe0, -1px -1px 1px #06ffac, -1px 1px 1px #48ffe0, 1px -1px 1px #06ffac;
+
+    &:hover{
+        cursor: pointer;
+        box-shadow: 1px 1px 3px #48ffe0, -1px -1px 3px #06ffac, -1px 1px 3px #48ffe0, 1px -1px 3px #06ffac;
+    }
+}

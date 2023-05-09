@@ -5,7 +5,6 @@ const client = new Web3Storage({ token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ey
 export const uploadFile = async (file, onSuccessFunction, onErrorFunction) => {
 
     try{
-        console.log(file);
         const rootCid = await client.put(file);
         onSuccessFunction('Upload Successful!');
         return rootCid;
@@ -31,15 +30,6 @@ export const getFileUrl = async (rootCid, onErrorFunction) => {
         const response = await client.get(rootCid);
         const files = await response.files();
         return URL.createObjectURL(files[0]);
-    }catch(error){
-        onErrorFunction(error);
-    }
-}
-
-export const deleteFile = async (rootCid, onErrorFunction) => {
-
-    try{
-        const response = await client.delete(rootCid);
     }catch(error){
         onErrorFunction(error);
     }

@@ -5,6 +5,13 @@
     gap: 20px;
 }
 
+.services-search-and-add-service-container{
+    display: flex;
+    justify-content: center;
+    gap: var(--space-4);
+    align-items: center;
+}
+
 .services-search-bar{
     width: 40%;
 }

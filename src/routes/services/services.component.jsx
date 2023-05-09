@@ -7,11 +7,14 @@ import PageContainer from "../../utils/page-container/page-container.component"
 
 import { AlertMessageContext } from "../../context/alert-message.context"
 import { getSuperficialServiceDetails } from "../../api/services/get-all-services"
-import ButtonComponent from "../../components/button/button.component"
+import AddButtonComponent from "../../components/add-button-component/add-button.component"
+import { ModalContext } from "../../context/modal.context"
+import AddServiceModal from "../../components/modal/add-service-modal.component"
  
 const Services = () => {
 
     const { displayError } = useContext(AlertMessageContext);
+    const { toggleModal } = useContext(ModalContext);
 
     const [searchString, setSearchString] = useState('');
     const [superficialServiceDetails, setSuperficialServiceDetails] = useState([]);
@@ -37,9 +40,18 @@ const Services = () => {
         )
     }
 
+    const onAddButtonClick = () => {
+        toggleModal(
+            <AddServiceModal/>
+        )
+    }
+
     return(
         <PageContainer>
-            <SearchBar className="services-search-bar" onSearchChange={onSearchChange} placeholder={"Services"}/>
+            <div className="services-search-and-add-service-container">
+                <SearchBar className="services-search-bar" onSearchChange={onSearchChange} placeholder={"Services"}/>
+                <AddButtonComponent onClickHandler={onAddButtonClick}>+</AddButtonComponent>
+            </div>
             <ServicesList services={filteredServices}/>
         </PageContainer>
     )

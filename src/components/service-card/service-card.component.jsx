@@ -10,6 +10,7 @@ import RoundImageContainer from "../round-image-container/round-image-container.
 import './service-card.styles.scss';
 import { AlertMessageContext } from "../../context/alert-message.context";
 import { getServiceProviderCount } from "../../api/services/get-service-provider-count";
+import { getFileUrl } from "../../utils/web3storage/web3storage";
 
 const ServiceCard = ({ service, providingUserId, providingUserFirstName, providingUserLastName, orderButtonExists }) => {
     const { id, icon, name, description } = service;
@@ -21,14 +22,13 @@ const ServiceCard = ({ service, providingUserId, providingUserFirstName, providi
 
     const [serviceOrdered, setServiceOrdered] = useState(false);
     const [serviceProviderCount, setServiceProviderCount] = useState(0);
+    const [serviceIcon, setServiceIcon] = useState(undefined);
 
     useEffect(() => {
+        if(icon)
+        getFileUrl(icon, displayError).then(response => setServiceIcon(response));
         getServiceProviderCount(service.id, displayError).then(response => setServiceProviderCount(response));
     }, [])
-
-    useEffect(() => {
-        console.log(serviceProviderCount);
-    }, [serviceProviderCount])
 
     const onClickHandler = () => navigate(`/services/${id}`)
 
@@ -54,7 +54,7 @@ const ServiceCard = ({ service, providingUserId, providingUserFirstName, providi
         <CardComponent onClickHandler={onClickHandler} className="card service-card">
             <div className="service-card-main-data-container">
                 <div className="service-card-left-data-container">
-                    <RoundImageContainer picture={icon} serviceOrUser={'service'} size={'round-image-container-card'}/>
+                    <RoundImageContainer picture={serviceIcon} serviceOrUser={'service'} size={'round-image-container-card'}/>
                     <div>
                         <div className="heading-secondary">{name}</div>
                         <div className="text">{description}</div>

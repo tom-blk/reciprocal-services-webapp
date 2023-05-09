@@ -15,7 +15,7 @@ import { getUserSpecificServices } from "../../api/services/get-user-specific-se
 import { useNavigate } from "react-router";
 
 import './user-profile.styles.scss';
-import { getFileUrl, retrieveFile } from "../../utils/web3storage/web3storage";
+import { getFileUrl } from "../../utils/web3storage/web3storage";
 
 const UserProfile = () => {
 
@@ -23,7 +23,7 @@ const UserProfile = () => {
     const { displayError } = useContext(AlertMessageContext);
 
     const [user, setUser] = useState(undefined);
-    const [profilePicture, setProifilePicture] = useState(undefined);
+    const [profilePicture, setProfilePicture] = useState(undefined);
     const [userServices, setUserServices] = useState([]);
 
     const navigate = useNavigate()
@@ -36,7 +36,7 @@ const UserProfile = () => {
     useEffect(() => {
         if(user)
         if(user.profilePicture)
-        getFileUrl(user.profilePicture, displayError).then(response => setProifilePicture(response));
+        getFileUrl(user.profilePicture, displayError).then(response => setProfilePicture(response));
     }, [user])
 
     const navigateToUserEditProfile = () => {
