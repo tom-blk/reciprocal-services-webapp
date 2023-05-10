@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router';
 
-import { getSuperficialServiceDetails } from '../../api/services/get-all-services';
-import { getUserSpecificServices } from '../../api/services/get-user-specific-services';
-import { updateUserSpecificServices } from '../../api/services/update-user-specific-services';
+import { getUserSpecificServices } from '../../api/users/get-user-specific-services';
+import { updateUserSpecificServices } from '../../api/users/update-user-specific-services';
 
 import { AlertMessageContext } from '../../context/alert-message.context';
 import { UserContext } from '../../context/user.context';
@@ -15,6 +14,7 @@ import SearchBar from '../search-bar/search-bar.component';
 import SelectableServiceCard from '../selectable-service-card/selectable-service-card.component';
 
 import './edit-user-services-list.styles.scss';
+import { getServiceList } from '../../api/services/get-service-list';
 
 const EditUserServicesList = ({userId}) => {
 
@@ -40,7 +40,7 @@ const EditUserServicesList = ({userId}) => {
 
 
     useEffect(() => {
-        getSuperficialServiceDetails(displayError)
+        getServiceList(displayError)
             .then(response => setAllServicesWithoutUserServices(assignSelectionStatusAndReturnServices(response, userServiceIds)));
     }, [userServiceIds])
 

@@ -5,7 +5,7 @@ import { AlertMessageContext } from "../../context/alert-message.context";
 import PageContainer from "../../utils/page-container/page-container.component";
 import RoundImageContainer from "../round-image-container/round-image-container.component";
 import ProviderCard from "../provider-card/provider-card.component";
-import { getServiceSpecificUsers } from "../../api/users/get-service-specific-users";
+import { getServiceSpecificUsers } from "../../api/services/get-service-specific-users";
 import { getFileUrl } from "../../utils/web3storage/web3storage";
 import ButtonComponent from "../button/button.component";
 import { ModalContext } from "../../context/modal.context";
@@ -14,6 +14,7 @@ import { removeServiceFromUserServices } from "../../api/users/remove-service-fr
 import { addServiceToUserServices } from "../../api/users/add-service-to-user-services";
 import { UserContext } from "../../context/user.context";
 import { getServiceUserAffiliation } from "../../api/users/get-service-user-affiliation";
+import { getService } from "../../api/services/get-service";
 
 const ServicePage = () => {
 
@@ -29,7 +30,8 @@ const ServicePage = () => {
     const [providedByCurrentUser, setProvidedByCurrentUser] = useState(false);
 
     useEffect(() => {
-        getFullServiceDetails();
+        getService(serviceId, displayError)
+            .then(response => setService(response));
         getServiceSpecificUsers(serviceId, displayError)
             .then(response => setServiceProviders(response));
         getServiceUserAffiliation(testUser.id, serviceId, displayError)
@@ -64,18 +66,6 @@ const ServicePage = () => {
                 onConfirm={providedByCurrentUser ? removeFunction : addFunction}
             />
         )
-    }
-    
-    const getFullServiceDetails = () => {
-        axios.post(`http://localhost:5000/get-full-service-details/${serviceId}`, {
-            serviceId: serviceId
-        })
-        .then(response => {
-            setService(response.data)
-        })
-        .catch(error => {
-            displayError(error)
-        })
     }
 
     return(

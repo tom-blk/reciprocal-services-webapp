@@ -1,6 +1,6 @@
 import axios from "axios"
 
-export const getSuperficialServiceDetails = async (onErrorFunction) => {
+export const getServiceList = async (onErrorFunction) => {
 
     const sortServicesAlphabetically = (services) => {
         return(services.sort((a, b) => {
@@ -11,7 +11,7 @@ export const getSuperficialServiceDetails = async (onErrorFunction) => {
     }
 
     try{
-        const response = await axios.get(`http://localhost:5000/get-superficial-service-details`)
+        const response = await axios.get(`http://localhost:5000/services/get-list`)
 
         sortServicesAlphabetically(response.data)
 

@@ -18,7 +18,7 @@ export const updateUserSpecificServices = async (userId, userServiceIds, selecte
     })
 
     try{
-        const response = await axios.post(`http://localhost:5000/update-user-specific-services`, {
+        const response = await axios.post(`http://localhost:5000/users/update-user-specific-services`, {
             userId: userId,
             serviceIdsToBeAdded: serviceIdsToBeAdded,
             serviceIdsToBeRemoved: serviceIdsToBeRemoved,

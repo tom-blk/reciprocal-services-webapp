@@ -10,7 +10,7 @@ import { getFullUser } from "../../api/users/get-single-user";
 import MaxSizeContainer from "../../utils/max-size-container/max-size-container.component";
 import ButtonComponent from "../button/button.component";
 import ServicesList from "../services-list/services-list.component";
-import { getUserSpecificServices } from "../../api/services/get-user-specific-services";
+import { getUserSpecificServices } from "../../api/users/get-user-specific-services";
 import { useNavigate } from "react-router";
 import { updateUser } from "../../api/users/update-user";
 import { OnHoverEdit } from "../on-hover-edit-component/on-hover-edit.component";

@@ -5,7 +5,7 @@ export const uploadNewProfilePictureAndCreateDatabaseEntryWithCid = async ( user
 
     try{
         const cid = await uploadFile([image], onSuccessFunction, onErrorFunction);
-        const response = await axios.put(`http://localhost:5000/update-user-profile-picture`, {
+        const response = await axios.put(`http://localhost:5000/users/update-user-profile-picture`, {
             userId: userId,
             profilePicture: cid
         })

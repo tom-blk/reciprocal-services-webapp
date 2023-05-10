@@ -3,7 +3,7 @@ import axios from "axios"
 export const updateUser = async ( user, onErrorFunction, onSuccessFunction ) => {
 
     try{
-        const response = await axios.put(`http://localhost:5000/update-user`, {
+        const response = await axios.put(`http://localhost:5000/users/update-user`, {
             userId: user.id,
             firstName: user.firstName,
             lastName: user.lastName,

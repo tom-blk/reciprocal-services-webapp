@@ -6,10 +6,10 @@ import "./services.styles.scss"
 import PageContainer from "../../utils/page-container/page-container.component"
 
 import { AlertMessageContext } from "../../context/alert-message.context"
-import { getSuperficialServiceDetails } from "../../api/services/get-all-services"
 import AddButtonComponent from "../../components/add-button-component/add-button.component"
 import { ModalContext } from "../../context/modal.context"
 import AddServiceModal from "../../components/modal/add-service-modal.component"
+import { getServiceList } from "../../api/services/get-service-list"
  
 const Services = () => {
 
@@ -21,7 +21,7 @@ const Services = () => {
     const [filteredServices, setFilteredServices] = useState(superficialServiceDetails);
 
     useEffect(() => {
-        getSuperficialServiceDetails(displayError).then(response => setSuperficialServiceDetails(response));
+        getServiceList(displayError).then(response => setSuperficialServiceDetails(response));
     }, [])
 
     useEffect(() => {

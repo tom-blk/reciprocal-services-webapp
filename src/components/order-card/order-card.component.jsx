@@ -10,11 +10,11 @@ import CardComponent from "../card/card.component";
 import ButtonComponent from "../button/button.component";
 import ConfirmOrderCompletionModalComponent from "../modal/confirm-order-completion-modal.component";
 
-import { getFullService } from "../../api/services/get-single-service";
 import { getFullUser } from "../../api/users/get-single-user";
 import { modifyOrderStatus } from "../../api/orders/modify-order-status";
 import { UserContext } from "../../context/user.context";
 import ConfirmOrCancelModal from "../modal/confirm-or-cancel-modal.component";
+import { getService } from "../../api/services/get-service";
 
 
 const OrderCard = ({order}) => {
@@ -32,7 +32,7 @@ const OrderCard = ({order}) => {
     const orderStatusHook = useOrderStatus(tempOrder, testUser.id);
 
     useEffect(() => {
-        getFullService(order.serviceId, displayError).then(response => setService(response));
+        getService(order.serviceId, displayError).then(response => setService(response));
         getFullUser(order.providingUserId, displayError).then(response => setProvider(response)); 
     }, [])
     

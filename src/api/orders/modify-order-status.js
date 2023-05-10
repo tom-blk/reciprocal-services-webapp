@@ -3,7 +3,7 @@ import axios from "axios";
 export const modifyOrderStatus = async (orderId, newOrderStatus, onSuccessFunction, onErrorFunction) => {
 
     try{
-        const response = await axios.put(`http://localhost:5000/modify-order-status/${orderId}`, {
+        const response = await axios.put(`http://localhost:5000/orders/modify-order-status/${orderId}`, {
             status: newOrderStatus,
             orderId: orderId,
         })
@@ -17,7 +17,7 @@ export const modifyOrderStatus = async (orderId, newOrderStatus, onSuccessFuncti
 export const denyOrder = async (orderId, onSuccessFunction, onErrorFunction) => {
 
     try{
-        const response = await axios.put(`http://localhost:5000/deny-order/${orderId}`, {
+        const response = await axios.put(`http://localhost:5000/orders/deny-order/${orderId}`, {
             orderId: orderId,
         })
         onSuccessFunction('Order denied.')

@@ -6,7 +6,7 @@ import { ModalContext } from '../../context/modal.context'
 import ButtonComponent from '../button/button.component'
 import RatingStarComponent from '../rating-star-component/rating-star.component'
 
-import { rateUser } from '../../api/rating/rate-user'
+import { rateUser } from '../../api/users/rate-user'
 
 const ConfirmOrderCompletionModalComponent = ({providerId, confirmedCompletionCallback}) => {
 

@@ -3,7 +3,7 @@ import axios from 'axios';
 export const getOrdersWithSpecificStatusAndDirection = async (userId, orderStatus, orderDirection, onErrorFunction) => {
     
     try{
-        const response = await axios.post(`http://localhost:5000/get-orders-with-specific-status-and-direction/${userId}`, {
+        const response = await axios.post(`http://localhost:5000/orders/get-orders-with-specific-status-and-direction/${userId}`, {
             orderDirection: orderDirection, 
             status: orderStatus,
             userId: userId,
@@ -17,7 +17,7 @@ export const getOrdersWithSpecificStatusAndDirection = async (userId, orderStatu
 export const getAllOrdersWithSpecificDirection = async (userId, orderDirection, onErrorFunction) => {
     
     try{
-        const response = await axios.post(`http://localhost:5000/get-all-orders/${userId}`, {
+        const response = await axios.post(`http://localhost:5000/orders/get-all-orders/${userId}`, {
             orderDirection: orderDirection, 
             userId: userId,
         })
@@ -30,7 +30,7 @@ export const getAllOrdersWithSpecificDirection = async (userId, orderDirection, 
 export const getSingleOrder = async (orderId, onErrorFunction) => {
     
     try{
-        const response = await axios.post(`http://localhost:5000/get-single-order/${orderId}`, {
+        const response = await axios.post(`http://localhost:5000/orders/get-single-order/${orderId}`, {
             orderId: orderId
         })
         return response.data;

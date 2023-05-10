@@ -3,7 +3,7 @@ import axios from "axios"
 export const removeServiceFromUserServices = async (userId, serviceId, onErrrorFunction, onSuccessFunction) => {
 
     try{
-        const response = await axios.post(`http://localhost:5000/remove-service-from-user-services`, {
+        const response = await axios.post(`http://localhost:5000/users/remove-service-from-user-services`, {
             userId: userId,
             serviceId: serviceId,
         })

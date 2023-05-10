@@ -1,13 +1,9 @@
 import { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../utils/firebase/firebase.utils";
 import { Link, useNavigate } from "react-router-dom";
-import MaxSizeContainer from '../../utils/max-size-container/max-size-container.component';
-import PageContainer from '../../utils/page-container/page-container.component';
 
+import ButtonComponent from "../../components/button/button.component";
 
 import './login.styles.scss'
-import ButtonComponent from "../../components/button/button.component";
 
 const LogIn = () => {
 
@@ -21,27 +17,8 @@ const LogIn = () => {
 
     const [user, setUser] = useState(undefined);
 
-    const signIn = () => {
-        signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                setErrorCode('');
-                setErrorMessage('');
-                setUser(userCredential.user);
-            })
-            .then(() => {
-                console.log(user);
-                setTimeout(() => {
-                    navigate('/')
-                }, 3000)
-            })
-            .catch((error) => {
-                setErrorCode(error.code);
-                setErrorMessage(error.message);
-            });
-    }
-
     const loginButtonOnClickHandler = () => {
-        signIn();
+        return
     }
 
     const signUpButtonOnClickHandler = () => {

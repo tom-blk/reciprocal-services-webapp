@@ -5,7 +5,7 @@ export const createService = async (serviceData, onSuccessFunction, onErrorFunct
 
     try{
         if(!serviceData.icon){
-            const newServiceId = await axios.post(`http://localhost:5000/create-service`, {
+            const newServiceId = await axios.post(`http://localhost:5000/services/create-service`, {
                 name: serviceData.name,
                 description: serviceData.description,
                 icon: undefined
@@ -14,7 +14,7 @@ export const createService = async (serviceData, onSuccessFunction, onErrorFunct
         }else{
             uploadFile([serviceData.icon], onSuccessFunction, onErrorFunction).then( async rootCid => {
                 console.log(rootCid);
-                const newServiceId = await axios.post(`http://localhost:5000/create-service`, {
+                const newServiceId = await axios.post(`http://localhost:5000/services/create-service`, {
                     name: serviceData.name,
                     description: serviceData.description,
                     icon: rootCid

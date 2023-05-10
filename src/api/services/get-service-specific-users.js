@@ -11,7 +11,7 @@ export const getServiceSpecificUsers = async (serviceId, onErrrorFunction) => {
     }
 
     try{
-        const response = await axios.post(`http://localhost:5000/get-service-specific-users`, {
+        const response = await axios.post(`http://localhost:5000/services/get-service-specific-users`, {
             serviceId: serviceId
         })
 

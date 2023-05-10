@@ -1,9 +1,7 @@
-import { useContext, useState } from "react"
+import { useContext, useState, useEffect } from "react"
 
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../utils/firebase/firebase.utils";
 import { useNavigate } from "react-router";
-import { useEffect } from "react";
+
 import { AlertMessageContext } from "../../context/alert-message.context";
 import ButtonComponent from "../../components/button/button.component";
 
@@ -53,9 +51,7 @@ const SignUp = () => {
         }
 
         try {
-            const response = await createUserWithEmailAndPassword(auth, email, password);
-
-            setUser(response.user)
+            console.log('Handle Submit was triggered.')
 
             displaySuccessMessage('Account successfully created!')
                 setTimeout(() => {

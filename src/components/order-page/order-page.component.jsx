@@ -2,7 +2,6 @@ import { Fragment, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { getSingleOrder } from "../../api/orders/get-orders";
 import { modifyOrderStatus } from "../../api/orders/modify-order-status";
-import { getFullService } from "../../api/services/get-single-service";
 import { getFullUser } from "../../api/users/get-single-user";
 import { AlertMessageContext } from "../../context/alert-message.context";
 import { ModalContext } from "../../context/modal.context";
@@ -15,6 +14,7 @@ import ConfirmOrderCompletionModalComponent from "../modal/confirm-order-complet
 import RoundImageContainer from "../round-image-container/round-image-container.component";
 
 import "./order-page.styles.scss"
+import { getService } from "../../api/services/get-service";
 
 const OrderPage = () => {
 
@@ -46,7 +46,7 @@ const OrderPage = () => {
     useEffect(() => {
         if(tempOrder){
             console.log(tempOrder)
-            getFullService(tempOrder.serviceId, displayError).then(response => setService(response))
+            getService(tempOrder.serviceId, displayError).then(response => setService(response))
             if(orderStatusHook.orderDirection === 'incoming'){
                 getFullUser(tempOrder.receivingUserId, displayError).then(response => setCorrespondingUser(response))
             } else if(orderStatusHook.orderDirection === 'outgoing'){

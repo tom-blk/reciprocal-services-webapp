@@ -10,7 +10,7 @@ import { UserContext } from "../../context/user.context";
 import { AlertMessageContext } from "../../context/alert-message.context";
 
 import { getFullUser } from "../../api/users/get-single-user";
-import { getUserSpecificServices } from "../../api/services/get-user-specific-services";
+import { getUserSpecificServices } from "../../api/users/get-user-specific-services";
 
 import { useNavigate } from "react-router";
 
