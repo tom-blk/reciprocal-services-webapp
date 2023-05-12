@@ -10,17 +10,17 @@ import CardComponent from "../card/card.component";
 import ButtonComponent from "../button/button.component";
 import ConfirmOrderCompletionModalComponent from "../modal/confirm-order-completion-modal.component";
 
-import { getFullUser } from "../../api/users/get-single-user";
 import { modifyOrderStatus } from "../../api/orders/modify-order-status";
 import { UserContext } from "../../context/user.context";
 import ConfirmOrCancelModal from "../modal/confirm-or-cancel-modal.component";
 import { getService } from "../../api/services/get-service";
+import { getSingleUser } from "../../api/users/get-single-user";
 
 
 const OrderCard = ({order}) => {
 
     const { displayError, displaySuccessMessage } = useContext(AlertMessageContext);
-    const { testUser } = useContext(UserContext);
+    const { user } = useContext(UserContext);
     const { toggleModal } = useContext(ModalContext);
 
     const navigate = useNavigate()
@@ -29,11 +29,11 @@ const OrderCard = ({order}) => {
     const [provider, setProvider] = useState(undefined);
     const [tempOrder, setTempOrder] = useState(order); //MIMICS THE CHANGES IN THE DATABASE SO THAT CHANGES BECOME APPARENT WITHOUT HAVING TO REFETCH THE DATA
 
-    const orderStatusHook = useOrderStatus(tempOrder, testUser.id);
+    const orderStatusHook = useOrderStatus(tempOrder, user.id);
 
     useEffect(() => {
         getService(order.serviceId, displayError).then(response => setService(response));
-        getFullUser(order.providingUserId, displayError).then(response => setProvider(response)); 
+        getSingleUser(order.providingUserId, displayError).then(response => setProvider(response)); 
     }, [])
     
     const cardOnClickHandler = () => {

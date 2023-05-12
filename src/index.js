@@ -13,18 +13,18 @@ import OrderContextProvider from './context/order.context';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-      <BrowserRouter>
+    <BrowserRouter>
+      <AlertMessageContextProvider>
         <UserContextProvider>
-          <AlertMessageContextProvider>
-            <OrderContextProvider>
-              <ModalContextProvider>
-                <App />
-                <AlertMessageList />
-                <Modal/>
-              </ModalContextProvider>
-            </OrderContextProvider>
-          </AlertMessageContextProvider>
+          <OrderContextProvider>
+            <ModalContextProvider>
+              <App />
+              <AlertMessageList />
+              <Modal/>
+            </ModalContextProvider>
+          </OrderContextProvider>
         </UserContextProvider>
-      </BrowserRouter>
+      </AlertMessageContextProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );

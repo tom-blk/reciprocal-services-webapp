@@ -9,28 +9,27 @@ import EditButton from "../../components/edit-button/edit-button.component";
 import { UserContext } from "../../context/user.context";
 import { AlertMessageContext } from "../../context/alert-message.context";
 
-import { getFullUser } from "../../api/users/get-single-user";
 import { getUserSpecificServices } from "../../api/users/get-user-specific-services";
 
 import { useNavigate } from "react-router";
 
 import './user-profile.styles.scss';
 import { getFileUrl } from "../../utils/web3storage/web3storage";
+import { apiCall } from "../../api/api-call";
 
 const UserProfile = () => {
 
-    const { testUser } = useContext(UserContext);
+    const { user } = useContext(UserContext);
+    const { firstName, lastName, userName, rating, profileDescription } = user;
     const { displayError } = useContext(AlertMessageContext);
 
-    const [user, setUser] = useState(undefined);
     const [profilePicture, setProfilePicture] = useState(undefined);
     const [userServices, setUserServices] = useState([]);
 
     const navigate = useNavigate()
 
     useEffect(() => {
-        getFullUser(testUser.id, displayError).then(response => setUser(response));
-        getUserSpecificServices(testUser.id, displayError).then(response => setUserServices(response));
+        apiCall('/users/get-user-specific-services', 'POST', {userId: user.id}, displayError, undefined).then(response => setUserServices(response));
     }, [])
 
     useEffect(() => {
@@ -43,6 +42,16 @@ const UserProfile = () => {
         navigate('/userProfile-edit')
     }
 
+    const assertDisplayName = () => {
+        if(firstName && lastName){
+            return(firstName + ' ' + lastName);
+        } else if (firstName && !lastName){
+            return firstName;
+        } else if (!firstName && !lastName){
+            return userName;
+        }
+    }
+
     return(
         <PageContainer>
             {
@@ -53,17 +62,17 @@ const UserProfile = () => {
                         <div className="povider-profile-heading-container">
                             <RoundImageContainer size="round-image-container-page" serviceOrUser={'user'} picture={profilePicture}/>
                             <div>
-                                <h1>{`${user.firstName} ${user.lastName}`}</h1>
-                                <span className="sub-text">{`@${user.userName}`}</span>
+                                <h1>{assertDisplayName()}</h1>
+                                <span className="sub-text">{`@${userName}`}</span>
                             </div>
                         </div>
                         <EditButton size={getComputedStyle(document.body).getPropertyValue('--round-button')} onClickHandler={navigateToUserEditProfile}/>
                     </div>
-                    <RatingDisplayComponent rating={user.rating}/>
+                    <RatingDisplayComponent rating={rating}/>
                     <span>Location</span>
                     <span>{user.mobility ? 'Traveling Radius: ' + user.mobility : 'Not Traveling for Orders.'}</span>
                     <h2>Description</h2>
-                    <div>{user.profileDescription}</div>
+                    <div>{profileDescription}</div>
                     <h2>Providable Services</h2>
                     <ServicesList services={userServices}/>
                 </Fragment>

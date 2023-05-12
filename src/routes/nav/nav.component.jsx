@@ -1,17 +1,40 @@
 import { Outlet } from "react-router"
 import { Link } from "react-router-dom"
 import Banner from "../../components/banner/banner.component";
-import Footer from "../../components/footer/footer.component";
 import MaxSizeContainer from "../../utils/max-size-container/max-size-container.component";
 
 import "./nav.styles.scss"
+import CreditCounter from "../../components/credit-counter/credit-counter.component";
+import { Fragment, useContext } from "react";
+import { UserContext } from "../../context/user.context";
+import LogIn from "../login/login.component";
+import { ModalContext } from "../../context/modal.context";
+import ConfirmOrCancelModal from "../../components/modal/confirm-or-cancel-modal.component";
 
 const Nav = () => {
+
+    const { user, setUser } = useContext(UserContext);
+    const { toggleModal } = useContext(ModalContext);
+ 
+    const toggleLogOutModal = () => {
+
+        const confirmLogOut = () => {
+            document.cookie = "userAuthenticationToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            setUser(null);
+        }
+
+        toggleModal(<ConfirmOrCancelModal prompt={'Do you really want to log out?'} onConfirm={confirmLogOut}/>)
+    }
+
     return(
-        <MaxSizeContainer>
-            <div className="banner-container">
-                <Banner type={'header'}/>
-            </div>
+        <Fragment>
+        {
+            user
+            ?
+            <MaxSizeContainer>
+                <div className="banner-container">
+                    <Banner type={'header'}/>
+                </div>
                 <div className="navbar-container">
                     <Link to='/'>Home</Link>
                     <Link to='/services'>Services</Link>
@@ -19,12 +42,15 @@ const Nav = () => {
                     <Link to='/outgoing-orders'>Outgoing Orders</Link>
                     <Link to='/incoming-orders'>Incoming Orders</Link>
                     <Link to='/userProfile'>Your Profile</Link>
-                    <Link to='/login'>Login</Link>
+                    <div onClick={e => toggleLogOutModal()}>Log Out</div>
                 </div>
-               <Outlet/> 
-               <Footer/>
-        </MaxSizeContainer>
-        
+                <Outlet/> 
+                <CreditCounter/>
+            </MaxSizeContainer>
+            :
+            <LogIn/>
+        }  
+        </Fragment>
     )
 }
 

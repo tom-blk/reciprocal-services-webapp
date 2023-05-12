@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router';
 
-import { getUserSpecificServices } from '../../api/users/get-user-specific-services';
 import { updateUserSpecificServices } from '../../api/users/update-user-specific-services';
 
 import { AlertMessageContext } from '../../context/alert-message.context';
@@ -15,11 +14,12 @@ import SelectableServiceCard from '../selectable-service-card/selectable-service
 
 import './edit-user-services-list.styles.scss';
 import { getServiceList } from '../../api/services/get-service-list';
+import { apiCall } from '../../api/api-call';
 
 const EditUserServicesList = ({userId}) => {
 
     const { displayError, displaySuccessMessage } = useContext(AlertMessageContext);
-    const { testUser } = useContext(UserContext);
+    const { user } = useContext(UserContext);
 
     const navigate = useNavigate();
 
@@ -31,7 +31,7 @@ const EditUserServicesList = ({userId}) => {
 
 
     useEffect(() => {
-        getUserSpecificServices(testUser.id, displayError)
+        apiCall('/users/get-user-specific-services', 'POST', {userId: user.id}, displayError, undefined)
             .then(response => {
                 setUserServiceIds(extractIdsIntoNewArray(response)) 
                 setSelectedServiceIds(extractIdsIntoNewArray(response))
@@ -127,7 +127,7 @@ const EditUserServicesList = ({userId}) => {
     }
 
     const confirmButtonOnClickHandler = () => {
-        updateUserSpecificServices(testUser.id, userServiceIds, selectedServiceIds, displayError)
+        updateUserSpecificServices(user.id, userServiceIds, selectedServiceIds, displayError)
             .then(displaySuccessMessage('Services Successfully Updated!'));
     }
 

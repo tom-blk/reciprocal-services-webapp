@@ -1,4 +1,3 @@
-import { Fragment, useState } from 'react';
 import RatingStarComponent from '../rating-star-component/rating-star.component';
 
 import './rating-display.styles.css';

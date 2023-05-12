@@ -9,12 +9,12 @@ import PageContainer from "../../utils/page-container/page-container.component";
 
 const IncomingOrders = () => {
 
-    const { testUser } = useContext(UserContext);
+    const { user } = useContext(UserContext);
     const { displayError } = useContext(AlertMessageContext);
     const { getAndSetAllOrdersWithSpecificDirection, incomingOrders } = useContext(OrderContext);
 
     useEffect(() => {
-        getAndSetAllOrdersWithSpecificDirection(testUser.id, 'incoming', displayError);
+        getAndSetAllOrdersWithSpecificDirection(user.id, 'incoming', displayError);
     }, [])
 
     return(

@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useContext } from "react";
 import { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router"
@@ -8,6 +7,7 @@ import RoundImageContainer from "../round-image-container/round-image-container.
 import ServiceCard from "../service-card/service-card.component";
 
 import './provider-profile-page.styles.scss';
+import { apiCall } from "../../api/api-call";
 
 const ProviderProfilePage = () => {
 
@@ -16,58 +16,32 @@ const ProviderProfilePage = () => {
 
     const { providerId } = useParams();
 
-    const [user, setUser] = useState(undefined);
+    const [provider, setProvider] = useState(undefined);
     const [providerServices, setProviderServices] = useState([]);
 
     useEffect(() => {
-        getFullUserDetails();
-        getProviderServices();
+        apiCall('/users/get-single-user', 'POST', {userId: providerId}, displayError, undefined).then(response => setProvider(response));
+        apiCall('/users/get-user-specific-services', 'POST', {userId: providerId}, displayError, undefined).then(response => setProviderServices(response));
     }, [])
-
-    const getFullUserDetails = () => {
-        axios.post(`http://localhost:5000/get-full-user-details/${providerId}`, {
-            userId: providerId
-        })
-        .then(response => {
-            setUser(response.data)
-            console.log(response.data)
-        })
-        .catch(error => {
-            displayError(error.message)
-        })
-    }
-
-    const getProviderServices = () => {
-        axios.post(`http://localhost:5000/get-user-specific-services/${providerId}`, {
-            userId: providerId
-        })
-        .then(response => {
-            setProviderServices(response.data)
-            console.log(response.data)
-        })
-        .catch(error => {
-            displayError(error.message)
-        })
-    }
 
     return(
         <Fragment>
             {
-                user !== undefined
+                provider
                 ?
                 <div className="page-container">
                     <div className="povider-profile-heading-container">
-                        <RoundImageContainer picture={user.profilePicture} serviceOrUser={'user'} size={'round-image-container-page'}/>
+                        <RoundImageContainer picture={provider.profilePicture} serviceOrUser={'user'} size={'round-image-container-page'}/>
                         <div>
-                            <h3>{user.firstName + " " + user.lastName}</h3>
-                            <div className="user-name">{'@' + user.userName}</div>
+                            <h3>{provider.firstName + " " + provider.lastName}</h3>
+                            <div className="provider-name">{'@' + provider.userName}</div>
                         </div> 
                     </div>
                     <div className="provider-profile-body-container">
                         <div>Location + Radius/Mobile/Stationary</div>
-                        <RatingDisplayComponent rating={user.rating} clickable/> {/*CHANGE HARDCODED RATING TO DATABASE RATING*/}
-                        <div>{user.profileDescription}</div>
-                        <h3>Skills</h3>
+                        <RatingDisplayComponent rating={provider.rating} clickable/>
+                        <div>{provider.profileDescription}</div>
+                        <h3>Services</h3>
                         {
                             providerServices.length > 0
                             ?
@@ -76,18 +50,17 @@ const ProviderProfilePage = () => {
                                         <ServiceCard
                                             key={service.id}
                                             service={service}
-                                            providingUserId={user.id}
-                                            providingUserFirstName={user.firstName}
-                                            providingUserLastName={user.lastName}
+                                            providingUserId={provider.id}
+                                            providingUserFirstName={provider.firstName}
+                                            providingUserLastName={provider.lastName}
                                             orderButtonExists={true}
                                         />
                                     )
                             })
                             :
-                            <div className="text">This provider is not currently offering any services</div>
+                            <div className="text">This provider is currently not offering any services.</div>
                         }
                     </div>
-                    
                 </div>
                 :
                 <div>Sorry, but there is nothing here...</div>

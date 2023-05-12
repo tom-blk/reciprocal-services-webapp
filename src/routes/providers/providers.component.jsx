@@ -7,10 +7,13 @@ import PageContainer from "../../utils/page-container/page-container.component";
 
 import { AlertMessageContext } from "../../context/alert-message.context";
 import { getUserList } from "../../api/users/get-user-list";
+import { apiCall } from "../../api/api-call";
+import { UserContext } from "../../context/user.context";
 
 const Providers = () => {
 
-    const {displayError} = useContext(AlertMessageContext);
+    const { displayError } = useContext(AlertMessageContext);
+    const { user } = useContext(UserContext);
 
     const [searchString, setSearchString] = useState('');
     const [providers, setProviders] = useState([]);
@@ -18,7 +21,7 @@ const Providers = () => {
     const [filteredProviders, setFilteredProviders] = useState(providers);
 
     useEffect(() => {
-        getUserList(displayError).then(response => setProviders(response));
+        apiCall('/users/get-list', 'POST', {userId: user.id}, displayError, undefined).then(response => setProviders(response));
     }, [])
 
     useEffect(() => {
@@ -35,8 +38,13 @@ const Providers = () => {
         setFilteredProviders(
             providers.filter(
                 user => {
-                    const fullUserName = user.firstName.concat(' ', user.lastName);
-                    return fullUserName.toLocaleLowerCase().includes(searchString);
+                    if(user.firstName && user.lastName){
+                        const fullUserName = user.firstName.concat(' ', user.lastName);
+                        return fullUserName.toLocaleLowerCase().includes(searchString);
+                    } else {
+                        return user.userName.toLocaleLowerCase().includes(searchString);
+                    }
+                    
                 }
             )
         )

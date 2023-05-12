@@ -20,9 +20,9 @@ const ServicePage = () => {
 
     let { serviceId } = useParams(); 
 
-    const {displayError, displaySuccessMessage} = useContext(AlertMessageContext);
-    const {toggleModal} = useContext(ModalContext);
-    const {testUser} = useContext(UserContext);
+    const { displayError, displaySuccessMessage } = useContext(AlertMessageContext);
+    const { toggleModal } = useContext(ModalContext);
+    const { user } = useContext(UserContext);
 
     const [service, setService] = useState(undefined);
     const [serviceProviders, setServiceProviders] = useState([]);
@@ -34,7 +34,7 @@ const ServicePage = () => {
             .then(response => setService(response));
         getServiceSpecificUsers(serviceId, displayError)
             .then(response => setServiceProviders(response));
-        getServiceUserAffiliation(testUser.id, serviceId, displayError)
+        getServiceUserAffiliation(user.id, serviceId, displayError)
             .then(response => setProvidedByCurrentUser(response));
     }, [])
 
@@ -51,12 +51,12 @@ const ServicePage = () => {
     const toggleProvidedByCurrentUserStatusButtonHandler = () => {
 
         const removeFunction = () => {
-            removeServiceFromUserServices(testUser.id, serviceId, displayError, displaySuccessMessage);
+            removeServiceFromUserServices(user.id, serviceId, displayError, displaySuccessMessage);
             setProvidedByCurrentUser(false);
         }
 
         const addFunction = () => {
-            addServiceToUserServices(testUser.id, serviceId, displayError, displaySuccessMessage);
+            addServiceToUserServices(user.id, serviceId, displayError, displaySuccessMessage);
             setProvidedByCurrentUser(true);
         }
 

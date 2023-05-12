@@ -8,12 +8,12 @@ import { OrderContext } from "../../context/order.context";
 const OutgoingOrders = () => {
 
     const { getAndSetAllOrdersWithSpecificDirection, outgoingOrders } = useContext(OrderContext)
-    const { testUser } = useContext(UserContext);
+    const { user } = useContext(UserContext);
     const { displayError } = useContext(AlertMessageContext);
 
 
     useEffect(() => {
-        getAndSetAllOrdersWithSpecificDirection(testUser.id, 'outgoing', displayError);
+        getAndSetAllOrdersWithSpecificDirection(user.id, 'outgoing', displayError);
     }, [])
 
 

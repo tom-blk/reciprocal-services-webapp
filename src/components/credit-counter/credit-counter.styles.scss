@@ -1,0 +1,29 @@
+.credit-counter-container{
+    background-color: var(--color-secondary-accent);
+    border-radius: 50%;
+    
+    position: absolute;
+    bottom: 5%;
+
+    padding: var(--space-4);
+
+    display: grid;
+    justify-items: center;
+    align-content: center;
+
+    aspect-ratio: 1/1;
+
+    color: black;
+}
+
+.credit-counter-container.active{
+    transform: scale(1.2);
+}
+
+.credit-counter-number{
+    font-size: var(--font-large);
+}
+
+.credit-counter-number.active{
+    color: red;
+}

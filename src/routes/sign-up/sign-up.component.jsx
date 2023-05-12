@@ -5,7 +5,10 @@ import { useNavigate } from "react-router";
 import { AlertMessageContext } from "../../context/alert-message.context";
 import ButtonComponent from "../../components/button/button.component";
 
+import { register } from "../../api/auth/register";
+
 const emptySignUpForm = {
+    username: '',
     email: '',
     password: '',
     confirmedPassword: ''
@@ -18,13 +21,17 @@ const SignUp = () => {
     const { displayError, displaySuccessMessage } = useContext(AlertMessageContext);
 
     const [signUpForm, setSignUpForm] = useState(emptySignUpForm);
-    const {email, password, confirmedPassword} = signUpForm;
+    const {username, email, password, confirmedPassword} = signUpForm;
 
     const [user, setUser] = useState(undefined);
 
     useEffect(() => {
         console.log(user);
     }, [user])
+
+    useEffect(() => {
+        console.log(signUpForm);
+    }, [signUpForm])
 
     const handleSignUpFormChange = (event) => {
         const {name, value} = event.target;
@@ -51,7 +58,7 @@ const SignUp = () => {
         }
 
         try {
-            console.log('Handle Submit was triggered.')
+            register(username, email, password, displayError, displaySuccessMessage);
 
             displaySuccessMessage('Account successfully created!')
                 setTimeout(() => {
@@ -66,6 +73,16 @@ const SignUp = () => {
         <div className="auth-pages-container">
             <form className="auth-pages-centered" onSubmit={handleSubmit}>
                 <h3>Signup</h3>
+                <label>Choose A Username</label>
+                <input 
+                    required
+                    value={username}
+                    type="text" 
+                    name='username'
+                    placeholder="Username" 
+                    className="auth-input"
+                    onChange={handleSignUpFormChange}
+                />
                 <label>Input your Email Address</label>
                 <input 
                     required

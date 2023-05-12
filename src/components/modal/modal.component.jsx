@@ -4,7 +4,7 @@ import CloseButton from '../close-button/close-button.component';
 
 import './modal.styles.css';
 
-const Modal = ({children}) => {
+const Modal = () => {
 
     //EACH COMPONENT DECIDES FOR ITSELF WHAT KIND OF MODAL TO RENDER BASED ON THE MODAL TYPE (REACT COMPONENT) THAT GETS PASSED TO THE TOGGLE MODAL FUNCTION
     const { toggleModal, modalIsOpen, modalType } = useContext(ModalContext);
@@ -16,7 +16,6 @@ const Modal = ({children}) => {
             &&
             <div className='modal-overlay' onClick={e => toggleModal()}>
                 <div className="modal-container" onClick={e => {e.stopPropagation()}}>
-                    <CloseButton onClickHandler={toggleModal}/>
                     {modalType}
                 </div>
             </div>

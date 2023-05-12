@@ -10,15 +10,17 @@ import { getTrendingServices } from "../../api/services/get-trending-services";
 
 const Home = () => {
 
-  const { testUser } = useContext(UserContext)
+  const { user } = useContext(UserContext)
   const { displayError } = useContext(AlertMessageContext);
   const { getAndSetOrderWithSpecificStatusAndDirection, outgoingOrders, incomingOrders } = useContext(OrderContext)
   
   const [trendingServices, setTrendingServices] = useState([]);
 
   useEffect(() => {
-    getAndSetOrderWithSpecificStatusAndDirection(testUser.id, 'incoming', 'new', displayError);
-    getAndSetOrderWithSpecificStatusAndDirection(testUser.id, 'outgoing', 'fulfilled', displayError);
+    if(user){
+      getAndSetOrderWithSpecificStatusAndDirection(user.id, 'incoming', 'new', displayError);
+      getAndSetOrderWithSpecificStatusAndDirection(user.id, 'outgoing', 'fulfilled', displayError);
+    }
     getTrendingServices(displayError).then(response => setTrendingServices(response));
   }, [])
 

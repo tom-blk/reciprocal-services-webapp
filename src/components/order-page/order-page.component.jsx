@@ -2,7 +2,6 @@ import { Fragment, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { getSingleOrder } from "../../api/orders/get-orders";
 import { modifyOrderStatus } from "../../api/orders/modify-order-status";
-import { getFullUser } from "../../api/users/get-single-user";
 import { AlertMessageContext } from "../../context/alert-message.context";
 import { ModalContext } from "../../context/modal.context";
 import { UserContext } from "../../context/user.context";
@@ -15,6 +14,7 @@ import RoundImageContainer from "../round-image-container/round-image-container.
 
 import "./order-page.styles.scss"
 import { getService } from "../../api/services/get-service";
+import { getSingleUser } from "../../api/users/get-single-user";
 
 const OrderPage = () => {
 
@@ -34,13 +34,7 @@ const OrderPage = () => {
 
     useEffect(() => {
         getSingleOrder(orderIdInt, displayError)
-            .then(response => {
-                    setTempOrder(
-                            response, 
-                            
-                        )
-                }
-            )
+            .then(response => setTempOrder(response));
     }, [])
 
     useEffect(() => {
@@ -48,9 +42,9 @@ const OrderPage = () => {
             console.log(tempOrder)
             getService(tempOrder.serviceId, displayError).then(response => setService(response))
             if(orderStatusHook.orderDirection === 'incoming'){
-                getFullUser(tempOrder.receivingUserId, displayError).then(response => setCorrespondingUser(response))
+                getSingleUser(tempOrder.receivingUserId, displayError).then(response => setCorrespondingUser(response))
             } else if(orderStatusHook.orderDirection === 'outgoing'){
-                getFullUser(tempOrder.providingUserId, displayError).then(response => setCorrespondingUser(response))
+                getSingleUser(tempOrder.providingUserId, displayError).then(response => setCorrespondingUser(response))
             }
         }
     }, [tempOrder])

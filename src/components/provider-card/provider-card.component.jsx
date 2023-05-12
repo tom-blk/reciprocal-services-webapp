@@ -15,11 +15,10 @@ import { getFileUrl } from "../../utils/web3storage/web3storage";
 import { AlertMessageContext } from "../../context/alert-message.context";
 
 const ProviderCard = ({ user, serviceId, serviceName, orderButtonExists }) => {
+    const {id, firstName, lastName, userName, profilePicture, rating} = user;
 
     const { toggleModal } = useContext(ModalContext);
     const { displayError } = useContext(AlertMessageContext);
-
-    const {id, firstName, lastName, profilePicture, rating} = user;
 
     const navigate = useNavigate()
 
@@ -30,6 +29,16 @@ const ProviderCard = ({ user, serviceId, serviceName, orderButtonExists }) => {
         if(profilePicture)
         getFileUrl(profilePicture, displayError).then(response => setProfilePictureUrl(response));
     }, [])
+
+    const assertDisplayName = () => {
+        if(firstName && lastName){
+            return(firstName + ' ' + lastName);
+        } else if (firstName && !lastName){
+            return firstName;
+        } else if (!firstName && !lastName){
+            return userName;
+        }
+    }
 
     const openModal = (e) => {
         e.stopPropagation();
@@ -58,8 +67,7 @@ const ProviderCard = ({ user, serviceId, serviceName, orderButtonExists }) => {
             <div className="provider-card-main-data-container">
                 <div className="provider-card-left-data-container">
                     <RoundImageContainer picture={profilePictureUrl} serviceOrUser={'user'} size={'round-image-container-card'}/>
-                    <div className="heading-secondary">{firstName + ' ' + lastName}</div>  
-                    
+                    <div className="heading-secondary">{assertDisplayName()}</div>  
                 </div>
                 <div className="provider-card-right-data-container">
                     <RatingDisplayComponent rating={rating}/>

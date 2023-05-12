@@ -16,11 +16,16 @@ import OutgoingOrders from './routes/outgoing-orders/outgoing-orders.component';
 
 import './App.styles.scss';
 import EditUserServicesList from './components/edit-user-services-list/edit-user-services-list.component';
+import { UserContext } from './context/user.context';
+import { Fragment, useContext } from 'react';
 
 
 const App = () => {
+
+  const { user } = useContext(UserContext);
+
   return (
-      <Routes>
+    <Routes>
         <Route path='/' element={<Nav/>} >
           <Route index element={<Home/>} />
           <Route path='/services' >
@@ -40,14 +45,14 @@ const App = () => {
             <Route path=':orderId' element={<OrderPage/>}/>
           </Route>
           <Route path='/userProfile' element={<UserProfile/>} />
+          <Route path='/userProfile-edit'>
+            <Route index element={<EditUserProfile/>}/>
+            <Route path='/userProfile-edit/edit-services' element={<EditUserServicesList/>}/> 
+          </Route>
         </Route>
         <Route path='/login' element={<LogIn/>} />
         <Route path='/sign-up' element={<SignUp/>} />
-        <Route path='/userProfile-edit'>
-          <Route index element={<EditUserProfile/>}/>
-          <Route path='/userProfile-edit/edit-services' element={<EditUserServicesList/>}/> 
-        </Route>
-      </Routes>
+    </Routes>      
   );
 }
 
