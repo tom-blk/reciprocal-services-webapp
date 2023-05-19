@@ -10,7 +10,7 @@ import MaxSizeContainer from "../../utils/max-size-container/max-size-container.
 import ButtonComponent from "../button/button.component";
 import ServicesList from "../services-list/services-list.component";
 import { useNavigate } from "react-router";
-import { updateUser } from "../../api/users/update-user";
+import { updateUser } from "../../api/users/update";
 import { OnHoverEdit } from "../on-hover-edit-component/on-hover-edit.component";
 import { getFileUrl } from "../../utils/web3storage/web3storage";
 import { ModalContext } from "../../context/modal.context";

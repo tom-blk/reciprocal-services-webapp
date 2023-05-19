@@ -1,11 +1,17 @@
 .selectable-service-card{
-    border: 2px solid black;
+    border: 2px solid var(--color-primary-accent);
     display: flex;
     justify-content: center;
+    gap: var(--space-4);
     border-radius: 7px;
 }
 
 .selectable-service-card-active{
-    color: white;
+    color: black;
     background-color: var(--color-primary-accent);
+    justify-content: space-around;
+}
+
+.selectable-service-card-embers-per-hour-container{
+    display: flex;
 }

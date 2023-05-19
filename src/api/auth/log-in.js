@@ -9,6 +9,7 @@ export const logIn = async (email, password, onErrorFunction, onSuccessFunction)
         })
         onSuccessFunction('Successfully logged in!')
         
+        console.log(response.data)
         return response.data;
     } catch(error){
         onErrorFunction(error);

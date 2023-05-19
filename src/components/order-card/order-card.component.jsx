@@ -10,11 +10,12 @@ import CardComponent from "../card/card.component";
 import ButtonComponent from "../button/button.component";
 import ConfirmOrderCompletionModalComponent from "../modal/confirm-order-completion-modal.component";
 
-import { modifyOrderStatus } from "../../api/orders/modify-order-status";
+import { modifyOrderStatus, specifyProvidedHours, transferCredits } from "../../api/orders/update";
 import { UserContext } from "../../context/user.context";
 import ConfirmOrCancelModal from "../modal/confirm-or-cancel-modal.component";
-import { getService } from "../../api/services/get-service";
-import { getSingleUser } from "../../api/users/get-single-user";
+import { getService } from "../../api/services/read";
+import { getSingleUser } from "../../api/users/read";
+import SetHoursWorkedModal from "../modal/set-hours-worked-modal.component";
 
 
 const OrderCard = ({order}) => {
@@ -23,12 +24,11 @@ const OrderCard = ({order}) => {
     const { user } = useContext(UserContext);
     const { toggleModal } = useContext(ModalContext);
 
-    const navigate = useNavigate()
-
     const [service, setService] = useState(undefined);
     const [provider, setProvider] = useState(undefined);
     const [tempOrder, setTempOrder] = useState(order); //MIMICS THE CHANGES IN THE DATABASE SO THAT CHANGES BECOME APPARENT WITHOUT HAVING TO REFETCH THE DATA
 
+    const navigate = useNavigate()
     const orderStatusHook = useOrderStatus(tempOrder, user.id);
 
     useEffect(() => {
@@ -41,10 +41,17 @@ const OrderCard = ({order}) => {
     }
 
     const advanceOrderStageInModal = (e) => {
-        if(orderStatusHook.nextStage)
-        modifyOrderStatus(order.id, orderStatusHook.nextStage, displaySuccessMessage, displayError).then(
-            setTempOrder({...tempOrder, status: tempOrder.status + 1})
-        )
+        if(orderStatusHook.nextStage = !4){
+            modifyOrderStatus(order.id, orderStatusHook.nextStage, displaySuccessMessage, displayError).then(
+                setTempOrder({...tempOrder, status: tempOrder.status + 1})
+            )
+        } else {
+            transferCredits(user.id, order.providingUserId, displaySuccessMessage, displayError)
+                .then(modifyOrderStatus(order.id, orderStatusHook.nextStage, displaySuccessMessage, displayError)
+                    .then(
+                        setTempOrder({...tempOrder, status: tempOrder.status + 1})
+                    ))
+        }   
     }
 
     const denyOrderInModal = () => {
@@ -55,20 +62,28 @@ const OrderCard = ({order}) => {
 
     const buttonOnClickHandler = (e) => {
         e.stopPropagation();
-        if(orderStatusHook.nextStage && orderStatusHook.nextStage != 4)
-        toggleModal(
-            <ConfirmOrCancelModal
-                prompt={'Do You Really Want to Proceed with this Order?'}
-                onConfirm={advanceOrderStageInModal}         
-            />
-        )
-        if(orderStatusHook.nextStage === 4)
-        toggleModal(
-            <ConfirmOrderCompletionModalComponent 
-                providerId={provider.id} 
-                confirmedCompletionCallback={advanceOrderStageInModal}
-            />
-        )
+        if(orderStatusHook.nextStage && orderStatusHook.nextStage != 4 && orderStatusHook.nextStage != 3){
+            toggleModal(
+                <ConfirmOrCancelModal
+                    prompt={'Do You Really Want to Proceed with this Order?'}
+                    onConfirm={advanceOrderStageInModal}         
+                />
+            )
+        } else if(orderStatusHook.nextStage === 3){
+            toggleModal(
+                <SetHoursWorkedModal 
+                    orderId={order.id} 
+                    confirmedCompletionCallback={advanceOrderStageInModal}
+                />
+            )
+        } else if(orderStatusHook.nextStage === 4){
+            toggleModal(
+                <ConfirmOrderCompletionModalComponent 
+                    providerId={provider.id} 
+                    confirmedCompletionCallback={advanceOrderStageInModal}
+                />
+            )
+        }
     }
 
     const declineButtonOnClickHandler = (e) => {

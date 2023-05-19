@@ -5,16 +5,16 @@ import { AlertMessageContext } from "../../context/alert-message.context";
 import PageContainer from "../../utils/page-container/page-container.component";
 import RoundImageContainer from "../round-image-container/round-image-container.component";
 import ProviderCard from "../provider-card/provider-card.component";
-import { getServiceSpecificUsers } from "../../api/services/get-service-specific-users";
+import { getServiceSpecificUsers } from "../../api/services/read";
 import { getFileUrl } from "../../utils/web3storage/web3storage";
 import ButtonComponent from "../button/button.component";
 import { ModalContext } from "../../context/modal.context";
 import ConfirmOrCancelModal from "../modal/confirm-or-cancel-modal.component";
-import { removeServiceFromUserServices } from "../../api/users/remove-service-from-user-services";
-import { addServiceToUserServices } from "../../api/users/add-service-to-user-services";
+import { removeServiceFromUserServices } from "../../api/users/update";
+import { addServiceToUserServices } from "../../api/users/update";
 import { UserContext } from "../../context/user.context";
-import { getServiceUserAffiliation } from "../../api/users/get-service-user-affiliation";
-import { getService } from "../../api/services/get-service";
+import { getServiceUserAffiliation } from "../../api/users/read";
+import { getService } from "../../api/services/read";
 
 const ServicePage = () => {
 
@@ -31,7 +31,7 @@ const ServicePage = () => {
 
     useEffect(() => {
         getService(serviceId, displayError)
-            .then(response => setService(response));
+            .then(response => {setService(response); console.log(response)});
         getServiceSpecificUsers(serviceId, displayError)
             .then(response => setServiceProviders(response));
         getServiceUserAffiliation(user.id, serviceId, displayError)
@@ -43,10 +43,6 @@ const ServicePage = () => {
         if(service.icon)
         getFileUrl(service.icon, displayError).then(response => setServiceIcon(response));
     }, [service])
-
-    useEffect(() => {
-        console.log(providedByCurrentUser);
-    }, [providedByCurrentUser])
 
     const toggleProvidedByCurrentUserStatusButtonHandler = () => {
 

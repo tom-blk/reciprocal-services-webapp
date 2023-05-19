@@ -6,10 +6,10 @@ import { AlertMessageContext } from "../../context/alert-message.context";
 
 import ButtonComponent from "../button/button.component";
 
-import { createService } from "../../api/services/create-service";
+import { createService } from "../../api/services/create";
 
 import './orderServiceModal.styles.css';
-import { addServiceToUserServices } from "../../api/users/add-service-to-user-services";
+import { addServiceToUserServices } from "../../api/users/update";
 import RoundImageContainer from "../round-image-container/round-image-container.component";
 import ImageCropComponent from "../image-crop-component/image-crop-component";
 

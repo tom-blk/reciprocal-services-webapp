@@ -1,7 +1,7 @@
 import { Fragment, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { getSingleOrder } from "../../api/orders/get-orders";
-import { modifyOrderStatus } from "../../api/orders/modify-order-status";
+import { getSingleOrder } from "../../api/orders/read";
+import { modifyOrderStatus } from "../../api/orders/update";
 import { AlertMessageContext } from "../../context/alert-message.context";
 import { ModalContext } from "../../context/modal.context";
 import { UserContext } from "../../context/user.context";
@@ -13,8 +13,8 @@ import ConfirmOrderCompletionModalComponent from "../modal/confirm-order-complet
 import RoundImageContainer from "../round-image-container/round-image-container.component";
 
 import "./order-page.styles.scss"
-import { getService } from "../../api/services/get-service";
-import { getSingleUser } from "../../api/users/get-single-user";
+import { getService } from "../../api/services/read";
+import { getSingleUser } from "../../api/users/read";
 
 const OrderPage = () => {
 

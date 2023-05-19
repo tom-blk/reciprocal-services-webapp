@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import ButtonComponent from "../../components/button/button.component";
@@ -14,7 +14,7 @@ const LogIn = () => {
     const navigate = useNavigate()
 
     const { displayError, displaySuccessMessage } = useContext(AlertMessageContext);
-    const { setUser } = useContext(UserContext);
+    const { setUser, setAuthToken } = useContext(UserContext);
 
     const emptyLoginForm = {
         email: '',
@@ -26,12 +26,11 @@ const LogIn = () => {
 
     const loginButtonOnClickHandler = () => {
         logIn(email, password, displayError, displaySuccessMessage)
-            .then( 
-                response => {
-                    document.cookie = `userAuthenticationToken = ${response}`;
-                    setLogInForm(emptyLoginForm);
-                    getUser(document.cookie.split('=')[1], displayError)
-                        .then(response => setUser(response)); 
+            .then(response => {
+                setAuthToken(response);
+                setLogInForm(emptyLoginForm)
+                getUser(response, displayError)
+                    .then(response => setUser(response));     
                 }
             )
     }

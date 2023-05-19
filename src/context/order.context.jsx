@@ -1,5 +1,5 @@
-import React, { createContext, useEffect, useState } from "react";
-import { getAllOrdersWithSpecificDirection, getOrdersWithSpecificStatusAndDirection } from "../api/orders/get-orders";
+import React, { createContext, useState } from "react";
+import { getAllOrdersWithSpecificDirection, getOrdersWithSpecificStatusAndDirection } from "../api/orders/read";
 
 export const OrderContext = createContext();
 

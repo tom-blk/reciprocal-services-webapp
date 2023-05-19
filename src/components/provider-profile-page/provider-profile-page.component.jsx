@@ -12,7 +12,7 @@ import { apiCall } from "../../api/api-call";
 const ProviderProfilePage = () => {
 
     const alertMessageContext = useContext(AlertMessageContext);
-    const {displayError} = alertMessageContext;
+    const { displayError } = alertMessageContext;
 
     const { providerId } = useParams();
 

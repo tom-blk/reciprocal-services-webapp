@@ -9,13 +9,12 @@ import EditButton from "../../components/edit-button/edit-button.component";
 import { UserContext } from "../../context/user.context";
 import { AlertMessageContext } from "../../context/alert-message.context";
 
-import { getUserSpecificServices } from "../../api/users/get-user-specific-services";
+import { getUserSpecificServices } from "../../api/users/read";
 
 import { useNavigate } from "react-router";
 
 import './user-profile.styles.scss';
 import { getFileUrl } from "../../utils/web3storage/web3storage";
-import { apiCall } from "../../api/api-call";
 
 const UserProfile = () => {
 
@@ -29,7 +28,7 @@ const UserProfile = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        apiCall('/users/get-user-specific-services', 'POST', {userId: user.id}, displayError, undefined).then(response => setUserServices(response));
+        getUserSpecificServices(user.id, displayError).then(response => setUserServices(response));
     }, [])
 
     useEffect(() => {

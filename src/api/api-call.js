@@ -1,10 +1,10 @@
 import axios from "axios"
 
-const jwt = document.cookie.split('=')[1];
-
 const baseUrl = 'http://localhost:5000';
 
-export const apiCall = async ( endpoint, METHOD, payload, onErrorFunction, onSuccessFunction ) => {
+export const apiCall = async ( endpoint, METHOD, payload ) => {
+
+    const jwtCookie = await document.cookie;
     
     const parameters = {
         url: `${baseUrl}${endpoint}`,
@@ -12,22 +12,15 @@ export const apiCall = async ( endpoint, METHOD, payload, onErrorFunction, onSuc
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json;charset=UTF-8",
+            'Authorization': jwtCookie 
         },
-        data: {
-            jwt: jwt,
-            payload: payload
-        }
+        data: payload
     };
 
     try{
         const response = await axios(parameters)
-
-        if(onSuccessFunction)
-        onSuccessFunction('Success!')
-
-        return response.data;
-
+        return await response.data
     } catch(error){
-        onErrorFunction(error)
+        return(error)
     }
 }

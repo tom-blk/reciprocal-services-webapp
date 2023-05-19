@@ -4,7 +4,7 @@ import { ModalContext } from "../../context/modal.context";
 import { AlertMessageContext } from "../../context/alert-message.context";
 
 import './orderServiceModal.styles.css';
-import { uploadNewProfilePictureAndCreateDatabaseEntryWithCid } from "../../api/users/upload-new-profile-picture-and-create-database-entry-with-cid";
+import { uploadNewProfilePictureAndCreateDatabaseEntryWithCid } from "../../api/users/update";
 import ImageCropComponent from "../image-crop-component/image-crop-component";
 import ButtonComponent from "../button/button.component";
 
@@ -21,10 +21,6 @@ const SelectProfilePictureModal = ({ userId, profilePictureCid }) => {
             toggleModal();
         })
     }
-
-    useEffect(() => {
-        console.log(croppedImage);
-    }, [croppedImage])
 
     return(
         <Fragment>

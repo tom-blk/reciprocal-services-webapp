@@ -21,9 +21,9 @@
 }
 
 .success-message{
-    border: 1px solid var(--color-success-text-and-border);
-    color: var(--color-success-text-and-border);
-    background-color: var(--color-success-background);
+    border: 1px solid var(--color-secondary-accent);
+    color: black;
+    background-color: var(--color-secondary-accent);
 }
 
 @keyframes opacity-shift {

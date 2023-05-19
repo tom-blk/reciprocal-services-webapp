@@ -9,7 +9,7 @@ import { AlertMessageContext } from "../../context/alert-message.context"
 import AddButtonComponent from "../../components/add-button-component/add-button.component"
 import { ModalContext } from "../../context/modal.context"
 import AddServiceModal from "../../components/modal/add-service-modal.component"
-import { getServiceList } from "../../api/services/get-service-list"
+import { getServiceList } from "../../api/services/read"
  
 const Services = () => {
 
@@ -21,7 +21,7 @@ const Services = () => {
     const [filteredServices, setFilteredServices] = useState(superficialServiceDetails);
 
     useEffect(() => {
-        getServiceList(displayError).then(response => setSuperficialServiceDetails(response));
+        getServiceList(displayError).then(response => setSuperficialServiceDetails(response)).catch(setSuperficialServiceDetails([]));
     }, [])
 
     useEffect(() => {

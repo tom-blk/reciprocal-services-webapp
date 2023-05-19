@@ -19,7 +19,7 @@ const Nav = () => {
     const toggleLogOutModal = () => {
 
         const confirmLogOut = () => {
-            document.cookie = "userAuthenticationToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "prometheusUserAuthenticationToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             setUser(null);
         }
 

@@ -6,7 +6,7 @@ import { AlertMessageContext } from "../../context/alert-message.context";
 
 import ButtonComponent from "../button/button.component";
 
-import { createOrder } from "../../api/orders/create-order";
+import { createOrder } from "../../api/orders/create";
 
 import './orderServiceModal.styles.css';
 
@@ -14,13 +14,13 @@ import './orderServiceModal.styles.css';
 const OrderServiceModal = ({ providingUserId, providingUserFirstName, providingUserLastName, serviceId, serviceName, serviceOrderedCallback }) => {
 
     const { toggleModal } = useContext(ModalContext);
-    const { testUser } = useContext(UserContext);
+    const { user } = useContext(UserContext);
     const { displayError, displaySuccessMessage } = useContext(AlertMessageContext);
 
     const orderDataTemplate = {
         serviceId: serviceId,
         providingUserId: providingUserId,
-        receivingUserId: testUser.id,
+        receivingUserId: user.id,
         message: ''
     }
 

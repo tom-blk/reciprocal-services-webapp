@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router';
 
-import { updateUserSpecificServices } from '../../api/users/update-user-specific-services';
+import { updateUserSpecificServices } from '../../api/users/update';
 
 import { AlertMessageContext } from '../../context/alert-message.context';
 import { UserContext } from '../../context/user.context';
@@ -13,7 +13,6 @@ import SearchBar from '../search-bar/search-bar.component';
 import SelectableServiceCard from '../selectable-service-card/selectable-service-card.component';
 
 import './edit-user-services-list.styles.scss';
-import { getServiceList } from '../../api/services/get-service-list';
 import { apiCall } from '../../api/api-call';
 
 const EditUserServicesList = ({userId}) => {
@@ -33,6 +32,7 @@ const EditUserServicesList = ({userId}) => {
     useEffect(() => {
         apiCall('/users/get-user-specific-services', 'POST', {userId: user.id}, displayError, undefined)
             .then(response => {
+                console.log(response);
                 setUserServiceIds(extractIdsIntoNewArray(response)) 
                 setSelectedServiceIds(extractIdsIntoNewArray(response))
             })
@@ -40,7 +40,7 @@ const EditUserServicesList = ({userId}) => {
 
 
     useEffect(() => {
-        getServiceList(displayError)
+        apiCall('/services/get-list', 'GET', undefined, displayError, undefined)
             .then(response => setAllServicesWithoutUserServices(assignSelectionStatusAndReturnServices(response, userServiceIds)));
     }, [userServiceIds])
 
@@ -99,6 +99,7 @@ const EditUserServicesList = ({userId}) => {
 
         sortServicesBySelectionStatus(allServices);
         
+        console.log(allServices);
         return allServices;
     }
 
@@ -126,6 +127,11 @@ const EditUserServicesList = ({userId}) => {
         setAllServicesWithoutUserServices(tempServices);
     }
 
+    const changeServiceEmbersPerHour = ( serviceId, numberOfEmbers ) => {
+        console.log(serviceId);
+        console.log(numberOfEmbers);
+    }
+
     const confirmButtonOnClickHandler = () => {
         updateUserSpecificServices(user.id, userServiceIds, selectedServiceIds, displayError)
             .then(displaySuccessMessage('Services Successfully Updated!'));
@@ -146,7 +152,7 @@ const EditUserServicesList = ({userId}) => {
                         &&
                         filteredServices.map(service => {
                             return(
-                                    <SelectableServiceCard key={service.id} onClickHandler={onServiceCardClick} service={service} serviceName={service.name}/>
+                                    <SelectableServiceCard key={service.id} onClickHandler={onServiceCardClick} changeEmbersPerHour={changeServiceEmbersPerHour} service={service} serviceName={service.name}/>
                                 )
                             }
                         )

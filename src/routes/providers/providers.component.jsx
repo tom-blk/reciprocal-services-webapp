@@ -6,8 +6,7 @@ import "./providers.styles.scss";
 import PageContainer from "../../utils/page-container/page-container.component";
 
 import { AlertMessageContext } from "../../context/alert-message.context";
-import { getUserList } from "../../api/users/get-user-list";
-import { apiCall } from "../../api/api-call";
+import { getUserList } from "../../api/users/read";
 import { UserContext } from "../../context/user.context";
 
 const Providers = () => {
@@ -21,10 +20,11 @@ const Providers = () => {
     const [filteredProviders, setFilteredProviders] = useState(providers);
 
     useEffect(() => {
-        apiCall('/users/get-list', 'POST', {userId: user.id}, displayError, undefined).then(response => setProviders(response));
+        getUserList(user.id, displayError).then(response => setProviders(response));
     }, [])
 
     useEffect(() => {
+        if(providers)
         filterUsers();
     }, [searchString, providers])
 

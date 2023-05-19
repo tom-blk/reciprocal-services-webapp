@@ -6,7 +6,7 @@ import { AlertMessageContext } from "../../context/alert-message.context";
 import OrderList from "../../components/orders-list/orders-list.component";
 import { OrderContext } from "../../context/order.context";
 import ServicesList from "../../components/services-list/services-list.component";
-import { getTrendingServices } from "../../api/services/get-trending-services";
+import { getTrendingServices } from "../../api/services/read";
 
 const Home = () => {
 
@@ -17,10 +17,8 @@ const Home = () => {
   const [trendingServices, setTrendingServices] = useState([]);
 
   useEffect(() => {
-    if(user){
-      getAndSetOrderWithSpecificStatusAndDirection(user.id, 'incoming', 'new', displayError);
-      getAndSetOrderWithSpecificStatusAndDirection(user.id, 'outgoing', 'fulfilled', displayError);
-    }
+    getAndSetOrderWithSpecificStatusAndDirection(user.id, 'incoming', 'new', displayError);
+    getAndSetOrderWithSpecificStatusAndDirection(user.id, 'outgoing', 'fulfilled', displayError);
     getTrendingServices(displayError).then(response => setTrendingServices(response));
   }, [])
 

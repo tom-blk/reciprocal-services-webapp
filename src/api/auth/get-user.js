@@ -1,13 +1,14 @@
-import axios from "axios"
+import { apiCall } from "../api-call";
 
-export const getUser = async ( jwt, onErrorFunction ) => {
-
-    try{
-        const response = await axios.post(`http://localhost:5000/auth/get-user`, {
-            jwt: jwt
-        })
-        return response.data;
-    } catch(error){
-        onErrorFunction(error)
+export const getUser = async ( onErrorFunction ) => {
+    if(document.cookie.split('=').includes('prometheusUserAuthenticationToken') && document.cookie.split('=')[1]){
+        try{
+            const data = await apiCall('/auth/get-user', 'POST', {jwt: document.cookie});
+            return data;
+        } catch(error){
+            onErrorFunction(error)
+        }
+    } else{
+        return
     }
 }

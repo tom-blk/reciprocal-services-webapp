@@ -9,7 +9,7 @@ import RoundImageContainer from "../round-image-container/round-image-container.
 
 import './service-card.styles.scss';
 import { AlertMessageContext } from "../../context/alert-message.context";
-import { getServiceProviderCount } from "../../api/services/get-service-provider-count";
+import { getServiceProviderCount } from "../../api/services/read";
 import { getFileUrl } from "../../utils/web3storage/web3storage";
 
 const ServiceCard = ({ service, providingUserId, providingUserFirstName, providingUserLastName, orderButtonExists }) => {
