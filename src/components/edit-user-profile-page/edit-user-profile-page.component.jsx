@@ -62,27 +62,25 @@ const EditUserProfile = () => {
     }
 
     return(
-        <MaxSizeContainer>
-            <PageContainer>
-                    <Fragment>
-                        <h2>Profile Picture</h2>
-                        <OnHoverEdit onClickFunction={selectNewProfilePicture} size={'round-image-container-page'}>
-                            <RoundImageContainer size={'round-image-container-page'} serviceOrUser={'user'} picture={profilePicture}/>
-                        </OnHoverEdit>
-                        <h2>First Name</h2>
-                        <input className="text-area" type="text" value={user.firstName} onChange={e => {setTempUser({...user, firstName: e.target.value})}}/>
-                        <h2>Last Name</h2>
-                        <input className="text-area" type="text" value={user.lastName} onChange={e => {setTempUser({...user, lastName: e.target.value})}}/>
-                        <h2>Description</h2>
-                        <textarea className="text-area" type="text" rows='10' defaultValue={user.profileDescription} onChange={e => {setTempUser({...user, profileDescription: e.target.value})}}/>
-                        <h2>Services</h2>  
-                        <ServicesList services={userServices}/>
-                        <ButtonComponent buttonType={'confirm'} onClickHandler={editServicesButtonOnClickHandler}>Edit Your Services</ButtonComponent>
-                        <ButtonComponent buttonType={'confirm'} onClickHandler={saveChangesButtonOnClickHandler}>Save Changes</ButtonComponent>
-                        <ButtonComponent buttonType={'cancel'} onClickHandler={cancelButtonOnClickHandler}>Cancel</ButtonComponent>
-                    </Fragment>
-            </PageContainer>
-        </MaxSizeContainer>
+        <PageContainer>
+            <Fragment>
+                <h2>Profile Picture</h2>
+                <OnHoverEdit onClickFunction={selectNewProfilePicture} size={'round-image-container-page'}>
+                    <RoundImageContainer size={'round-image-container-page'} serviceOrUser={'user'} picture={profilePicture}/>
+                </OnHoverEdit>
+                <h2>First Name</h2>
+                <input className="text-area" type="text" value={user.firstName} onChange={e => {setTempUser({...user, firstName: e.target.value})}}/>
+                <h2>Last Name</h2>
+                <input className="text-area" type="text" value={user.lastName} onChange={e => {setTempUser({...user, lastName: e.target.value})}}/>
+                <h2>Description</h2>
+                <textarea className="text-area" type="text" rows='10' defaultValue={user.profileDescription} onChange={e => {setTempUser({...user, profileDescription: e.target.value})}}/>
+                <h2>Services</h2>  
+                <ServicesList services={userServices}/>
+                <ButtonComponent buttonType={'confirm'} onClickHandler={editServicesButtonOnClickHandler}>Edit Your Services</ButtonComponent>
+                <ButtonComponent buttonType={'confirm'} onClickHandler={saveChangesButtonOnClickHandler}>Save Changes</ButtonComponent>
+                <ButtonComponent buttonType={'cancel'} onClickHandler={cancelButtonOnClickHandler}>Cancel</ButtonComponent>
+            </Fragment>
+        </PageContainer>
     )
 }
 

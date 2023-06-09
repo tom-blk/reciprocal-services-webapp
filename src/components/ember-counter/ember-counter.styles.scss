@@ -2,7 +2,8 @@
     background-color: var(--color-secondary-accent);
     border-radius: 50%;
     
-    position: absolute;
+    position: fixed;
+    left: 27%;
     bottom: 5%;
 
     padding: var(--space-4);

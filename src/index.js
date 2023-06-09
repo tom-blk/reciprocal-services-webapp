@@ -13,6 +13,7 @@ import Modal from './components/modal/modal.component';
 import App from './App';
 
 import './index.scss';
+import Background from './utils/background/background.component';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -22,7 +23,9 @@ root.render(
         <UserContextProvider>
           <OrderContextProvider>
             <ModalContextProvider>
-              <App />
+              <Background>
+                <App /> 
+              </Background>
               <AlertMessageList />
               <Modal/>
             </ModalContextProvider>

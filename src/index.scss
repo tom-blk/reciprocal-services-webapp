@@ -1,6 +1,24 @@
 * {
   margin: 0;
   box-sizing: border-box;
+
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #141414;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-secondary-accent);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-accent);
 }
 
 body {
@@ -8,7 +26,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: linear-gradient(to right, var(--color-background-primary), var(--color-background-secondary), var(--color-background-primary));
   color: var(--color-secondary-accent);
 }
 
