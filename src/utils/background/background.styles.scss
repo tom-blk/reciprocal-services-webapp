@@ -1,7 +1,13 @@
 .wrapper{
     position: relative;
     height: 100vh;
+}
+
+.black-background-wrapper{
     background-color: black;
+    height: 100%;
+    width: 100%;
+    position: fixed;
 }
 
 .background-component{
@@ -16,7 +22,7 @@
     background-repeat: no-repeat;
 
     animation-name: background-movement;
-    animation-duration: 100s;
+    animation-duration: 400s;
     animation-iteration-count: infinite;
     animation-direction: alternate;
 }
