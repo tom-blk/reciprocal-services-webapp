@@ -4,16 +4,15 @@ import { apiCall } from "../api-call";
 export const createService = async (serviceData, onSuccessFunction, onErrorFunction) => {
     try{
         if(!serviceData.icon){
-            const newServiceId = await apiCall('/services/create-service', 'POST', {name: serviceData.name, description: serviceData.description, icon: undefined});
-            return  await newServiceId;
+            await apiCall('/services/create-service', 'POST', {name: serviceData.name, description: serviceData.description, icon: undefined});
         }else{
-            uploadFile([serviceData.icon], onSuccessFunction, onErrorFunction).then( async rootCid => {
-                const newServiceId = await await apiCall('/services/create-service', 'POST', {name: serviceData.name, description: serviceData.description, icon: rootCid});
-                return await newServiceId;
-            })
+            uploadFile([serviceData.icon], onSuccessFunction, onErrorFunction)
+                .then( async rootCid => await apiCall('/services/create-service', 'POST', {name: serviceData.name, description: serviceData.description, icon: rootCid}))
+                .catch(error => {throw new Error('Failed to upload service icon, aborted service creation...')})
             return 
         }
     } catch(error){
-        onErrorFunction(error)
+        console.log(error)
+        throw new Error('Failed to create service...')
     }
 }

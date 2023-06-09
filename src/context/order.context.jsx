@@ -1,9 +1,14 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useContext } from "react";
+
+import { AlertMessageContext } from "./alert-message.context";
+
 import { getAllOrdersWithSpecificDirection, getOrdersWithSpecificStatusAndDirection } from "../api/orders/read";
 
 export const OrderContext = createContext();
 
 export const OrderContextProvider = (input) => {
+
+    const { displayError } = useContext(AlertMessageContext);
 
     //ORDER STATUS IS 1 (ordered) 2 (accepted) 3 (completed) 4 (completion confirmed) 5 (order denied)
 
@@ -19,16 +24,18 @@ export const OrderContextProvider = (input) => {
     const [incomingOrders, setIncomingOrders] = useState(ordersTemplate);
 
     const getAndSetAllOrdersWithSpecificDirection = (userId, orderDirection, onErrorFunction) => {
-        getAllOrdersWithSpecificDirection(userId, orderDirection, onErrorFunction).then(
-            response => {
-                if(orderDirection === 'outgoing'){
-                    setOutgoingOrders(response)
+        getAllOrdersWithSpecificDirection(userId, orderDirection, onErrorFunction)
+            .then(
+                response => {
+                    if(orderDirection === 'outgoing'){
+                        setOutgoingOrders(response)
+                    }
+                    if(orderDirection === 'incoming'){
+                        setIncomingOrders(response)
+                    }
                 }
-                if(orderDirection === 'incoming'){
-                    setIncomingOrders(response)
-                }
-            }
-        )
+            )
+            .catch(error => displayError(error))
     }
 
     const getAndSetOrderWithSpecificStatusAndDirection = (userId, orderDirection, orderStatus, onErrorFunction) => {
@@ -53,17 +60,19 @@ export const OrderContextProvider = (input) => {
                 break;
         }
 
-        getOrdersWithSpecificStatusAndDirection(userId, statusInt, orderDirection, onErrorFunction).then(
-            response => {
-                console.log(response);
-                if(orderDirection === 'outgoing'){
-                    setOutgoingOrders({...outgoingOrders, [orderStatus]: response})
+        getOrdersWithSpecificStatusAndDirection(userId, statusInt, orderDirection, onErrorFunction)
+            .then(
+                response => {
+                    console.log(response);
+                    if(orderDirection === 'outgoing'){
+                        setOutgoingOrders({...outgoingOrders, [orderStatus]: response})
+                    }
+                    if(orderDirection === 'incoming'){
+                        setIncomingOrders({...incomingOrders, [orderStatus]: response})
+                    }
                 }
-                if(orderDirection === 'incoming'){
-                    setIncomingOrders({...incomingOrders, [orderStatus]: response})
-                }
-            }
-        );
+            )
+            .catch(error => displayError(error))
     }
 
 

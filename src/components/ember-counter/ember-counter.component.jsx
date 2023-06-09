@@ -1,27 +1,28 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
-import './credit-counter.styles.scss';
+import './ember-counter.styles.scss';
 
-const CreditCounter = () => {
+const EmberCounter = () => {
 
     const [credits, setCredits] = useState(100);
     const [active, setActive] = useState(false);
-    const [amount, setAmount] = useState(20);
 
     const triggerDecreaseCreditsEffect = () => {
         setActive(true);
+        const amount = 20;
+        let count = credits
         for(let i = 0; i < amount; i++){
-            setCredits(credits - 1);
+            setCredits(credits-1)
         }
     }
 
     return (
         <div className={`credit-counter-container ${active && 'active'}`}>
-            <div>Your Credits:</div> 
+            <div>Your Embers:</div> 
             <span className={`credit-counter-number ${active && 'active'}`}>{credits}</span> 
             <button onClick={e => triggerDecreaseCreditsEffect()}>Test</button>
         </div>
     )
 }
 
-export default CreditCounter
+export default EmberCounter

@@ -20,15 +20,15 @@ const Providers = () => {
     const [filteredProviders, setFilteredProviders] = useState(providers);
 
     useEffect(() => {
-        getUserList(user.id, displayError).then(response => setProviders(response));
+        getUserList(user.id, displayError)
+            .then(response => setProviders(response))
+            .catch(error => displayError(error))
     }, [])
 
     useEffect(() => {
         if(providers)
         filterUsers();
     }, [searchString, providers])
-
-    
 
     const onSearchChange = (userInput) => {
         setSearchString(userInput)

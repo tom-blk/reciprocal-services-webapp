@@ -1,5 +1,7 @@
 import React, { Fragment, useContext } from 'react'
+
 import { ModalContext } from '../../context/modal.context'
+
 import ButtonComponent from '../button/button.component'
 
 const ConfirmOrCancelModal = ({prompt, onConfirm}) => {

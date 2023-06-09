@@ -4,7 +4,7 @@ import Banner from "../../components/banner/banner.component";
 import MaxSizeContainer from "../../utils/max-size-container/max-size-container.component";
 
 import "./nav.styles.scss"
-import CreditCounter from "../../components/credit-counter/credit-counter.component";
+import EmberCounter from "../../components/ember-counter/ember-counter.component";
 import { Fragment, useContext } from "react";
 import { UserContext } from "../../context/user.context";
 import LogIn from "../login/login.component";
@@ -45,7 +45,7 @@ const Nav = () => {
                     <div onClick={e => toggleLogOutModal()}>Log Out</div>
                 </div>
                 <Outlet/> 
-                <CreditCounter/>
+                <EmberCounter/>
             </MaxSizeContainer>
             :
             <LogIn/>

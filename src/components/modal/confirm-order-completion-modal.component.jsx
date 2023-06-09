@@ -21,9 +21,9 @@ const ConfirmOrderCompletionModalComponent = ({providerId, confirmedCompletionCa
 
     const confirmRatingAndCloseModal = () => {
         if(rating){
-            rateUser(providerId, rating, displaySuccessMessage, displayError).then(
-                confirmedCompletionCallback()
-            )
+            rateUser(providerId, rating, displaySuccessMessage, displayError)
+                .then(confirmedCompletionCallback())
+                .catch(error => displayError(error))
             toggleModal();
         }
         if(!rating)

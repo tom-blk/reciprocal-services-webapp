@@ -1,6 +1,5 @@
 import { Fragment, useContext } from 'react';
 import { ModalContext } from '../../context/modal.context';
-import CloseButton from '../close-button/close-button.component';
 
 import './modal.styles.css';
 

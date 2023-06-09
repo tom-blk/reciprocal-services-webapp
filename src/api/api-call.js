@@ -21,6 +21,6 @@ export const apiCall = async ( endpoint, METHOD, payload ) => {
         const response = await axios(parameters)
         return await response.data
     } catch(error){
-        return(error)
+        throw new Error(error)
     }
 }

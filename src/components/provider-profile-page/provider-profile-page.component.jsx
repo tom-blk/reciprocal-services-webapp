@@ -1,13 +1,16 @@
-import { useContext } from "react";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useState, useContext } from "react";
+
 import { useParams } from "react-router"
+
 import { AlertMessageContext } from "../../context/alert-message.context";
+
 import RatingDisplayComponent from "../rating-display-component/rating-display.component";
 import RoundImageContainer from "../round-image-container/round-image-container.component";
 import ServiceCard from "../service-card/service-card.component";
 
 import './provider-profile-page.styles.scss';
-import { apiCall } from "../../api/api-call";
+
+import { getSingleUser, getUserSpecificServices } from "../../api/users/read";
 
 const ProviderProfilePage = () => {
 
@@ -20,8 +23,12 @@ const ProviderProfilePage = () => {
     const [providerServices, setProviderServices] = useState([]);
 
     useEffect(() => {
-        apiCall('/users/get-single-user', 'POST', {userId: providerId}, displayError, undefined).then(response => setProvider(response));
-        apiCall('/users/get-user-specific-services', 'POST', {userId: providerId}, displayError, undefined).then(response => setProviderServices(response));
+        getSingleUser(providerId)
+            .then(response => setProvider(response))
+            .catch(error => displayError(error))
+        getUserSpecificServices(providerId)
+            .then(response => setProviderServices(response))
+            .catch(error => displayError(error))
     }, [])
 
     return(

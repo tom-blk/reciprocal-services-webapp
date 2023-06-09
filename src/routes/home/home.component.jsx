@@ -19,7 +19,9 @@ const Home = () => {
   useEffect(() => {
     getAndSetOrderWithSpecificStatusAndDirection(user.id, 'incoming', 'new', displayError);
     getAndSetOrderWithSpecificStatusAndDirection(user.id, 'outgoing', 'fulfilled', displayError);
-    getTrendingServices(displayError).then(response => setTrendingServices(response));
+    getTrendingServices()
+      .then(response => setTrendingServices(response))
+      .catch(error => displayError(error))
   }, [])
 
   return (

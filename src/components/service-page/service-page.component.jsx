@@ -1,18 +1,21 @@
-import axios from "axios";
 import { Fragment, useState, useEffect, useContext } from "react";
-import { useParams } from "react-router"
+
 import { AlertMessageContext } from "../../context/alert-message.context";
+import { ModalContext } from "../../context/modal.context";
+import { UserContext } from "../../context/user.context";
+
+import ButtonComponent from "../button/button.component";
 import PageContainer from "../../utils/page-container/page-container.component";
 import RoundImageContainer from "../round-image-container/round-image-container.component";
 import ProviderCard from "../provider-card/provider-card.component";
+import ConfirmOrCancelModal from "../modal/confirm-or-cancel-modal.component";
+
+import { useParams } from "react-router"
+
 import { getServiceSpecificUsers } from "../../api/services/read";
 import { getFileUrl } from "../../utils/web3storage/web3storage";
-import ButtonComponent from "../button/button.component";
-import { ModalContext } from "../../context/modal.context";
-import ConfirmOrCancelModal from "../modal/confirm-or-cancel-modal.component";
 import { removeServiceFromUserServices } from "../../api/users/update";
 import { addServiceToUserServices } from "../../api/users/update";
-import { UserContext } from "../../context/user.context";
 import { getServiceUserAffiliation } from "../../api/users/read";
 import { getService } from "../../api/services/read";
 
@@ -31,29 +34,42 @@ const ServicePage = () => {
 
     useEffect(() => {
         getService(serviceId, displayError)
-            .then(response => {setService(response); console.log(response)});
+            .then(response => {setService(response)})
+            .catch(error => displayError(error))
         getServiceSpecificUsers(serviceId, displayError)
-            .then(response => setServiceProviders(response));
+            .then(response => setServiceProviders(response))
+            .catch(error => displayError(error))
         getServiceUserAffiliation(user.id, serviceId, displayError)
-            .then(response => setProvidedByCurrentUser(response));
+            .then(response => setProvidedByCurrentUser(response))
+            .catch(error => displayError(error))
     }, [])
 
     useEffect(() => {
         if(service)
         if(service.icon)
-        getFileUrl(service.icon, displayError).then(response => setServiceIcon(response));
+            getFileUrl(service.icon, displayError)
+                .then(response => setServiceIcon(response))
+                .catch(error => displayError(error))
     }, [service])
 
     const toggleProvidedByCurrentUserStatusButtonHandler = () => {
 
         const removeFunction = () => {
-            removeServiceFromUserServices(user.id, serviceId, displayError, displaySuccessMessage);
-            setProvidedByCurrentUser(false);
+            removeServiceFromUserServices(user.id, serviceId)
+                .then(() => {
+                    displaySuccessMessage('Service successfully removed!') 
+                    setProvidedByCurrentUser(false)
+                })
+                .catch(error => displayError(error))
         }
 
         const addFunction = () => {
-            addServiceToUserServices(user.id, serviceId, displayError, displaySuccessMessage);
-            setProvidedByCurrentUser(true);
+            addServiceToUserServices(user.id, serviceId)
+                .then(() => {
+                    displaySuccessMessage('Service successfully added!')
+                    setProvidedByCurrentUser(true)
+                })
+                .catch(error => displayError(error))
         }
 
         toggleModal(

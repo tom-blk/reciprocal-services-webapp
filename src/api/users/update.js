@@ -1,14 +1,13 @@
 import { uploadFile } from "../../utils/web3storage/web3storage"
 import { apiCall } from "../api-call"
 
-export const updateUser = async ( user, onErrorFunction, onSuccessFunction ) => {
+export const updateUser = async ( user ) => {
 
     try{
         await apiCall('/users/update-user', 'POST', { userId: user.id, firstName: user.firstName, lastName: user.lastName, description: user.profileDescription })
-            .then(onSuccessFunction('Profile SuccessFully Updated!'))
-
     } catch(error){
-        onErrorFunction(error)
+        console.log(error)
+        throw new Error('Failed to update user...')
     }
 }
 
@@ -30,54 +29,50 @@ export const updateUserSpecificServices = async (userId, userServiceIds, selecte
     })
 
     try{
-        const response = await apiCall('/users/update-user-services', 'POST', { userId: userId, serviceIdsToBeAdded: serviceIdsToBeAdded, serviceIdsToBeRemoved: serviceIdsToBeRemoved })
-
-        return await response.data;
+        await apiCall('/users/update-user-services', 'POST', { userId: userId, serviceIdsToBeAdded: serviceIdsToBeAdded, serviceIdsToBeRemoved: serviceIdsToBeRemoved })
     }catch(error){
-        onErrrorFunction(error)
+        console.log(error)
+        throw new Error('Failed to update user services...')
     }
 }
 
-export const uploadNewProfilePictureAndCreateDatabaseEntryWithCid = async ( userId, image, onErrorFunction, onSuccessFunction ) => {
+export const uploadNewProfilePictureAndCreateDatabaseEntryWithCid = async ( userId, image ) => {
 
     try{
-        const cid = await uploadFile([image], onSuccessFunction, onErrorFunction);
-        await apiCall('/users/update-user-profile-picture', 'PUT', { userId: userId, profilePicture: cid })
-            .then(onSuccessFunction('Profile Picture SuccessFully Updated!'))
+        const cid = await uploadFile([image])
+        apiCall('/users/update-user-profile-picture', 'PUT', { userId: userId, profilePicture: cid })
     } catch(error){
-        onErrorFunction(error)
+        console.log(error)
+        throw new Error('Failed to upload new profile picture...')
     }
 }
 
-export const addServiceToUserServices = async (userId, serviceId, onErrrorFunction, onSuccessFunction) => {
+export const addServiceToUserServices = async (userId, serviceId) => {
 
     try{
         await apiCall('/users/add-service-to-user-services', 'POST', { userId: userId, serviceId: serviceId })
-            .then(onSuccessFunction('Service Successfully Added!'))
-        
     }catch(error){
-        onErrrorFunction(error);
+        console.log(error)
+        throw new Error('Failed to add service to user services...')
     }
 }
 
-export const removeServiceFromUserServices = async (userId, serviceId, onErrrorFunction, onSuccessFunction) => {
+export const removeServiceFromUserServices = async (userId, serviceId) => {
 
     try{
-        const response = await apiCall('/users/remove-service-from-user-services', 'POST', { userId: userId, serviceId: serviceId })
-            .then(onSuccessFunction('Service Successfully Removed!'))
-
+        await apiCall('/users/remove-service-from-user-services', 'POST', { userId: userId, serviceId: serviceId })
     }catch(error){
-        onErrrorFunction(error);
+        console.log(error)
+        throw new Error('Failed to remove service from user services...')
     }
 }
 
-export const rateUser = async (userId, rating, onSuccessFunction, onErrorFunction) => {
+export const rateUser = async (userId, rating) => {
     
     try{
         await apiCall('/users/rate-user', 'POST', { userId: userId, rating: rating })
-            .then(onSuccessFunction('Provider Successfully Rated!'))
-        
     } catch(error){
-        onErrorFunction(error);
+        console.log(error)
+        throw new Error('Failed to rate user...')
     }
 }

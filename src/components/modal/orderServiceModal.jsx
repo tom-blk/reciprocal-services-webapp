@@ -26,12 +26,10 @@ const OrderServiceModal = ({ providingUserId, providingUserFirstName, providingU
 
     const [orderData, setOrderData] = useState(orderDataTemplate);
 
-    useEffect(() => {
-        console.log(orderData)
-    }, [orderData])
-
     const onClickHandler = () => {
-        createOrder(orderData, displaySuccessMessage, displayError);
+        createOrder(orderData)
+            .then(displaySuccessMessage('Service successfully ordered'))
+            .catch(error => displayError(error))
         serviceOrderedCallback();
         toggleModal();
     }

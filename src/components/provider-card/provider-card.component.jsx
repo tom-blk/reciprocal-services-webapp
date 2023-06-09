@@ -1,18 +1,20 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router";
 
 import { ModalContext } from "../../context/modal.context";
+import { AlertMessageContext } from "../../context/alert-message.context";
 
 import ButtonComponent from "../button/button.component";
 import RoundImageContainer from "../round-image-container/round-image-container.component";
-import CardDataContainer from "../card-data-container/card-data-container.component";
 import OrderServiceModal from "../modal/orderServiceModal";
 import CardComponent from "../card/card.component";
 import RatingDisplayComponent from "../rating-display-component/rating-display.component";
 
-import './provider-card.styles.scss';
+import { useNavigate } from "react-router";
+
 import { getFileUrl } from "../../utils/web3storage/web3storage";
-import { AlertMessageContext } from "../../context/alert-message.context";
+
+import './provider-card.styles.scss';
+
 
 const ProviderCard = ({ user, serviceId, serviceName, orderButtonExists }) => {
     const {id, firstName, lastName, userName, profilePicture, rating} = user;
@@ -27,7 +29,9 @@ const ProviderCard = ({ user, serviceId, serviceName, orderButtonExists }) => {
 
     useEffect(() => {
         if(profilePicture)
-        getFileUrl(profilePicture, displayError).then(response => setProfilePictureUrl(response));
+        getFileUrl(profilePicture, displayError)
+            .then(response => setProfilePictureUrl(response))
+            .catch(error => displayError(error))
     }, [])
 
     const assertDisplayName = () => {

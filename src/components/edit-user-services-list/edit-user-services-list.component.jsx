@@ -1,21 +1,23 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router';
-
-import { updateUserSpecificServices } from '../../api/users/update';
 
 import { AlertMessageContext } from '../../context/alert-message.context';
 import { UserContext } from '../../context/user.context';
+
 import MaxSizeContainer from '../../utils/max-size-container/max-size-container.component';
 import PageContainer from '../../utils/page-container/page-container.component';
 import ButtonComponent from '../button/button.component';
 import SearchBar from '../search-bar/search-bar.component';
-
 import SelectableServiceCard from '../selectable-service-card/selectable-service-card.component';
 
-import './edit-user-services-list.styles.scss';
-import { apiCall } from '../../api/api-call';
+import { useNavigate } from 'react-router';
 
-const EditUserServicesList = ({userId}) => {
+import { updateUserSpecificServices } from '../../api/users/update';
+import { getServiceList } from '../../api/services/read';
+import { getUserSpecificServices } from '../../api/users/read';
+
+import './edit-user-services-list.styles.scss';
+
+const EditUserServicesList = () => {
 
     const { displayError, displaySuccessMessage } = useContext(AlertMessageContext);
     const { user } = useContext(UserContext);
@@ -30,18 +32,20 @@ const EditUserServicesList = ({userId}) => {
 
 
     useEffect(() => {
-        apiCall('/users/get-user-specific-services', 'POST', {userId: user.id}, displayError, undefined)
+        getUserSpecificServices(user.id)
             .then(response => {
                 console.log(response);
                 setUserServiceIds(extractIdsIntoNewArray(response)) 
                 setSelectedServiceIds(extractIdsIntoNewArray(response))
             })
+            .catch(error => displayError(error))
     }, [])
 
 
     useEffect(() => {
-        apiCall('/services/get-list', 'GET', undefined, displayError, undefined)
-            .then(response => setAllServicesWithoutUserServices(assignSelectionStatusAndReturnServices(response, userServiceIds)));
+        getServiceList()
+            .then(response => setAllServicesWithoutUserServices(assignSelectionStatusAndReturnServices(response, userServiceIds)))
+            .catch(error => displayError(error))
     }, [userServiceIds])
 
 
@@ -134,7 +138,8 @@ const EditUserServicesList = ({userId}) => {
 
     const confirmButtonOnClickHandler = () => {
         updateUserSpecificServices(user.id, userServiceIds, selectedServiceIds, displayError)
-            .then(displaySuccessMessage('Services Successfully Updated!'));
+            .then(displaySuccessMessage('Services Successfully Updated!'))
+            .catch(error => displayError(error))
     }
 
     const cancelButtonOnClickHandler = () => navigate(`/userProfile-edit`)

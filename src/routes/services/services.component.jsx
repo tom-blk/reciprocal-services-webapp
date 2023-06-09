@@ -1,16 +1,18 @@
-import SearchBar from "../../components/search-bar/search-bar.component"
 import { useContext, useEffect, useState } from "react"
-import ServicesList from "../../components/services-list/services-list.component"
-
-import "./services.styles.scss"
-import PageContainer from "../../utils/page-container/page-container.component"
 
 import { AlertMessageContext } from "../../context/alert-message.context"
-import AddButtonComponent from "../../components/add-button-component/add-button.component"
 import { ModalContext } from "../../context/modal.context"
+
+import SearchBar from "../../components/search-bar/search-bar.component"
 import AddServiceModal from "../../components/modal/add-service-modal.component"
+import ServicesList from "../../components/services-list/services-list.component"
+import AddButtonComponent from "../../components/add-button-component/add-button.component"
+import PageContainer from "../../utils/page-container/page-container.component"
+
 import { getServiceList } from "../../api/services/read"
- 
+
+import "./services.styles.scss"
+
 const Services = () => {
 
     const { displayError } = useContext(AlertMessageContext);
@@ -21,7 +23,9 @@ const Services = () => {
     const [filteredServices, setFilteredServices] = useState(superficialServiceDetails);
 
     useEffect(() => {
-        getServiceList(displayError).then(response => setSuperficialServiceDetails(response)).catch(setSuperficialServiceDetails([]));
+        getServiceList(displayError)
+            .then(response => setSuperficialServiceDetails(response))
+            .catch(error=> displayError(error));
     }, [])
 
     useEffect(() => {

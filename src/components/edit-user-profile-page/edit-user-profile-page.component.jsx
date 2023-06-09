@@ -1,21 +1,22 @@
 import { Fragment, useContext, useEffect, useState } from "react";
 
-import PageContainer from "../../utils/page-container/page-container.component";
-import RoundImageContainer from "../../components/round-image-container/round-image-container.component";
-
 import { UserContext } from "../../context/user.context";
 import { AlertMessageContext } from "../../context/alert-message.context";
+import { ModalContext } from "../../context/modal.context";
 
+import PageContainer from "../../utils/page-container/page-container.component";
+import RoundImageContainer from "../../components/round-image-container/round-image-container.component";
 import MaxSizeContainer from "../../utils/max-size-container/max-size-container.component";
 import ButtonComponent from "../button/button.component";
 import ServicesList from "../services-list/services-list.component";
-import { useNavigate } from "react-router";
-import { updateUser } from "../../api/users/update";
-import { OnHoverEdit } from "../on-hover-edit-component/on-hover-edit.component";
-import { getFileUrl } from "../../utils/web3storage/web3storage";
-import { ModalContext } from "../../context/modal.context";
 import SelectProfilePictureModal from "../modal/select-profile-picture-modal.component";
-import { apiCall } from "../../api/api-call";
+import OnHoverEdit from "../on-hover-edit-component/on-hover-edit.component";
+
+import { useNavigate } from "react-router";
+
+import { updateUser } from "../../api/users/update";
+import { getUserSpecificServices } from "../../api/users/read";
+import { getFileUrl } from "../../utils/web3storage/web3storage";
 
 const EditUserProfile = () => {
 
@@ -30,12 +31,15 @@ const EditUserProfile = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        apiCall('/users/get-user-specific-services', 'POST', {userId: user.id}, displayError, undefined).then(response => setUserServices(response));
+        getUserSpecificServices(user.id)
+            .then(response => setUserServices(response))
+            .catch(error => displayError(error));
     }, [])
 
     useEffect(() => {
         if(user.profilePicture)
-        getFileUrl(user.profilePicture, displayError).then(response => setProifilePicture(response));
+        getFileUrl(user.profilePicture, displayError)
+            .then(response => setProifilePicture(response));
     }, [user])
 
     const selectNewProfilePicture = () => {
@@ -52,7 +56,9 @@ const EditUserProfile = () => {
     const cancelButtonOnClickHandler = () => navigate('/userProfile');
 
     const saveChangesButtonOnClickHandler = () => {
-        updateUser(user, displayError, displaySuccessMessage)
+        updateUser(user)
+            .then(displaySuccessMessage('Profile successfully updated!'))
+            .catch(error => displayError(error))
     }
 
     return(

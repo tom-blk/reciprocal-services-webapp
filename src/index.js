@@ -1,14 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.scss';
-import App from './App';
-import { BrowserRouter } from 'react-router-dom';
+
 import AlertMessageContextProvider from './context/alert-message.context';
 import ModalContextProvider from './context/modal.context';
 import UserContextProvider from './context/user.context';
+import OrderContextProvider from './context/order.context';
+
+import { BrowserRouter } from 'react-router-dom';
+
 import AlertMessageList from './components/alert-message-list/alert-message-list.component';
 import Modal from './components/modal/modal.component';
-import OrderContextProvider from './context/order.context';
+import App from './App';
+
+import './index.scss';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

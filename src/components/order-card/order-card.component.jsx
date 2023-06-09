@@ -1,22 +1,22 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router";
 
 import { ModalContext } from "../../context/modal.context";
 import { AlertMessageContext } from "../../context/alert-message.context";
+import { UserContext } from "../../context/user.context";
 
 import useOrderStatus from "../../hooks/useOrderStatus";
 
 import CardComponent from "../card/card.component";
 import ButtonComponent from "../button/button.component";
 import ConfirmOrderCompletionModalComponent from "../modal/confirm-order-completion-modal.component";
-
-import { modifyOrderStatus, specifyProvidedHours, transferCredits } from "../../api/orders/update";
-import { UserContext } from "../../context/user.context";
 import ConfirmOrCancelModal from "../modal/confirm-or-cancel-modal.component";
-import { getService } from "../../api/services/read";
-import { getSingleUser } from "../../api/users/read";
 import SetHoursWorkedModal from "../modal/set-hours-worked-modal.component";
 
+import { modifyOrderStatus, transferCredits } from "../../api/orders/update";
+import { getService } from "../../api/services/read";
+import { getSingleUser } from "../../api/users/read";
+
+import { useNavigate } from "react-router";
 
 const OrderCard = ({order}) => {
 
@@ -32,8 +32,12 @@ const OrderCard = ({order}) => {
     const orderStatusHook = useOrderStatus(tempOrder, user.id);
 
     useEffect(() => {
-        getService(order.serviceId, displayError).then(response => setService(response));
-        getSingleUser(order.providingUserId, displayError).then(response => setProvider(response)); 
+        getService(order.serviceId, displayError)
+            .then(response => setService(response))
+            .catch(error => displayError(error))
+        getSingleUser(order.providingUserId, displayError)
+            .then(response => setProvider(response))
+            .catch(error => displayError(error))
     }, [])
     
     const cardOnClickHandler = () => {
@@ -42,22 +46,22 @@ const OrderCard = ({order}) => {
 
     const advanceOrderStageInModal = (e) => {
         if(orderStatusHook.nextStage = !4){
-            modifyOrderStatus(order.id, orderStatusHook.nextStage, displaySuccessMessage, displayError).then(
-                setTempOrder({...tempOrder, status: tempOrder.status + 1})
-            )
+            modifyOrderStatus(order.id, orderStatusHook.nextStage)
+                .then(setTempOrder({...tempOrder, status: tempOrder.status + 1}))
+                .catch(error => displayError(error))
         } else {
-            transferCredits(user.id, order.providingUserId, displaySuccessMessage, displayError)
-                .then(modifyOrderStatus(order.id, orderStatusHook.nextStage, displaySuccessMessage, displayError)
-                    .then(
-                        setTempOrder({...tempOrder, status: tempOrder.status + 1})
-                    ))
+            transferCredits(user.id, order.providingUserId)
+                .then(modifyOrderStatus(order.id, orderStatusHook.nextStage)
+                    .then(setTempOrder({...tempOrder, status: tempOrder.status + 1})))
+                    .catch(error => displayError(error))
+                .then(error => displayError(error))
         }   
     }
 
     const denyOrderInModal = () => {
-        modifyOrderStatus(order.id, 5, displaySuccessMessage, displayError).then(
-            setTempOrder({...tempOrder, status: 5})
-        )
+        modifyOrderStatus(order.id, 5)
+            .then(setTempOrder({...tempOrder, status: 5}))
+            .catch(error => displayError(error))
     }
 
     const buttonOnClickHandler = (e) => {

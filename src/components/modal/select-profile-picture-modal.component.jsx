@@ -1,15 +1,17 @@
-import { useContext, Fragment, useState, useEffect } from "react";
+import { useContext, Fragment, useState } from "react";
 
 import { ModalContext } from "../../context/modal.context";
 import { AlertMessageContext } from "../../context/alert-message.context";
 
-import './orderServiceModal.styles.css';
-import { uploadNewProfilePictureAndCreateDatabaseEntryWithCid } from "../../api/users/update";
 import ImageCropComponent from "../image-crop-component/image-crop-component";
 import ButtonComponent from "../button/button.component";
 
+import { uploadNewProfilePictureAndCreateDatabaseEntryWithCid } from "../../api/users/update";
 
-const SelectProfilePictureModal = ({ userId, profilePictureCid }) => {
+import './orderServiceModal.styles.css';
+
+
+const SelectProfilePictureModal = ({ userId }) => {
 
     const { toggleModal } = useContext(ModalContext);
     const { displayError, displaySuccessMessage } = useContext(AlertMessageContext);
@@ -17,9 +19,9 @@ const SelectProfilePictureModal = ({ userId, profilePictureCid }) => {
     const [croppedImage, setCroppedImage] = useState(undefined);
 
     const handleCroppedImage = async () => {
-        uploadNewProfilePictureAndCreateDatabaseEntryWithCid(userId, croppedImage, displayError, displaySuccessMessage).then(() => {
-            toggleModal();
-        })
+        uploadNewProfilePictureAndCreateDatabaseEntryWithCid(userId, croppedImage, displayError, displaySuccessMessage)
+            .then(() => {toggleModal()})
+            .catch(error => displayError(error))
     }
 
     return(

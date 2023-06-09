@@ -5,14 +5,13 @@ import { UserContext } from "../../context/user.context";
 import { AlertMessageContext } from "../../context/alert-message.context";
 
 import ButtonComponent from "../button/button.component";
-
-import { createService } from "../../api/services/create";
-
-import './orderServiceModal.styles.css';
-import { addServiceToUserServices } from "../../api/users/update";
 import RoundImageContainer from "../round-image-container/round-image-container.component";
 import ImageCropComponent from "../image-crop-component/image-crop-component";
 
+import { createService } from "../../api/services/create";
+import { addServiceToUserServices } from "../../api/users/update";
+
+import './orderServiceModal.styles.css';
 
 
 const AddServiceModal = () => {
@@ -31,16 +30,17 @@ const AddServiceModal = () => {
     const [serviceData, setServiceData] = useState(serviceDataTemplate);
     const [displayCropper, setDisplayCropper] = useState(false);
 
-    useEffect(() => {
-        console.log(serviceData)
-    }, [serviceData])
-
     const onClickHandler = () => {
-        createService(serviceData, displaySuccessMessage, displayError).then(response => {
-            if(addToUserServices){
-                addServiceToUserServices(testUser.id, response.insertId, displayError, displaySuccessMessage);
-            }
-        });
+        createService(serviceData, displaySuccessMessage, displayError)
+            .then(response => {
+                if(addToUserServices){
+                    addServiceToUserServices(testUser.id, response.insertId)
+                        .then(displaySuccessMessage('Service successfully added to your services!'))
+                        .catch(error => displayError(error))
+
+                }
+            })
+            .catch(error => displayError(error))
         
         toggleModal();
     }

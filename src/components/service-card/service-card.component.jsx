@@ -1,16 +1,19 @@
-import { useContext, useEffect } from "react";
-import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useContext, useEffect, useState } from "react";
+
 import { ModalContext } from "../../context/modal.context";
+import { AlertMessageContext } from "../../context/alert-message.context";
+
 import ButtonComponent from "../button/button.component";
 import CardComponent from "../card/card.component";
 import OrderServiceModal from "../modal/orderServiceModal";
 import RoundImageContainer from "../round-image-container/round-image-container.component";
 
-import './service-card.styles.scss';
-import { AlertMessageContext } from "../../context/alert-message.context";
+import { useNavigate } from "react-router";
+
 import { getServiceProviderCount } from "../../api/services/read";
 import { getFileUrl } from "../../utils/web3storage/web3storage";
+
+import './service-card.styles.scss';
 
 const ServiceCard = ({ service, providingUserId, providingUserFirstName, providingUserLastName, orderButtonExists }) => {
     const { id, icon, name, description } = service;
@@ -26,8 +29,12 @@ const ServiceCard = ({ service, providingUserId, providingUserFirstName, providi
 
     useEffect(() => {
         if(icon)
-        getFileUrl(icon, displayError).then(response => setServiceIcon(response));
-        getServiceProviderCount(service.id, displayError).then(response => setServiceProviderCount(response));
+        getFileUrl(icon, displayError)
+            .then(response => setServiceIcon(response))
+            .catch(error => displayError(error))
+        getServiceProviderCount(service.id, displayError)
+            .then(response => setServiceProviderCount(response))
+            .catch(error => displayError(error))
     }, [])
 
     const onClickHandler = () => navigate(`/services/${id}`)

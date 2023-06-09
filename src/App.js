@@ -13,16 +13,11 @@ import OrderPage from './components/order-page/order-page.component';
 import EditUserProfile from './components/edit-user-profile-page/edit-user-profile-page.component';
 import IncomingOrders from './routes/incoming-orders/incoming-orders.component';
 import OutgoingOrders from './routes/outgoing-orders/outgoing-orders.component';
+import EditUserServicesList from './components/edit-user-services-list/edit-user-services-list.component';
 
 import './App.styles.scss';
-import EditUserServicesList from './components/edit-user-services-list/edit-user-services-list.component';
-import { UserContext } from './context/user.context';
-import { Fragment, useContext } from 'react';
-
 
 const App = () => {
-
-  const { user } = useContext(UserContext);
 
   return (
     <Routes>

@@ -1,20 +1,25 @@
 import { Fragment, useContext, useEffect, useState } from "react";
-import { useParams } from "react-router";
-import { getSingleOrder } from "../../api/orders/read";
-import { modifyOrderStatus } from "../../api/orders/update";
+
 import { AlertMessageContext } from "../../context/alert-message.context";
 import { ModalContext } from "../../context/modal.context";
 import { UserContext } from "../../context/user.context";
+
 import useOrderStatus from "../../hooks/useOrderStatus";
+
 import PageContainer from "../../utils/page-container/page-container.component";
 import ButtonComponent from "../button/button.component";
 import ConfirmOrCancelModal from "../modal/confirm-or-cancel-modal.component";
 import ConfirmOrderCompletionModalComponent from "../modal/confirm-order-completion-modal.component";
 import RoundImageContainer from "../round-image-container/round-image-container.component";
 
-import "./order-page.styles.scss"
 import { getService } from "../../api/services/read";
 import { getSingleUser } from "../../api/users/read";
+import { getSingleOrder } from "../../api/orders/read";
+import { modifyOrderStatus } from "../../api/orders/update";
+
+import { useParams } from "react-router";
+
+import "./order-page.styles.scss"
 
 const OrderPage = () => {
 
@@ -33,33 +38,40 @@ const OrderPage = () => {
     const orderStatusHook = useOrderStatus(tempOrder, testUser.id);
 
     useEffect(() => {
-        getSingleOrder(orderIdInt, displayError)
-            .then(response => setTempOrder(response));
+        getSingleOrder(orderIdInt)
+            .then(response => setTempOrder(response))
+            .catch(error => displayError(error))
     }, [])
 
     useEffect(() => {
         if(tempOrder){
             console.log(tempOrder)
-            getService(tempOrder.serviceId, displayError).then(response => setService(response))
+            getService(tempOrder.serviceId, displayError)
+                .then(response => setService(response))
+                .catch(error => displayError(error))
             if(orderStatusHook.orderDirection === 'incoming'){
-                getSingleUser(tempOrder.receivingUserId, displayError).then(response => setCorrespondingUser(response))
+                getSingleUser(tempOrder.receivingUserId, displayError)
+                    .then(response => setCorrespondingUser(response))
+                    .catch(error => displayError(error))
             } else if(orderStatusHook.orderDirection === 'outgoing'){
-                getSingleUser(tempOrder.providingUserId, displayError).then(response => setCorrespondingUser(response))
+                getSingleUser(tempOrder.providingUserId, displayError)
+                    .then(response => setCorrespondingUser(response))
+                    .catch(error => displayError(error))
             }
         }
     }, [tempOrder])
 
     const advanceOrderStageInModal = (e) => {
         if(orderStatusHook.nextStage)
-        modifyOrderStatus(tempOrder.id, orderStatusHook.nextStage, displaySuccessMessage, displayError).then(
-            setTempOrder({...tempOrder, status: tempOrder.status +1})
-        )
+        modifyOrderStatus(tempOrder.id, orderStatusHook.nextStage, displaySuccessMessage, displayError)
+            .then(setTempOrder({...tempOrder, status: tempOrder.status +1}))
+            .catch(error => displayError(error))
     }
 
     const denyOrderInModal = () => {
-        modifyOrderStatus(tempOrder.id, 5, displaySuccessMessage, displayError).then(
-            setTempOrder({...tempOrder, status: 5})
-        )
+        modifyOrderStatus(tempOrder.id, 5, displaySuccessMessage, displayError)
+            .then(setTempOrder({...tempOrder, status: 5}))
+            .catch(error => displayError(error))
     }
 
     const buttonOnClickHandler = (e) => {
