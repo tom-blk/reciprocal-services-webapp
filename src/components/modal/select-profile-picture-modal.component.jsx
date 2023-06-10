@@ -11,7 +11,7 @@ import { uploadNewProfilePictureAndCreateDatabaseEntryWithCid } from "../../api/
 import './orderServiceModal.styles.css';
 
 
-const SelectProfilePictureModal = ({ userId }) => {
+const SelectProfilePictureModal = ({ userId, setUpdatedProfilePictureCallback }) => {
 
     const { toggleModal } = useContext(ModalContext);
     const { displayError, displaySuccessMessage } = useContext(AlertMessageContext);
@@ -20,7 +20,10 @@ const SelectProfilePictureModal = ({ userId }) => {
 
     const handleCroppedImage = async () => {
         uploadNewProfilePictureAndCreateDatabaseEntryWithCid(userId, croppedImage, displayError, displaySuccessMessage)
-            .then(() => {toggleModal()})
+            .then(() => {
+                setUpdatedProfilePictureCallback(croppedImage)
+                toggleModal()
+            })
             .catch(error => displayError(error))
     }
 

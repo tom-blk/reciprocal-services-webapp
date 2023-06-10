@@ -40,7 +40,7 @@ export const uploadNewProfilePictureAndCreateDatabaseEntryWithCid = async ( user
 
     try{
         const cid = await uploadFile([image])
-        apiCall('/users/update-user-profile-picture', 'PUT', { userId: userId, profilePicture: cid })
+        apiCall('/users/update-profile-picture', 'PUT', { userId: userId, profilePicture: cid })
     } catch(error){
         console.log(error)
         throw new Error('Failed to upload new profile picture...')

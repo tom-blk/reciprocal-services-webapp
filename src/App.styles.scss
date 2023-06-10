@@ -23,13 +23,14 @@
     padding: var(--space-3);
     background-color: #cefff7;
     color: var(--color-secondary-accent-complement);
-    border-radius: 5px;
-    box-shadow: 1px 1px 0px #48ffe0, -1px -1px 0px #06ffac, 1px -1px 0px #06ffac, -1px 1px 0px #06ffac;
+    border: none;
 
     &:hover{
         animation: select-text-area .2s;
         animation-fill-mode: forwards;
     }
+
+    outline: none;
 }
 
 .card-list{
@@ -91,13 +92,13 @@
     0% {
         border-radius: 0;
         transform: scale(1);
-        box-shadow: 1px 1px 1px #48ffe0, -1px -1px 1px #06ffac, 1px -1px 1px #06ffac, -1px 1px 1px #06ffac;
+        box-shadow: 0;
     }
 
     100% {
-        border-radius: 7px;
-        transform: scale(1.01);
-        box-shadow: 1px 1px 2px #48ffe0, -1px -1px 2px #06ffac, 1px -1px 2px #06ffac, -1px 1px 2px #06ffac;
+        border-radius: 2px;
+        transform: scale(1.001);
+        box-shadow: 1px 1px 1px #48ffe0, -1px -1px 1px #06ffac, 1px -1px 1px #06ffac, -1px 1px 1px #06ffac;
     }
 }
 

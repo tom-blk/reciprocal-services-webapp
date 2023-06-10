@@ -10,7 +10,7 @@ import './image-crop.styles.scss';
 
 const ImageCropComponent = ({handleCroppedImage, optionalWidth}) => {
 
-    const {testUser} = useContext(UserContext);
+    const {user} = useContext(UserContext);
 
     const [src, setSrc] = useState();
     const [percentCrop, setPercentCrop] = useState({unit: '%', x: 0, y: 0, width: 0, height: 0});
@@ -42,7 +42,7 @@ const ImageCropComponent = ({handleCroppedImage, optionalWidth}) => {
             image.naturalHeight / 100 * percentCrop.height,
             )
             canvas.toBlob((blob) => {
-                handleCroppedImage(new File([blob], `cropped-profile-picture-user-${testUser.id}`))
+                handleCroppedImage(new File([blob], `cropped-profile-picture-user-${user.id}`))
             })
         }
     }

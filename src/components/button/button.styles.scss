@@ -1,6 +1,9 @@
 .button{
     display: grid;
+    align-self: center;
     justify-content: center;
+    justify-self: center;
+    width: fit-content;
     padding: var(--space-4);
     border-radius: 10px;
 

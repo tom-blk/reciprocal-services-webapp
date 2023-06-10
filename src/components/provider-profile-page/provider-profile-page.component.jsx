@@ -11,6 +11,7 @@ import ServiceCard from "../service-card/service-card.component";
 import './provider-profile-page.styles.scss';
 
 import { getSingleUser, getUserSpecificServices } from "../../api/users/read";
+import { getFileUrl } from "../../utils/web3storage/web3storage";
 
 const ProviderProfilePage = () => {
 
@@ -21,6 +22,7 @@ const ProviderProfilePage = () => {
 
     const [provider, setProvider] = useState(undefined);
     const [providerServices, setProviderServices] = useState([]);
+    const [profilePictureUrl, setProfilePictureUrl] = useState(undefined)
 
     useEffect(() => {
         getSingleUser(providerId)
@@ -31,6 +33,13 @@ const ProviderProfilePage = () => {
             .catch(error => displayError(error))
     }, [])
 
+    useEffect(() => {
+        if(provider?.profilePicture)
+        getFileUrl(provider.profilePicture, displayError)
+            .then(response => setProfilePictureUrl(response))
+            .catch(error => displayError(error))
+    }, [provider])
+
     return(
         <Fragment>
             {
@@ -38,7 +47,7 @@ const ProviderProfilePage = () => {
                 ?
                 <div className="page-container">
                     <div className="povider-profile-heading-container">
-                        <RoundImageContainer picture={provider.profilePicture} serviceOrUser={'user'} size={'round-image-container-page'}/>
+                        <RoundImageContainer picture={profilePictureUrl} serviceOrUser={'user'} size={'round-image-container-page'}/>
                         <div>
                             <h3>{provider.firstName + " " + provider.lastName}</h3>
                             <div className="provider-name">{'@' + provider.userName}</div>

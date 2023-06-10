@@ -145,28 +145,26 @@ const EditUserServicesList = () => {
     const cancelButtonOnClickHandler = () => navigate(`/userProfile-edit`)
 
     return (
-        <MaxSizeContainer>
-            <PageContainer>
-                <SearchBar 
-                    placeholder={'Services'}
-                    onSearchChange={onSearchChange}
-                />
-                <div className='selectable-services-list'>
-                    {
-                        filteredServices
-                        &&
-                        filteredServices.map(service => {
-                            return(
-                                    <SelectableServiceCard key={service.id} onClickHandler={onServiceCardClick} changeEmbersPerHour={changeServiceEmbersPerHour} service={service} serviceName={service.name}/>
-                                )
-                            }
-                        )
-                    }
-                </div>
-                <ButtonComponent buttonType={'confirm'} onClickHandler={confirmButtonOnClickHandler}>Save Changes</ButtonComponent>
-                <ButtonComponent buttonType={'cancel'} onClickHandler={cancelButtonOnClickHandler}>Cancel</ButtonComponent>
-            </PageContainer>
-        </MaxSizeContainer>
+        <PageContainer>
+            <SearchBar 
+                placeholder={'Services'}
+                onSearchChange={onSearchChange}
+            />
+            <div className='selectable-services-list'>
+                {
+                    filteredServices
+                    &&
+                    filteredServices.map(service => {
+                        return(
+                                <SelectableServiceCard key={service.id} onClickHandler={onServiceCardClick} changeEmbersPerHour={changeServiceEmbersPerHour} service={service} serviceName={service.name}/>
+                            )
+                        }
+                    )
+                }
+            </div>
+            <ButtonComponent buttonType={'confirm'} onClickHandler={confirmButtonOnClickHandler}>Save Changes</ButtonComponent>
+            <ButtonComponent buttonType={'cancel'} onClickHandler={cancelButtonOnClickHandler}>Cancel</ButtonComponent>
+        </PageContainer>
     )
 }
 

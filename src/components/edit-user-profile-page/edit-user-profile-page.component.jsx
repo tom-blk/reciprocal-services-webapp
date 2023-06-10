@@ -6,7 +6,6 @@ import { ModalContext } from "../../context/modal.context";
 
 import PageContainer from "../../utils/page-container/page-container.component";
 import RoundImageContainer from "../../components/round-image-container/round-image-container.component";
-import MaxSizeContainer from "../../utils/max-size-container/max-size-container.component";
 import ButtonComponent from "../button/button.component";
 import ServicesList from "../services-list/services-list.component";
 import SelectProfilePictureModal from "../modal/select-profile-picture-modal.component";
@@ -26,7 +25,7 @@ const EditUserProfile = () => {
 
     const [tempUser, setTempUser] = useState(user);
     const [userServices, setUserServices] = useState([]);
-    const [profilePicture, setProifilePicture] = useState(undefined);
+    const [profilePicture, setProfilePicture] = useState(undefined);
 
     const navigate = useNavigate();
 
@@ -39,16 +38,24 @@ const EditUserProfile = () => {
     useEffect(() => {
         if(user.profilePicture)
         getFileUrl(user.profilePicture, displayError)
-            .then(response => setProifilePicture(response));
+            .then(response => setProfilePicture(response));
     }, [user])
+
+    useEffect(() => {
+        console.log(tempUser);
+    }, [tempUser])
 
     const selectNewProfilePicture = () => {
         toggleModal(
             <SelectProfilePictureModal
                 userId={user.id}
-                profilePictureCid={user.profilePicture}
+                setUpdatedProfilePictureCallback={setUpdatedProfilePicture}
             />
         );
+    }
+
+    const setUpdatedProfilePicture = (newProfilePicture) => {
+        setProfilePicture(URL.createObjectURL(newProfilePicture))
     }
 
     const editServicesButtonOnClickHandler = () => navigate(`/userProfile-edit/edit-services`);
@@ -56,7 +63,7 @@ const EditUserProfile = () => {
     const cancelButtonOnClickHandler = () => navigate('/userProfile');
 
     const saveChangesButtonOnClickHandler = () => {
-        updateUser(user)
+        updateUser(tempUser)
             .then(displaySuccessMessage('Profile successfully updated!'))
             .catch(error => displayError(error))
     }
@@ -69,14 +76,14 @@ const EditUserProfile = () => {
                     <RoundImageContainer size={'round-image-container-page'} serviceOrUser={'user'} picture={profilePicture}/>
                 </OnHoverEdit>
                 <h2>First Name</h2>
-                <input className="text-area" type="text" value={user.firstName} onChange={e => {setTempUser({...user, firstName: e.target.value})}}/>
+                <input className="text-area" type="text" defaultValue={user.firstName} onChange={e => {setTempUser({...user, firstName: e.target.value})}}/>
                 <h2>Last Name</h2>
-                <input className="text-area" type="text" value={user.lastName} onChange={e => {setTempUser({...user, lastName: e.target.value})}}/>
+                <input className="text-area" type="text" defaultValue={user.lastName} onChange={e => {setTempUser({...user, lastName: e.target.value})}}/>
                 <h2>Description</h2>
                 <textarea className="text-area" type="text" rows='10' defaultValue={user.profileDescription} onChange={e => {setTempUser({...user, profileDescription: e.target.value})}}/>
                 <h2>Services</h2>  
                 <ServicesList services={userServices}/>
-                <ButtonComponent buttonType={'confirm'} onClickHandler={editServicesButtonOnClickHandler}>Edit Your Services</ButtonComponent>
+                <ButtonComponent buttonType={'secondary-confirm secondary-confirm-hover'} onClickHandler={editServicesButtonOnClickHandler}>Edit Your Services</ButtonComponent>
                 <ButtonComponent buttonType={'confirm'} onClickHandler={saveChangesButtonOnClickHandler}>Save Changes</ButtonComponent>
                 <ButtonComponent buttonType={'cancel'} onClickHandler={cancelButtonOnClickHandler}>Cancel</ButtonComponent>
             </Fragment>
