@@ -3,7 +3,7 @@ import { apiCall } from "../api-call";
 export const modifyOrderStatus = async (orderId, newOrderStatus) => {
 
     try{
-        await apiCall('/orders/modify-order-status', 'POST', { status: newOrderStatus, orderId: orderId })
+        await apiCall('/orders/modify-order-status', 'PUT', { status: newOrderStatus, orderId: orderId })
     }catch(error){
         console.log(error)
         throw new Error('Failed to update order...')

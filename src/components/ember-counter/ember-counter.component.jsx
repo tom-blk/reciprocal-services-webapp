@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import './ember-counter.styles.scss';
+import ember from '../../assets/images/ember.png';
 
 const EmberCounter = () => {
 
@@ -18,9 +19,8 @@ const EmberCounter = () => {
 
     return (
         <div className={`credit-counter-container ${active && 'active'}`}>
-            <div>Your Embers:</div> 
+            <img className='ember-icon' src={ember}/>
             <span className={`credit-counter-number ${active && 'active'}`}>{credits}</span> 
-            <button onClick={e => triggerDecreaseCreditsEffect()}>Test</button>
         </div>
     )
 }

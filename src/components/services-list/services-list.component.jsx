@@ -5,7 +5,9 @@ const ServicesList = ({ services }) => {
     return(
         <div className="card-list">
         {
-            services &&
+            services&&
+            services.length > 0 
+            ?
             services.map((service) => {
                 return(
                     <ServiceCard
@@ -15,6 +17,8 @@ const ServicesList = ({ services }) => {
                     />
                 )
             })
+            :
+            <span>No services here...</span>
         }
         </div>
     )

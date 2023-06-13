@@ -42,7 +42,7 @@ const Nav = () => {
                     <Link to='/outgoing-orders'>Outgoing Orders</Link>
                     <Link to='/incoming-orders'>Incoming Orders</Link>
                     <Link to='/userProfile'>Your Profile</Link>
-                    <div onClick={e => toggleLogOutModal()}>Log Out</div>
+                    <Link onClick={e => toggleLogOutModal()}>Log Out</Link>
                 </div>
                 <Outlet/> 
                 <EmberCounter/>

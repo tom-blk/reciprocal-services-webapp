@@ -76,11 +76,11 @@ const EditUserProfile = () => {
                     <RoundImageContainer size={'round-image-container-page'} serviceOrUser={'user'} picture={profilePicture}/>
                 </OnHoverEdit>
                 <h2>First Name</h2>
-                <input className="text-area" type="text" defaultValue={user.firstName} onChange={e => {setTempUser({...user, firstName: e.target.value})}}/>
+                <input className="text-area" type="text" defaultValue={user.firstName} onChange={e => {setTempUser({...tempUser, firstName: e.target.value})}}/>
                 <h2>Last Name</h2>
-                <input className="text-area" type="text" defaultValue={user.lastName} onChange={e => {setTempUser({...user, lastName: e.target.value})}}/>
+                <input className="text-area" type="text" defaultValue={user.lastName} onChange={e => {setTempUser({...tempUser, lastName: e.target.value})}}/>
                 <h2>Description</h2>
-                <textarea className="text-area" type="text" rows='10' defaultValue={user.profileDescription} onChange={e => {setTempUser({...user, profileDescription: e.target.value})}}/>
+                <textarea className="text-area" type="text" rows='10' defaultValue={user.profileDescription} onChange={e => {setTempUser({...tempUser, profileDescription: e.target.value})}}/>
                 <h2>Services</h2>  
                 <ServicesList services={userServices}/>
                 <ButtonComponent buttonType={'secondary-confirm secondary-confirm-hover'} onClickHandler={editServicesButtonOnClickHandler}>Edit Your Services</ButtonComponent>
