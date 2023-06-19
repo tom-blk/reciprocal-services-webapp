@@ -17,6 +17,27 @@ I started development with the aim to provide people who are reluctant to use CB
 As of this moment there are many issues with the application and this is not a fucntional MVP yet.
 I will try to resolve the issues as soon as possible and if necessary open the project up to collaboration.
 
+## Steps to reach MVP status
+
+- finish ember/credit implementation (get embers/hour * hours on each transaction and deduct if user embers > transaction embers, else revert || fix bug on updating embers per hour on user services)
+- fix error handling on api calls
+- implement always visible ember counter
+- error handling on wrong login credentials
+- order card design could be updated so that it looks better when 2 buttons are contained in the card
+- add CSS media queries to make design responsive
+- implement JWTs properly to secure authentication
+- more testing
+
+## Adiitional features to implement
+
+- user feedback (users can check boxes while rating provider that are predefined positives/negatives to justify rating)
+- add location library to meaningfully seperate communities
+- instant messaging service to let corresponding users communicate in real time without switching to other applications
+
+## Possible additional features that require assistance
+
+- create layer 2 cryptocurrency on a protocol like Mina, so that users can easily run a node on their smartphone and embers can be tracked on-chain to provide trustlessness and an upper limit to community member count (requires bc dev specialized on Mina, better UX of the web3 space in general and better understanding by the public of decentralized technology)
+
 ---------------------------------------------------------
 
 # Getting Started with Create React App
