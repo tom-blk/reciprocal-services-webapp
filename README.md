@@ -6,8 +6,8 @@
 
 ## The main purpose of this app is to serve as a practice/portfolio project, because I wanted to do something different than an Instagram clone
 
-The motivation for this application is that is becoming more likely and likely that central bank digital currencies will be introduced into society which might have implications on the economic independence of the individual
-I started development with the aim to provide people who are reluctant to use CBDC an alternative, so that they are able to at least trade basic neccessities within their community
+The motivation for this application is that is becoming more likely and likely that central bank digital currencies will be introduced into society which might have implications on the economic independence of the individual.
+I started development with the aim to provide people who are reluctant to use CBDC an alternative, so that they are able to at least trade basic neccessities within their community.
 
 ### It is not intended for the applicaton to solve economic disputes or provide complete economic security, it is merely a framework to find people in your community who provide a service, to contact them and to keep track of transactions.
 ### The concept relies on social aspects as well as on technological ones. The technology aims to tie communities closer together so that accountability is achieved through that factor. 
