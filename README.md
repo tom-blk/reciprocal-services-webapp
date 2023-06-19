@@ -4,7 +4,7 @@
 
 ## Purpose
 
-## ! The main purpose of this app is to serve as a practice/portfolio project, because I wanted to do something different than an Instagram clone !
+## The main purpose of this app is to serve as a practice/portfolio project, because I wanted to do something different than an Instagram clone
 
 The motivation for this application is that is becoming more likely and likely that central bank digital currencies will be introduced into society which might have implications on the economic independence of the individual
 I started development with the aim to provide people who are reluctant to use CBDC an alternative, so that they are able to at least trade basic neccessities within their community
