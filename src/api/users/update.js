@@ -11,25 +11,27 @@ export const updateUser = async ( user ) => {
     }
 }
 
-export const updateUserSpecificServices = async (userId, userServiceIds, selectedServiceIds, onErrrorFunction) => {
+export const updateUserSpecificServices = async (userId, userServices, changedServices) => {
 
-    let serviceIdsToBeAdded = [];
-    let serviceIdsToBeRemoved = [];
+    let servicesToBeChanged = [];
+    let servicesToBeRemoved = [];
 
-    userServiceIds.forEach(serviceId => {
-        if(!selectedServiceIds.includes(serviceId)){
-            serviceIdsToBeRemoved.push(serviceId)
+    userServices.forEach(service => {
+        if(!changedServices.includes(service)){
+            servicesToBeRemoved.push(service)
         }
     })
 
-    selectedServiceIds.forEach(serviceId => {
-        if(!userServiceIds.includes(serviceId)){
-            serviceIdsToBeAdded.push(serviceId)
+    changedServices.forEach(service => {
+        if(!userServices.includes(service)){
+            servicesToBeChanged.push(service)
         }
-    })
+    });
+
+    console.log(servicesToBeChanged)
 
     try{
-        await apiCall('/users/update-user-services', 'POST', { userId: userId, serviceIdsToBeAdded: serviceIdsToBeAdded, serviceIdsToBeRemoved: serviceIdsToBeRemoved })
+        await apiCall('/users/update-user-services', 'POST', { userId: userId, servicesToBeChanged: servicesToBeChanged, serviceIdsToBeRemoved: servicesToBeRemoved })
     }catch(error){
         console.log(error)
         throw new Error('Failed to update user services...')

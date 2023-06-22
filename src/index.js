@@ -8,8 +8,8 @@ import OrderContextProvider from './context/order.context';
 
 import { BrowserRouter } from 'react-router-dom';
 
-import AlertMessageList from './components/alert-message-list/alert-message-list.component';
-import Modal from './components/modal/modal.component';
+import AlertMessageList from './components/alerts/alert-message-list/alert-message-list.component';
+import Modal from './components/modals/modal.component';
 import App from './App';
 
 import './index.scss';

@@ -1,13 +1,14 @@
-import SearchBar from "../../components/search-bar/search-bar.component"
 import { useContext, useEffect, useState } from "react"
-import ProvidersList from "../../components/providers-list/providers-list.component"
 
-import "./providers.styles.scss";
+import ProvidersList from "../../components/card-lists/providers-list/providers-list.component"
 import PageContainer from "../../utils/page-container/page-container.component";
+import SearchBar from "../../components/search-bar/search-bar.component"
 
 import { AlertMessageContext } from "../../context/alert-message.context";
 import { getUserList } from "../../api/users/read";
 import { UserContext } from "../../context/user.context";
+
+import "./providers.styles.scss";
 
 const Providers = () => {
 

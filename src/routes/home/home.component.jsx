@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../../context/user.context";
 import { AlertMessageContext } from "../../context/alert-message.context";
-import OrderList from "../../components/orders-list/orders-list.component";
+import OrderList from "../../components/card-lists/orders-list/orders-list.component";
 import { OrderContext } from "../../context/order.context";
-import ServicesList from "../../components/services-list/services-list.component";
+import ServicesList from "../../components/card-lists/services-list/services-list.component";
 import { getTrendingServices } from "../../api/services/read";
 
 const Home = () => {

@@ -3,11 +3,11 @@ import { Fragment, useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/user.context";
 import { AlertMessageContext } from "../../context/alert-message.context";
 
-import RatingDisplayComponent from "../../components/rating-display-component/rating-display.component";
-import ServicesList from "../../components/services-list/services-list.component";
+import RatingDisplayComponent from "../../components/rating/rating-display-component/rating-display.component";
+import ServicesList from "../../components/card-lists/services-list/services-list.component";
 import PageContainer from "../../utils/page-container/page-container.component";
 import RoundImageContainer from "../../components/round-image-container/round-image-container.component";
-import EditButton from "../../components/edit-button/edit-button.component";
+import EditButton from "../../components/buttons/edit-button/edit-button.component";
 
 import { useNavigate } from "react-router";
 

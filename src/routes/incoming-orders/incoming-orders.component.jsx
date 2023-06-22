@@ -4,7 +4,7 @@ import { UserContext } from "../../context/user.context";
 import { AlertMessageContext } from "../../context/alert-message.context";
 import { OrderContext } from "../../context/order.context";
 
-import OrdersList from "../../components/orders-list/orders-list.component";
+import OrdersList from "../../components/card-lists/orders-list/orders-list.component";
 import PageContainer from "../../utils/page-container/page-container.component";
 
 const IncomingOrders = () => {

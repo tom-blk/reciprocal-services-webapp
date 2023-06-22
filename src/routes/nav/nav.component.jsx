@@ -9,7 +9,7 @@ import { Fragment, useContext } from "react";
 import { UserContext } from "../../context/user.context";
 import LogIn from "../login/login.component";
 import { ModalContext } from "../../context/modal.context";
-import ConfirmOrCancelModal from "../../components/modal/confirm-or-cancel-modal.component";
+import ConfirmOrCancelModal from "../../components/modals/confirmOrCancel/confirm-or-cancel-modal.component";
 
 const Nav = () => {
 

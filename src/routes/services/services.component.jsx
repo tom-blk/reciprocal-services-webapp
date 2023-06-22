@@ -4,9 +4,9 @@ import { AlertMessageContext } from "../../context/alert-message.context"
 import { ModalContext } from "../../context/modal.context"
 
 import SearchBar from "../../components/search-bar/search-bar.component"
-import AddServiceModal from "../../components/modal/add-service-modal.component"
-import ServicesList from "../../components/services-list/services-list.component"
-import AddButtonComponent from "../../components/add-button-component/add-button.component"
+import AddServiceModal from "../../components/modals/addService/add-service-modal.component"
+import ServicesList from "../../components/card-lists/services-list/services-list.component"
+import AddButtonComponent from "../../components/buttons/add-button-component/add-button.component"
 import PageContainer from "../../utils/page-container/page-container.component"
 
 import { getServiceList } from "../../api/services/read"

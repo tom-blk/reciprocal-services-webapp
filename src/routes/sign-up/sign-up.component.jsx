@@ -3,7 +3,7 @@ import { useContext, useState, useEffect } from "react"
 import { useNavigate } from "react-router";
 
 import { AlertMessageContext } from "../../context/alert-message.context";
-import ButtonComponent from "../../components/button/button.component";
+import ButtonComponent from "../../components/buttons/button/button.component";
 
 import { register } from "../../api/auth/register";
 
