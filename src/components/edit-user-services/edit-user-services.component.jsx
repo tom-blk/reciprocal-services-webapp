@@ -4,7 +4,7 @@ import { AlertMessageContext } from '../../context/alert-message.context';
 import { UserContext } from '../../context/user.context';
 
 import PageContainer from '../../utils/page-container/page-container.component';
-import ButtonComponent from '../buttons/button/button.component';
+import ButtonComponent from '../buttons/button.component';
 import SearchBar from '../search-bar/search-bar.component';
 import SelectableService from './selectable-service/selectable-service.component';
 

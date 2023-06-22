@@ -1,0 +1,136 @@
+.button{
+    display: grid;
+    align-self: center;
+    justify-content: center;
+    justify-self: center;
+    width: fit-content;
+    padding: var(--space-4);
+    border-radius: 10px;
+
+    border: none;
+    background-color: none;
+
+    &:hover{
+        cursor: pointer;
+    }
+} 
+
+.confirm{
+    background-color: var(--color-secondary-accent);
+    color: var(--color-secondary-accent-complement);
+
+    &:hover{
+        box-shadow: 1px 1px 3px #48ffe0, -1px -1px 3px #06ffac, -1px 1px 3px #48ffe0, 1px -1px 3px #06ffac;
+    }
+}
+
+.secondary-confirm{
+    background-color: var(--color-secondary-accent);
+    color: var(--color-secondary-accent-complement);
+    background-color: white;
+
+    &:hover{
+        box-shadow: 1px 1px 3px #ffffff, -1px -1px 3px #ffffff, -1px 1px 3px #ffffff, 1px -1px 3px #ffffff;
+    }
+}
+
+.secondary-confirm-no-hover{
+    // For order-card, since in this case the secondary confrim colors are used for an inactive button
+    background-color: var(--color-secondary-accent);
+    color: var(--color-secondary-accent-complement);
+    background-color: white;
+}
+
+.cancel{
+    color: red;
+    background-color: white;
+
+    &:hover{
+        box-shadow: 1px 1px 3px #ff0000, -1px -1px 3px #ff0000, -1px 1px 3px #ff0000, 1px -1px 3px #ff0000;
+    }
+}
+
+.inactive{
+    color: white;
+    background-color: darkgray;
+    border: 1px solid black;
+}
+
+.order-pending{
+    background-color: #d19900;
+    color: white;
+}
+
+.order-denied{
+    background-color: #940000;
+    color: white;
+}
+
+// Following is just for file upload button
+
+.button::-webkit-file-upload-button {
+    padding: var(--space-4);
+    border-radius: 10px;
+
+    border: none;
+    background-color: none;
+
+    &:hover{
+        cursor: pointer;
+    }
+  }
+  
+.button::-moz-file-upload-button {
+    padding: var(--space-4);
+    border-radius: 10px;
+
+    border: none;
+    background-color: none;
+
+    &:hover{
+        cursor: pointer;
+    }
+}
+
+.button::-ms-file-upload-button {
+    padding: var(--space-4);
+    border-radius: 10px;
+
+    border: none;
+    background-color: none;
+
+    &:hover{
+        cursor: pointer;
+    }
+}
+
+.secondary-confirm::-webkit-file-upload-button {
+    justify-items: center;
+    background-color: var(--color-secondary-accent);
+    color: var(--color-secondary-accent-complement);
+    background-color: white;
+
+    &:hover{
+        box-shadow: 1px 1px 3px #ffffff, -1px -1px 3px #ffffff, -1px 1px 3px #ffffff, 1px -1px 3px #ffffff;
+    }
+}
+
+.secondary-confirm::-moz-file-upload-button{
+    background-color: var(--color-secondary-accent);
+    color: var(--color-secondary-accent-complement);
+    background-color: white;
+
+    &:hover{
+        box-shadow: 1px 1px 3px #ffffff, -1px -1px 3px #ffffff, -1px 1px 3px #ffffff, 1px -1px 3px #ffffff;
+    }
+}
+
+.secondary-confirm::-ms-file-upload-button{
+    background-color: var(--color-secondary-accent);
+    color: var(--color-secondary-accent-complement);
+    background-color: white;
+
+    &:hover{
+        box-shadow: 1px 1px 3px #ffffff, -1px -1px 3px #ffffff, -1px 1px 3px #ffffff, 1px -1px 3px #ffffff;
+    }
+}

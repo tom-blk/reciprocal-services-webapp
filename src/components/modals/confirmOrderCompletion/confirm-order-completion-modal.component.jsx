@@ -3,7 +3,7 @@ import React, { Fragment, useContext, useState } from 'react'
 import { AlertMessageContext } from '../../../context/alert-message.context'
 import { ModalContext } from '../../../context/modal.context'
 
-import ButtonComponent from '../../buttons/button/button.component'
+import ButtonComponent from '../../buttons/button.component'
 import RatingStarComponent from '../../rating/rating-star-component/rating-star.component'
 
 import { rateUser } from '../../../api/users/update'

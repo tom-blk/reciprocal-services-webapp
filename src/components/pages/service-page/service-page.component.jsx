@@ -4,7 +4,7 @@ import { AlertMessageContext } from "../../../context/alert-message.context";
 import { ModalContext } from "../../../context/modal.context";
 import { UserContext } from "../../../context/user.context";
 
-import ButtonComponent from "../../buttons/button/button.component";
+import ButtonComponent from "../../buttons/button.component";
 import PageContainer from "../../../utils/page-container/page-container.component";
 import RoundImageContainer from "../../round-image-container/round-image-container.component";
 import ProviderCard from "../../cards/provider-card/provider-card.component";

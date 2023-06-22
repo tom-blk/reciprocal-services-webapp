@@ -7,7 +7,7 @@ import RatingDisplayComponent from "../../components/rating/rating-display-compo
 import ServicesList from "../../components/card-lists/services-list/services-list.component";
 import PageContainer from "../../utils/page-container/page-container.component";
 import RoundImageContainer from "../../components/round-image-container/round-image-container.component";
-import EditButton from "../../components/buttons/edit-button/edit-button.component";
+import RoundButton from "../../components/buttons/round-button/round-button.component";
 
 import { useNavigate } from "react-router";
 
@@ -15,6 +15,7 @@ import { getUserSpecificServices } from "../../api/users/read";
 import { getFileUrl } from "../../utils/web3storage/web3storage";
 
 import './user-profile.styles.scss';
+
 
 const UserProfile = () => {
 
@@ -69,7 +70,7 @@ const UserProfile = () => {
                                 <span className="sub-text">{`@${userName}`}</span>
                             </div>
                         </div>
-                        <EditButton size={getComputedStyle(document.body).getPropertyValue('--round-button')} onClickHandler={navigateToUserEditProfile}/>
+                        <RoundButton size={getComputedStyle(document.body).getPropertyValue('--round-button')} type={'edit'} onClickHandler={navigateToUserEditProfile}/>
                     </div>
                     <RatingDisplayComponent rating={rating}/>
                     <span>Location</span>

@@ -1,5 +1,5 @@
 import React from 'react'
-import {ReactComponent as PenSVG} from '../../assets/vectors/pen.svg';
+import {ReactComponent as EditSVG} from '../../assets/vectors/edit.svg';
 
 import './on-hover-edit.styles.scss';
 
@@ -10,7 +10,7 @@ const OnHoverEdit = ({size, onClickFunction, children}) => {
             {children}
         </div>
         <div className='on-hover-edit-image'>
-          <PenSVG />
+          <EditSVG />
         </div>
     </div>
     

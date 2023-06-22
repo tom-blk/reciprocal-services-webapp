@@ -7,7 +7,7 @@ import { UserContext } from "../../../context/user.context";
 import useOrderStatus from "../../../hooks/useOrderStatus";
 
 import PageContainer from "../../../utils/page-container/page-container.component";
-import ButtonComponent from "../../buttons/button/button.component";
+import ButtonComponent from "../../buttons/button.component";
 import ConfirmOrCancelModal from "../../modals/confirmOrCancel/confirm-or-cancel-modal.component";
 import ConfirmOrderCompletionModalComponent from "../../modals/confirmOrderCompletion/confirm-order-completion-modal.component";
 import RoundImageContainer from "../../round-image-container/round-image-container.component";

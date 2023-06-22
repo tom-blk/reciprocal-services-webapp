@@ -7,7 +7,7 @@ import { UserContext } from "../../../context/user.context";
 import useOrderStatus from "../../../hooks/useOrderStatus";
 
 import CardComponent from "../card.component"
-import ButtonComponent from "../../buttons/button/button.component";
+import ButtonComponent from "../../buttons/button.component";
 import ConfirmOrderCompletionModalComponent from "../../modals/confirmOrderCompletion/confirm-order-completion-modal.component";
 import ConfirmOrCancelModal from "../../modals/confirmOrCancel/confirm-or-cancel-modal.component";
 import SetHoursWorkedModal from "../../modals/setHoursWorked/set-hours-worked-modal.component";

@@ -6,7 +6,7 @@ import { ModalContext } from "../../context/modal.context";
 
 import PageContainer from "../../utils/page-container/page-container.component";
 import RoundImageContainer from "../../components/round-image-container/round-image-container.component";
-import ButtonComponent from "../../components/buttons/button/button.component";
+import ButtonComponent from "../../components/buttons/button.component";
 import ServicesList from "../../components/card-lists/services-list/services-list.component";
 import SelectProfilePictureModal from "../../components/modals/selectProfilePicture/select-profile-picture-modal.component";
 import OnHoverEdit from "../../components/on-hover-edit/on-hover-edit.component";

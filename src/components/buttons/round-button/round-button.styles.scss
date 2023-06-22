@@ -1,8 +1,11 @@
 .round-button{
-    background-color: var(--color-secondary-accent);
     border-radius: 50%;
+}
 
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+.round-button-edit{
+    background-image: url('../../../assets/vectors/edit.svg');
+}
+
+.round-button-confirm{
+    background-image: url('../../../assets/vectors/confirm.svg');
 }

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 
 import ReactCrop from 'react-image-crop'
-import ButtonComponent from '../buttons/button/button.component'
+import ButtonComponent from '../buttons/button.component'
 
 import { UserContext } from '../../context/user.context';
 

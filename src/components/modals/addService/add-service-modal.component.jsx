@@ -4,7 +4,7 @@ import { ModalContext } from "../../../context/modal.context";
 import { UserContext } from "../../../context/user.context";
 import { AlertMessageContext } from "../../../context/alert-message.context";
 
-import ButtonComponent from "../../buttons/button/button.component";
+import ButtonComponent from "../../buttons/button.component";
 import RoundImageContainer from "../../round-image-container/round-image-container.component";
 import ImageCropComponent from "../../image-crop/image-crop-component";
 

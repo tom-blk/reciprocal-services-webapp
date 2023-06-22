@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { ModalContext } from "../../../context/modal.context";
 import { AlertMessageContext } from "../../../context/alert-message.context";
 
-import ButtonComponent from "../../buttons/button/button.component";
+import ButtonComponent from "../../buttons/button.component";
 import RoundImageContainer from "../../round-image-container/round-image-container.component";
 import OrderServiceModal from "../../modals/orderService/orderServiceModal";
 import CardComponent from "../card.component";

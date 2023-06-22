@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import ButtonComponent from "../../components/buttons/button/button.component";
+import ButtonComponent from "../../components/buttons/button.component";
 
 import './login.styles.scss'
 import { logIn } from "../../api/auth/log-in";

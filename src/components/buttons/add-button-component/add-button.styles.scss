@@ -1,14 +1,4 @@
 .add-button{
-    display: grid;
-    justify-content: center;
     padding: var(--space-3);
-    border: none;
-
-    background-color: var(--color-secondary-accent);
-    color: var(--color-secondary-accent-complement);
-
-    &:hover{
-        cursor: pointer;
-        box-shadow: 1px 1px 1px #48ffe0, -1px -1px 1px #06ffac, -1px 1px 1px #48ffe0, 1px -1px 1px #06ffac;
-    }
+    border-radius: 0px;
 }

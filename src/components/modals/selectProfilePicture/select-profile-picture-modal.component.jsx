@@ -4,7 +4,7 @@ import { ModalContext } from "../../../context/modal.context";
 import { AlertMessageContext } from "../../../context/alert-message.context";
 
 import ImageCropComponent from "../../image-crop/image-crop-component";
-import ButtonComponent from "../../buttons/button/button.component";
+import ButtonComponent from "../../buttons/button.component";
 
 import { uploadNewProfilePictureAndCreateDatabaseEntryWithCid } from "../../../api/users/update";
 

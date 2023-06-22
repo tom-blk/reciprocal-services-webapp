@@ -6,7 +6,7 @@ import { ModalContext } from "../../context/modal.context"
 import SearchBar from "../../components/search-bar/search-bar.component"
 import AddServiceModal from "../../components/modals/addService/add-service-modal.component"
 import ServicesList from "../../components/card-lists/services-list/services-list.component"
-import AddButtonComponent from "../../components/buttons/add-button-component/add-button.component"
+import AddButton from "../../components/buttons/add-button-component/add-button.component"
 import PageContainer from "../../utils/page-container/page-container.component"
 
 import { getServiceList } from "../../api/services/read"
@@ -54,7 +54,7 @@ const Services = () => {
         <PageContainer>
             <div className="services-search-and-add-service-container">
                 <SearchBar className="services-search-bar" onSearchChange={onSearchChange} placeholder={"Services"}/>
-                <AddButtonComponent onClickHandler={onAddButtonClick}>+</AddButtonComponent>
+                <AddButton onClickHandler={onAddButtonClick}>+</AddButton>
             </div>
             <ServicesList services={filteredServices}/>
         </PageContainer>
