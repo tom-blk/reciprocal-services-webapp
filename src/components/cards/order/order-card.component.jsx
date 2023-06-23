@@ -50,7 +50,7 @@ const OrderCard = ({order}) => {
 
     const buttonOnClickHandler = (e) => {
         e.stopPropagation();
-        toggleModal(returnAppropriateOrderModal(tempOrder, orderStatusHook.nextStage, onOrderStageModified, displayError))
+        toggleModal(returnAppropriateOrderModal(tempOrder, orderStatusHook.nextStage, onOrderStageModified, displayError));
     }
 
     const declineButtonOnClickHandler = (e) => {
