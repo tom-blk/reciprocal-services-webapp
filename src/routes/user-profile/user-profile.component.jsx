@@ -11,6 +11,8 @@ import RoundButton from "../../components/buttons/round-button/round-button.comp
 
 import { useNavigate } from "react-router";
 
+import { assertDisplayName } from "../../helper-functions/users/assertDisplayName";
+
 import { getUserSpecificServices } from "../../api/users/read";
 import { getFileUrl } from "../../utils/web3storage/web3storage";
 
@@ -20,7 +22,8 @@ import './user-profile.styles.scss';
 const UserProfile = () => {
 
     const { user } = useContext(UserContext);
-    const { firstName, lastName, userName, rating, profileDescription } = user;
+    const { userName, rating, profileDescription } = user;
+
     const { displayError } = useContext(AlertMessageContext);
 
     const [profilePicture, setProfilePicture] = useState(undefined);
@@ -46,16 +49,6 @@ const UserProfile = () => {
         navigate('/userProfile-edit')
     }
 
-    const assertDisplayName = () => {
-        if(firstName && lastName){
-            return(firstName + ' ' + lastName);
-        } else if (firstName && !lastName){
-            return firstName;
-        } else if (!firstName && !lastName){
-            return userName;
-        }
-    }
-
     return(
         <PageContainer>
             {
@@ -66,7 +59,7 @@ const UserProfile = () => {
                         <div className="povider-profile-heading-container">
                             <RoundImageContainer size="round-image-container-page" serviceOrUser={'user'} picture={profilePicture}/>
                             <div>
-                                <h1>{assertDisplayName()}</h1>
+                                <h1>{assertDisplayName(user)}</h1>
                                 <span className="sub-text">{`@${userName}`}</span>
                             </div>
                         </div>

@@ -25,7 +25,7 @@ function useOrderStatus(order, userId) {
             break;
           case 3:
             orderStatus.nextStage = undefined;
-            orderStatus.buttonClassName = 'secondary-confirm'
+            orderStatus.buttonClassName = 'secondary-confirm-no-hover'
             orderStatus.text = 'Order Completed! Waiting for the Recipient to Confirm';
             break;
           case 4:
@@ -52,7 +52,7 @@ function useOrderStatus(order, userId) {
             break;
           case 2:
             orderStatus.nextStage = undefined;
-            orderStatus.buttonClassName = 'secondary-confirm'
+            orderStatus.buttonClassName = 'secondary-confirm-no-hover'
             orderStatus.text = 'The Provider has Accepted your Order!';
             break;
           case 3:

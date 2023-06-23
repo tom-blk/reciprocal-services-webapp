@@ -32,6 +32,7 @@ const ServiceCard = ({ service, providingUserId, providingUserFirstName, providi
         getFileUrl(icon, displayError)
             .then(response => setServiceIcon(response))
             .catch(error => displayError(error))
+        if(!orderButtonExists)
         getServiceProviderCount(service.id, displayError)
             .then(response => setServiceProviderCount(response))
             .catch(error => displayError(error))

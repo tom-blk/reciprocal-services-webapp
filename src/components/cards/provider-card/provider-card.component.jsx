@@ -10,6 +10,7 @@ import CardComponent from "../card.component";
 import RatingDisplayComponent from "../../rating/rating-display-component/rating-display.component";
 
 import { useNavigate } from "react-router";
+import { assertDisplayName } from "../../../helper-functions/users/assertDisplayName";
 
 import { getFileUrl } from "../../../utils/web3storage/web3storage";
 
@@ -17,7 +18,7 @@ import './provider-card.styles.scss';
 
 
 const ProviderCard = ({ user, serviceId, serviceName, orderButtonExists }) => {
-    const {id, firstName, lastName, userName, profilePicture, rating} = user;
+    const {id, firstName, lastName, profilePicture, rating} = user;
 
     const { toggleModal } = useContext(ModalContext);
     const { displayError } = useContext(AlertMessageContext);
@@ -33,16 +34,6 @@ const ProviderCard = ({ user, serviceId, serviceName, orderButtonExists }) => {
             .then(response => setProfilePictureUrl(response))
             .catch(error => displayError(error))
     }, [])
-
-    const assertDisplayName = () => {
-        if(firstName && lastName){
-            return(firstName + ' ' + lastName);
-        } else if (firstName && !lastName){
-            return firstName;
-        } else if (!firstName && !lastName){
-            return userName;
-        }
-    }
 
     const openModal = (e) => {
         e.stopPropagation();
@@ -71,7 +62,7 @@ const ProviderCard = ({ user, serviceId, serviceName, orderButtonExists }) => {
             <div className="provider-card-main-data-container">
                 <div className="provider-card-left-data-container">
                     <RoundImageContainer picture={profilePictureUrl} serviceOrUser={'user'} size={'round-image-container-card'}/>
-                    <div className="heading-secondary">{assertDisplayName()}</div>  
+                    <div className="heading-secondary">{assertDisplayName(user)}</div>  
                 </div>
                 <div className="provider-card-right-data-container">
                     <RatingDisplayComponent rating={rating}/>

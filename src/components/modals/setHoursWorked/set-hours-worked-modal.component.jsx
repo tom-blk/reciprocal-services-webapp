@@ -30,6 +30,7 @@ const SetHoursWorkedModal = ({orderId, confirmedCompletionCallback}) => {
         <span>State How Many Hours You Provided</span>
         <input type='text' className='text-area' placeholder='Hours' onChange={e=> setHoursWorked(e.target.value)}/>
         <ButtonComponent buttonType={'secondary-confirm'} onClickHandler={confirmWorkedHoursAndCloseModal}>Confirm Hours Worked and Complete Order</ButtonComponent>
+        <ButtonComponent buttonType={'cancel'} onClickHandler={toggleModal}>Cancel</ButtonComponent>
     </Fragment>
     )
 }

@@ -20,12 +20,15 @@ import { modifyOrderStatus } from "../../../api/orders/update";
 import { useParams } from "react-router";
 
 import "./order-page.styles.scss"
+import { returnAppropriateOrderModal } from "../../../helper-functions/orders/returnAppropriateOrderModal";
+import { setOrderStageToDenied } from "../../../helper-functions/orders/setOrderStageToDenied";
+import { getFileUrl } from "../../../utils/web3storage/web3storage";
 
 const OrderPage = () => {
 
-    const { displayError, displaySuccessMessage } = useContext(AlertMessageContext);
+    const { displayError } = useContext(AlertMessageContext);
     const { toggleModal } = useContext(ModalContext);
-    const { testUser } = useContext(UserContext);
+    const { user } = useContext(UserContext);
 
     const { orderId } = useParams();
 
@@ -33,9 +36,10 @@ const OrderPage = () => {
 
     const [tempOrder, setTempOrder] = useState(undefined); //MIMICS THE CHANGES IN THE DATABASE SO THAT CHANGES BECOME APPARENT WITHOUT HAVING TO REFETCH THE DATA
     const [service, setService] = useState(undefined);
+    const [serviceIcon, setServiceIcon] = useState(undefined);
     const [correspondingUser, setCorrespondingUser] = useState(undefined);
     
-    const orderStatusHook = useOrderStatus(tempOrder, testUser.id);
+    const orderStatusHook = useOrderStatus(tempOrder, user.id);
 
     useEffect(() => {
         getSingleOrder(orderIdInt)
@@ -45,7 +49,6 @@ const OrderPage = () => {
 
     useEffect(() => {
         if(tempOrder){
-            console.log(tempOrder)
             getService(tempOrder.serviceId, displayError)
                 .then(response => setService(response))
                 .catch(error => displayError(error))
@@ -61,43 +64,26 @@ const OrderPage = () => {
         }
     }, [tempOrder])
 
-    const advanceOrderStageInModal = (e) => {
-        if(orderStatusHook.nextStage)
-        modifyOrderStatus(tempOrder.id, orderStatusHook.nextStage, displaySuccessMessage, displayError)
-            .then(setTempOrder({...tempOrder, status: tempOrder.status +1}))
-            .catch(error => displayError(error))
+    useEffect(() => {
+        if(service)
+        if(service.icon)
+        getFileUrl(service.icon)
+            .then(response => setServiceIcon(response));
+    }, [service])
+
+     // Needs to be passed all the way through to the function that ultimately calls the api to update the database so that it can update the frontend after update is successful (makes updating process feel faster)
+     const onOrderStageModified = () => {
+        setTempOrder({...tempOrder, status: orderStatusHook.nextStage})
     }
 
-    const denyOrderInModal = () => {
-        modifyOrderStatus(tempOrder.id, 5, displaySuccessMessage, displayError)
-            .then(setTempOrder({...tempOrder, status: 5}))
-            .catch(error => displayError(error))
+    const buttonOnClickHandler = () => {
+        toggleModal(returnAppropriateOrderModal(tempOrder, orderStatusHook.nextStage, onOrderStageModified,displayError));
     }
 
-    const buttonOnClickHandler = (e) => {
-        if(orderStatusHook.nextStage && orderStatusHook.nextStage != 4)
-        toggleModal(
-            <ConfirmOrCancelModal
-                prompt={'Do You Really Want to Proceed with this Order?'}
-                onConfirm={advanceOrderStageInModal}         
-            />
-        )
-        if(orderStatusHook.nextStage === 4)
-        toggleModal(
-            <ConfirmOrderCompletionModalComponent 
-                providerId={correspondingUser.id} 
-                confirmedCompletionCallback={advanceOrderStageInModal}
-            />
-        )
-    }
+    const declineButtonOnClickHandler = () => {
+        const denyOrderInModal = () => setOrderStageToDenied(tempOrder, onOrderStageModified, displayError);
 
-    const declineButtonOnClickHandler = (e) => {
-        toggleModal(
-            <ConfirmOrCancelModal
-                prompt={'Do You Really Want to Deny this Order?'}
-                onConfirm={denyOrderInModal}         
-            />
-        )
+        toggleModal( <ConfirmOrCancelModal prompt={'Do You Really Want to Deny this Order?'} onConfirm={denyOrderInModal}/> )
     }
 
     return(
@@ -107,7 +93,7 @@ const OrderPage = () => {
                 ?
                 <Fragment>
                     <div className="transaction-page-heading">
-                        <RoundImageContainer picture={service.icon} size={'page'}/>
+                        <RoundImageContainer picture={serviceIcon} serviceOrUser={'service'} size={'round-image-container-page'}/>
                         <h1>{`Order Of ${service.name} at ${tempOrder.dateIssued.toLocaleString()}`}</h1>
                     </div>
                     <span>{`${orderStatusHook.correspondingUserRole}: ${correspondingUser.firstName} ${correspondingUser.lastName}`}</span>

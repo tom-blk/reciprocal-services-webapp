@@ -3,7 +3,7 @@ import './round-image-container.styles.scss';
 import { ReactComponent as ServiceIcon } from '../../assets/vectors/service.svg';
 import { ReactComponent as AvatarIcon } from '../../assets/vectors/avatar.svg';
 
-const RoundImageContainer = ({picture, serviceOrUser, size, className}) => {
+const RoundImageContainer = ({picture, serviceOrUser, size}) => {
 
     const renderPicture = () => {
         if(!picture){
