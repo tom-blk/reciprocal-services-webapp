@@ -25,7 +25,7 @@ const OrderCard = ({order}) => {
 
     const [service, setService] = useState(undefined);
     const [provider, setProvider] = useState(undefined);
-    const [tempOrder, setTempOrder] = useState(order); // Mimics updates on the database so that data doesn't have to be re-fetched (makes updating process feel faster), see onOrderStageModified function
+    const [tempOrder, setTempOrder] = useState(order); // Mimics updates on the database so that data doesn't have to be re-fetched (makes updating process feel faster), also prevents being immedeatly re-sorted into other order status lists, see onOrderStageModified function
 
     const navigate = useNavigate()
     const orderStatusHook = useOrderStatus(tempOrder, user.id);
