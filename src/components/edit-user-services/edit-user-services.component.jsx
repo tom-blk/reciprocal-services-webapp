@@ -66,10 +66,11 @@ const EditUserServicesList = () => {
 
     const markUserServicesAndSort = (allServices, userServices) => {
         
-        allServices.map(service => {
+        // Decide wether service is selected or not and set add embersPerHourChanged attribute to each service (is only needed in front-end)
+        allServices.forEach(service => {
             const index = userServices.findIndex(userService => userService.id === service.id)
 
-            if(userServices[index] === service.id){
+            if(userServices[index]?.id === service.id){
                 service.isSelected = true;
                 service.embersPerHour = userServices[index].creditsPerHour
             } else {
@@ -78,7 +79,8 @@ const EditUserServicesList = () => {
             service.embersPerHourChanged = false;
         });
 
-        allServices.sort((a,b) => (b.isSelected - a.isSelected || a.name - b.name));
+        // Sort  by selection status and alphabetically
+        allServices.sort((a,b) => (b.isSelected - a.isSelected || a.name.localeCompare(b.name)));
 
         return allServices;
     };
