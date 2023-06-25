@@ -36,7 +36,7 @@ function useOrderStatus(order, userId) {
           case 5:
             orderStatus.nextStage = undefined;
             orderStatus.buttonClassName = 'order-denied'
-            orderStatus.text = 'You have Denied this Order';
+            orderStatus.text = 'You have Declined this Order';
             break;
         }
       }
@@ -68,7 +68,7 @@ function useOrderStatus(order, userId) {
           case 5:
             orderStatus.nextStage = undefined;
             orderStatus.buttonClassName = 'order-denied';
-            orderStatus.text = 'Your Request was Denied by the Provider';
+            orderStatus.text = 'Your Request was Declined by the Provider';
             break;
         }
       }

@@ -48,6 +48,11 @@ const OrderCard = ({order}) => {
         setTempOrder({...tempOrder, status: orderStatusHook.nextStage})
     }
 
+    // Needs to be passed all the way through to the function that ultimately calls the api to update the database so that it can update the frontend after update is successful (makes updating process feel faster)
+    const onOrderStageDeclined = () => {
+        setTempOrder({...tempOrder, status: 5})
+    }
+
     const buttonOnClickHandler = (e) => {
         e.stopPropagation();
         toggleModal(returnAppropriateOrderModal(tempOrder, orderStatusHook.nextStage, onOrderStageModified, displayError));
@@ -56,7 +61,7 @@ const OrderCard = ({order}) => {
     const declineButtonOnClickHandler = (e) => {
         e.stopPropagation();
 
-        const denyOrderInModal = () => setOrderStageToDenied(tempOrder, onOrderStageModified, displayError);
+        const denyOrderInModal = () => setOrderStageToDenied(tempOrder, onOrderStageDeclined, displayError);
 
         toggleModal( <ConfirmOrCancelModal prompt={'Do You Really Want to Deny this Order?'} onConfirm={denyOrderInModal}/> )
     }
