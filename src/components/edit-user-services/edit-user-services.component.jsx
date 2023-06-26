@@ -18,6 +18,8 @@ import './edit-user-services.styles.scss';
 
 const EditUserServicesList = () => {
 
+    // Should be a way to avoid making the component iterate through all services as much as it does, which would make it much more performant and scalable - REVISIT!
+
     const { displayError, displaySuccessMessage } = useContext(AlertMessageContext);
     const { user } = useContext(UserContext);
 
@@ -43,14 +45,6 @@ const EditUserServicesList = () => {
     useEffect(() => {
         filterServices()
     }, [searchString, services])
-
-    useEffect(() => {
-        console.log(services)
-    }, [services])
-
-    useEffect(() => {
-        console.log(userServices)
-    }, [userServices])
 
     const onSearchChange = (userInput) => {
         setSearchString(userInput)
@@ -91,8 +85,8 @@ const EditUserServicesList = () => {
 
         let index = tempServices.findIndex(service => (service.id === clickedService.id));
 
-        tempServices[index].isSelected = !tempServices[index].isSelected;
         tempServices[index].selectionStatusWasChanged = true;
+        tempServices[index].isSelected = !tempServices[index].isSelected;        
 
         setServices([...tempServices]);
     };
