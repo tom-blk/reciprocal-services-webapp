@@ -77,6 +77,7 @@ const EditUserServicesList = () => {
                 service.isSelected = false;
             }
             service.embersPerHourChanged = false;
+            service.selectionStatusWasChanged = false;
         });
 
         // Sort  by selection status and alphabetically
@@ -91,6 +92,7 @@ const EditUserServicesList = () => {
         let index = tempServices.findIndex(service => (service.id === clickedService.id));
 
         tempServices[index].isSelected = !tempServices[index].isSelected;
+        tempServices[index].selectionStatusWasChanged = true;
 
         setServices([...tempServices]);
     };
@@ -107,10 +109,16 @@ const EditUserServicesList = () => {
     };
 
     const confirmButtonOnClickHandler = () => {
-        const changedServices = [];
-        services.forEach(service => {if(service.isSelected) changedServices.push(service)});
+        const servicesToBeChanged = [];
 
-        updateUserSpecificServices(user.id, userServices, changedServices)
+        services.forEach(service => {
+            if(service.selectionStatusWasChanged || service.embersPerHourChanged)
+                servicesToBeChanged.push(service)
+        });
+
+        console.log(servicesToBeChanged)
+
+        updateUserSpecificServices(user.id, servicesToBeChanged)
             .then(displaySuccessMessage('Services Successfully Updated!'))
             .catch(error => displayError(error));
     };

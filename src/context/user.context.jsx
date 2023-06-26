@@ -18,7 +18,7 @@ export const UserContextProvider = (input) => {
         if(!user){
             console.log('User not authenticated');
         }else if(user){
-            console.log('User: ' + user.userName);
+            console.log('User: ' + user.userName + ', id: ' + user.id);
         }
     }, [user])
 
