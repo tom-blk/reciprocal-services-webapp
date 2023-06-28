@@ -30,7 +30,8 @@ export const returnAppropriateOrderModal = (order, nextOrderStage, onOrderStageM
         return(
             <ConfirmOrderCompletionModalComponent 
                 providerId={order.providingUserId} 
-                confirmedCompletionCallback={onModalConfirm}
+                order={order}
+                confirmedCompletionCallback={onOrderStageModified}
             />
         )
     }

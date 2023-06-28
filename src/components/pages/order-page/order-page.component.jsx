@@ -9,13 +9,11 @@ import useOrderStatus from "../../../hooks/useOrderStatus";
 import PageContainer from "../../../utils/page-container/page-container.component";
 import ButtonComponent from "../../buttons/button.component";
 import ConfirmOrCancelModal from "../../modals/confirmOrCancel/confirm-or-cancel-modal.component";
-import ConfirmOrderCompletionModalComponent from "../../modals/confirmOrderCompletion/confirm-order-completion-modal.component";
 import RoundImageContainer from "../../round-image-container/round-image-container.component";
 
 import { getService } from "../../../api/services/read";
 import { getSingleUser } from "../../../api/users/read";
 import { getSingleOrder } from "../../../api/orders/read";
-import { modifyOrderStatus } from "../../../api/orders/update";
 
 import { useParams } from "react-router";
 
@@ -39,7 +37,7 @@ const OrderPage = () => {
     const [serviceIcon, setServiceIcon] = useState(undefined);
     const [correspondingUser, setCorrespondingUser] = useState(undefined);
     
-    const orderStatusHook = useOrderStatus(tempOrder, user.id);
+    const orderStatus = useOrderStatus(tempOrder, user.id);
 
     useEffect(() => {
         getSingleOrder(orderIdInt)
@@ -52,11 +50,11 @@ const OrderPage = () => {
             getService(tempOrder.serviceId, displayError)
                 .then(response => setService(response))
                 .catch(error => displayError(error))
-            if(orderStatusHook.orderDirection === 'incoming'){
+            if(orderStatus.orderDirection === 'incoming'){
                 getSingleUser(tempOrder.receivingUserId, displayError)
                     .then(response => setCorrespondingUser(response))
                     .catch(error => displayError(error))
-            } else if(orderStatusHook.orderDirection === 'outgoing'){
+            } else if(orderStatus.orderDirection === 'outgoing'){
                 getSingleUser(tempOrder.providingUserId, displayError)
                     .then(response => setCorrespondingUser(response))
                     .catch(error => displayError(error))
@@ -73,7 +71,7 @@ const OrderPage = () => {
 
      // Needs to be passed all the way through to the function that ultimately calls the api to update the database so that it can update the frontend after update is successful (makes updating process feel faster)
      const onOrderStageModified = () => {
-        setTempOrder({...tempOrder, status: orderStatusHook.nextStage})
+        setTempOrder({...tempOrder, status: orderStatus.nextStage})
     }
 
     // Needs to be passed all the way through to the function that ultimately calls the api to update the database so that it can update the frontend after update is successful (makes updating process feel faster)
@@ -82,13 +80,39 @@ const OrderPage = () => {
     }
 
     const buttonOnClickHandler = () => {
-        toggleModal(returnAppropriateOrderModal(tempOrder, orderStatusHook.nextStage, onOrderStageModified,displayError));
+        toggleModal(returnAppropriateOrderModal(tempOrder, orderStatus.nextStage, onOrderStageModified, displayError));
     }
 
     const declineButtonOnClickHandler = () => {
         const denyOrderInModal = () => setOrderStageToDenied(tempOrder, onOrderStageDeclined, displayError);
 
         toggleModal( <ConfirmOrCancelModal prompt={'Do You Really Want to Deny this Order?'} onConfirm={denyOrderInModal}/> )
+    }
+
+    const returnConditionalCancelButton = () => {
+        if(orderStatus.orderDirection === 'incoming' && orderStatus.nextStage === 2)
+        return(
+            <ButtonComponent
+                buttonType={'cancel'}
+                onClickHandler={declineButtonOnClickHandler}
+            >
+                Decline Order
+            </ButtonComponent>
+        )
+    }
+
+    const returnConditionalDateCompleted = () => {
+        if(orderStatus.currentStage === 4)
+        return(
+            <span>{`Date Completed: ${tempOrder.dateCompleted.toLocaleString()}`}</span>
+        )
+    }
+
+    const returnConditionalTotalEmbers = () => {
+        if(orderStatus.currentStage >= 3)
+        return(
+                <span className="bold">{`Total Embers: ${tempOrder.hoursProvided * tempOrder.creditsPerHour}`}</span>
+        )
     }
 
     return(
@@ -99,29 +123,25 @@ const OrderPage = () => {
                 <Fragment>
                     <div className="transaction-page-heading">
                         <RoundImageContainer picture={serviceIcon} serviceOrUser={'service'} size={'round-image-container-page'}/>
-                        <h1>{`Order Of ${service.name} at ${tempOrder.dateIssued.toLocaleString()}`}</h1>
+                        <h1>{`Order Of ${service.name}`}</h1>
                     </div>
-                    <span>{`${orderStatusHook.correspondingUserRole}: ${correspondingUser.firstName} ${correspondingUser.lastName}`}</span>
+
+                    <span>{`${orderStatus.correspondingUserRole}: ${correspondingUser.firstName} ${correspondingUser.lastName}`}</span>
+                    <span>{`Date Issued: ${tempOrder.dateIssued.toLocaleString()}`}</span>
+                    { returnConditionalDateCompleted() }
+                    { returnConditionalTotalEmbers() }
+
                     <span>Message: 
                         <pre>{tempOrder.message}</pre>
                     </span>
-                    <span>{tempOrder.creditsAwarded && `credits awarded: ${tempOrder.creditsAwarded}`}</span>
+
                     <ButtonComponent 
-                        buttonType={orderStatusHook.buttonClassName}
+                        buttonType={orderStatus.buttonClassName}
                         onClickHandler={buttonOnClickHandler}
                     >
-                        {orderStatusHook.text}
+                        {orderStatus.text}
                     </ButtonComponent>
-                    {
-                        orderStatusHook.orderDirection === 'incoming' && orderStatusHook.nextStage === 2
-                        &&
-                        <ButtonComponent
-                            buttonType={'cancel'}
-                            onClickHandler={declineButtonOnClickHandler}
-                        >
-                            Decline Order
-                        </ButtonComponent>
-                    }
+                    { returnConditionalCancelButton() }
                 </Fragment>
                 :
                 <span>Something went wrong...</span>

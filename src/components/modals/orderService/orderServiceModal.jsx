@@ -11,7 +11,7 @@ import { createOrder } from "../../../api/orders/create";
 import './orderServiceModal.styles.css';
 
 
-const OrderServiceModal = ({ providingUserId, providingUserFirstName, providingUserLastName, serviceId, serviceName, serviceOrderedCallback }) => {
+const OrderServiceModal = ({ providingUserId, providingUserFirstName, providingUserLastName, serviceId, serviceName, embersPerHour, serviceOrderedCallback }) => {
 
     const { toggleModal } = useContext(ModalContext);
     const { user } = useContext(UserContext);
@@ -21,10 +21,13 @@ const OrderServiceModal = ({ providingUserId, providingUserFirstName, providingU
         serviceId: serviceId,
         providingUserId: providingUserId,
         receivingUserId: user.id,
-        message: ''
+        message: '',
+        embersPerHour: embersPerHour
     }
 
     const [orderData, setOrderData] = useState(orderDataTemplate);
+
+    useEffect(() => {console.log(orderData)},[orderData])
 
     const onClickHandler = () => {
         createOrder(orderData)
@@ -41,6 +44,7 @@ const OrderServiceModal = ({ providingUserId, providingUserFirstName, providingU
     return(
         <Fragment>
             <h2>{`Do you really wish to order the service ${serviceName} from ${providingUserFirstName} ${providingUserLastName}?`}</h2>
+            <h3>{`The hourly fare is ${embersPerHour} embers per hour.`}</h3>
             <span>Message:</span>
             <textarea className="text-area" onChange={e => onOrderMessageChangeHandler(e)} style={{width:'70%'}} type='text' rows='10'></textarea>
             <ButtonComponent buttonType={'secondary-confirm secondary-confirm-hover'} onClickHandler={onClickHandler}>{'Confirm'}</ButtonComponent>

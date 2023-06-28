@@ -34,6 +34,10 @@ const ProviderProfilePage = () => {
     }, [])
 
     useEffect(() => {
+        console.log(provider)
+    }, [provider])
+
+    useEffect(() => {
         if(provider?.profilePicture)
         getFileUrl(provider.profilePicture, displayError)
             .then(response => setProfilePictureUrl(response))
@@ -69,7 +73,8 @@ const ProviderProfilePage = () => {
                                             providingUserId={provider.id}
                                             providingUserFirstName={provider.firstName}
                                             providingUserLastName={provider.lastName}
-                                            orderButtonExists={true}
+                                            isProviderRelated
+                                            embersPerHour={service.creditsPerHour}
                                         />
                                     )
                             })

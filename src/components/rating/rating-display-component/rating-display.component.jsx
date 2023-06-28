@@ -15,7 +15,7 @@ const RatingDisplayComponent = ({ rating }) => {
                     )
                 })}
             </div>
-            <span className='rating-number'>{rating.toFixed(1)}</span>
+            <span className='rating-number'>{rating ? rating.toFixed(1) : '0.0'}</span>
         </div>
     )
 }

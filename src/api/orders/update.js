@@ -30,13 +30,13 @@ export const specifyProvidedHours = async (orderId, hoursProvided) => {
     }
 }
 
-export const transferCredits = async (senderId, recipientId) => {
+export const confirmOrderCompletionRateUserAndTransferCredits = async (orderId, recipientId, senderId, numberOfCredits, rating) => {
 
     try{
-        await apiCall('/orders/transfer-credits', 'PUT', { senderId: senderId, recipientId: recipientId })
+        await apiCall('/orders/confirm-order-completion-rate-user-and-transfer-credits', 'PUT', { orderId: orderId, dateCompleted: new Date().toISOString().slice(0, 19).replace('T', ' '), recipientId: recipientId, senderId: senderId, numberOfCredits: numberOfCredits, rating: rating })
     }catch(error){
         console.log(error)
-        throw new Error('Failed to transfer credits...')
+        throw new Error('Failed to Complete Order...')
     }
 }
 

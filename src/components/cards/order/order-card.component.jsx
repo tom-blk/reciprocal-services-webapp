@@ -16,6 +16,7 @@ import { getSingleUser } from "../../../api/users/read";
 import { useNavigate } from "react-router";
 import { returnAppropriateOrderModal } from "../../../helper-functions/orders/returnAppropriateOrderModal";
 import { setOrderStageToDenied } from "../../../helper-functions/orders/setOrderStageToDenied";
+import { assertDisplayName } from "../../../helper-functions/users/assertDisplayName";
 
 const OrderCard = ({order}) => {
 
@@ -25,17 +26,25 @@ const OrderCard = ({order}) => {
 
     const [service, setService] = useState(undefined);
     const [provider, setProvider] = useState(undefined);
+    const [recipient, setRecipient] = useState(undefined);
     const [tempOrder, setTempOrder] = useState(order); // Mimics updates on the database so that data doesn't have to be re-fetched (makes updating process feel faster), also prevents being immedeatly re-sorted into other order status lists, see onOrderStageModified function
 
     const navigate = useNavigate()
-    const orderStatusHook = useOrderStatus(tempOrder, user.id);
+    const orderStatus = useOrderStatus(tempOrder, user.id);
 
     useEffect(() => {
         getService(order.serviceId, displayError)
             .then(response => setService(response))
             .catch(error => displayError(error))
+            
+        if(orderStatus.correspondingUserRole === 'Provider')
         getSingleUser(order.providingUserId, displayError)
             .then(response => setProvider(response))
+            .catch(error => displayError(error))
+
+        if(orderStatus.correspondingUserRole === 'Recipient')
+        getSingleUser(order.receivingUserId, displayError)
+            .then(response => setRecipient(response))
             .catch(error => displayError(error))
     }, [])
     
@@ -45,7 +54,7 @@ const OrderCard = ({order}) => {
 
     // Needs to be passed all the way through to the function that ultimately calls the api to update the database so that it can update the frontend after update is successful (makes updating process feel faster)
     const onOrderStageModified = () => {
-        setTempOrder({...tempOrder, status: orderStatusHook.nextStage})
+        setTempOrder({...tempOrder, status: orderStatus.nextStage})
     }
 
     // Needs to be passed all the way through to the function that ultimately calls the api to update the database so that it can update the frontend after update is successful (makes updating process feel faster)
@@ -55,7 +64,7 @@ const OrderCard = ({order}) => {
 
     const buttonOnClickHandler = (e) => {
         e.stopPropagation();
-        toggleModal(returnAppropriateOrderModal(tempOrder, orderStatusHook.nextStage, onOrderStageModified, displayError));
+        toggleModal(returnAppropriateOrderModal(tempOrder, orderStatus.nextStage, onOrderStageModified, displayError));
     }
 
     const declineButtonOnClickHandler = (e) => {
@@ -66,40 +75,88 @@ const OrderCard = ({order}) => {
         toggleModal( <ConfirmOrCancelModal prompt={'Do You Really Want to Deny this Order?'} onConfirm={denyOrderInModal}/> )
     }
 
+    console.log(orderStatus.currentStage);
+
+    const returnConditionalDateContainer = () => {
+        if(orderStatus.currentStage === 4){
+            return(
+                <div>
+                    <div className="bold">Date Completed: </div>
+                    <div>{order.dateCompleted}</div>
+                </div>
+            )
+        }else{
+            return(
+                <div>
+                    <div className="bold">Date Issued: </div>
+                    <div>{order.dateIssued}</div>
+                </div>
+            )
+        }
+    }
+
+    const returnConditionalTotalEmbers = () => {
+        if(orderStatus.currentStage >= 3)
+        return(
+            <div>
+                <div className="bold">Total Embers: </div>
+                <div>{order.hoursProvided * order.creditsPerHour}</div>
+            </div>
+        )
+    }
+
+    const returnConditionalProviderOrRecipient = () => {
+        if(orderStatus.correspondingUserRole === 'Provider' && orderStatus.currentStage < 4)
+        return(
+            <div>
+                <div className="bold">Provider: </div>
+                <div>{provider ? assertDisplayName(provider) : 'Error Loading the Provider...'}</div>
+            </div>
+        )
+        if(orderStatus.correspondingUserRole === 'Recipient')
+        return(
+            <div>
+                <div className="bold">Recipient: </div>
+                <div>{recipient ? assertDisplayName(recipient) : 'Error Loading the Recipient...'}</div>
+            </div>
+        )
+    }
+
+    const returnConditionalCancelButton = () => {
+        if(orderStatus.orderDirection === 'incoming' && orderStatus.nextStage === 2)
+        return(
+            <ButtonComponent
+                buttonType={'cancel'}
+                onClickHandler={declineButtonOnClickHandler}
+            >
+                Decline Order
+            </ButtonComponent>
+        )
+    }
+
     return(
         <CardComponent onClickHandler={cardOnClickHandler}>
+
+            { returnConditionalDateContainer() }
+
             <div>
-                <div className="bold">Date Issued: </div>
-                <div>{order.dateIssued}</div>
-            </div>
-            <div>
-                <div className="bold">Provided Service: </div>
+                <div className="bold">Service: </div>
                 <div>{service ? service.name : 'Error Loading the Service...'}</div>
             </div>
-            <div>
-                <div className="bold">Provided by: </div>
-                <div>{provider ? provider.firstName + ' ' + provider.lastName : 'Error Loading the Provider...'}</div>
-            </div>
-            <div>
-                <div className="bold">Credits Awarded: </div>
-                <div>{order.creditsAwarded ?  order.creditsAwarded : "TBD"}</div>
-            </div>
+
+            { returnConditionalProviderOrRecipient() }
+
+            { returnConditionalTotalEmbers() }
+
             <ButtonComponent 
-                buttonType={orderStatusHook.buttonClassName}
+                buttonType={orderStatus.buttonClassName}
                 onClickHandler={buttonOnClickHandler}
             >
-                {orderStatusHook.text}
+                {orderStatus.text}
             </ButtonComponent>
-            {
-                orderStatusHook.orderDirection === 'incoming' && orderStatusHook.nextStage === 2
-                &&
-                <ButtonComponent
-                    buttonType={'cancel'}
-                    onClickHandler={declineButtonOnClickHandler}
-                >
-                    Decline Order
-                </ButtonComponent>
-            }
+
+            { returnConditionalCancelButton() }
+
         </CardComponent>
     )
 }

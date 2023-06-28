@@ -1,51 +1,79 @@
-import React, { Fragment, useContext, useState } from 'react'
+import React, { Fragment, useContext, useEffect, useState } from 'react'
 
 import { AlertMessageContext } from '../../../context/alert-message.context'
 import { ModalContext } from '../../../context/modal.context'
+import { UserContext } from '../../../context/user.context';
 
 import ButtonComponent from '../../buttons/button.component'
-import RatingStarComponent from '../../rating/rating-star-component/rating-star.component'
+import RateUserComponent from '../../rating/rate-user-component/rate-user.component'
 
-import { rateUser } from '../../../api/users/update'
+import { getSingleUser } from '../../../api/users/read'
+import { confirmOrderCompletionRateUserAndTransferCredits } from '../../../api/orders/update';
 
-const ConfirmOrderCompletionModalComponent = ({providerId, confirmedCompletionCallback}) => {
+import { assertDisplayName } from '../../../helper-functions/users/assertDisplayName';
 
-    const {displaySuccessMessage, displayError} = useContext(AlertMessageContext);
-    const {toggleModal} = useContext(ModalContext);
+const ConfirmOrderCompletionModalComponent = ({providerId, order, confirmedCompletionCallback}) => {
+
+    const { displaySuccessMessage, displayError } = useContext(AlertMessageContext);
+    const { toggleModal } = useContext(ModalContext);
+    const { user } = useContext(UserContext)
 
     const [rating, setRating] = useState(undefined);
+    const [provider, setProvider] = useState(undefined);
+    const [doubleConfirmButtonVisible, setDoubleConfirmButtonVisible] = useState(false); // Failsafe so that user doesn't accidentally input wrong number of hours
 
-    const setRatingHandler = (starClicked) => {
-        setRating(starClicked);
+    const totalEmbers = order.creditsPerHour * order.hoursProvided;
+
+    useEffect(() => {
+        getSingleUser(providerId)
+            .then(response => setProvider(response))
+    }, [])
+
+    const onSetRating = (star) => {
+        setRating(star);
     }
 
     const confirmRatingAndCloseModal = () => {
-        if(rating){
-            rateUser(providerId, rating, displaySuccessMessage, displayError)
-                .then(confirmedCompletionCallback())
-                .catch(error => displayError(error))
-            toggleModal();
+        if(user.credits < totalEmbers){
+            displayError(new Error('Insufficient Embers to Complete Transaction'))
+        }else{
+            if(rating){
+                confirmOrderCompletionRateUserAndTransferCredits(order.id, providerId, user.id, totalEmbers, rating)
+                    .then(() => {
+                        displaySuccessMessage(`The Transaction was Successful, the Provider was Rated with ${rating} Stars!`);
+                        confirmedCompletionCallback();
+                        toggleModal();
+                    })
+                    .catch(error => displayError(error))
+            }else{
+                displayError(new Error("Please rate the user to confirm the completion of the order!"))
+            }
         }
-        if(!rating)
-        displayError(new Error("Please rate the user to confirm the completion of the order!"))
     }
 
-    const stars = [1,2,3,4,5];
+    const toggleDoubleConfirmButtonVisible = () => {
+        setDoubleConfirmButtonVisible(!doubleConfirmButtonVisible)
+    }
+
+    const onCancelWhileDoubleConfirmVisible = () => {
+        setDoubleConfirmButtonVisible(false);
+    }
 
     return (
-    <Fragment>
-        <span>Rate User Before Confirming Order Completion: </span>
-        <div style={{display: 'flex', width: '30%'}}>
-            {
-                stars.map(star => {
-                    return(
-                        <RatingStarComponent key={star} starNumber={star} onClickHandler={setRatingHandler} color={rating >= star ? '#ffbf00' : 'grey'}/>
-                    )
-                })
-            }
-        </div>
-        <ButtonComponent buttonType={'secondary-confirm'} onClickHandler={confirmRatingAndCloseModal}>Confirm Rating and Order Completion</ButtonComponent>
-    </Fragment>
+        provider &&
+        <Fragment>
+            <h2>Your Order has been Completed!</h2>
+            <h3>Order Data:</h3>
+            <span>{`Provider: ${assertDisplayName(provider)}`}</span>
+            <span>{`Hours provided: ${order.hoursProvided}`}</span>
+            <span>{`Hourly rate: ${order.creditsPerHour}`}</span>
+            <span>{`Total Embers: ${totalEmbers}`}</span>
+            <h3>Rate User Before Confirming Order Completion: </h3>
+            <RateUserComponent rating={rating} onSetRating={onSetRating}/>
+            { !doubleConfirmButtonVisible && <ButtonComponent buttonType={'secondary-confirm'} onClickHandler={toggleDoubleConfirmButtonVisible}>Confirm Rating and Order Completion</ButtonComponent>}
+            { doubleConfirmButtonVisible && <ButtonComponent buttonType={'confirm'} onClickHandler={confirmRatingAndCloseModal}>Are You Sure?</ButtonComponent>}
+            <ButtonComponent buttonType={'cancel'} onClickHandler={doubleConfirmButtonVisible ? onCancelWhileDoubleConfirmVisible : toggleModal}>Cancel</ButtonComponent>
+        </Fragment>
     )
 }
 

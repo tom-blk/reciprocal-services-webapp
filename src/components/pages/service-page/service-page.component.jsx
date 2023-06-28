@@ -45,6 +45,10 @@ const ServicePage = () => {
     }, [])
 
     useEffect(() => {
+        console.log(serviceProviders);
+    }, [serviceProviders])
+
+    useEffect(() => {
         if(service)
         if(service.icon)
             getFileUrl(service.icon, displayError)
@@ -106,10 +110,11 @@ const ServicePage = () => {
                             return(
                                 <ProviderCard 
                                     key={provider.id}
-                                    orderButtonExists={true} 
+                                    isServiceRelated
                                     user={provider} 
                                     serviceId={service.id}
                                     serviceName={service.name}
+                                    embersPerHour={provider.creditsPerHour}
                                 />
                             )
                         })

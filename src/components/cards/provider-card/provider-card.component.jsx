@@ -17,8 +17,8 @@ import { getFileUrl } from "../../../utils/web3storage/web3storage";
 import './provider-card.styles.scss';
 
 
-const ProviderCard = ({ user, serviceId, serviceName, orderButtonExists }) => {
-    const {id, firstName, lastName, profilePicture, rating} = user;
+const ProviderCard = ({ user, serviceId, serviceName, isServiceRelated, embersPerHour }) => {
+    const {id, firstName, lastName, profilePicture, rating, ratingCount, creditsPerHour} = user;
 
     const { toggleModal } = useContext(ModalContext);
     const { displayError } = useContext(AlertMessageContext);
@@ -35,7 +35,7 @@ const ProviderCard = ({ user, serviceId, serviceName, orderButtonExists }) => {
             .catch(error => displayError(error))
     }, [])
 
-    const openModal = (e) => {
+    const openOrderServiceModal = (e) => {
         e.stopPropagation();
         toggleModal(
             <OrderServiceModal 
@@ -45,6 +45,7 @@ const ProviderCard = ({ user, serviceId, serviceName, orderButtonExists }) => {
                 serviceId={serviceId}
                 serviceName={serviceName}
                 serviceOrderedCallback={setServiceOrderedHandler}
+                embersPerHour={embersPerHour}
             />
         );
     }
@@ -60,23 +61,39 @@ const ProviderCard = ({ user, serviceId, serviceName, orderButtonExists }) => {
     return(
         <CardComponent onClickHandler={onClickHandler} className="card">
             <div className="provider-card-main-data-container">
+
                 <div className="provider-card-left-data-container">
                     <RoundImageContainer picture={profilePictureUrl} serviceOrUser={'user'} size={'round-image-container-card'}/>
                     <div className="heading-secondary">{assertDisplayName(user)}</div>  
                 </div>
+
+                {
+                isServiceRelated
+                &&
+                <div className="provider-card-center-data-container">
+                    <span className="bold">{embersPerHour} </span>
+                    <span>Embers per Hour</span> 
+                </div>
+                }
+                
+
                 <div className="provider-card-right-data-container">
-                    <RatingDisplayComponent rating={rating}/>
+                    <div className="provider-card-rating-container">
+                        <RatingDisplayComponent rating={rating}/>
+                        <span className="sub-text">{`Rated ${ratingCount} times`}</span>
+                    </div>
                     {
-                        orderButtonExists
-                        &&
-                        <ButtonComponent
-                            buttonType={serviceOrdered ? "inactive" : "confirm"}
-                            onClickHandler={serviceOrdered ? undefined : e => openModal(e)}
-                        >
-                            {serviceOrdered ? "Service Ordered!" : "Order Service"}
-                        </ButtonComponent>
+                    isServiceRelated
+                    &&
+                    <ButtonComponent
+                        buttonType={serviceOrdered ? "inactive" : "confirm"}
+                        onClickHandler={serviceOrdered ? undefined : e => openOrderServiceModal(e)}
+                    >
+                        {serviceOrdered ? "Service Ordered!" : "Order Service"}
+                    </ButtonComponent>
                     }
                 </div>
+
             </div>
         </CardComponent>
     )

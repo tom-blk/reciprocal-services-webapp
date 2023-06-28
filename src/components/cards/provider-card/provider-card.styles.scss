@@ -14,9 +14,19 @@
     gap: var(--space-3);
 }
 
+.provider-card-center-data-container{
+    text-align: center;
+}
+
 .provider-card-right-data-container{
     display: flex;
     align-items: center;
     justify-content: space-around;
     gap: var(--space-3);
+}
+
+.provider-card-rating-container{
+    display: flex;
+    flex-direction: column;
+    text-align: right;
 }

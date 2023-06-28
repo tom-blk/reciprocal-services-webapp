@@ -15,7 +15,7 @@ import { getFileUrl } from "../../../utils/web3storage/web3storage";
 
 import './service-card.styles.scss';
 
-const ServiceCard = ({ service, providingUserId, providingUserFirstName, providingUserLastName, orderButtonExists }) => {
+const ServiceCard = ({ service, providingUserId, providingUserFirstName, providingUserLastName, isProviderRelated, embersPerHour }) => {
     const { id, icon, name, description } = service;
 
     const { toggleModal } = useContext(ModalContext);
@@ -32,7 +32,7 @@ const ServiceCard = ({ service, providingUserId, providingUserFirstName, providi
         getFileUrl(icon, displayError)
             .then(response => setServiceIcon(response))
             .catch(error => displayError(error))
-        if(!orderButtonExists)
+        if(!isProviderRelated)
         getServiceProviderCount(service.id, displayError)
             .then(response => setServiceProviderCount(response))
             .catch(error => displayError(error))
@@ -50,6 +50,7 @@ const ServiceCard = ({ service, providingUserId, providingUserFirstName, providi
                 serviceId={id} 
                 serviceName={name} 
                 serviceOrderedCallback={setServiceOrderedHandler}
+                embersPerHour={embersPerHour}
             />
         );
     }
@@ -60,6 +61,7 @@ const ServiceCard = ({ service, providingUserId, providingUserFirstName, providi
 
     return(
         <CardComponent onClickHandler={onClickHandler} className="card service-card">
+            
             <div className="service-card-main-data-container">
                 <div className="service-card-left-data-container">
                     <RoundImageContainer picture={serviceIcon} serviceOrUser={'service'} size={'round-image-container-card'}/>
@@ -68,9 +70,20 @@ const ServiceCard = ({ service, providingUserId, providingUserFirstName, providi
                         <div className="text">{description}</div>
                     </div>
                 </div>
-                { !orderButtonExists && <div className="heading-secondary">{`${serviceProviderCount.providerCount} Providers`}</div> }
+
                 {
-                    orderButtonExists 
+                isProviderRelated
+                &&
+                <div className="service-card-center-data-container">
+                    <span className="bold">{embersPerHour} </span>
+                    <span>Embers per Hour</span> 
+                </div>
+                }
+
+                { !isProviderRelated && <div className="heading-secondary">{`${serviceProviderCount.providerCount} Providers`}</div> }
+
+                {
+                    isProviderRelated 
                     &&
                     <ButtonComponent 
                         buttonType={serviceOrdered ? 'inactive' : 'confirm'}
@@ -79,8 +92,8 @@ const ServiceCard = ({ service, providingUserId, providingUserFirstName, providi
                         {serviceOrdered ? 'Service Ordered!' : 'Order Service'}
                     </ButtonComponent>
                 }
-            </div>
-            
+
+            </div> 
         </CardComponent>
     )
 }

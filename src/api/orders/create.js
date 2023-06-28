@@ -7,7 +7,8 @@ export const createOrder = async (orderData, onSuccessFunction) => {
             providingUserId: orderData.providingUserId,
             receivingUserId: orderData.receivingUserId,
             message: orderData.message,
-            dateIssued: new Date().toISOString().slice(0, 19).replace('T', ' ')
+            dateIssued: new Date().toISOString().slice(0, 19).replace('T', ' '),
+            creditsPerHour: orderData.embersPerHour
         })
     } catch(error){
         console.log(error)
