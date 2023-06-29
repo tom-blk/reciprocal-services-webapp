@@ -18,7 +18,7 @@ import './provider-card.styles.scss';
 
 
 const ProviderCard = ({ user, serviceId, serviceName, isServiceRelated, embersPerHour }) => {
-    const {id, firstName, lastName, profilePicture, rating, ratingCount, creditsPerHour} = user;
+    const {id, firstName, lastName, profilePicture, rating, ratingCount} = user;
 
     const { toggleModal } = useContext(ModalContext);
     const { displayError } = useContext(AlertMessageContext);

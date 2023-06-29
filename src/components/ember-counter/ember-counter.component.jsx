@@ -1,26 +1,39 @@
-import React, { useState } from 'react'
+import React, { Fragment, useContext, useEffect, useState } from 'react'
+import { UserContext } from '../../context/user.context';
+
+import ember from '../../assets/images/ember.png';
 
 import './ember-counter.styles.scss';
-import ember from '../../assets/images/ember.png';
 
 const EmberCounter = () => {
 
-    const [credits, setCredits] = useState(100);
-    const [active, setActive] = useState(false);
+    const { user } = useContext(UserContext);
 
-    const triggerDecreaseCreditsEffect = () => {
-        setActive(true);
-        const amount = 20;
-        let count = credits
-        for(let i = 0; i < amount; i++){
-            setCredits(credits-1)
+    const [visible, setVisible] = useState('init');
+
+    const toggleEmberCounterVisibility = () => {
+        if(visible==='init'){
+            setVisible(true)
+        } else {
+            setVisible(!visible);
         }
     }
 
+    useEffect(() => {
+        console.log(visible)
+    }, [visible])
+    
+
     return (
-        <div className={`credit-counter-container ${active && 'active'}`}>
-            <img className='ember-icon' src={ember}/>
-            <span className={`credit-counter-number ${active && 'active'}`}>{credits}</span> 
+        <div className={`ember-counter-wrapper-container ${visible === 'init' ? '' : visible ? 'visible' : 'invisible'}`}>
+            <div className='toggle-ember-counter-arrow main-hover' onClick={toggleEmberCounterVisibility}>^</div>
+            <div className={`ember-counter-container  ${visible === 'init' ? '' : visible && 'visible'}`}>
+                <div className='ember-counter-data-container'>
+                    <img className='ember-icon' src={ember}/>
+                    <span>Your Embers: </span>
+                    <span className='bold'>{user.credits}</span> 
+                </div>
+            </div>
         </div>
     )
 }
