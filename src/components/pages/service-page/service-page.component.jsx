@@ -19,6 +19,8 @@ import { addServiceToUserServices } from "../../../api/users/update";
 import { getServiceUserAffiliation } from "../../../api/users/read";
 import { getService } from "../../../api/services/read";
 
+import './service-page.styles.scss';
+
 const ServicePage = () => {
 
     let { serviceId } = useParams(); 
@@ -90,9 +92,11 @@ const ServicePage = () => {
                 service !== undefined
                 ?
                 <PageContainer>
-                    <div className="transaction-page-heading">
-                        <RoundImageContainer picture={serviceIcon} serviceOrUser={'service'} size={'round-image-container-page'}/>
-                        <div className="heading-primary">{service.name}</div>
+                    <div className="service-page-heading">
+                        <div className="flex overflow-control">
+                            <RoundImageContainer picture={serviceIcon} serviceOrUser={'service'} size={'round-image-container-page'}/>
+                            <div className="heading-primary overflow-control">{service.name}</div>
+                        </div>
                         <ButtonComponent 
                             onClickHandler={toggleProvidedByCurrentUserStatusButtonHandler} 
                             buttonType={providedByCurrentUser ? 'cancel' : 'confirm'}

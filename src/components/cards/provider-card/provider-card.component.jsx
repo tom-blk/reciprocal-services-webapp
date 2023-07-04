@@ -59,12 +59,12 @@ const ProviderCard = ({ user, serviceId, serviceName, isServiceRelated, embersPe
     }
 
     return(
-        <CardComponent onClickHandler={onClickHandler} className="card">
-            <div className="provider-card-main-data-container">
+        <CardComponent onClickHandler={onClickHandler}>
+            <div className={`provider-card-main-container ${isServiceRelated ? 'provider-card-main-container-grid' : 'provider-card-main-container-flex'}`}>
 
-                <div className="provider-card-left-data-container">
+                <div className="provider-card-left-data-container overflow-control">
                     <RoundImageContainer picture={profilePictureUrl} serviceOrUser={'user'} size={'round-image-container-card'}/>
-                    <div className="heading-secondary">{assertDisplayName(user)}</div>  
+                    <div className="heading-secondary overflow-control">{assertDisplayName(user)}</div>  
                 </div>
 
                 {

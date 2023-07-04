@@ -56,10 +56,10 @@ const UserProfile = () => {
                 ?
                 <Fragment>
                     <div className="profile-heading-and-edit-button-container">
-                        <div className="povider-profile-heading-container">
+                        <div className="user-profile-heading-container">
                             <RoundImageContainer size="round-image-container-page" serviceOrUser={'user'} picture={profilePicture}/>
-                            <div>
-                                <h1>{assertDisplayName(user)}</h1>
+                            <div className="name-and-username-container">
+                                <h1 className="overflow-control">{assertDisplayName(user)}</h1>
                                 <span className="sub-text">{`@${userName}`}</span>
                             </div>
                         </div>

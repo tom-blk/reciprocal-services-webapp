@@ -42,6 +42,13 @@ const SignUp = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        if(username.length < 3){
+            displayError(new Error('Error: Please choose a longer username.'))
+        }
+        if(username.length > 45){
+            displayError(new Error('Error: Please choose a shorter username.'))
+        }
+
         if(email === ''){
             displayError(new Error('Error: Email is missing.'))
             return;

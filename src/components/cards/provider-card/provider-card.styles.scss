@@ -1,13 +1,25 @@
-.provider-card-main-data-container{
+.provider-card-main-container{
+    overflow: hidden;
     width: 100%;
     text-align: left;
-    display: flex;
-    gap: var(--space-3);
+    display: grid;
+    grid-template-columns: 2fr 1fr min-content;
+    gap: var(--space-5);
     align-items: center;
-    justify-content: space-between;
+    justify-items: left;
+}
+
+.provider-card-main-container-grid{
+    display: grid;
+    grid-template-columns: 2fr 1fr min-content;
+}
+
+.provider-card-main-container-flex{
+    display: flex;
 }
 
 .provider-card-left-data-container{
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -15,10 +27,11 @@
 }
 
 .provider-card-center-data-container{
-    text-align: center;
+    justify-self: right;
 }
 
 .provider-card-right-data-container{
+    justify-self: right;
     display: flex;
     align-items: center;
     justify-content: space-around;

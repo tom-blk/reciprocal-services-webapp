@@ -29,12 +29,20 @@ const OrderServiceModal = ({ providingUserId, providingUserFirstName, providingU
 
     useEffect(() => {console.log(orderData)},[orderData])
 
+    const messageLengthBelowLimit = () => (orderData.message.length <= 5000);
+
     const onClickHandler = () => {
-        createOrder(orderData)
-            .then(displaySuccessMessage('Service successfully ordered'))
+        if(messageLengthBelowLimit()){
+            createOrder(orderData)
+            .then(() => {
+                displaySuccessMessage('Service successfully ordered')
+                serviceOrderedCallback();
+                toggleModal();
+            })
             .catch(error => displayError(error))
-        serviceOrderedCallback();
-        toggleModal();
+        }else{
+            displayError(new Error('Please use less than 5000 characters in your message'))
+        }
     }
 
     const onOrderMessageChangeHandler = (e) => {
@@ -45,8 +53,13 @@ const OrderServiceModal = ({ providingUserId, providingUserFirstName, providingU
         <Fragment>
             <h2>{`Do you really wish to order the service ${serviceName} from ${providingUserFirstName} ${providingUserLastName}?`}</h2>
             <h3>{`The hourly fare is ${embersPerHour} embers per hour.`}</h3>
-            <span>Message:</span>
-            <textarea className="text-area" onChange={e => onOrderMessageChangeHandler(e)} style={{width:'70%'}} type='text' rows='10'></textarea>
+            <div className="order-service-modal-message-container">
+                <div className="flex-space-between">
+                    <span>Message:</span>
+                    <span className={!messageLengthBelowLimit() && 'warning-text'}>{`${orderData.message.length}/5000 Characters`}</span>
+                </div>
+                <textarea className="text-area" onChange={e => onOrderMessageChangeHandler(e)} type='text' rows='10'></textarea>
+            </div>
             <ButtonComponent buttonType={'secondary-confirm secondary-confirm-hover'} onClickHandler={onClickHandler}>{'Confirm'}</ButtonComponent>
             <ButtonComponent buttonType={'cancel'} onClickHandler={toggleModal}>{'Cancel'}</ButtonComponent>
         </Fragment>

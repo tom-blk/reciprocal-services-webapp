@@ -2,6 +2,8 @@ import './round-button.styles.scss';
 
 const RoundButton = ({size, onClickHandler, type}) => {
 
+    console.log(size)
+
     return(
             <button 
                 onClick={e => onClickHandler(e)}

@@ -6,7 +6,7 @@ import { UserContext } from '../../context/user.context';
 import PageContainer from '../../utils/page-container/page-container.component';
 import ButtonComponent from '../buttons/button.component';
 import SearchBar from '../search-bar/search-bar.component';
-import SelectableService from './selectable-service/selectable-service.component';
+import SelectableServiceCard from '../cards/selectable-service/selectable-service.component';
 
 import { useNavigate } from 'react-router';
 
@@ -21,22 +21,21 @@ const EditUserServicesList = () => {
     // Should be a way to avoid making the component iterate through all services as much as it does, which would make it much more performant and scalable - REVISIT!
 
     const { displayError, displaySuccessMessage } = useContext(AlertMessageContext);
-    const { user } = useContext(UserContext);
+    const { user, userServices, fetchUserServices } = useContext(UserContext);
 
     const navigate = useNavigate();
 
     const [searchString, setSearchString] = useState('')
     const [filteredServices, setFilteredServices] = useState([]);
-    const [userServices, setUserServices] = useState([]);
     const [services, setServices] = useState([]);
 
     useEffect(() => {
-        getUserSpecificServices(user.id)
-            .then(response => setUserServices(response))
-            .catch(error => displayError(error))
+        if(!userServices)
+        fetchUserServices(user.id)
     }, [])
 
     useEffect(() => {
+        if(userServices)
         getServiceList()
             .then(response => setServices(markUserServicesAndSort(response, userServices)))
             .catch(error => displayError(error))
@@ -113,32 +112,43 @@ const EditUserServicesList = () => {
         console.log(servicesToBeChanged)
 
         updateUserSpecificServices(user.id, servicesToBeChanged)
-            .then(displaySuccessMessage('Services Successfully Updated!'))
+            .then(() => {
+                fetchUserServices();
+                navigate('/userProfile-edit');
+                displaySuccessMessage('Services Successfully Updated!');
+            })
             .catch(error => displayError(error));
     };
 
     const cancelButtonOnClickHandler = () => navigate(`/userProfile-edit`);
+
+    useEffect(() => {
+        console.log(services)
+    }, [services])
 
     return (
         <PageContainer>
             <SearchBar 
                 placeholder={'Services'}
                 onSearchChange={onSearchChange}
+                className={'edit-user-services-search-bar'}
             />
-            <div className='selectable-services-list'>
+            <div className='edit-user-services-search-and-button-bar'>
+                <ButtonComponent buttonType={'confirm'} onClickHandler={confirmButtonOnClickHandler}>Save Changes</ButtonComponent>
+                <ButtonComponent buttonType={'cancel'} onClickHandler={cancelButtonOnClickHandler}>Cancel</ButtonComponent>
+            </div>
+            <div className='card-list'>
                 {
                     filteredServices
                     &&
                     filteredServices.map(service => {
                         return(
-                                <SelectableService key={service.id} onClickHandler={onServiceCardClick} updateEmbersPerHour={confirmEmbersPerHour} service={service} serviceName={service.name}/>
+                                <SelectableServiceCard key={service.id} onClickHandler={onServiceCardClick} updateEmbersPerHour={confirmEmbersPerHour} service={service} serviceName={service.name}/>
                             )
                         }
                     )
                 }
             </div>
-            <ButtonComponent buttonType={'confirm'} onClickHandler={confirmButtonOnClickHandler}>Save Changes</ButtonComponent>
-            <ButtonComponent buttonType={'cancel'} onClickHandler={cancelButtonOnClickHandler}>Cancel</ButtonComponent>
         </PageContainer>
     )
 }

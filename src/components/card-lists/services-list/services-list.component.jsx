@@ -1,4 +1,5 @@
 import ServiceCard from "../../cards/service/service-card.component"
+import '../card-list/card-list.styles.scss';
 
 const ServicesList = ({ services }) => {
 

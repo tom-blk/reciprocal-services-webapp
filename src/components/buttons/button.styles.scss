@@ -42,11 +42,11 @@
 }
 
 .cancel{
-    color: red;
+    color: var(--color-warning-and-error);
     background-color: white;
 
     &:hover{
-        box-shadow: 1px 1px 3px #ff0000, -1px -1px 3px #ff0000, -1px 1px 3px #ff0000, 1px -1px 3px #ff0000;
+        box-shadow: 2px 2px 5px var(--color-warning-and-error), -2px -2px 5px var(--color-warning-and-error), -2px 2px 5px var(--color-warning-and-error), 2px -2px 5px var(--color-warning-and-error);
     }
 }
 

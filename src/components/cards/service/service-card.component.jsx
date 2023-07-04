@@ -60,14 +60,14 @@ const ServiceCard = ({ service, providingUserId, providingUserFirstName, providi
     }
 
     return(
-        <CardComponent onClickHandler={onClickHandler} className="card service-card">
+        <CardComponent onClickHandler={onClickHandler}>
             
             <div className="service-card-main-data-container">
-                <div className="service-card-left-data-container">
+                <div className="service-card-left-data-container overflow-control">
                     <RoundImageContainer picture={serviceIcon} serviceOrUser={'service'} size={'round-image-container-card'}/>
-                    <div>
-                        <div className="heading-secondary">{name}</div>
-                        <div className="text">{description}</div>
+                    <div className="overflow-control">
+                        <div className="heading-secondary overflow-control">{name}</div>
+                        <div className="text overflow-control">{description}</div>
                     </div>
                 </div>
 
@@ -80,7 +80,7 @@ const ServiceCard = ({ service, providingUserId, providingUserFirstName, providi
                 </div>
                 }
 
-                { !isProviderRelated && <div className="heading-secondary">{`${serviceProviderCount.providerCount} Providers`}</div> }
+                { !isProviderRelated && <div className="heading-secondary nowrap">{`${serviceProviderCount.providerCount} Providers`}</div> }
 
                 {
                     isProviderRelated 

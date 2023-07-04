@@ -2,4 +2,18 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: var(--space-4)
+}
+
+.user-profile-heading-container{
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+.name-and-username-container{
+    line-height: 1;
+    display: grid;
+    text-size-adjust: none;
+    width: 100%;
 }

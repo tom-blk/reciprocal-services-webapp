@@ -1,3 +1,5 @@
+import './card-list.styles.scss';
+
 const CardList = ({ list, OutputCard, expectedPropByOutputCardString, emptyListWarning}) => {
 
     return(

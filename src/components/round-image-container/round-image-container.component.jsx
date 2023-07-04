@@ -8,17 +8,9 @@ const RoundImageContainer = ({picture, serviceOrUser, size}) => {
     const renderPicture = () => {
         if(!picture){
             if(serviceOrUser === 'user'){
-                return(
-                    <div className={size}>
-                        <AvatarIcon fill={getComputedStyle(document.body).getPropertyValue('--color-primary-accent')}/>
-                    </div>
-                ) 
+                return <AvatarIcon fill={getComputedStyle(document.body).getPropertyValue('--color-primary-accent')}/>
             } else if(serviceOrUser === 'service'){
-                return(
-                    <div className={size}>
-                        <ServiceIcon fill={getComputedStyle(document.body).getPropertyValue('--color-primary-accent')}/>
-                    </div>
-                ) 
+                return <ServiceIcon fill={getComputedStyle(document.body).getPropertyValue('--color-primary-accent')}/>
             }
         } else {
             return <img src={picture} className={size}></img>;
@@ -26,10 +18,8 @@ const RoundImageContainer = ({picture, serviceOrUser, size}) => {
     }
 
     return(
-        <div className='round-image-container'>
-            {
-                renderPicture()
-            }
+        <div className={`round-image-container ${size}`}>
+            { renderPicture() }
         </div>
     )
 }

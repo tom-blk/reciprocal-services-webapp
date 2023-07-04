@@ -7,26 +7,24 @@ import './ember-counter.styles.scss';
 
 const EmberCounter = () => {
 
-    const { user } = useContext(UserContext);
+    const { user, fetchUser } = useContext(UserContext);
 
     const [visible, setVisible] = useState('init');
 
     const toggleEmberCounterVisibility = () => {
         if(visible==='init'){
-            setVisible(true)
+            fetchUser();
+            setVisible(true);
         } else {
+            if(!visible)
+            fetchUser();
             setVisible(!visible);
         }
     }
 
-    useEffect(() => {
-        console.log(visible)
-    }, [visible])
-    
-
     return (
         <div className={`ember-counter-wrapper-container ${visible === 'init' ? '' : visible ? 'visible' : 'invisible'}`}>
-            <div className='toggle-ember-counter-arrow main-hover' onClick={toggleEmberCounterVisibility}>^</div>
+            <div className='toggle-ember-counter-arrow main-hover' onClick={toggleEmberCounterVisibility}>{!visible ? <img className='ember-icon-toggle-button' src={ember}/> : "^"}</div>
             <div className={`ember-counter-container  ${visible === 'init' ? '' : visible && 'visible'}`}>
                 <div className='ember-counter-data-container'>
                     <img className='ember-icon' src={ember}/>
