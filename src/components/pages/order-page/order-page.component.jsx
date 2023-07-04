@@ -123,7 +123,18 @@ const OrderPage = () => {
                 <Fragment>
                     <div className="transaction-page-heading">
                         <RoundImageContainer picture={serviceIcon} serviceOrUser={'service'} size={'round-image-container-page'}/>
-                        <h1>{`Order Of ${service.name}`}</h1>
+                        <div className="flex overflow-control">
+                            <h1 className="overflow-control-wrap">{`Order Of ${service.name}`}</h1>
+                            <div className="flex">
+                            <ButtonComponent 
+                                buttonType={orderStatus.buttonClassName}
+                                onClickHandler={buttonOnClickHandler}
+                            >
+                                {orderStatus.text}
+                            </ButtonComponent>
+                            { returnConditionalCancelButton() } 
+                            </div>
+                        </div>
                     </div>
 
                     <span>{`${orderStatus.correspondingUserRole}: ${correspondingUser.firstName} ${correspondingUser.lastName}`}</span>
@@ -131,17 +142,8 @@ const OrderPage = () => {
                     { returnConditionalDateCompleted() }
                     { returnConditionalTotalEmbers() }
 
-                    <span>Message: 
-                        <pre>{tempOrder.message}</pre>
-                    </span>
-
-                    <ButtonComponent 
-                        buttonType={orderStatus.buttonClassName}
-                        onClickHandler={buttonOnClickHandler}
-                    >
-                        {orderStatus.text}
-                    </ButtonComponent>
-                    { returnConditionalCancelButton() }
+                    <span>Message:</span>
+                    <span className="preformatted-message">{tempOrder.message}</span>
                 </Fragment>
                 :
                 <span>Something went wrong...</span>

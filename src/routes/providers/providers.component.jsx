@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react"
 
 import ProvidersList from "../../components/card-lists/providers-list/providers-list.component"
 import PageContainer from "../../utils/page-container/page-container.component";
+import Distancer from '../../utils/distancer/distancer.component';
 
 import { AlertMessageContext } from "../../context/alert-message.context";
 import { getUserList } from "../../api/users/read";
@@ -54,6 +55,7 @@ const Providers = () => {
     return(
         <PageContainer>
             <SearchBar className="providers-search-bar" onSearchChange={onSearchChange} placeholder={"Providers"}/>
+            <Distancer size={1}/>
             <ProvidersList users={filteredProviders}/>
         </PageContainer>
     )

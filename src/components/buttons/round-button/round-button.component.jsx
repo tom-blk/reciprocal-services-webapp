@@ -1,16 +1,27 @@
+import {ReactComponent as EditSVG} from '../../../assets/vectors/edit.svg'
+import {ReactComponent as ConfirmSVG} from '../../../assets/vectors/confirm.svg'
+
 import './round-button.styles.scss';
 
-const RoundButton = ({size, onClickHandler, type}) => {
+const RoundButtonComponent = ({type, onClickHandler, size}) => {
 
-    console.log(size)
+    const renderButton = () => {
+        if(type === 'edit'){
+            return <EditSVG fill={getComputedStyle(document.body).getPropertyValue('--color-primary-accent')}/>
+        }else if(type === 'confirm'){
+            return <ConfirmSVG fill={getComputedStyle(document.body).getPropertyValue('--color-primary-accent')}/>
+        }
+    }   
 
     return(
-            <button 
-                onClick={e => onClickHandler(e)}
-                style={{height: size, width: size}} 
-                className={`button confirm round-button round-button-${type}`}
-            />
+        <button
+            onClick={e => onClickHandler(e)} 
+            style={{height: size, width: size}} 
+            className={`button round-button main-hover`}
+        >
+            { renderButton() }
+        </button>
     )
 }
 
-export default RoundButton
+export default RoundButtonComponent

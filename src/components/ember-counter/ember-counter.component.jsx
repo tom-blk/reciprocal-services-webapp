@@ -1,5 +1,7 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { UserContext } from '../../context/user.context';
+
+import {ReactComponent as Arrow} from '../../assets/vectors/arrow.svg';
 
 import ember from '../../assets/images/ember.png';
 
@@ -12,6 +14,7 @@ const EmberCounter = () => {
     const [visible, setVisible] = useState('init');
 
     const toggleEmberCounterVisibility = () => {
+        console.log('triggered')
         if(visible==='init'){
             fetchUser();
             setVisible(true);
@@ -22,9 +25,21 @@ const EmberCounter = () => {
         }
     }
 
+    const returnArrowClass = () => {
+        if(visible === 'init'){
+            return
+        }else if(visible === true){
+            return 'ember-counter-arrow-down'
+        }else if(visible === false){
+            return 'ember-counter-arrow-up'
+        }
+    }
+
     return (
         <div className={`ember-counter-wrapper-container ${visible === 'init' ? '' : visible ? 'visible' : 'invisible'}`}>
-            <div className='toggle-ember-counter-arrow main-hover' onClick={toggleEmberCounterVisibility}>{!visible ? <img className='ember-icon-toggle-button' src={ember}/> : "^"}</div>
+            <div className={`toggle-ember-counter-arrow main-hover`} onClick={toggleEmberCounterVisibility}>
+                <Arrow className={returnArrowClass()} fill={getComputedStyle(document.body).getPropertyValue('--color-primary-accent')}/>
+            </div>
             <div className={`ember-counter-container  ${visible === 'init' ? '' : visible && 'visible'}`}>
                 <div className='ember-counter-data-container'>
                     <img className='ember-icon' src={ember}/>

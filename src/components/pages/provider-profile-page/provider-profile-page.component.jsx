@@ -12,6 +12,7 @@ import './provider-profile-page.styles.scss';
 
 import { getSingleUser, getUserSpecificServices } from "../../../api/users/read";
 import { getFileUrl } from "../../../utils/web3storage/web3storage";
+import { assertDisplayName } from "../../../helper-functions/users/assertDisplayName";
 
 const ProviderProfilePage = () => {
 
@@ -52,9 +53,9 @@ const ProviderProfilePage = () => {
                 <div className="page-container">
                     <div className="povider-profile-heading-container">
                         <RoundImageContainer picture={profilePictureUrl} serviceOrUser={'user'} size={'round-image-container-page'}/>
-                        <div>
-                            <h3>{provider.firstName + " " + provider.lastName}</h3>
-                            <div className="provider-name">{'@' + provider.userName}</div>
+                        <div className="overflow-control">
+                            <h3 className="overflow-control-wrap">{assertDisplayName(provider)}</h3>
+                            <div className="provider-name overflow-control">{'@' + provider.userName}</div>
                         </div> 
                     </div>
                     <div className="provider-profile-body-container">

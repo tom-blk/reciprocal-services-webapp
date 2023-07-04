@@ -16,18 +16,22 @@ const SelectProfilePictureModal = ({ userId, setUpdatedProfilePictureCallback })
     const [croppedImage, setCroppedImage] = useState(undefined);
 
     const handleCroppedImage = async () => {
-        uploadNewProfilePictureAndCreateDatabaseEntryWithCid(userId, croppedImage, displayError, displaySuccessMessage)
+        if(!croppedImage){
+            displayError(new Error('Please Crop Your Image First!'))
+        }else{
+            uploadNewProfilePictureAndCreateDatabaseEntryWithCid(userId, croppedImage, displayError, displaySuccessMessage)
             .then(() => {
                 setUpdatedProfilePictureCallback(croppedImage)
                 toggleModal()
             })
             .catch(error => displayError(error))
+        }
     }
 
     return(
         <Fragment>
             <h2>Select Your New Profile Picture</h2>
-            <ImageCropComponent optionalWidth={'500px'} handleCroppedImage={setCroppedImage}/>
+            <ImageCropComponent handleCroppedImage={setCroppedImage}/>
             <ButtonComponent buttonType={'secondary-confirm secondary-confirm-hover'} onClickHandler={handleCroppedImage}>Confirm</ButtonComponent>
             <ButtonComponent buttonType={'cancel'} onClickHandler={toggleModal}>Cancel</ButtonComponent>
         </Fragment>

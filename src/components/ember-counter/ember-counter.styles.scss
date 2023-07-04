@@ -17,9 +17,7 @@
 }
 
 .toggle-ember-counter-arrow{
-    font-size: var(--font-large);
-    background-color: rgba(0, 0, 0, 0.842);
-    padding: var(--space-1);
+    padding: var(--space-3);
     border-radius: 50%;
     height: 40px;
     width: 40px;
@@ -42,9 +40,32 @@
     background-color: rgba(0, 0, 0, 0.842);
 }
 
-.ember-icon-toggle-button{
-    height: 20px;
-    width: 20px;
+.ember-counter-arrow-up{
+    animation: rotate-up .3s linear 0s 1 forwards;
+}
+
+.ember-counter-arrow-down{
+    animation: rotate-down .3s linear 0s 1 forwards;
+}
+
+@keyframes rotate-down{
+    0%{
+        transform: rotate(0deg);
+    }
+
+    100%{
+        transform: rotate(180deg);
+    }
+}
+
+@keyframes rotate-up{
+    0%{
+        transform: rotate(180deg);
+    }
+
+    100%{
+        transform: rotate(0deg);
+    }
 }
 
 .ember-icon{

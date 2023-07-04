@@ -1,0 +1,7 @@
+.order-card-container{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr min-content;
+    gap: var(--space-4);
+    white-space: nowrap;
+}

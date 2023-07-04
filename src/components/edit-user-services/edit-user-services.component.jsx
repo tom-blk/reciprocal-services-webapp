@@ -15,6 +15,7 @@ import { getServiceList } from '../../api/services/read';
 import { getUserSpecificServices } from '../../api/users/read';
 
 import './edit-user-services.styles.scss';
+import Distancer from '../../utils/distancer/distancer.component';
 
 const EditUserServicesList = () => {
 
@@ -137,6 +138,7 @@ const EditUserServicesList = () => {
                 <ButtonComponent buttonType={'confirm'} onClickHandler={confirmButtonOnClickHandler}>Save Changes</ButtonComponent>
                 <ButtonComponent buttonType={'cancel'} onClickHandler={cancelButtonOnClickHandler}>Cancel</ButtonComponent>
             </div>
+            <Distancer size={1}/>
             <div className='card-list'>
                 {
                     filteredServices

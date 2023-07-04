@@ -12,6 +12,7 @@ import PageContainer from "../../utils/page-container/page-container.component"
 import { getServiceList } from "../../api/services/read"
 
 import "./services.styles.scss"
+import Distancer from "../../utils/distancer/distancer.component"
 
 const Services = () => {
 
@@ -56,6 +57,7 @@ const Services = () => {
                 <SearchBar className="services-search-bar" onSearchChange={onSearchChange} placeholder={"Services"}/>
                 <AddButton onClickHandler={onAddButtonClick}>+</AddButton>
             </div>
+            <Distancer size={1}/>
             <ServicesList services={filteredServices}/>
         </PageContainer>
     )

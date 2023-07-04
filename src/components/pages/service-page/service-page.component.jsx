@@ -95,7 +95,7 @@ const ServicePage = () => {
                     <div className="service-page-heading">
                         <div className="flex overflow-control">
                             <RoundImageContainer picture={serviceIcon} serviceOrUser={'service'} size={'round-image-container-page'}/>
-                            <div className="heading-primary overflow-control">{service.name}</div>
+                            <div className="heading-primary overflow-control-wrap">{service.name}</div>
                         </div>
                         <ButtonComponent 
                             onClickHandler={toggleProvidedByCurrentUserStatusButtonHandler} 
@@ -107,6 +107,7 @@ const ServicePage = () => {
                     <div className="heading-secondary">{`Average Credits per Hour: ${service.creditsPerHour}`}</div>
                     <div className="text">{service.description}</div>
                     <div className="heading-secondary">Providers:</div>
+                    <div className="card-list">
                     {
                         serviceProviders.length > 0
                         ?
@@ -124,7 +125,8 @@ const ServicePage = () => {
                         })
                         :
                         <div className="text">There currently are no providers offering this service...</div>
-                    }
+                    }    
+                    </div>
                 </PageContainer>
                 :
                 <div>Sorry, but there is nothing here...</div>

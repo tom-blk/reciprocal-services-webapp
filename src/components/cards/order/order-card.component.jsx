@@ -18,6 +18,8 @@ import { returnAppropriateOrderModal } from "../../../helper-functions/orders/re
 import { setOrderStageToDenied } from "../../../helper-functions/orders/setOrderStageToDenied";
 import { assertDisplayName } from "../../../helper-functions/users/assertDisplayName";
 
+import './order-card.styles.scss';
+
 const OrderCard = ({order}) => {
 
     const { displayError } = useContext(AlertMessageContext);
@@ -81,14 +83,14 @@ const OrderCard = ({order}) => {
         if(orderStatus.currentStage === 4){
             return(
                 <div>
-                    <div className="bold">Date Completed: </div>
+                    <div className="bold nowrap">Date Completed: </div>
                     <div>{order.dateCompleted}</div>
                 </div>
             )
         }else{
             return(
                 <div>
-                    <div className="bold">Date Issued: </div>
+                    <div className="bold nowrap">Date Issued: </div>
                     <div>{order.dateIssued}</div>
                 </div>
             )
@@ -108,16 +110,16 @@ const OrderCard = ({order}) => {
     const returnConditionalProviderOrRecipient = () => {
         if(orderStatus.correspondingUserRole === 'Provider' && orderStatus.currentStage < 4)
         return(
-            <div>
+            <div className="overflow-control">
                 <div className="bold">Provider: </div>
-                <div>{provider ? assertDisplayName(provider) : 'Error Loading the Provider...'}</div>
+                <div className="overflow-control">{provider ? assertDisplayName(provider) : 'Error Loading the Provider...'}</div>
             </div>
         )
         if(orderStatus.correspondingUserRole === 'Recipient')
         return(
-            <div>
+            <div className="overflow-control">
                 <div className="bold">Recipient: </div>
-                <div>{recipient ? assertDisplayName(recipient) : 'Error Loading the Recipient...'}</div>
+                <div className="overflow-control">{recipient ? assertDisplayName(recipient) : 'Error Loading the Recipient...'}</div>
             </div>
         )
     }
@@ -136,26 +138,33 @@ const OrderCard = ({order}) => {
 
     return(
         <CardComponent onClickHandler={cardOnClickHandler}>
+            <div className="order-card-container">
+
+
 
             { returnConditionalDateContainer() }
 
-            <div>
+            <div className="overflow-control">
                 <div className="bold">Service: </div>
-                <div>{service ? service.name : 'Error Loading the Service...'}</div>
+                <div className="overflow-control">{service ? service.name : 'Error Loading the Service...'}</div>
             </div>
 
             { returnConditionalProviderOrRecipient() }
 
             { returnConditionalTotalEmbers() }
 
-            <ButtonComponent 
-                buttonType={orderStatus.buttonClassName}
-                onClickHandler={buttonOnClickHandler}
-            >
-                {orderStatus.text}
-            </ButtonComponent>
+            <div className="flex">
+                <ButtonComponent 
+                    buttonType={orderStatus.buttonClassName}
+                    onClickHandler={buttonOnClickHandler}
+                >
+                    {orderStatus.text}
+                </ButtonComponent>
 
-            { returnConditionalCancelButton() }
+                { returnConditionalCancelButton() }
+            </div>
+
+            </div>
 
         </CardComponent>
     )

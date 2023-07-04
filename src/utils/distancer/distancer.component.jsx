@@ -1,6 +1,6 @@
 import './distancer.styles.scss';
 
-const Distancer = (size) => {
+const Distancer = ({size}) => {
 
     return (
         <div className={`distancer-${size}`}/>

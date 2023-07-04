@@ -23,30 +23,30 @@ const SignUp = () => {
     const [signUpForm, setSignUpForm] = useState(emptySignUpForm);
     const {username, email, password, confirmedPassword} = signUpForm;
 
-    const [user, setUser] = useState(undefined);
-
-    useEffect(() => {
-        console.log(user);
-    }, [user])
-
-    useEffect(() => {
-        console.log(signUpForm);
-    }, [signUpForm])
-
     const handleSignUpFormChange = (event) => {
         const {name, value} = event.target;
 
         setSignUpForm({ ...signUpForm, [name]: value })
     }
 
+    const returnToLogin = () => navigate('/');
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if(username.length < 3){
             displayError(new Error('Error: Please choose a longer username.'))
+            return
         }
+
         if(username.length > 45){
             displayError(new Error('Error: Please choose a shorter username.'))
+            return
+        }
+
+        if(username.includes(' ')){
+            displayError(new Error('Error: Username may not include a blank space.'))
+            return
         }
 
         if(email === ''){
@@ -54,8 +54,23 @@ const SignUp = () => {
             return;
         }
 
+        if(!email.includes('@')){
+            displayError(new Error('Error: Please Enter a valid email adress.'))
+            return;
+        }
+
         if(password === ''){
             displayError(new Error('Error: Password is missing.'))
+            return;
+        }
+
+        if(password.length < 8){
+            displayError(new Error('Error: Please choose a longer password.'))
+            return;
+        }
+
+        if(password.includes(' ')){
+            displayError(new Error('Error: Password may not contain a blank space.'))
             return;
         }
 
@@ -125,6 +140,13 @@ const SignUp = () => {
                     buttonType='confirm'
                 >
                     Join Us!
+                </ButtonComponent>
+                <ButtonComponent 
+                    onClickHandler={returnToLogin}
+                    type='button'
+                    buttonType='cancel'
+                >
+                    Return To Login
                 </ButtonComponent>
             </form>
         </div>

@@ -1,6 +1,10 @@
 .round-button{
+    padding: var(--space-1);
     flex-shrink: 0;
     border-radius: 50%;
+    background: none;
+    border: 1px solid var(--color-primary-accent);
+    fill: var(--color-primary-accent);
 }
 
 .round-button-edit{

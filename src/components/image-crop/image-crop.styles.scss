@@ -3,3 +3,8 @@
     justify-items: center;
     gap: var(--space-4);
 }
+
+.image-crop-border-and-size{
+    border: 2px dashed white;
+    max-width: 500px;
+}

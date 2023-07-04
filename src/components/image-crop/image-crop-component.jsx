@@ -56,7 +56,7 @@ const ImageCropComponent = ({handleCroppedImage, optionalWidth}) => {
                 onChange={(e) => setSrc(URL.createObjectURL(e.target.files[0]))}
             />
             {src && (
-                <div style={optionalWidth && {width:`${optionalWidth}`}}>
+                <div className='image-crop-border-and-size' style={optionalWidth && {width:`${optionalWidth}`}}>
                     <ReactCrop src={src} aspect={1} circularCrop ruleOfThirds crop={percentCrop} onChange={(crop, percentCrop) => setPercentCrop(percentCrop)} onComplete={onCropComplete} >
                         <img src={src}/>
                     </ReactCrop>

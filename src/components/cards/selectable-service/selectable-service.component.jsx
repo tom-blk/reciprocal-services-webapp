@@ -35,9 +35,9 @@ const SelectableServiceCard = ({service, onClickHandler, updateEmbersPerHour}) =
     const returnConditionalEditOrCofirmButton = () => {
         if(service.isSelected)
         if(editModeEnabled){ return(
-            <RoundButton size={'20px'} type={'confirm'} onClickHandler={applyEmbersPerHour}/>
+            <RoundButton size={'25px'} type={'confirm'} onClickHandler={applyEmbersPerHour}/>
         )}else{ return (
-            <RoundButton size={'20px'} type={'edit'} onClickHandler={e => enableEditMode(e)}/>
+            <RoundButton size={'25px'} type={'edit'} onClickHandler={e => enableEditMode(e)}/>
         )}
     }
 

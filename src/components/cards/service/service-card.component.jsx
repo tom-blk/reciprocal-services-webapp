@@ -74,7 +74,7 @@ const ServiceCard = ({ service, providingUserId, providingUserFirstName, providi
                 {
                 isProviderRelated
                 &&
-                <div className="service-card-center-data-container">
+                <div className="service-card-center-data-container nowrap">
                     <span className="bold">{embersPerHour} </span>
                     <span>Embers per Hour</span> 
                 </div>
