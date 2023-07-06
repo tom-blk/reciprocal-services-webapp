@@ -29,6 +29,15 @@
     color: var(--color-warning-and-error);
 }
 
+.disclaimer-text{
+    font-size: var(--font-small);
+    color: var(--color-warning-and-error);
+}
+
+.highlight-text{
+    color: var(--color-primary-accent);
+}
+
 .nowrap{
     white-space: nowrap;
 }

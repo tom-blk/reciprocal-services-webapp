@@ -1,0 +1,22 @@
+.ember-counter-arrow-example{
+    padding: var(--space-2);
+    border-radius: 50%;
+    height: 25px;
+    width: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    white-space: pre;
+    display: block;
+    unicode-bidi: embed;
+}
+
+.ember-example{
+    width: 25px;
+    height: 25px;
+}
+
+.flex-small-gap{
+    display: flex;
+    gap: var(--space-2);
+}

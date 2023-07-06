@@ -153,7 +153,7 @@ const OrderCard = ({order}) => {
 
             { returnConditionalTotalEmbers() }
 
-            <div className="flex">
+            <div className='flex'>
                 <ButtonComponent 
                     buttonType={orderStatus.buttonClassName}
                     onClickHandler={buttonOnClickHandler}
