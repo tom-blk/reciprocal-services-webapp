@@ -32,10 +32,13 @@ export const uploadNewProfilePictureAndCreateDatabaseEntryWithCid = async ( user
     }
 }
 
-export const addServiceToUserServices = async (userId, serviceId) => {
+export const addServiceToUserServices = async (userId, serviceId, embersPerHour) => {
+    if(!embersPerHour || embersPerHour === 0 || isNaN(embersPerHour)){
+        throw new Error('Please provide a valid amount of embers per hour!')
+    }
 
     try{
-        await apiCall('/users/add-service-to-user-services', 'POST', { userId: userId, serviceId: serviceId })
+        await apiCall('/users/add-service-to-user-services', 'POST', { userId: userId, serviceId: serviceId, creditsPerHour: embersPerHour })
     }catch(error){
         console.log(error)
         throw new Error('Failed to add service to user services...')

@@ -20,6 +20,8 @@ import { getServiceUserAffiliation } from "../../../api/users/read";
 import { getService } from "../../../api/services/read";
 
 import './service-page.styles.scss';
+import AddSingleServiceToUserServicesModal from "../../modals/addSingleServiceToUserServices/add-or-remove-single-user-service-modal.component";
+import AddOrRemoveSingleUserServiceModal from "../../modals/addSingleServiceToUserServices/add-or-remove-single-user-service-modal.component";
 
 const ServicePage = () => {
 
@@ -58,32 +60,15 @@ const ServicePage = () => {
                 .catch(error => displayError(error))
     }, [service])
 
-    const toggleProvidedByCurrentUserStatusButtonHandler = () => {
+    const toggleProvidedByCurrentUser = (addOrRemove) => {
+        if(addOrRemove === "add")
+            setProvidedByCurrentUser(true)
+        if(addOrRemove === "remove")
+            setProvidedByCurrentUser(false)
+    }
 
-        const removeFunction = () => {
-            removeServiceFromUserServices(user.id, serviceId)
-                .then(() => {
-                    displaySuccessMessage('Service successfully removed!') 
-                    setProvidedByCurrentUser(false)
-                })
-                .catch(error => displayError(error))
-        }
-
-        const addFunction = () => {
-            addServiceToUserServices(user.id, serviceId)
-                .then(() => {
-                    displaySuccessMessage('Service successfully added!')
-                    setProvidedByCurrentUser(true)
-                })
-                .catch(error => displayError(error))
-        }
-
-        toggleModal(
-            <ConfirmOrCancelModal 
-                prompt={`Do you want to ${providedByCurrentUser ? 'remove' : 'add'} this service ${providedByCurrentUser ? 'from' : 'to'} your services?`}
-                onConfirm={providedByCurrentUser ? removeFunction : addFunction}
-            />
-        )
+    const toggleModalHandler = () => {
+        toggleModal(<AddOrRemoveSingleUserServiceModal service={service} addOrRemove={providedByCurrentUser ? 'remove' : 'add'} onConfirmCallback={toggleProvidedByCurrentUser}/>)
     }
 
     return(
@@ -98,7 +83,7 @@ const ServicePage = () => {
                             <div className="heading-primary overflow-control-wrap">{service.name}</div>
                         </div>
                         <ButtonComponent 
-                            onClickHandler={toggleProvidedByCurrentUserStatusButtonHandler} 
+                            onClickHandler={toggleModalHandler} 
                             buttonType={providedByCurrentUser ? 'cancel' : 'confirm'}
                         >
                             {providedByCurrentUser ? 'Remove From Your Services' : 'Add To Your Services'}

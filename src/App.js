@@ -1,5 +1,7 @@
 import { Route, Routes } from 'react-router';
 
+import { useContext, useEffect } from 'react';
+
 import Home from './routes/home/home.component';
 import Nav from './routes/nav/nav.component';
 import LogIn from './routes/login/login.component';
@@ -15,9 +17,22 @@ import IncomingOrders from './routes/incoming-orders/incoming-orders.component';
 import OutgoingOrders from './routes/outgoing-orders/outgoing-orders.component';
 import EditUserServicesList from './components/edit-user-services/edit-user-services.component';
 
+import { ModalContext } from './context/modal.context';
+
 import './App.styles.scss';
+import FirstTimeVisitModal from './components/modals/firstTimeVisit/first-time-visit-modal.component';
+
 
 const App = () => {
+
+  const { toggleModal } = useContext(ModalContext);
+
+  useEffect(() => {
+    if(!localStorage.getItem('prometheusFirstTimeVisitToken'))
+      toggleModal(<FirstTimeVisitModal/>)
+  }, [])
+
+  
 
   return (
     <Routes>
