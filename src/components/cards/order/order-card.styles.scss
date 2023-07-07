@@ -1,7 +1,21 @@
-.order-card-container{
+.order-card-container-4-cols{
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr min-content;
     gap: var(--space-4);
     white-space: nowrap;
+}
+
+.order-card-container-5-cols{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr min-content;
+    gap: var(--space-4);
+    white-space: nowrap;
+}
+
+.order-card-button-container{
+    display: flex;
+    gap: var(--space-3);
+    justify-self: right;
 }

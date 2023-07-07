@@ -30,9 +30,13 @@ const LogIn = () => {
                 setAuthToken(response);
                 setLogInForm(emptyLoginForm)
                 getUser(response, displayError)
-                    .then(response => setUser(response));     
+                    .then(response => {
+                        setUser(response)
+                        displaySuccessMessage('Successfully Logged In!')
+                    });     
                 }
             )
+            .catch(error => displayError(error))
     }
 
     const handleLogInFormChange = (event) => {

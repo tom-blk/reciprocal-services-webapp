@@ -34,12 +34,12 @@ const OrderServiceModal = ({ providingUserId, providingUserFirstName, providingU
     const onClickHandler = () => {
         if(messageLengthBelowLimit()){
             createOrder(orderData)
-            .then(() => {
-                displaySuccessMessage('Service successfully ordered')
-                serviceOrderedCallback();
-                toggleModal();
-            })
-            .catch(error => displayError(error))
+                .then(response => {
+                    displaySuccessMessage(response);
+                    serviceOrderedCallback();
+                    toggleModal();
+                })
+                .catch(error => displayError(error))
         }else{
             displayError(new Error('Please use less than 5000 characters in your message'))
         }
@@ -56,7 +56,7 @@ const OrderServiceModal = ({ providingUserId, providingUserFirstName, providingU
             <div className="order-service-modal-message-container">
                 <div className="flex-space-between">
                     <span>Message:</span>
-                    <span className={!messageLengthBelowLimit() && 'warning-text'}>{`${orderData.message.length}/5000 Characters`}</span>
+                    <span className={`${!messageLengthBelowLimit() && 'warning-text'}`}>{`${orderData.message.length}/5000 Characters`}</span>
                 </div>
                 <textarea className="text-area" onChange={e => onOrderMessageChangeHandler(e)} type='text' rows='10'></textarea>
             </div>

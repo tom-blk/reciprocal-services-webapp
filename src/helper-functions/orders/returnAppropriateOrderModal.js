@@ -1,4 +1,4 @@
-// Decides which modal to show based on the current stage, depending on whether order-card is shown to the provider or the recipient, there might not be a next stage, so this function might do nothing (inactivc button)
+// Decides which modal to show based on the current stage, depending on whether order-card is shown to the provider or the recipient, there might not be a next stage, so this function might do nothing (inactive button)
 
 import ConfirmOrCancelModal from "../../components/modals/confirmOrCancel/confirm-or-cancel-modal.component";
 import SetHoursWorkedModal from "../../components/modals/setHoursWorked/set-hours-worked-modal.component";

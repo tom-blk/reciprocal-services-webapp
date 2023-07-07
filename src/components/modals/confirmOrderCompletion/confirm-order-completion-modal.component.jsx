@@ -39,8 +39,8 @@ const ConfirmOrderCompletionModalComponent = ({providerId, order, confirmedCompl
         }else{
             if(rating){
                 confirmOrderCompletionRateUserAndTransferCredits(order.id, providerId, user.id, totalEmbers, rating)
-                    .then(() => {
-                        displaySuccessMessage(`The Transaction was Successful, the Provider was Rated with ${rating} Stars!`);
+                    .then(response => {
+                        displaySuccessMessage(response);
                         confirmedCompletionCallback();
                         toggleModal();
                     })

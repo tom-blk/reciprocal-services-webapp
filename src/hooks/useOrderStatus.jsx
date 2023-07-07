@@ -30,19 +30,19 @@ function useOrderStatus(order, userId) {
             orderStatus.currentStage = 3;
             orderStatus.nextStage = undefined;
             orderStatus.buttonClassName = 'secondary-confirm-no-hover'
-            orderStatus.text = 'Order Completed! Waiting for the Recipient to Confirm';
+            orderStatus.text = 'Waiting For Comfirmation';
             break;
           case 4:
             orderStatus.currentStage = 4;
             orderStatus.nextStage = undefined;
             orderStatus.buttonClassName = 'inactive'
-            orderStatus.text = 'The Recipient has Confirmed the Completion';
+            orderStatus.text = 'Completion Comfirmed';
             break;
           case 5:
             orderStatus.currentStage = 5;
             orderStatus.nextStage = undefined;
             orderStatus.buttonClassName = 'order-denied'
-            orderStatus.text = 'You have Declined this Order';
+            orderStatus.text = 'Order Declined';
             break;
         }
       }
@@ -55,19 +55,19 @@ function useOrderStatus(order, userId) {
             orderStatus.currentStage = 1;
             orderStatus.nextStage = undefined;
             orderStatus.buttonClassName = 'order-pending';
-            orderStatus.text = 'Your Request was Sent to the Provider';
+            orderStatus.text = 'Order Requested';
             break;
           case 2:
             orderStatus.currentStage = 2;
             orderStatus.nextStage = undefined;
             orderStatus.buttonClassName = 'secondary-confirm-no-hover'
-            orderStatus.text = 'The Provider has Accepted your Order!';
+            orderStatus.text = 'Order Accepted';
             break;
           case 3:
             orderStatus.currentStage = 3;
             orderStatus.nextStage = 4;
             orderStatus.buttonClassName = 'confirm'
-            orderStatus.text = 'The Provider has Completed the Task. Click Here To Confirm!';
+            orderStatus.text = 'Confirm Order Completion';
             break;
           case 4:
             orderStatus.currentStage = 4;

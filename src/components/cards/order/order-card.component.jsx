@@ -98,7 +98,7 @@ const OrderCard = ({order}) => {
     }
 
     const returnConditionalTotalEmbers = () => {
-        if(orderStatus.currentStage >= 3)
+        if(orderStatus.currentStage >= 3 && orderStatus.currentStage !== 5)
         return(
             <div>
                 <div className="bold">Total Embers: </div>
@@ -108,7 +108,7 @@ const OrderCard = ({order}) => {
     }
 
     const returnConditionalProviderOrRecipient = () => {
-        if(orderStatus.correspondingUserRole === 'Provider' && orderStatus.currentStage < 4)
+        if(orderStatus.correspondingUserRole === 'Provider')
         return(
             <div className="overflow-control">
                 <div className="bold">Provider: </div>
@@ -138,31 +138,29 @@ const OrderCard = ({order}) => {
 
     return(
         <CardComponent onClickHandler={cardOnClickHandler}>
-            <div className="order-card-container">
+            <div className={`${(orderStatus.currentStage > 2 && orderStatus.currentStage < 5 ) ? 'order-card-container-5-cols' : 'order-card-container-4-cols'}`}>
 
+                { returnConditionalDateContainer() }
 
+                <div className="overflow-control">
+                    <div className="bold">Service: </div>
+                    <div className="overflow-control">{service ? service.name : 'Error Loading the Service...'}</div>
+                </div>
 
-            { returnConditionalDateContainer() }
+                { returnConditionalProviderOrRecipient() }
 
-            <div className="overflow-control">
-                <div className="bold">Service: </div>
-                <div className="overflow-control">{service ? service.name : 'Error Loading the Service...'}</div>
-            </div>
+                { returnConditionalTotalEmbers() }
 
-            { returnConditionalProviderOrRecipient() }
+                <div className='order-card-button-container'>
+                    <ButtonComponent 
+                        buttonType={orderStatus.buttonClassName}
+                        onClickHandler={buttonOnClickHandler}
+                    >
+                        {orderStatus.text}
+                    </ButtonComponent>
 
-            { returnConditionalTotalEmbers() }
-
-            <div className='flex'>
-                <ButtonComponent 
-                    buttonType={orderStatus.buttonClassName}
-                    onClickHandler={buttonOnClickHandler}
-                >
-                    {orderStatus.text}
-                </ButtonComponent>
-
-                { returnConditionalCancelButton() }
-            </div>
+                    { returnConditionalCancelButton() }
+                </div>
 
             </div>
 

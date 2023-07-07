@@ -18,7 +18,10 @@ const SetHoursWorkedModal = ({orderId, confirmedCompletionCallback}) => {
     const confirmWorkedHoursAndCloseModal = () => {
         if(hoursWorked !== 0){
             specifyProvidedHours(orderId, hoursWorked, displaySuccessMessage, displayError)
-                .then(confirmedCompletionCallback())
+                .then(response => {
+                    displaySuccessMessage(response)
+                    confirmedCompletionCallback()
+                })
                 .catch(error => displayError(error))
             toggleModal();
         }
