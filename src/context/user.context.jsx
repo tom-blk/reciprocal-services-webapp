@@ -12,16 +12,9 @@ export const UserContextProvider = (input) => {
     const [user, setUser] = useState(undefined);
     const [userServices, setUserServices] = useState(undefined);
 
-    const setAuthToken = (jwt) => {
-        document.cookie = `prometheusUserAuthenticationToken=${jwt}`;
-    }
-
     useEffect(() => {
-        if(!user){
-            console.log('User not authenticated');
-        }else if(user){
+        if(user)
             console.log(user);
-        }
     }, [user])
 
     useEffect(() => {
@@ -29,12 +22,16 @@ export const UserContextProvider = (input) => {
     }, [])
 
     const fetchUser = () => {
-        getUser(document.cookie, displayError)
+        getUser()
             .then(response => {
                 setUser(response)
             })
             .catch(error => {
-                displayError(error);
+                if(error.status === 401){
+                    console.log('User Is Not Authorized.')
+                }else{
+                    console.log(error);
+                }
             }); 
     }
 
@@ -49,8 +46,7 @@ export const UserContextProvider = (input) => {
         fetchUser,
         setUser, // For Logout
         userServices,
-        fetchUserServices,
-        setAuthToken
+        fetchUserServices
     }
 
     return (

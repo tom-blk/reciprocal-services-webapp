@@ -10,6 +10,7 @@ import { UserContext } from "../../context/user.context";
 import LogIn from "../login/login.component";
 import { ModalContext } from "../../context/modal.context";
 import ConfirmOrCancelModal from "../../components/modals/confirmOrCancel/confirm-or-cancel-modal.component";
+import { logOut } from "../../api/auth/log-out";
 
 const Nav = () => {
 
@@ -19,8 +20,10 @@ const Nav = () => {
     const toggleLogOutModal = () => {
 
         const confirmLogOut = () => {
-            document.cookie = "prometheusUserAuthenticationToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            setUser(null);
+            logOut()
+                .then(() => {
+                    setUser(null);
+                })
         }
 
         toggleModal(<ConfirmOrCancelModal prompt={'Do you really want to log out?'} onConfirm={confirmLogOut}/>)

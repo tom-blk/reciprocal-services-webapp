@@ -27,14 +27,19 @@ const LogIn = () => {
     const loginButtonOnClickHandler = () => {
         logIn(email, password, displayError, displaySuccessMessage)
             .then(response => {
-                setAuthToken(response);
-                setLogInForm(emptyLoginForm)
-                getUser(response, displayError)
-                    .then(response => {
-                        setUser(response)
-                        displaySuccessMessage('Successfully Logged In!')
-                    });     
+                if(response.status === 200){
+                    setLogInForm(emptyLoginForm)
+                    getUser()
+                        .then(response => {
+                            setUser(response)
+                            displaySuccessMessage('Successfully Logged In!')
+                        })
+                        .catch(error => displayError(new Error('Something Went Wrong, Please Again.')));     
+                } else {
+                    displayError(new Error('Something Went Wrong, Please Try Logging In Again.'))
                 }
+                }
+                
             )
             .catch(error => displayError(error))
     }

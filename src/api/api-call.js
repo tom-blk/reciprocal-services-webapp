@@ -4,7 +4,7 @@ const baseUrl = 'http://localhost:5000';
 
 export const apiCall = async ( endpoint, METHOD, payload ) => {
 
-    const jwtCookie = await document.cookie;
+    console.log('called with ' + endpoint + ' endpoint');
     
     const parameters = {
         url: `${baseUrl}${endpoint}`,
@@ -12,16 +12,30 @@ export const apiCall = async ( endpoint, METHOD, payload ) => {
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json;charset=UTF-8",
-            'Authorization': jwtCookie 
         },
-        data: payload
+        data: payload,
+        withCredentials: true
     };
 
     try{
         const response = await axios(parameters)
         return await response.data
     } catch(error){
-        console.log(error.message);
-        throw new Error(error.message)
+        if(error.response.status === 401){
+            console.log(error)
+            throw new Error('Error 401: User Not Authenticated.')
+        }
+        if(error.response.status === 403){
+            console.log(error)
+            throw new Error('Error 403: User Not Authorized.')
+        }
+        if(error.response.status === 404){
+            console.log(error)
+            throw new Error('Error 404: Not Found.')
+        }
+        if(error.response.status === 500){
+            console.log(error)
+            throw new Error('Error 500: Server Error.')
+        }
     }
 }
