@@ -35,7 +35,7 @@ const OrderServiceModal = ({ providingUserId, providingUserFirstName, providingU
         if(messageLengthBelowLimit()){
             createOrder(orderData)
                 .then(response => {
-                    displaySuccessMessage(response);
+                    displaySuccessMessage(response.message);
                     serviceOrderedCallback();
                     toggleModal();
                 })

@@ -40,7 +40,7 @@ const ConfirmOrderCompletionModalComponent = ({providerId, order, confirmedCompl
             if(rating){
                 confirmOrderCompletionRateUserAndTransferCredits(order.id, providerId, user.id, totalEmbers, rating)
                     .then(response => {
-                        displaySuccessMessage(response);
+                        displaySuccessMessage(response.message);
                         confirmedCompletionCallback();
                         toggleModal();
                     })

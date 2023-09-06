@@ -59,7 +59,8 @@ const ProviderProfilePage = () => {
                         </div> 
                     </div>
                     <div className="provider-profile-body-container">
-                        <div>Location + Radius/Mobile/Stationary</div>
+                        {provider.location && <div>Location: {provider.location}</div>}
+                        {provider.travelRadius && <div>Travel Radius: {provider.travelRadius} Kilometers</div>}
                         <RatingDisplayComponent rating={provider.rating} clickable/>
                         <div>{provider.profileDescription}</div>
                         <h3>Services</h3>

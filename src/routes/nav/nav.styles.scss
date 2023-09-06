@@ -13,6 +13,24 @@
     font-size: var(--font-normal);
     justify-content: space-evenly;
     border-bottom: 2px solid var(--color-secondary-accent);
+
+    @media screen and (max-width: 768px) {
+        display: none;
+    }
+}
+
+.navbar-container-mobile{
+    position: fixed;
+    display: flex;
+    right: 0;
+}
+
+.navbar-mobile{
+    display: grid;
+    text-align: center;
+    background-color: #00000093;
+    font-size: var(--font-very-large);
+    padding: var(--space-4);
 }
 
 @keyframes banner-intro-animation{

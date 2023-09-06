@@ -4,7 +4,7 @@ import { apiCall } from "../api-call"
 export const updateUser = async ( user ) => {
 
     try{
-        await apiCall('/users/update-user', 'PUT', { userId: user.id, firstName: user.firstName, lastName: user.lastName, description: user.profileDescription })
+        await apiCall('/users/update-user', 'PUT', { userId: user.id, firstName: user.firstName, lastName: user.lastName, description: user.profileDescription, location: user.location, travelRadius: user.travelRadius })
     } catch(error){
         console.log(error)
         throw new Error('Failed to update user...')

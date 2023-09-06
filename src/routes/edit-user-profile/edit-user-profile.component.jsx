@@ -83,6 +83,10 @@ const EditUserProfile = () => {
             <input className="text-area" type="text" defaultValue={user.firstName} onChange={e => {setTempUser({...tempUser, firstName: e.target.value})}}/>
             <h2>Last Name</h2>
             <input className="text-area" type="text" defaultValue={user.lastName} onChange={e => {setTempUser({...tempUser, lastName: e.target.value})}}/>
+            <h2>Location</h2>
+            <input className="text-area" type="text" defaultValue={user.location} onChange={e => {setTempUser({...tempUser, location: e.target.value})}}/>
+            <h2>Travel Radius for Orders in Kilometers</h2>
+            <input className="text-area" type="text" defaultValue={user.travelRadius} onChange={e => {setTempUser({...tempUser, travelRadius: e.target.value})}}/>
             <h2>Description</h2>
             <textarea className="text-area" type="text" rows='10' defaultValue={user.profileDescription} onChange={e => {setTempUser({...tempUser, profileDescription: e.target.value})}}/>
             <h2>Services</h2>  

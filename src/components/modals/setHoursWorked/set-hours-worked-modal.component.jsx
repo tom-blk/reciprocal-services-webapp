@@ -19,7 +19,7 @@ const SetHoursWorkedModal = ({orderId, confirmedCompletionCallback}) => {
         if(hoursWorked !== 0){
             specifyProvidedHours(orderId, hoursWorked, displaySuccessMessage, displayError)
                 .then(response => {
-                    displaySuccessMessage(response)
+                    displaySuccessMessage(response.message)
                     confirmedCompletionCallback()
                 })
                 .catch(error => displayError(error))

@@ -76,6 +76,18 @@ span{
   --space-4: 16px;
   --space-5: 32px;
 
+  @media screen and (max-width: 768px) {
+    --font-small: 8px;
+    --font-normal: 12px;
+    --font-large: 24px;
+    --font-very-large: 22px;
+    --font-banner: 36px;
+  }
+
+  @media screen and (max-width: 425px) {
+    --font-banner: 26px;
+  }
+
   --profile-avatar-size-card: 50px;
   --profile-avatar-size-page: 100px;
 

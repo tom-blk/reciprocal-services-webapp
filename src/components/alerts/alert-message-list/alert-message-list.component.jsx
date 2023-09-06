@@ -1,5 +1,4 @@
-import React from 'react'
-import { useContext } from 'react';
+import React, {useContext} from 'react'
 
 import AlertMessageComponent from '../alert-message/alert-message.component';
 
@@ -15,6 +14,7 @@ const AlertMessageList = () => {
     <div className='alert-list-container'>
         {
             alertMessageContext.successMessages.map((successMessage, index) => {
+                console.log(successMessage)
                 return(
                     <AlertMessageComponent key={index} alertType={'success-message'}>{successMessage}</AlertMessageComponent>
                 )

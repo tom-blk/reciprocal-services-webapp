@@ -5,7 +5,6 @@ export const getUser = async () => {
             const data = await apiCall('/auth/get-user', 'POST');
             return data;
         } catch(error){
-            console.log(error)
             throw new Error(error);
         }
 }

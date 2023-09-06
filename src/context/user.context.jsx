@@ -27,11 +27,7 @@ export const UserContextProvider = (input) => {
                 setUser(response)
             })
             .catch(error => {
-                if(error.status === 401){
-                    console.log('User Is Not Authorized.')
-                }else{
-                    console.log(error);
-                }
+                displayError(error)
             }); 
     }
 

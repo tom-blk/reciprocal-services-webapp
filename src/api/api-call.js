@@ -21,6 +21,11 @@ export const apiCall = async ( endpoint, METHOD, payload ) => {
         const response = await axios(parameters)
         return await response.data
     } catch(error){
+        if(error.response === undefined){
+            console.log(error)
+            throw new Error('Connection Failed.')
+        }
+
         if(error.response.status === 401){
             console.log(error)
             throw new Error('Error 401: User Not Authenticated.')

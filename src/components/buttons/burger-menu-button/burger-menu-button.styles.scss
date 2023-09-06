@@ -1,0 +1,50 @@
+.hamburger-button{
+    background: transparent;
+    border: 1px solid var(--ham-color-final, white);
+    border-radius: 4px;
+    box-shadow: 1px 1px 2px var(--ham-color-final), -1px -1px 2px var(--ham-color-final), -1px 1px 2px var(--ham-color-final), 1px -1px 2px var(--ham-color-final);
+  
+    --ham-color-final: #48ffe0;
+    --ham-color-1: #48ffe0;
+    --ham-color-2: #af0135;
+  }
+  
+  .hamburger-button-active{
+    animation: color-shift .5s;
+    animation-fill-mode: forwards;
+  }
+  
+  .hamburger-button-inactive{
+    animation: color-shift .5s;
+    animation-fill-mode: backwards;
+  }
+  
+  .hamburger{
+    fill: var(--ham-color-final, white);
+    filter: drop-shadow(0px 0px 7px var(--ham-color-final));
+  }
+  
+  .hamburger-top-line{
+    x:10;
+    y:25;
+    rx:3;
+  }
+  .hamburger-middle-line{
+    x:10;
+    y:45;
+    rx:3;
+  }
+  .hamburger-bottom-line{
+    x:10;
+    y:65;
+    rx:3;
+  }
+  
+  .hamburger-rect{
+    transition: .5s;
+  }
+  
+  @keyframes color-shift{
+    0%   {--ham-color-final: var(--ham-color-1)}
+    100% {--ham-color-final: var(--ham-color-2)}
+  }
