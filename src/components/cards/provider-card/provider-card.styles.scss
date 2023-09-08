@@ -7,15 +7,33 @@
     gap: var(--space-5);
     align-items: center;
     justify-items: left;
+
+    @media screen and (max-width: 768px) {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+        gap: var(--space-4);
+    }
 }
 
 .provider-card-main-container-grid{
     display: grid;
     grid-template-columns: 2fr 1fr min-content;
+
+    @media screen and (max-width: 768px) {
+        grid-template-columns: 1fr;
+        justify-items: center;
+    }
 }
 
 .provider-card-main-container-flex{
     display: flex;
+
+    @media screen and (max-width: 768px) {
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-items: center;
+    }
 }
 
 .provider-card-left-data-container{
@@ -24,10 +42,20 @@
     align-items: center;
     justify-content: flex-start;
     gap: var(--space-3);
+
+    @media screen and (max-width: 768px) {
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-items: center;
+    }
 }
 
 .provider-card-center-data-container{
     justify-self: right;
+
+    @media screen and (max-width: 768px) {
+        justify-self: center;
+    }
 }
 
 .provider-card-right-data-container{
@@ -35,11 +63,22 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    gap: var(--space-3);
+    gap: var(--space-4);
+
+    @media screen and (max-width: 768px) {
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-items: center;
+        justify-self: center;
+    }
 }
 
 .provider-card-rating-container{
     display: flex;
     flex-direction: column;
     text-align: right;
+
+    @media screen and (max-width: 768px) {
+        text-align: center;
+    }
 }

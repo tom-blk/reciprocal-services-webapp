@@ -5,6 +5,30 @@
     align-items: center;
 
     padding: var(--space-3);
+
+    gap: var(--space-4);
+
+    @media screen and (max-width: 768px) {
+        padding: var(--space-4);
+        gap: var(--space-2);
+        display: grid;
+        grid-template-columns: 1fr min-content;
+    }
+}
+
+.ssc-embers-container{
+    @media screen and (max-width: 768px) {
+        grid-row: 2;
+    }
+}
+
+.ssc-button-container{
+    @media screen and (max-width: 768px) {
+        grid-column: 2;
+        grid-row-start: 1;
+        grid-row-end: 3;
+        justify-self: right;
+    }
 }
 
 .ssc-selected{
@@ -16,12 +40,18 @@
     border: none;
 }
 
-
+.ssc-service-name{
+    flex-grow: 1;
+}
 
 .ssc-right-container{
     display: flex;
     align-items: center;
     gap: var(--space-3);
+
+    @media screen and (max-width: 768px) {
+        font-size: var(--font-small);
+    }
 }
 
 .ssc-unselected-hover{

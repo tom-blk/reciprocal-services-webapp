@@ -2,8 +2,13 @@
     width: 100%;
     display: grid;
     justify-content: center;
-    height: 15vh;
+    height: max(15vh, 150px);
     align-content: center;
+
+    @media screen and (max-width: 768px) {
+        height: 90px;
+        align-content: flex-end;
+    }
 }
 
 .navbar-container{
@@ -22,14 +27,33 @@
 .navbar-container-mobile{
     position: fixed;
     display: flex;
-    right: 0;
+    right: 0px;
+    gap: 10px;
+    top: 10px;
+    transition: 1s;
+
+    @media screen and (min-width: 769px) {
+        display: none;
+    }
+}
+
+.navbar-container-mobile-active{
+    right: 0px;
+    transition: 1s;
+}
+
+.navbar-container-mobile-inactive{
+    right: -250px;
+    transition: 1s;
 }
 
 .navbar-mobile{
+    width: 250px;
+    height: 300px;
     display: grid;
     text-align: center;
-    background-color: #00000093;
-    font-size: var(--font-very-large);
+    background-color: #000000e5;
+    font-size: var(--font-large);
     padding: var(--space-4);
 }
 

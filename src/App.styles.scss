@@ -12,11 +12,16 @@
 
 .sub-text{
     font-size: var(--font-small);
-    color: var(--color-secondary-accent);
+    color: gray;
 }
 
 .bold{
     font-weight: bold;
+}
+
+.item-group-div{
+    display: grid;
+    gap: var(--space-2);
 }
 
 .preformatted-message{
@@ -62,6 +67,7 @@
     background-color: #cefff7;
     color: var(--color-secondary-accent-complement);
     border: none;
+    width: 90%;
 
     &:hover{
         animation: select-text-area .2s;
@@ -69,6 +75,10 @@
     }
 
     outline: none;
+}
+
+.text-area-modal{
+    width: 100%;
 }
 
 .image-icon{
@@ -83,13 +93,13 @@
 }
 
 .round-image-container-card{
-    height: 50px;
-    width: 50px;
+    height: var(--avatar-size-card);
+    width: var(--avatar-size-card);
 }
 
 .round-image-container-page{
-    height: 100px;
-    width: 100px;
+    height: var(--avatar-size-page);
+    width: var(--avatar-size-page);
 }
 
 .main-hover{

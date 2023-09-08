@@ -46,9 +46,11 @@ const SelectableServiceCard = ({service, onClickHandler, updateEmbersPerHour}) =
             className={`ssc ${service.isSelected ? 'ssc-selected main-hover' : 'ssc-unselected ssc-unselected-hover'}`}
             onClick={e => {onClickHandler(service); setEditModeEnabled(false)}}
         >
-            <div>{service.name}</div>
-            <div className='ssc-right-container'>
-                { service.isSelected && <span className={`${!service.embersPerHour && 'warning-text'}`}>{ returnConditionalUserInput() } Embers Per Hour</span>}
+            <span className='overflow-control ssc-service-name'>{service.name}</span>
+            <div className='ssc-embers-container'>
+                { service.isSelected && <span className={`${!service.embersPerHour && 'warning-text'} nowrap`}>{returnConditionalUserInput()} Embers Per Hour</span>}
+            </div >
+            <div className='ssc-button-container'>
                 { returnConditionalEditOrCofirmButton() }
             </div >
         </div>

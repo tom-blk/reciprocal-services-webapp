@@ -92,7 +92,7 @@ const EditUserProfile = () => {
             <h2>Services</h2>  
             <ServicesList services={userServices}/>
             <ButtonComponent buttonType={'secondary-confirm secondary-confirm-hover'} onClickHandler={editServicesButtonOnClickHandler}>Edit Your Services</ButtonComponent>
-            <Distancer size={3}/>
+            <Distancer size={1}/>
             <ButtonComponent buttonType={'confirm'} onClickHandler={saveChangesButtonOnClickHandler}>Save Changes</ButtonComponent>
             <ButtonComponent buttonType={'cancel'} onClickHandler={cancelButtonOnClickHandler}>Cancel</ButtonComponent>
         </PageContainer>

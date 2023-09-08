@@ -1,4 +1,4 @@
-import { Fragment, useContext } from "react";
+import { Fragment, useContext, useState } from "react";
 import { Outlet } from "react-router"
 import { Link } from "react-router-dom"
 
@@ -21,7 +21,20 @@ const Nav = () => {
     const { user, setUser } = useContext(UserContext);
     const { toggleModal } = useContext(ModalContext);
 
-    console.log(window.matchMedia("(max-width: 768px)"))
+    const [mobileNavActive, setMobileNavActive] = useState(false);
+
+    const toggleMobileNav = (e) => {
+        e.stopPropagation()
+        if(mobileNavActive === 'initial'){
+          setMobileNavActive(true);
+        } else {
+          setMobileNavActive(!mobileNavActive);
+        }
+    }
+
+    const hideMobileNav = () => {
+        setMobileNavActive(false)
+    }
 
     const toggleLogOutModal = () => {
 
@@ -36,7 +49,7 @@ const Nav = () => {
     }
 
     return(
-        <Fragment>
+        <div onClick={hideMobileNav}>
         {
             user
             ?
@@ -57,8 +70,8 @@ const Nav = () => {
                 </Fragment>
                 <Outlet/> 
                 <EmberCounter/>
-                <div className="navbar-container-mobile">
-                    <BurgerMenuButton/>
+                <div className={`navbar-container-mobile ${mobileNavActive ? 'navbar-container-mobile-active' : 'navbar-container-mobile-inactive'}`}>
+                    <BurgerMenuButton active={mobileNavActive} onClick={toggleMobileNav}/>
                     <div className="navbar-mobile">
                         <Link to='/'>Home</Link>
                         <Link to='/services'>Services</Link>
@@ -73,7 +86,7 @@ const Nav = () => {
             :
             <LogIn/>
         }  
-        </Fragment>
+        </div>
     )
 }
 

@@ -4,6 +4,10 @@
     flex-direction: column;
     gap: 35px;
     bottom: -150px;
+    
+    @media screen and (max-width: 1050px) {
+        left: 4%;
+    }
 }
 
 .ember-counter-wrapper-container.visible{

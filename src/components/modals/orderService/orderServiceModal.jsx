@@ -58,7 +58,7 @@ const OrderServiceModal = ({ providingUserId, providingUserFirstName, providingU
                     <span>Message:</span>
                     <span className={`${!messageLengthBelowLimit() && 'warning-text'}`}>{`${orderData.message.length}/5000 Characters`}</span>
                 </div>
-                <textarea className="text-area" onChange={e => onOrderMessageChangeHandler(e)} type='text' rows='10'></textarea>
+                <textarea className="text-area text-area-modal" onChange={e => onOrderMessageChangeHandler(e)} type='text' rows='5'></textarea>
             </div>
             <ButtonComponent buttonType={'secondary-confirm secondary-confirm-hover'} onClickHandler={onClickHandler}>{'Confirm'}</ButtonComponent>
             <ButtonComponent buttonType={'cancel'} onClickHandler={toggleModal}>{'Cancel'}</ButtonComponent>

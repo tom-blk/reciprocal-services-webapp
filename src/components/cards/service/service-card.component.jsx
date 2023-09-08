@@ -80,7 +80,7 @@ const ServiceCard = ({ service, providingUserId, providingUserFirstName, providi
                 </div>
                 }
 
-                { !isProviderRelated && <div className="heading-secondary nowrap">{`${serviceProviderCount.providerCount} Providers`}</div> }
+                { !isProviderRelated && <div className="heading-secondary nowrap">{`Providers: ${serviceProviderCount.providerCount}`}</div> }
 
                 {
                     isProviderRelated 

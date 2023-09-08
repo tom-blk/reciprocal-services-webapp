@@ -18,19 +18,19 @@ function useOrderStatus(order, userId) {
             orderStatus.currentStage = 1;
             orderStatus.nextStage = 2;
             orderStatus.buttonClassName = 'confirm';
-            orderStatus.text = 'Accept Order';
+            orderStatus.text = 'Accept';
             break;
           case 2:
             orderStatus.currentStage = 2;
             orderStatus.nextStage = 3;
             orderStatus.buttonClassName = 'confirm'
-            orderStatus.text = 'Complete Order';
+            orderStatus.text = 'Complete';
             break;
           case 3:
             orderStatus.currentStage = 3;
             orderStatus.nextStage = undefined;
             orderStatus.buttonClassName = 'secondary-confirm-no-hover'
-            orderStatus.text = 'Waiting For Comfirmation';
+            orderStatus.text = 'Comfirmation Pending';
             break;
           case 4:
             orderStatus.currentStage = 4;
@@ -42,7 +42,7 @@ function useOrderStatus(order, userId) {
             orderStatus.currentStage = 5;
             orderStatus.nextStage = undefined;
             orderStatus.buttonClassName = 'order-denied'
-            orderStatus.text = 'Order Declined';
+            orderStatus.text = 'Declined';
             break;
         }
       }
@@ -55,31 +55,31 @@ function useOrderStatus(order, userId) {
             orderStatus.currentStage = 1;
             orderStatus.nextStage = undefined;
             orderStatus.buttonClassName = 'order-pending';
-            orderStatus.text = 'Order Requested';
+            orderStatus.text = 'Requested';
             break;
           case 2:
             orderStatus.currentStage = 2;
             orderStatus.nextStage = undefined;
             orderStatus.buttonClassName = 'secondary-confirm-no-hover'
-            orderStatus.text = 'Order Accepted';
+            orderStatus.text = 'Accepted';
             break;
           case 3:
             orderStatus.currentStage = 3;
             orderStatus.nextStage = 4;
             orderStatus.buttonClassName = 'confirm'
-            orderStatus.text = 'Confirm Order Completion';
+            orderStatus.text = 'Confirm Completion';
             break;
           case 4:
             orderStatus.currentStage = 4;
             orderStatus.nextStage = undefined;
             orderStatus.buttonClassName = 'inactive'
-            orderStatus.text = 'This Order is Complete!';
+            orderStatus.text = 'Complete';
             break;
           case 5:
             orderStatus.currentStage = 5;
             orderStatus.nextStage = undefined;
             orderStatus.buttonClassName = 'order-denied';
-            orderStatus.text = 'Your Request was Declined by the Provider';
+            orderStatus.text = 'Declined';
             break;
         }
       }

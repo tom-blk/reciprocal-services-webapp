@@ -16,7 +16,6 @@ const RoundButtonComponent = ({type, onClickHandler, size}) => {
     return(
         <button
             onClick={e => onClickHandler(e)} 
-            style={{height: size, width: size}} 
             className={`button round-button main-hover`}
         >
             { renderButton() }

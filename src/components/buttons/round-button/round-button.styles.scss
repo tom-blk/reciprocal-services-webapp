@@ -1,4 +1,6 @@
 .round-button{
+    height: var(--round-button);
+    width: var(--round-button);
     padding: var(--space-1);
     flex-shrink: 0;
     border-radius: 50%;

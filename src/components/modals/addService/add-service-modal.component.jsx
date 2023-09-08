@@ -62,7 +62,7 @@ const AddServiceModal = () => {
     return(
         <Fragment>
             <h2>Add a New Service</h2>
-            <span style={{fontSize: 'var(--font-small'}}>
+            <span style={{fontSize: 'var(--font-small)'}}>
                 Hint: This Application is primarily user managed. To maintain the integrity of the database it is highly advised to check if the service you are about to create or similar services already exist.
             </span>
             <span>Name</span>
@@ -77,7 +77,7 @@ const AddServiceModal = () => {
                 <ImageCropComponent optionalWidth={'150px'} handleCroppedImage={croppedImageHandler} onCancel={() => {return}}/>
             }
             <span>Description</span>
-            <textarea className="text-area" onChange={e => onServiceDataChangeHandler(e, 'description')} style={{width:'70%'}} type='text' rows='10'></textarea>
+            <textarea className="text-area" onChange={e => onServiceDataChangeHandler(e, 'description')} type='text' rows='5'></textarea>
             <div style={{display: 'flex', gap: 'var(--space-3'}}>
                 <span>Add this to your services after creation?</span>
                 <input type="checkbox" onChange={e => setAddToUserServices(!addToUserServices)}/>

@@ -1,6 +1,6 @@
 import RatingStarComponent from '../rating-star-component/rating-star.component';
 
-import './rating-display.styles.css';
+import './rating-display.styles.scss';
 
 const RatingDisplayComponent = ({ rating }) => {
  

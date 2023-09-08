@@ -1,7 +1,7 @@
 import { Fragment, useContext } from 'react';
 import { ModalContext } from '../../context/modal.context';
 
-import './modal.styles.css';
+import './modal.styles.scss';
 
 const Modal = () => {
 

@@ -63,15 +63,19 @@ const UserProfile = () => {
                             <div className="name-and-username-container">
                                 <h1 className="overflow-control">{assertDisplayName(user)}</h1>
                                 <span className="sub-text">{`@${userName}`}</span>
+                                <RatingDisplayComponent rating={rating}/>
                             </div>
                         </div>
                         <RoundButton size={getComputedStyle(document.body).getPropertyValue('--round-button')} type={'edit'} onClickHandler={navigateToUserEditProfile}/>
                     </div>
-                    <RatingDisplayComponent rating={rating}/>
-                    <span>{user.location}</span>
-                    <span>{user.travelRadius && user.travelRadius > 0 ? 'Traveling Radius: ' + user.travelRadius + ' Kilometers' : 'Not Traveling for Orders.'}</span>
-                    <h2>Description</h2>
-                    <div>{profileDescription}</div>
+                    <div className="item-group-div">
+                        <span>Location: {user.location}</span>
+                        <span>{user.travelRadius && user.travelRadius > 0 ? 'Traveling Radius: ' + user.travelRadius + ' Kilometers' : 'Not Traveling for Orders.'}</span>
+                    </div>
+                    <div className="item-group-div">
+                        <h2>Description</h2>
+                        <div>{profileDescription}</div>
+                    </div>
                     <h2>Providable Services</h2>
                     <ServicesList services={userServices}/>
                 </Fragment>

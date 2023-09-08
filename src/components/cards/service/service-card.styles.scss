@@ -5,6 +5,14 @@
     gap: var(--space-3);
     align-items: center;
     justify-content: space-between;
+
+    @media screen and (max-width: 768px) {
+        text-align: center;
+        display: grid;
+        justify-items: center;
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+    }
 }
 
 .service-card-left-data-container{
@@ -13,4 +21,11 @@
     justify-content: flex-start;
     gap: var(--space-3);
     flex-grow: 5;
+
+    @media screen and (max-width: 768px) {
+        display: grid;
+        justify-items: center;
+        grid-template-columns: 1fr;
+        gap: var(--space-2);
+    }
 }
