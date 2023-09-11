@@ -68,6 +68,7 @@
     color: var(--color-secondary-accent-complement);
     border: none;
     width: 90%;
+    align-self: center;
 
     &:hover{
         animation: select-text-area .2s;
