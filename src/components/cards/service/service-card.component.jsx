@@ -10,21 +10,23 @@ import RoundImageContainer from "../../round-image-container/round-image-contain
 
 import { useNavigate } from "react-router";
 
-import { getServiceProviderCount } from "../../../api/services/read";
+import { getLocalServiceProviderCount } from "../../../api/services/read";
 import { getFileUrl } from "../../../utils/web3storage/web3storage";
 
 import './service-card.styles.scss';
+import { UserContext } from "../../../context/user.context";
 
 const ServiceCard = ({ service, providingUserId, providingUserFirstName, providingUserLastName, isProviderRelated, embersPerHour }) => {
     const { id, icon, name, description } = service;
 
+    const { user } = useContext(UserContext);
     const { toggleModal } = useContext(ModalContext);
     const { displayError } = useContext(AlertMessageContext);
 
     const navigate = useNavigate();
 
     const [serviceOrdered, setServiceOrdered] = useState(false);
-    const [serviceProviderCount, setServiceProviderCount] = useState(0);
+    const [localServiceProviderCount, setLocalServiceProviderCount] = useState(0);
     const [serviceIcon, setServiceIcon] = useState(undefined);
 
     useEffect(() => {
@@ -33,8 +35,8 @@ const ServiceCard = ({ service, providingUserId, providingUserFirstName, providi
             .then(response => setServiceIcon(response))
             .catch(error => displayError(error))
         if(!isProviderRelated)
-        getServiceProviderCount(service.id, displayError)
-            .then(response => setServiceProviderCount(response))
+        getLocalServiceProviderCount(service.id, user.country, user.postCode)
+            .then(response => setLocalServiceProviderCount(response))
             .catch(error => displayError(error))
     }, [])
 
@@ -80,7 +82,7 @@ const ServiceCard = ({ service, providingUserId, providingUserFirstName, providi
                 </div>
                 }
 
-                { !isProviderRelated && <div className="heading-secondary nowrap">{`Providers: ${serviceProviderCount.providerCount}`}</div> }
+                { !isProviderRelated && <div className="nowrap">{`Providers in Your ZIP Area: ${localServiceProviderCount.providerCount}`}</div> }
 
                 {
                     isProviderRelated 

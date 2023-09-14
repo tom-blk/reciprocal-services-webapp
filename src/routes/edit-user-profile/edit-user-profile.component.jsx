@@ -1,4 +1,4 @@
-import { Fragment, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { UserContext } from "../../context/user.context";
 import { AlertMessageContext } from "../../context/alert-message.context";
@@ -10,13 +10,18 @@ import ButtonComponent from "../../components/buttons/button.component";
 import ServicesList from "../../components/card-lists/services-list/services-list.component";
 import SelectProfilePictureModal from "../../components/modals/selectProfilePicture/select-profile-picture-modal.component";
 import OnHoverEdit from "../../components/on-hover-edit/on-hover-edit.component";
+import Distancer from "../../utils/distancer/distancer.component";
+import DropdownMenu from "../../components/dropdown-menu/dropdown-menu.component";
 
 import { useNavigate } from "react-router";
 
 import { updateUser } from "../../api/users/update";
 import { getUserSpecificServices } from "../../api/users/read";
+import { getAllCountries } from "../../api/countries/read";
 import { getFileUrl } from "../../utils/web3storage/web3storage";
-import Distancer from "../../utils/distancer/distancer.component";
+
+import './edit-user-profile.styles.scss';
+
 
 const EditUserProfile = () => {
 
@@ -59,6 +64,10 @@ const EditUserProfile = () => {
         setProfilePicture(URL.createObjectURL(newProfilePicture))
     }
 
+    const setUserCountry = (countryId) => {
+        setTempUser({...tempUser, country: countryId});
+    }
+
     const editServicesButtonOnClickHandler = () => navigate(`/userProfile-edit/edit-services`);
 
     const cancelButtonOnClickHandler = () => navigate('/userProfile');
@@ -84,9 +93,15 @@ const EditUserProfile = () => {
             <h2>Last Name</h2>
             <input className="text-area" type="text" defaultValue={user.lastName} onChange={e => {setTempUser({...tempUser, lastName: e.target.value})}}/>
             <h2>Location</h2>
-            <input className="text-area" type="text" defaultValue={user.location} onChange={e => {setTempUser({...tempUser, location: e.target.value})}}/>
-            <h2>Travel Radius for Orders in Kilometers</h2>
-            <input className="text-area" type="text" defaultValue={user.travelRadius} onChange={e => {setTempUser({...tempUser, travelRadius: e.target.value})}}/>
+            <div className="location-definition-div">
+                <DropdownMenu getListContent={getAllCountries} onSelect={setUserCountry}/>
+                <input className="text-area" placeholder="Postal Code" type="text" defaultValue={user.postCode} onChange={e => {setTempUser({...tempUser, postCode: e.target.value})}}/>
+                <input className="text-area" placeholder="City" type="text" defaultValue={user.city} onChange={e => {setTempUser({...tempUser, city: e.target.value})}}/>
+            </div>
+            <h2>Travelling For Orders</h2>
+            <div className="edit-user-checkbox">
+                <input type="checkbox" defaultValue={user.travellingForOrders} onChange={e => {setTempUser({...tempUser, travellingForOrders: !tempUser.travellingForOrders})}}/>
+            </div>
             <h2>Description</h2>
             <textarea className="text-area" type="text" rows='10' defaultValue={user.profileDescription} onChange={e => {setTempUser({...tempUser, profileDescription: e.target.value})}}/>
             <h2>Services</h2>  

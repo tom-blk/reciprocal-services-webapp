@@ -12,7 +12,7 @@ import ConfirmOrCancelModal from "../../modals/confirmOrCancel/confirm-or-cancel
 
 import { useParams } from "react-router"
 
-import { getServiceSpecificUsers } from "../../../api/services/read";
+import { getAverageCreditsPerHour, getLocalServiceSpecificUsers, getServiceSpecificUsers } from "../../../api/services/read";
 import { getFileUrl } from "../../../utils/web3storage/web3storage";
 import { removeServiceFromUserServices } from "../../../api/users/update";
 import { addServiceToUserServices } from "../../../api/users/update";
@@ -35,22 +35,26 @@ const ServicePage = () => {
     const [serviceProviders, setServiceProviders] = useState([]);
     const [serviceIcon, setServiceIcon] = useState(undefined);
     const [providedByCurrentUser, setProvidedByCurrentUser] = useState(false);
+    const [averageCreditsPerHour, setAverageCreditsPerHour] = useState(undefined);
 
     useEffect(() => {
         getService(serviceId, displayError)
             .then(response => {setService(response)})
             .catch(error => displayError(error))
-        getServiceSpecificUsers(serviceId, displayError)
+        getLocalServiceSpecificUsers(serviceId, user.country, user.postCode)
             .then(response => setServiceProviders(response))
             .catch(error => displayError(error))
         getServiceUserAffiliation(user.id, serviceId, displayError)
             .then(response => setProvidedByCurrentUser(response))
             .catch(error => displayError(error))
+        getAverageCreditsPerHour(serviceId, user.country, user.postCode)
+            .then(response => setAverageCreditsPerHour(Math.round(response * 10) / 10))
+            .catch(error => displayError(error))
     }, [])
 
     useEffect(() => {
-        console.log(serviceProviders);
-    }, [serviceProviders])
+        console.log(averageCreditsPerHour);
+    }, [averageCreditsPerHour])
 
     useEffect(() => {
         if(service)
@@ -89,9 +93,9 @@ const ServicePage = () => {
                             {providedByCurrentUser ? 'Remove From Your Services' : 'Add To Your Services'}
                         </ButtonComponent>
                     </div>
-                    <div className="heading-secondary">{`Average Credits per Hour: ${service.creditsPerHour}`}</div>
+                    <div className="heading-secondary">{`Average Credits per Hour in Your ZIP Area: ${averageCreditsPerHour ? averageCreditsPerHour : 'Not Available'}`}</div>
                     <div className="text">{service.description}</div>
-                    <div className="heading-secondary">Providers:</div>
+                    <div className="heading-secondary">Providers in Your ZIP Area:</div>
                     <div className="card-list">
                     {
                         serviceProviders.length > 0

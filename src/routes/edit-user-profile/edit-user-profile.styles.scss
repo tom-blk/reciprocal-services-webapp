@@ -1,0 +1,18 @@
+.location-definition-div{
+    align-self: center;
+    display: flex;
+    width: 90%;
+    gap: var(--space-5);
+
+    @media screen and (max-width: 425px) {
+        flex-direction: column;
+        width: 100%;
+    }
+}
+
+.edit-user-checkbox{
+    align-self: center;
+    width: 90%;
+    display: grid;
+    justify-items: left;
+}

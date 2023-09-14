@@ -9,6 +9,15 @@ export const getService = async (serviceId) => {
     }
 }
 
+export const getAverageCreditsPerHour = async (serviceId, country, postCode) => {
+    try{   
+        const data = await apiCall('/services/get-average-credits-per-hour', 'POST', { serviceId: serviceId, country: country, postCode: postCode })
+        return data;
+    } catch(error){
+        throw new Error('Failed to fetch the average credits per hour...')
+    }
+}
+
 export const getServiceList = async () => {
     try{
         const data = await apiCall('/services/get-list', 'GET', undefined)
@@ -37,9 +46,27 @@ export const getServiceProviderCount = async (serviceId) => {
     }
 }
 
+export const getLocalServiceProviderCount = async (serviceId, userCountry, userPostCode) => {
+    try{
+        const data = await apiCall('/services/get-local-service-provider-count', 'POST', { serviceId: serviceId, country: userCountry, postCode: userPostCode })
+        return await data;
+    }catch(error){
+        throw new Error(`Failed to get number of local providers for serviceId ${serviceId}`)
+    }
+}
+
 export const getServiceSpecificUsers = async (serviceId) => {
     try{
         const data = await apiCall('/services/get-service-specific-users', 'POST', { serviceId: serviceId })
+        return await data;
+    }catch(error){
+        throw new Error(`Failed to get list of providers for serviceId ${serviceId}`)
+    }
+}
+
+export const getLocalServiceSpecificUsers = async (serviceId, country, postCode) => {
+    try{
+        const data = await apiCall('/services/get-local-service-specific-users', 'POST', { serviceId: serviceId, country: country, postCode: postCode })
         return await data;
     }catch(error){
         throw new Error(`Failed to get list of providers for serviceId ${serviceId}`)

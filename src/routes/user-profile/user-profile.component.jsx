@@ -49,7 +49,7 @@ const UserProfile = () => {
         navigate('/userProfile-edit')
     }
 
-    console.log(user.location)
+    console.log(user.city)
 
     return(
         <PageContainer>
@@ -69,8 +69,8 @@ const UserProfile = () => {
                         <RoundButton size={getComputedStyle(document.body).getPropertyValue('--round-button')} type={'edit'} onClickHandler={navigateToUserEditProfile}/>
                     </div>
                     <div className="item-group-div">
-                        <span>Location: {user.location}</span>
-                        <span>{user.travelRadius && user.travelRadius > 0 ? 'Traveling Radius: ' + user.travelRadius + ' Kilometers' : 'Not Traveling for Orders.'}</span>
+                        <span>Location: {user.postCode}, {user.city}</span>
+                        <span>Placeholder</span>
                     </div>
                     <div className="item-group-div">
                         <h2>Description</h2>
