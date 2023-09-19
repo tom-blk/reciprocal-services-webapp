@@ -8,7 +8,7 @@ import ButtonComponent from "../../buttons/button.component";
 
 import { createOrder } from "../../../api/orders/create";
 
-import './orderServiceModal.styles.css';
+import LimitedMessage from "../../limited-mesage/limited-message.component";
 
 
 const OrderServiceModal = ({ providingUserId, providingUserFirstName, providingUserLastName, serviceId, serviceName, embersPerHour, serviceOrderedCallback }) => {
@@ -27,12 +27,14 @@ const OrderServiceModal = ({ providingUserId, providingUserFirstName, providingU
 
     const [orderData, setOrderData] = useState(orderDataTemplate);
 
-    useEffect(() => {console.log(orderData)},[orderData])
+    useEffect(() => {console.log(orderData.message)},[orderData])
 
-    const messageLengthBelowLimit = () => (orderData.message.length <= 5000);
-
+    const setOrderMessage = (orderMessage) => {
+        setOrderData({...orderData, message: orderMessage})
+    }
+    
     const onClickHandler = () => {
-        if(messageLengthBelowLimit()){
+        if(orderData.message){
             createOrder(orderData)
                 .then(response => {
                     displaySuccessMessage(response.message);
@@ -41,25 +43,15 @@ const OrderServiceModal = ({ providingUserId, providingUserFirstName, providingU
                 })
                 .catch(error => displayError(error))
         }else{
-            displayError(new Error('Please use less than 5000 characters in your message'))
+            displayError(new Error('Please use less than 5000 characters in your message.'))
         }
-    }
-
-    const onOrderMessageChangeHandler = (e) => {
-        setOrderData({ ...orderData, message: e.target.value })
     }
 
     return(
         <Fragment>
             <h2>{`Do you really wish to order the service ${serviceName} from ${providingUserFirstName} ${providingUserLastName}?`}</h2>
             <h3>{`The hourly fare is ${embersPerHour} embers per hour.`}</h3>
-            <div className="order-service-modal-message-container">
-                <div className="flex-space-between">
-                    <span>Message:</span>
-                    <span className={`${!messageLengthBelowLimit() && 'warning-text'}`}>{`${orderData.message.length}/5000 Characters`}</span>
-                </div>
-                <textarea className="text-area text-area-modal" onChange={e => onOrderMessageChangeHandler(e)} type='text' rows='5'></textarea>
-            </div>
+            <LimitedMessage numberOfCharacters={5000} numberOfTextRows={5} onChangeHandler={setOrderMessage} />
             <ButtonComponent buttonType={'secondary-confirm secondary-confirm-hover'} onClickHandler={onClickHandler}>{'Confirm'}</ButtonComponent>
             <ButtonComponent buttonType={'cancel'} onClickHandler={toggleModal}>{'Cancel'}</ButtonComponent>
         </Fragment>

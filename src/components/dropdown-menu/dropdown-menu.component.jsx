@@ -4,7 +4,7 @@ import { AlertMessageContext } from '../../context/alert-message.context';
 
 import './dropdown-menu.styles.scss';
 
-const DropdownMenu = ({getListContent, onSelect}) => {
+const DropdownMenu = ({defaultCountry, getListContent, onSelect}) => {
 
     const { displayError } = useContext(AlertMessageContext);
 
@@ -14,7 +14,11 @@ const DropdownMenu = ({getListContent, onSelect}) => {
 
     useEffect(() => {
         getListContent()
-            .then(response => setDropDownContent(response))
+            .then(response => {
+                setDropDownContent(response)
+                if(defaultCountry)
+                    setActiveChoice(response.filter((option) => {return option.id === defaultCountry})[0].name)
+            })
             .catch(error => displayError(error))
     }, [])
   

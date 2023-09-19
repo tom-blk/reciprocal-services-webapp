@@ -94,13 +94,13 @@ const EditUserProfile = () => {
             <input className="text-area" type="text" defaultValue={user.lastName} onChange={e => {setTempUser({...tempUser, lastName: e.target.value})}}/>
             <h2>Location</h2>
             <div className="location-definition-div">
-                <DropdownMenu getListContent={getAllCountries} onSelect={setUserCountry}/>
+                <DropdownMenu defaultCountry={user.country} getListContent={getAllCountries} onSelect={setUserCountry}/>
                 <input className="text-area" placeholder="Postal Code" type="text" defaultValue={user.postCode} onChange={e => {setTempUser({...tempUser, postCode: e.target.value})}}/>
                 <input className="text-area" placeholder="City" type="text" defaultValue={user.city} onChange={e => {setTempUser({...tempUser, city: e.target.value})}}/>
             </div>
             <h2>Travelling For Orders</h2>
             <div className="edit-user-checkbox">
-                <input type="checkbox" defaultValue={user.travellingForOrders} onChange={e => {setTempUser({...tempUser, travellingForOrders: !tempUser.travellingForOrders})}}/>
+                <input type="checkbox" defaultChecked={user.travellingForOrders} onChange={e => {setTempUser({...tempUser, travellingForOrders: !tempUser.travellingForOrders})}}/>
             </div>
             <h2>Description</h2>
             <textarea className="text-area" type="text" rows='10' defaultValue={user.profileDescription} onChange={e => {setTempUser({...tempUser, profileDescription: e.target.value})}}/>

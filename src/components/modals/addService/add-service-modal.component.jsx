@@ -11,9 +11,6 @@ import ImageCropComponent from "../../image-crop/image-crop-component";
 import { createService } from "../../../api/services/create";
 import { addServiceToUserServices } from "../../../api/users/update";
 
-import '../orderService/orderServiceModal.styles.css';
-
-
 const AddServiceModal = () => {
 
     const { toggleModal } = useContext(ModalContext);

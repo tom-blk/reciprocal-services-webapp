@@ -61,7 +61,7 @@ const Providers = () => {
 
     return(
         <PageContainer>
-            <LocationFilter onConfirm={selectLocationFilterPorperties}/>
+            <LocationFilter defaultPostCode={user.postCode} defaultCountry={user.country} onConfirm={selectLocationFilterPorperties}/>
             <SearchBar className="providers-search-bar" onSearchChange={onSearchChange} placeholder={"Providers"}/>
             <Distancer size={1}/>
             {

@@ -7,7 +7,7 @@ import { getAllCountries } from '../../api/countries/read';
 
 import './location-filter.styles.scss';
 
-const LocationFilter = ({onConfirm}) => {
+const LocationFilter = ({defaultPostCode, defaultCountry, onConfirm}) => {
 
     const [selectedCountry, setSelectedCountry] = useState(undefined);
     const [selectedPostCode, setSelectedPostCode] = useState('');
@@ -22,8 +22,8 @@ const LocationFilter = ({onConfirm}) => {
 
     return (
         <div className="location-filter-div">
-            <DropdownMenu getListContent={getAllCountries} onSelect={selectFilterCountry}/>
-            <input className="text-area" placeholder="Select Postal Code" type="text" onChange={e => setSelectedPostCode(e.target.value)}/>
+            <DropdownMenu defaultCountry={defaultCountry} getListContent={getAllCountries} onSelect={selectFilterCountry}/>
+            <input className="text-area" defaultValue={defaultPostCode} placeholder="Select Postal Code" type="text" onChange={e => setSelectedPostCode(e.target.value)}/>
             <ButtonComponent buttonType={'confirm'} onClickHandler={confirmSelection}>Confirm</ButtonComponent>
         </div>
     )
