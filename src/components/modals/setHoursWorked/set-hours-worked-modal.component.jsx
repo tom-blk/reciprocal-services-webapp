@@ -6,6 +6,7 @@ import { ModalContext } from '../../../context/modal.context'
 import ButtonComponent from '../../buttons/button.component'
 
 import { specifyProvidedHours } from '../../../api/orders/update'
+import LimitedTextInput from '../../limited-text-input/limited-text-input.component'
 
 const SetHoursWorkedModal = ({orderId, confirmedCompletionCallback}) => {
 
@@ -16,17 +17,17 @@ const SetHoursWorkedModal = ({orderId, confirmedCompletionCallback}) => {
     const [doubleConfirmButtonVisible, setDoubleConfirmButtonVisible] = useState(false); // Failsafe so that user doesn't accidentally input wrong number of hours
 
     const confirmWorkedHoursAndCloseModal = () => {
-        if(hoursWorked !== 0){
+        if(hoursWorked === 0 || hoursWorked === false || hoursWorked.length === 0 || hoursWorked === NaN){
+            displayError(new Error("Please Specify How Many Hours Were Provided!"))
+        }else{
             specifyProvidedHours(orderId, hoursWorked, displaySuccessMessage, displayError)
-                .then(response => {
-                    displaySuccessMessage(response.message)
-                    confirmedCompletionCallback()
-                })
-                .catch(error => displayError(error))
-            toggleModal();
+            .then(response => {
+                displaySuccessMessage(response.message)
+                confirmedCompletionCallback()
+                toggleModal();
+            })
+            .catch(error => displayError(error))
         }
-        if(!hoursWorked || hoursWorked === 0)
-        displayError(new Error("Please Specify How Many Hours Were Provided!"))
     }
 
     const toggleDoubleConfirmButtonVisible = () => {
@@ -40,7 +41,7 @@ const SetHoursWorkedModal = ({orderId, confirmedCompletionCallback}) => {
     return (
     <Fragment>
         <span>State How Many Hours You Provided</span>
-        <input type='text' className='text-area' placeholder='Hours' onChange={e=> setHoursWorked(e.target.value)}/>
+        <LimitedTextInput inputLabel={'Hours Provided'} numberOfCharacters={9} numberOfTextRows={1} onChangeHandler={(input) => setHoursWorked(input)} />
         { !doubleConfirmButtonVisible && <ButtonComponent buttonType={'secondary-confirm'} onClickHandler={toggleDoubleConfirmButtonVisible}>Confirm Number of Hours</ButtonComponent> }
         { doubleConfirmButtonVisible && <ButtonComponent buttonType={'confirm'} onClickHandler={confirmWorkedHoursAndCloseModal}>Complete Order</ButtonComponent> }
         <ButtonComponent buttonType={'cancel'} onClickHandler={doubleConfirmButtonVisible ? onCancelWhileDoubleConfirmVisible : toggleModal}>Cancel</ButtonComponent>

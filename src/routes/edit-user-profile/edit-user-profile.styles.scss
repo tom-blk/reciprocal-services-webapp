@@ -1,4 +1,5 @@
 .location-definition-div{
+    align-items: end;
     align-self: center;
     display: flex;
     width: 90%;
@@ -10,9 +11,11 @@
     }
 }
 
-.edit-user-checkbox{
-    align-self: center;
-    width: 90%;
-    display: grid;
-    justify-items: left;
+.travelling-for-orders-div{
+    display: flex;
+    gap: var(--space-4)
+}
+
+.checkbox{
+    padding: var(--space-3);
 }

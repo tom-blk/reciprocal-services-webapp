@@ -13,7 +13,7 @@ import { useNavigate } from "react-router";
 
 import { assertDisplayName } from "../../helper-functions/users/assertDisplayName";
 
-import { getUserSpecificServices } from "../../api/users/read";
+import { getUserCountry, getUserSpecificServices } from "../../api/users/read";
 import { getFileUrl } from "../../utils/web3storage/web3storage";
 
 import './user-profile.styles.scss';
@@ -28,12 +28,16 @@ const UserProfile = () => {
 
     const [profilePicture, setProfilePicture] = useState(undefined);
     const [userServices, setUserServices] = useState([]);
+    const [userCountry, setUserCountry] = useState('');
 
     const navigate = useNavigate()
 
     useEffect(() => {
         getUserSpecificServices(user.id, displayError)
             .then(response => setUserServices(response))
+            .catch(error => displayError(error))
+        getUserCountry(user.country)
+            .then(response => setUserCountry(response.name))
             .catch(error => displayError(error))
     }, [])
 
@@ -49,8 +53,6 @@ const UserProfile = () => {
         navigate('/userProfile-edit')
     }
 
-    console.log(user.city)
-
     return(
         <PageContainer>
             {
@@ -61,20 +63,21 @@ const UserProfile = () => {
                         <div className="user-profile-heading-container">
                             <RoundImageContainer size="round-image-container-page" serviceOrUser={'user'} picture={profilePicture}/>
                             <div className="name-and-username-container">
-                                <h1 className="overflow-control">{assertDisplayName(user)}</h1>
+                                <h2 className="overflow-control">{assertDisplayName(user)}</h2>
                                 <span className="sub-text">{`@${userName}`}</span>
                                 <RatingDisplayComponent rating={rating}/>
                             </div>
                         </div>
                         <RoundButton size={getComputedStyle(document.body).getPropertyValue('--round-button')} type={'edit'} onClickHandler={navigateToUserEditProfile}/>
                     </div>
-                    <div className="item-group-div">
-                        <span>Location: {user.postCode}, {user.city}</span>
-                        <span>Placeholder</span>
+                    <div className="page-container-item-group">
+                        <h2>Location</h2>
+                        <span className="page-container-content">{user.postCode} {user.city}, {userCountry}</span>
+                        <span className="page-container-content">{user.travellingForOrders ? 'Travelling For Orders' :  'Not Travelling For Orders'}</span>
                     </div>
-                    <div className="item-group-div">
+                    <div className="page-container-item-group">
                         <h2>Description</h2>
-                        <div>{profileDescription}</div>
+                        <span className="page-container-content">{profileDescription}</span>
                     </div>
                     <h2>Providable Services</h2>
                     <ServicesList services={userServices}/>

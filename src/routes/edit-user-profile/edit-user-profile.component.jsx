@@ -12,6 +12,7 @@ import SelectProfilePictureModal from "../../components/modals/selectProfilePict
 import OnHoverEdit from "../../components/on-hover-edit/on-hover-edit.component";
 import Distancer from "../../utils/distancer/distancer.component";
 import DropdownMenu from "../../components/dropdown-menu/dropdown-menu.component";
+import LimitedTextInput from "../../components/limited-text-input/limited-text-input.component";
 
 import { useNavigate } from "react-router";
 
@@ -21,7 +22,6 @@ import { getAllCountries } from "../../api/countries/read";
 import { getFileUrl } from "../../utils/web3storage/web3storage";
 
 import './edit-user-profile.styles.scss';
-
 
 const EditUserProfile = () => {
 
@@ -47,10 +47,6 @@ const EditUserProfile = () => {
             .then(response => setProfilePicture(response));
     }, [user])
 
-    useEffect(() => {
-        console.log(tempUser);
-    }, [tempUser])
-
     const selectNewProfilePicture = () => {
         toggleModal(
             <SelectProfilePictureModal
@@ -64,22 +60,23 @@ const EditUserProfile = () => {
         setProfilePicture(URL.createObjectURL(newProfilePicture))
     }
 
-    const setUserCountry = (countryId) => {
-        setTempUser({...tempUser, country: countryId});
-    }
-
     const editServicesButtonOnClickHandler = () => navigate(`/userProfile-edit/edit-services`);
 
     const cancelButtonOnClickHandler = () => navigate('/userProfile');
 
     const saveChangesButtonOnClickHandler = () => {
-        updateUser(tempUser)
+        if(tempUser.firstName === false || tempUser.lastName === false || tempUser.city === false || tempUser.postCode === false || tempUser.profileDescription === false){
+            displayError(new Error('Please update all your information correctly.'))
+        }else{
+            updateUser(tempUser)
             .then(() => {
                 fetchUser();
                 displaySuccessMessage('Profile successfully updated!');
                 navigate('/userProfile');
             })
             .catch(error => displayError(error))
+        }
+        
     }
 
     return(
@@ -88,22 +85,18 @@ const EditUserProfile = () => {
             <OnHoverEdit onClickFunction={selectNewProfilePicture} size={'round-image-container-page'}>
                 <RoundImageContainer size={'round-image-container-page'} serviceOrUser={'user'} picture={profilePicture}/>
             </OnHoverEdit>
-            <h2>First Name</h2>
-            <input className="text-area" type="text" defaultValue={user.firstName} onChange={e => {setTempUser({...tempUser, firstName: e.target.value})}}/>
-            <h2>Last Name</h2>
-            <input className="text-area" type="text" defaultValue={user.lastName} onChange={e => {setTempUser({...tempUser, lastName: e.target.value})}}/>
-            <h2>Location</h2>
+            <LimitedTextInput inputLabel={'First Name'} defaultValue={user.firstName} numberOfTextRows={1} numberOfCharacters={45} onChangeHandler={(input) => {setTempUser({...tempUser, firstName: input})}}/>
+            <LimitedTextInput inputLabel={'Last Name'} defaultValue={user.lastName} numberOfTextRows={1} numberOfCharacters={45} onChangeHandler={(input) => {setTempUser({...tempUser, lastName: input})}}/>
             <div className="location-definition-div">
-                <DropdownMenu defaultCountry={user.country} getListContent={getAllCountries} onSelect={setUserCountry}/>
-                <input className="text-area" placeholder="Postal Code" type="text" defaultValue={user.postCode} onChange={e => {setTempUser({...tempUser, postCode: e.target.value})}}/>
-                <input className="text-area" placeholder="City" type="text" defaultValue={user.city} onChange={e => {setTempUser({...tempUser, city: e.target.value})}}/>
+                <DropdownMenu defaultCountry={user.country} getListContent={getAllCountries} onSelect={(input) => setTempUser({...tempUser, country: input})}/>
+                <LimitedTextInput inputLabel={'ZIP Code'} defaultValue={user.postCode} numberOfTextRows={1} numberOfCharacters={45} onChangeHandler={(input) => {setTempUser({...tempUser, postCode: input})}}/>
+                <LimitedTextInput inputLabel={'City'} defaultValue={user.city} numberOfTextRows={1} numberOfCharacters={45} onChangeHandler={(input) => {setTempUser({...tempUser, city: input})}}/>
+            </div> 
+            <div className="travelling-for-orders-div">
+                <h3>Travelling For Orders</h3>
+                <input type="checkbox" className="checkbox" defaultChecked={user.travellingForOrders} onChange={e => {setTempUser({...tempUser, travellingForOrders: !tempUser.travellingForOrders})}}/>
             </div>
-            <h2>Travelling For Orders</h2>
-            <div className="edit-user-checkbox">
-                <input type="checkbox" defaultChecked={user.travellingForOrders} onChange={e => {setTempUser({...tempUser, travellingForOrders: !tempUser.travellingForOrders})}}/>
-            </div>
-            <h2>Description</h2>
-            <textarea className="text-area" type="text" rows='10' defaultValue={user.profileDescription} onChange={e => {setTempUser({...tempUser, profileDescription: e.target.value})}}/>
+            <LimitedTextInput inputLabel={'Description'} defaultValue={user.profileDescription} numberOfTextRows={5} numberOfCharacters={255} onChangeHandler={(input) => {setTempUser({...tempUser, profileDescription: input})}}/>
             <h2>Services</h2>  
             <ServicesList services={userServices}/>
             <ButtonComponent buttonType={'secondary-confirm secondary-confirm-hover'} onClickHandler={editServicesButtonOnClickHandler}>Edit Your Services</ButtonComponent>

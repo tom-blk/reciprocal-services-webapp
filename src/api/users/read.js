@@ -11,6 +11,17 @@ export const getSingleUser = async (id) => {
     }
 }
 
+export const getUserCountry = async (countryId) => {
+
+    try{
+        const data = await apiCall('/users/get-user-country', 'POST', { countryId: countryId });
+        return data;
+    } catch(error){
+        console.log(error.message)
+        throw new Error('Failed to fetch user country...')
+    }
+}
+
 export const getUsersInLocation = async (userId, countryId, postCode) => {
 
     try{

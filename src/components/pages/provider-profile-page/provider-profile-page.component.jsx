@@ -7,12 +7,15 @@ import { AlertMessageContext } from "../../../context/alert-message.context";
 import RatingDisplayComponent from "../../rating/rating-display-component/rating-display.component";
 import RoundImageContainer from "../../round-image-container/round-image-container.component";
 import ServiceCard from "../../cards/service/service-card.component";
+import PageContainer from "../../../utils/page-container/page-container.component";
 
 import './provider-profile-page.styles.scss';
 
-import { getSingleUser, getUserSpecificServices } from "../../../api/users/read";
+import { getSingleUser, getUserCountry, getUserSpecificServices } from "../../../api/users/read";
 import { getFileUrl } from "../../../utils/web3storage/web3storage";
 import { assertDisplayName } from "../../../helper-functions/users/assertDisplayName";
+import ServicesList from "../../card-lists/services-list/services-list.component";
+
 
 const ProviderProfilePage = () => {
 
@@ -23,7 +26,8 @@ const ProviderProfilePage = () => {
 
     const [provider, setProvider] = useState(undefined);
     const [providerServices, setProviderServices] = useState([]);
-    const [profilePictureUrl, setProfilePictureUrl] = useState(undefined)
+    const [profilePictureUrl, setProfilePictureUrl] = useState(undefined);
+    const [providerCountry, setProviderCountry] = useState(undefined);
 
     useEffect(() => {
         getSingleUser(providerId)
@@ -43,6 +47,10 @@ const ProviderProfilePage = () => {
         getFileUrl(provider.profilePicture, displayError)
             .then(response => setProfilePictureUrl(response))
             .catch(error => displayError(error))
+        if(provider)
+        getUserCountry(provider.country)
+            .then(response => setProviderCountry(response.name))
+            .catch(error => displayError(error))
     }, [provider])
 
     return(
@@ -50,41 +58,29 @@ const ProviderProfilePage = () => {
             {
                 provider
                 ?
-                <div className="page-container">
+                <PageContainer>
                     <div className="povider-profile-heading-container">
                         <RoundImageContainer picture={profilePictureUrl} serviceOrUser={'user'} size={'round-image-container-page'}/>
-                        <div className="overflow-control">
+                        <div className="name-and-username-container">
                             <h3 className="overflow-control-wrap">{assertDisplayName(provider)}</h3>
                             <div className="provider-name overflow-control">{'@' + provider.userName}</div>
+                            <RatingDisplayComponent rating={provider.rating} clickable/>
                         </div> 
                     </div>
-                    <div className="provider-profile-body-container">
-                        {provider.location && <div>Location: {provider.location}</div>}
-                        {provider.travelRadius && <div>Travel Radius: {provider.travelRadius} Kilometers</div>}
-                        <RatingDisplayComponent rating={provider.rating} clickable/>
-                        <div>{provider.profileDescription}</div>
-                        <h3>Services</h3>
-                        {
-                            providerServices.length > 0
-                            ?
-                            providerServices.map((service) => {
-                                    return(
-                                        <ServiceCard
-                                            key={service.id}
-                                            service={service}
-                                            providingUserId={provider.id}
-                                            providingUserFirstName={provider.firstName}
-                                            providingUserLastName={provider.lastName}
-                                            isProviderRelated
-                                            embersPerHour={service.creditsPerHour}
-                                        />
-                                    )
-                            })
-                            :
-                            <div className="text">This provider is currently not offering any services.</div>
-                        }
+                    <div className="page-container-item-group">
+                        <h2>Location</h2>
+                        <span className="page-container-content">{provider.postCode} {provider.city}, {providerCountry}</span>
+                        <span className="page-container-content">{provider.travellingForOrders ? 'Travelling For Orders' :  'Not Travelling For Orders'}</span>
                     </div>
-                </div>
+                    <div className="page-container-item-group">
+                        <h2>Description</h2>
+                        <span className="page-container-content">{provider.profileDescription}</span>
+                    </div>
+
+                    <div>{provider.profileDescription}</div>
+                    <h2>Providable Services</h2>
+                    <ServicesList services={providerServices}/>
+                </PageContainer>
                 :
                 <div>Sorry, but there is nothing here...</div>
             }

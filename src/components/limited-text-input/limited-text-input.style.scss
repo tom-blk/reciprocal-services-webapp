@@ -1,5 +1,6 @@
 .limited-message-container{
-    width: 50%;
+    justify-self: center;
+    width: 90%;
 
     @media screen and (max-width: 1440px) {
         width: 60%;
@@ -15,6 +16,7 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-2);
+    padding: var(--space-2);
 }
 
 .flex-space-between{
