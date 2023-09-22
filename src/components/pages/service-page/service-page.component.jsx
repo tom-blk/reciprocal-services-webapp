@@ -41,7 +41,7 @@ const ServicePage = () => {
         getService(serviceId, displayError)
             .then(response => {setService(response)})
             .catch(error => displayError(error))
-        getLocalServiceSpecificUsers(serviceId, user.country, user.postCode)
+        getLocalServiceSpecificUsers(serviceId, user.country, user.postCode, user.id)
             .then(response => setServiceProviders(response))
             .catch(error => displayError(error))
         getServiceUserAffiliation(user.id, serviceId, displayError)

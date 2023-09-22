@@ -66,6 +66,7 @@ const OrderCard = ({order}) => {
 
     const buttonOnClickHandler = (e) => {
         e.stopPropagation();
+        if(orderStatus.nextStage)
         toggleModal(returnAppropriateOrderModal(tempOrder, orderStatus.nextStage, onOrderStageModified, displayError));
     }
 

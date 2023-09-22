@@ -17,7 +17,7 @@ import './service-card.styles.scss';
 import { UserContext } from "../../../context/user.context";
 
 const ServiceCard = ({ service, providingUserId, providingUserFirstName, providingUserLastName, isProviderRelated, embersPerHour }) => {
-    const { id, icon, name, description } = service;
+    const { creditsPerHour, id, icon, name, description } = service;
 
     const { user } = useContext(UserContext);
     const { toggleModal } = useContext(ModalContext);
@@ -35,7 +35,7 @@ const ServiceCard = ({ service, providingUserId, providingUserFirstName, providi
             .then(response => setServiceIcon(response))
             .catch(error => displayError(error))
         if(!isProviderRelated)
-        getLocalServiceProviderCount(service.id, user.country, user.postCode)
+        getLocalServiceProviderCount(service.id, user.country, user.postCode, user.id)
             .then(response => setLocalServiceProviderCount(response))
             .catch(error => displayError(error))
     }, [])
@@ -77,7 +77,7 @@ const ServiceCard = ({ service, providingUserId, providingUserFirstName, providi
                 isProviderRelated
                 &&
                 <div className="service-card-center-data-container nowrap">
-                    <span className="bold">{embersPerHour} </span>
+                    <span className="bold">{creditsPerHour} </span>
                     <span>Embers per Hour</span> 
                 </div>
                 }

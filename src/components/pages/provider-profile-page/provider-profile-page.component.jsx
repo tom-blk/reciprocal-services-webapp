@@ -62,24 +62,25 @@ const ProviderProfilePage = () => {
                     <div className="povider-profile-heading-container">
                         <RoundImageContainer picture={profilePictureUrl} serviceOrUser={'user'} size={'round-image-container-page'}/>
                         <div className="name-and-username-container">
-                            <h3 className="overflow-control-wrap">{assertDisplayName(provider)}</h3>
-                            <div className="provider-name overflow-control">{'@' + provider.userName}</div>
+                            <h2 className="overflow-control-wrap">{assertDisplayName(provider)}</h2>
+                            <div className="sub-text overflow-control">{'@' + provider.userName}</div>
                             <RatingDisplayComponent rating={provider.rating} clickable/>
                         </div> 
                     </div>
+
                     <div className="page-container-item-group">
                         <h2>Location</h2>
                         <span className="page-container-content">{provider.postCode} {provider.city}, {providerCountry}</span>
                         <span className="page-container-content">{provider.travellingForOrders ? 'Travelling For Orders' :  'Not Travelling For Orders'}</span>
                     </div>
+
                     <div className="page-container-item-group">
                         <h2>Description</h2>
                         <span className="page-container-content">{provider.profileDescription}</span>
                     </div>
 
-                    <div>{provider.profileDescription}</div>
                     <h2>Providable Services</h2>
-                    <ServicesList services={providerServices}/>
+                    <ServicesList services={providerServices} isProviderRelated/>
                 </PageContainer>
                 :
                 <div>Sorry, but there is nothing here...</div>

@@ -46,9 +46,9 @@ export const getServiceProviderCount = async (serviceId) => {
     }
 }
 
-export const getLocalServiceProviderCount = async (serviceId, userCountry, userPostCode) => {
+export const getLocalServiceProviderCount = async (serviceId, userCountry, userPostCode, userId) => {
     try{
-        const data = await apiCall('/services/get-local-service-provider-count', 'POST', { serviceId: serviceId, country: userCountry, postCode: userPostCode })
+        const data = await apiCall('/services/get-local-service-provider-count', 'POST', { serviceId: serviceId, country: userCountry, postCode: userPostCode, userId: userId })
         return await data;
     }catch(error){
         throw new Error(`Failed to get number of local providers for serviceId ${serviceId}`)
@@ -64,9 +64,9 @@ export const getServiceSpecificUsers = async (serviceId) => {
     }
 }
 
-export const getLocalServiceSpecificUsers = async (serviceId, country, postCode) => {
+export const getLocalServiceSpecificUsers = async (serviceId, country, postCode, userId) => {
     try{
-        const data = await apiCall('/services/get-local-service-specific-users', 'POST', { serviceId: serviceId, country: country, postCode: postCode })
+        const data = await apiCall('/services/get-local-service-specific-users', 'POST', { serviceId: serviceId, country: country, postCode: postCode, userId: userId })
         return await data;
     }catch(error){
         throw new Error(`Failed to get list of providers for serviceId ${serviceId}`)

@@ -80,6 +80,7 @@ const OrderPage = () => {
     }
 
     const buttonOnClickHandler = () => {
+        if(orderStatus.nextStage)
         toggleModal(returnAppropriateOrderModal(tempOrder, orderStatus.nextStage, onOrderStageModified, displayError));
     }
 
@@ -104,14 +105,20 @@ const OrderPage = () => {
     const returnConditionalDateCompleted = () => {
         if(orderStatus.currentStage === 4)
         return(
-            <span>{`Date Completed: ${tempOrder.dateCompleted.toLocaleString()}`}</span>
+            <div className="page-container-item-group">
+                <h2>Date Completed:</h2>
+                <h2 className="page-container-content"> ${tempOrder.dateCompleted.toLocaleString()}</h2>
+            </div>
         )
     }
 
     const returnConditionalTotalEmbers = () => {
         if(orderStatus.currentStage >= 3)
         return(
-                <span className="bold">{`Total Embers: ${tempOrder.hoursProvided * tempOrder.creditsPerHour}`}</span>
+            <div className="page-container-item-group">
+                <h2>Total Embers:</h2>
+                <h2 className="page-container-content">{tempOrder.hoursProvided * tempOrder.creditsPerHour}</h2>
+            </div>
         )
     }
 
@@ -121,9 +128,9 @@ const OrderPage = () => {
                 tempOrder && service && correspondingUser
                 ?
                 <Fragment>
-                    <div className="transaction-page-heading">
+                    <div className="order-page-heading">
                         <RoundImageContainer picture={serviceIcon} serviceOrUser={'service'} size={'round-image-container-page'}/>
-                        <div className="flex overflow-control">
+                        <div className="order-page-heading-flex overflow-control">
                             <h1 className="overflow-control-wrap">{`Order Of ${service.name}`}</h1>
                             <div className="flex">
                             <ButtonComponent 
@@ -137,13 +144,23 @@ const OrderPage = () => {
                         </div>
                     </div>
 
-                    <span>{`${orderStatus.correspondingUserRole}: ${correspondingUser.firstName} ${correspondingUser.lastName}`}</span>
-                    <span>{`Date Issued: ${tempOrder.dateIssued.toLocaleString()}`}</span>
+                    <div className="page-container-item-group">
+                        <h2>{`${orderStatus.correspondingUserRole}:`}</h2>
+                        <h2 className="page-container-content">{`${correspondingUser.firstName} ${correspondingUser.lastName}`}</h2>
+                    </div>
+
+                    <div className="page-container-item-group">
+                        <h2>Date Issued:</h2>
+                        <h2 className="page-container-content">{tempOrder.dateIssued.toLocaleString()}</h2>
+                    </div>
+                    
                     { returnConditionalDateCompleted() }
                     { returnConditionalTotalEmbers() }
 
-                    <span>Message:</span>
-                    <span className="preformatted-message">{tempOrder.message}</span>
+                    <div className="page-container-item-group">
+                        <h2>Message:</h2>
+                        <span className="page-container-content preformatted-message">{tempOrder.message}</span>
+                    </div>
                 </Fragment>
                 :
                 <span>Something went wrong...</span>
