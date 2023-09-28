@@ -28,7 +28,7 @@ I will try to resolve the issues as soon as possible and if necessary open the p
 - implement JWTs properly to secure authentication
 - more testing
 
-## Adiitional features to implement
+## Additional features to implement
 
 - user feedback (users can check boxes while rating provider that are predefined positives/negatives to justify rating)
 - add location library to meaningfully seperate communities
