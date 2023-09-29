@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const baseUrl = 'http://localhost:5000';
+const baseUrl = 'http://141.147.52.47:5000';
 
 export const apiCall = async ( endpoint, METHOD, payload ) => {
 
