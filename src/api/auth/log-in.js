@@ -3,7 +3,7 @@ import axios from 'axios';
 export const logIn = async (email, password) => {
     
     try{
-        const response = await axios.post(`http://localhost:5000/auth/log-in`, {
+        const response = await axios.post(`http://141.147.52.47/auth/log-in`, {
             email: email,
             password: password,
         }, {withCredentials: true})
