@@ -16,12 +16,11 @@ import EditUserProfile from './routes/edit-user-profile/edit-user-profile.compon
 import IncomingOrders from './routes/incoming-orders/incoming-orders.component';
 import OutgoingOrders from './routes/outgoing-orders/outgoing-orders.component';
 import EditUserServicesList from './components/edit-user-services/edit-user-services.component';
+import FirstTimeVisitModal from './components/modals/firstTimeVisit/first-time-visit-modal.component';
 
 import { ModalContext } from './context/modal.context';
 
 import './App.styles.scss';
-import FirstTimeVisitModal from './components/modals/firstTimeVisit/first-time-visit-modal.component';
-
 
 const App = () => {
 
@@ -31,8 +30,6 @@ const App = () => {
     if(!localStorage.getItem('prometheusFirstTimeVisitToken'))
       toggleModal(<FirstTimeVisitModal/>)
   }, [])
-
-  
 
   return (
     <Routes>
