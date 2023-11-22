@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router';
+import { HashRouter } from 'react-router-dom';
 
 import { useContext, useEffect } from 'react';
 
@@ -32,7 +33,8 @@ const App = () => {
   }, [])
 
   return (
-    <Routes>
+    <HashRouter basename='/frontend.prometheus-backend.top'>
+      <Routes>
         <Route path='/' element={<Nav/>} >
           <Route index element={<Home/>} />
           <Route path='/services' >
@@ -59,7 +61,8 @@ const App = () => {
         </Route>
         <Route path='/login' element={<LogIn/>} />
         <Route path='/sign-up' element={<SignUp/>} />
-    </Routes>      
+      </Routes>   
+    </HashRouter>   
   );
 }
 
