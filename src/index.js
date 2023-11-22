@@ -6,7 +6,7 @@ import ModalContextProvider from './context/modal.context';
 import UserContextProvider from './context/user.context';
 import OrderContextProvider from './context/order.context';
 
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 
 import AlertMessageList from './components/alerts/alert-message-list/alert-message-list.component';
 import Modal from './components/modals/modal.component';
@@ -18,7 +18,7 @@ import Background from './utils/background/background.component';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <HashRouter basename='/frontend.prometheus-backend.top'>
       <AlertMessageContextProvider>
         <UserContextProvider>
           <OrderContextProvider>
@@ -32,6 +32,6 @@ root.render(
           </OrderContextProvider>
         </UserContextProvider>
       </AlertMessageContextProvider>
-    </BrowserRouter>
+    </HashRouter>
   </React.StrictMode>
 );

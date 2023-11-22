@@ -33,7 +33,6 @@ const App = () => {
   }, [])
 
   return (
-    <HashRouter basename='/frontend.prometheus-backend.top'>
       <Routes>
         <Route path='/' element={<Nav/>} >
           <Route index element={<Home/>} />
@@ -61,8 +60,7 @@ const App = () => {
         </Route>
         <Route path='/login' element={<LogIn/>} />
         <Route path='/sign-up' element={<SignUp/>} />
-      </Routes>   
-    </HashRouter>   
+      </Routes>  
   );
 }
 
