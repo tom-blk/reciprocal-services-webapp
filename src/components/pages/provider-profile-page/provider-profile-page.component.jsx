@@ -80,7 +80,7 @@ const ProviderProfilePage = () => {
                     </div>
 
                     <h2>Providable Services</h2>
-                    <ServicesList services={providerServices} isProviderRelated/>
+                    <ServicesList services={providerServices} providerInfo={{id: providerId, firstName: provider.firstName, lastName: provider.lastName}}/>
                 </PageContainer>
                 :
                 <div>Sorry, but there is nothing here...</div>

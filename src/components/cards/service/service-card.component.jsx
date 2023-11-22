@@ -16,8 +16,9 @@ import { getFileUrl } from "../../../utils/web3storage/web3storage";
 import './service-card.styles.scss';
 import { UserContext } from "../../../context/user.context";
 
-const ServiceCard = ({ service, providingUserId, providingUserFirstName, providingUserLastName, isProviderRelated, embersPerHour }) => {
+const ServiceCard = ({ service, providerInfo }) => {
     const { creditsPerHour, id, icon, name, description } = service;
+    const { providingUserId, providingUserFirstName, providingUserLastName } = providerInfo;
 
     const { user } = useContext(UserContext);
     const { toggleModal } = useContext(ModalContext);
@@ -52,7 +53,7 @@ const ServiceCard = ({ service, providingUserId, providingUserFirstName, providi
                 serviceId={id} 
                 serviceName={name} 
                 serviceOrderedCallback={setServiceOrderedHandler}
-                embersPerHour={embersPerHour}
+                embersPerHour={creditsPerHour}
             />
         );
     }

@@ -1,7 +1,7 @@
 import ServiceCard from "../../cards/service/service-card.component"
 import '../card-list/card-list.styles.scss';
 
-const ServicesList = ({ services, isProviderRelated }) => {
+const ServicesList = ({ services, providerInfo }) => {
 
     return(
         <div className="card-list">
@@ -15,7 +15,7 @@ const ServicesList = ({ services, isProviderRelated }) => {
                         key={service.id}
                         service={service}
                         orderButtonExists={false}
-                        isProviderRelated={isProviderRelated}
+                        providerInfo={providerInfo}
                     />
                 )
             })
