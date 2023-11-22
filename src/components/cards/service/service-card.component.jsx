@@ -35,7 +35,7 @@ const ServiceCard = ({ service, providerInfo }) => {
         getFileUrl(icon, displayError)
             .then(response => setServiceIcon(response))
             .catch(error => displayError(error))
-        if(!isProviderRelated)
+        if(!providerInfo)
         getLocalServiceProviderCount(service.id, user.country, user.postCode, user.id)
             .then(response => setLocalServiceProviderCount(response))
             .catch(error => displayError(error))
@@ -75,7 +75,7 @@ const ServiceCard = ({ service, providerInfo }) => {
                 </div>
 
                 {
-                isProviderRelated
+                providerInfo
                 &&
                 <div className="service-card-center-data-container nowrap">
                     <span className="bold">{creditsPerHour} </span>
@@ -83,10 +83,10 @@ const ServiceCard = ({ service, providerInfo }) => {
                 </div>
                 }
 
-                { !isProviderRelated && <div className="nowrap">{`Providers in Your ZIP Area: ${localServiceProviderCount.providerCount}`}</div> }
+                { !providerInfo && <div className="nowrap">{`Providers in Your ZIP Area: ${localServiceProviderCount.providerCount}`}</div> }
 
                 {
-                    isProviderRelated 
+                    providerInfo 
                     &&
                     <ButtonComponent 
                         buttonType={serviceOrdered ? 'inactive' : 'confirm'}
