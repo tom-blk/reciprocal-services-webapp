@@ -1,13 +1,11 @@
 import axios from "axios"
 
-const baseUrl = 'http://prometheus-backend.top';
-
 export const apiCall = async ( endpoint, METHOD, payload ) => {
 
     console.log('called with ' + endpoint + ' endpoint');
     
     const parameters = {
-        url: `${baseUrl}${endpoint}`,
+        url: `${process.env.REACT_APP_SERVER_LOCATION}${endpoint}`,
         method: METHOD,
         headers: {
             Accept: "application/json",

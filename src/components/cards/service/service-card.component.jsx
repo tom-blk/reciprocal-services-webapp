@@ -18,6 +18,8 @@ import { UserContext } from "../../../context/user.context";
 
 const ServiceCard = ({ service, providerInfo }) => {
     const { creditsPerHour, id, icon, name, description } = service;
+
+    // This is undefined in some cases, causing an error
     const { providingUserId, providingUserFirstName, providingUserLastName } = providerInfo;
 
     const { user } = useContext(UserContext);
