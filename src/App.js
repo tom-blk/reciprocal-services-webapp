@@ -32,6 +32,8 @@ const App = () => {
       toggleModal(<FirstTimeVisitModal/>)
   }, [])
 
+  console.log(`Current Environment: ${process.env.REACT_APP_CURRENT_ENVIRONMENT}`)
+
   return (
       <Routes>
         <Route path='/' element={<Nav/>} >
