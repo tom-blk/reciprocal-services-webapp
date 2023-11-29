@@ -1,14 +1,14 @@
-import axios from 'axios';
+import { apiCall } from '../api-call';
 
 export const logIn = async (email, password) => {
     
     try{
-        const response = await axios.post(`http://prometheus-backend.top/auth/log-in`, {
+        const data = await apiCall(`/auth/log-in`, 'POST', {
             email: email,
             password: password,
-        }, {withCredentials: true})
-        return response;
+        })
+        return data;
     } catch(error){
-        throw new Error(error.response.data)
+        throw new Error(error)
     }
 }

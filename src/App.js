@@ -1,5 +1,4 @@
 import { Route, Routes } from 'react-router';
-import { HashRouter } from 'react-router-dom';
 
 import { useContext, useEffect } from 'react';
 

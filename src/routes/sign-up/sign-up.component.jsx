@@ -85,7 +85,7 @@ const SignUp = () => {
             displaySuccessMessage('Account successfully created!')
                 setTimeout(() => {
                     navigate('/')
-                }, 3000)
+                }, 1500)
         } catch(error){
             displayError(error)
         }

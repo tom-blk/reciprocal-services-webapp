@@ -19,9 +19,6 @@ import { UserContext } from "../../../context/user.context";
 const ServiceCard = ({ service, providerInfo }) => {
     const { creditsPerHour, id, icon, name, description } = service;
 
-    // This is undefined in some cases, causing an error
-    const { providingUserId, providingUserFirstName, providingUserLastName } = providerInfo;
-
     const { user } = useContext(UserContext);
     const { toggleModal } = useContext(ModalContext);
     const { displayError } = useContext(AlertMessageContext);
@@ -49,9 +46,9 @@ const ServiceCard = ({ service, providerInfo }) => {
         e.stopPropagation();
         toggleModal(
             <OrderServiceModal
-                providingUserId={providingUserId} 
-                providingUserFirstName={providingUserFirstName}
-                providingUserLastName={providingUserLastName}
+                providingUserId={providerInfo.providingUserId} 
+                providingUserFirstName={providerInfo.firstName}
+                providingUserLastName={providerInfo.lastName}
                 serviceId={id} 
                 serviceName={name} 
                 serviceOrderedCallback={setServiceOrderedHandler}

@@ -1,9 +1,9 @@
-import axios from 'axios';
+import { apiCall } from '../api-call';
 
-export const logOut = async (email, password) => {
+export const logOut = async () => {
     
     try{
-        const response = await axios.post(`http://prometheus-backend.top/auth/log-out`, {}, {withCredentials: true})
+        const response = await apiCall(`/auth/log-out`, 'GET')
         return response;
     } catch(error){
         throw new Error(error.response.data)

@@ -1,9 +1,9 @@
-import axios from 'axios';
+import { apiCall } from '../api-call';
 
 export const register = async (username, email, password, onErrorFunction, onSuccessFunction) => {
     
     try{
-        const response = await axios.post(`http://prometheus-backend.top/auth/register`, {
+        const response = await apiCall(`/auth/register`, 'POST', {
             username: username,
             email: email,
             password: password,

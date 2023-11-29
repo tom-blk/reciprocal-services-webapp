@@ -27,7 +27,8 @@ const LogIn = () => {
     const loginButtonOnClickHandler = () => {
         logIn(email, password, displayError, displaySuccessMessage)
             .then(response => {
-                if(response.status === 200){
+                console.log(response);
+                if(response === 'Login Successful'){
                     setLogInForm(emptyLoginForm)
                     getUser()
                         .then(response => {
