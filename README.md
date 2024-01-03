@@ -1,42 +1,27 @@
 # Prometheus Webbapp
 
+## Visit the application at https://frontend.prometheus-backend.top (unfortunate domain name, I know...)
+
 ## Associated Backend: https://gitfront.io/r/tom-blk/XivoMxcDC6rw/reciprocal-services-backend/
 
 ## Purpose
 
 ## The main purpose of this app is to serve as a practice/portfolio project, because I wanted to do something different than an Instagram clone
 
-The motivation for this application is that is becoming more likely and likely that central bank digital currencies will be introduced into society which might have implications on the economic independence of the individual.
-I started development with the aim to provide people who are reluctant to use CBDC an alternative, so that they are able to at least trade basic neccessities within their community.
+## Idea
+The idea behind this project was that it might be a good idea to split economic goods and services into two classes, one being centralized and focused on trading non-essential goods and services (regular economy) and one being decentralized, where people serperated by their location (in this case postal code) can have their own 'trading clusters' where they can provide essential goods and services (local food etc.) to each other locally. This would improve the stability, ecology and health implications of the economy.
 
-### It is not intended for the applicaton to solve economic disputes or provide complete economic security, it is merely a framework to find people in your community who provide a service, to contact them and to keep track of transactions.
-### The concept relies on social aspects as well as on technological ones. The technology aims to tie communities closer together so that accountability is achieved through that factor. 
+## Problems
+Without using digital methods of identification it is extremely hard to provide currency to the users of the system to enable them to start trading with one another because granting them a certain amount of currency when creating their account would just incentivize them to create more accounts when they run out. There could be reward based protocols in place to incentivze the users to legitimize each ohters transactions in exchange for a small currency reward (this is prossible because the users are all in the same location), but it would likely be too tedious of a process for most people so the user base would be rather small. A possible 'soft fix' could be to require mobile number verification, which would make it harder, but of course not impossible to commit fraud on the platform. The expectation behind this approach would be that the economic incentives to commit fraud in a local community aren't high enough to commit to the the constant requirement of new phone numbers and the risk of being found out if using new accounts regularly. And of course the problem of digital curency and the inconvenience of their use is also a problem. At the moment currency and the transaction of it only exists on the database, but if this were to be a real application, more security and of course immutability would be required. To achieve that, while maintaining the maximum amount of convenience for the user, one could implement a layer 2 cryptocurrency on the Mina Protocol (https://minaprotocol.com) as it would allow users to participate in the network from their smartphone instead of needing large amounts of space (and possibly computational power) on their computers.
 
 ## Status of development
 
-As of this moment there are many issues with the application and this is not a fucntional MVP yet.
-I will try to resolve the issues as soon as possible and if necessary open the project up to collaboration.
-
-## Steps to reach MVP status
-
-- finish ember/credit implementation (get embers/hour * hours on each transaction and deduct if user embers > transaction embers, else revert || fix bug on updating embers per hour on user services)
-- fix error handling on api calls
-- implement always visible ember counter
-- error handling on wrong login credentials
-- order card design could be updated so that it looks better when 2 buttons are contained in the card
-- add CSS media queries to make design responsive
-- implement JWTs properly to secure authentication
-- more testing
-
-## Additional features to implement
+The application is functional, but not applicable to the real world yet, due to the problems describled in the Problems section. As of this moment there is no email verification, so new users can type in whatever they want as long as it contains an '@'. Upon account creation new users are awarded with 100 'Embers', the currency used on the application.
+  
+## Additional features to implement besides the ones mentioned before
 
 - user feedback (users can check boxes while rating provider that are predefined positives/negatives to justify rating)
-- add location library to meaningfully seperate communities
 - instant messaging service to let corresponding users communicate in real time without switching to other applications
-
-## Possible additional features that require assistance
-
-- create layer 2 cryptocurrency on a protocol like Mina, so that users can easily run a node on their smartphone and embers can be tracked on-chain to provide trustlessness and an upper limit to community member count (requires bc dev specialized on Mina, better UX of the web3 space in general and better understanding by the public of decentralized technology)
 
 ---------------------------------------------------------
 
