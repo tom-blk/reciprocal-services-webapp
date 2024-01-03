@@ -2,12 +2,13 @@
     align-items: end;
     align-self: center;
     display: flex;
-    width: 90%;
+    width: 100%;
     gap: var(--space-5);
 
-    @media screen and (max-width: 425px) {
+    @media screen and (max-width: 768px) {
         flex-direction: column;
-        width: 100%;
+        gap: var(--space-4);
+        align-items: center;
     }
 }
 

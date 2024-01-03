@@ -15,6 +15,10 @@
     &:hover + .on-hover-edit-image{
         display: block;
     }
+
+    @media screen and (max-width: 1024px) {
+        //display: block;
+    }
 }
 
 .on-hover-edit-image{
@@ -30,6 +34,10 @@
     width: 50%;
 
     &:hover{
+        display: block;
+    }
+
+    @media screen and (max-width: 1024px) {
         display: block;
     }
 }

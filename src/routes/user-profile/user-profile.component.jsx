@@ -70,11 +70,17 @@ const UserProfile = () => {
                         </div>
                         <RoundButton size={getComputedStyle(document.body).getPropertyValue('--round-button')} type={'edit'} onClickHandler={navigateToUserEditProfile}/>
                     </div>
-                    <div className="page-container-item-group">
-                        <h2>Location</h2>
-                        <span className="page-container-content">{user.postCode} {user.city}, {userCountry}</span>
-                        <span className="page-container-content">{user.travellingForOrders ? 'Travelling For Orders' :  'Not Travelling For Orders'}</span>
-                    </div>
+                    {
+                        user.postCode || user.city || userCountry
+                        ?
+                        <div className="page-container-item-group">
+                            <h2>Location</h2>
+                            <span className="page-container-content">{user.postCode}{user.city && ` ${user.city}`}{(user.city && userCountry || user.postCode && userCountry) && ', '}{userCountry && `${userCountry}`}</span>
+                            <span className="page-container-content">{user.travellingForOrders ? 'Travelling For Orders' :  'Not Travelling For Orders'}</span>
+                        </div>
+                        :
+                        <Fragment/>
+                    }
                     <div className="page-container-item-group">
                         <h2>Description</h2>
                         <span className="page-container-content">{profileDescription}</span>

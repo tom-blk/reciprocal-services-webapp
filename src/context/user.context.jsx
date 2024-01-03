@@ -27,7 +27,7 @@ export const UserContextProvider = (input) => {
                 setUser(response)
             })
             .catch(error => {
-                displayError(error)
+                console.log('User not authenticated, please log in.')
             }); 
     }
 

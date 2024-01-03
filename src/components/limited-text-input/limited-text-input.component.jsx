@@ -19,6 +19,11 @@ const LimitedTextInput = ({inputLabel, numberOfTextRows, numberOfCharacters, onC
     }
 
     useEffect(() => {
+        if(defaultValue)
+            setInput(defaultValue)
+    }, [])
+
+    useEffect(() => {
         checkLimitAndTriggerHandler()
     }, [input])
 
