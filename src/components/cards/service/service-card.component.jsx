@@ -40,7 +40,7 @@ const ServiceCard = ({ service, providerInfo }) => {
         e.stopPropagation();
         toggleModal(
             <OrderServiceModal
-                providingUserId={providerInfo.providingUserId} 
+                providingUserId={providerInfo.id} 
                 providingUserFirstName={providerInfo.firstName}
                 providingUserLastName={providerInfo.lastName}
                 serviceId={id} 
