@@ -1,7 +1,6 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 
 import { ModalContext } from "../../../context/modal.context";
-import { AlertMessageContext } from "../../../context/alert-message.context";
 
 import ButtonComponent from "../../buttons/button.component";
 import RoundImageContainer from "../../round-image-container/round-image-container.component";
@@ -12,28 +11,16 @@ import RatingDisplayComponent from "../../rating/rating-display-component/rating
 import { useNavigate } from "react-router";
 import { assertDisplayName } from "../../../helper-functions/users/assertDisplayName";
 
-import { getFileUrl } from "../../../utils/web3storage/web3storage";
-
 import './provider-card.styles.scss';
 
-
 const ProviderCard = ({ user, serviceId, serviceName, isServiceRelated, embersPerHour }) => {
-    const {id, firstName, lastName, profilePicture, rating, ratingCount} = user;
+    const {id, firstName, lastName, rating, ratingCount} = user;
 
     const { toggleModal } = useContext(ModalContext);
-    const { displayError } = useContext(AlertMessageContext);
 
     const navigate = useNavigate()
 
     const [serviceOrdered, setServiceOrdered] = useState(false);
-    const [profilePictureUrl, setProfilePictureUrl] = useState(false);
-
-    useEffect(() => {
-        if(profilePicture)
-        getFileUrl(profilePicture, displayError)
-            .then(response => setProfilePictureUrl(response))
-            .catch(error => displayError(error))
-    }, [])
 
     const openOrderServiceModal = (e) => {
         e.stopPropagation();
@@ -63,7 +50,7 @@ const ProviderCard = ({ user, serviceId, serviceName, isServiceRelated, embersPe
             <div className={`provider-card-main-container ${isServiceRelated ? 'provider-card-main-container-grid' : 'provider-card-main-container-flex'}`}>
 
                 <div className="provider-card-left-data-container overflow-control">
-                    <RoundImageContainer picture={profilePictureUrl} serviceOrUser={'user'} size={'round-image-container-card'}/>
+                    <RoundImageContainer serviceOrUserId={id} serviceOrUser={'user'} size={'round-image-container-card'}/>
                     <div className="heading-secondary overflow-control">{assertDisplayName(user)}</div>  
                 </div>
 

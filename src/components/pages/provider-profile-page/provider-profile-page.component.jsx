@@ -6,15 +6,14 @@ import { AlertMessageContext } from "../../../context/alert-message.context";
 
 import RatingDisplayComponent from "../../rating/rating-display-component/rating-display.component";
 import RoundImageContainer from "../../round-image-container/round-image-container.component";
-import ServiceCard from "../../cards/service/service-card.component";
 import PageContainer from "../../../utils/page-container/page-container.component";
+import ServicesList from "../../card-lists/services-list/services-list.component";
 
 import './provider-profile-page.styles.scss';
 
 import { getSingleUser, getUserCountry, getUserSpecificServices } from "../../../api/users/read";
-import { getFileUrl } from "../../../utils/web3storage/web3storage";
 import { assertDisplayName } from "../../../helper-functions/users/assertDisplayName";
-import ServicesList from "../../card-lists/services-list/services-list.component";
+
 
 
 const ProviderProfilePage = () => {
@@ -26,7 +25,6 @@ const ProviderProfilePage = () => {
 
     const [provider, setProvider] = useState(undefined);
     const [providerServices, setProviderServices] = useState([]);
-    const [profilePictureUrl, setProfilePictureUrl] = useState(undefined);
     const [providerCountry, setProviderCountry] = useState(undefined);
 
     useEffect(() => {
@@ -39,14 +37,6 @@ const ProviderProfilePage = () => {
     }, [])
 
     useEffect(() => {
-        console.log(provider)
-    }, [provider])
-
-    useEffect(() => {
-        if(provider?.profilePicture)
-        getFileUrl(provider.profilePicture, displayError)
-            .then(response => setProfilePictureUrl(response))
-            .catch(error => displayError(error))
         if(provider)
         getUserCountry(provider.country)
             .then(response => setProviderCountry(response.name))
@@ -60,7 +50,7 @@ const ProviderProfilePage = () => {
                 ?
                 <PageContainer>
                     <div className="povider-profile-heading-container">
-                        <RoundImageContainer picture={profilePictureUrl} serviceOrUser={'user'} size={'round-image-container-page'}/>
+                        <RoundImageContainer serviceOrUserId={providerId} serviceOrUser={'user'} size={'round-image-container-page'}/>
                         <div className="name-and-username-container">
                             <h2 className="overflow-control-wrap">{assertDisplayName(provider)}</h2>
                             <div className="sub-text overflow-control">{'@' + provider.userName}</div>

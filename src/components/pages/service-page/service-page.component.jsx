@@ -8,20 +8,17 @@ import ButtonComponent from "../../buttons/button.component";
 import PageContainer from "../../../utils/page-container/page-container.component";
 import RoundImageContainer from "../../round-image-container/round-image-container.component";
 import ProviderCard from "../../cards/provider-card/provider-card.component";
-import ConfirmOrCancelModal from "../../modals/confirmOrCancel/confirm-or-cancel-modal.component";
+import AddOrRemoveSingleUserServiceModal from "../../modals/addSingleServiceToUserServices/add-or-remove-single-user-service-modal.component";
 
 import { useParams } from "react-router"
 
-import { getAverageCreditsPerHour, getLocalServiceSpecificUsers, getServiceSpecificUsers } from "../../../api/services/read";
+import { getAverageCreditsPerHour, getLocalServiceSpecificUsers} from "../../../api/services/read";
 import { getFileUrl } from "../../../utils/web3storage/web3storage";
-import { removeServiceFromUserServices } from "../../../api/users/update";
-import { addServiceToUserServices } from "../../../api/users/update";
 import { getServiceUserAffiliation } from "../../../api/users/read";
 import { getService } from "../../../api/services/read";
 
 import './service-page.styles.scss';
-import AddSingleServiceToUserServicesModal from "../../modals/addSingleServiceToUserServices/add-or-remove-single-user-service-modal.component";
-import AddOrRemoveSingleUserServiceModal from "../../modals/addSingleServiceToUserServices/add-or-remove-single-user-service-modal.component";
+
 
 const ServicePage = () => {
 
@@ -83,7 +80,7 @@ const ServicePage = () => {
                 <PageContainer>
                     <div className="service-page-heading">
                         <div className="flex overflow-control">
-                            <RoundImageContainer picture={serviceIcon} serviceOrUser={'service'} size={'round-image-container-page'}/>
+                            <RoundImageContainer serviceOrUserId={serviceId} picture={serviceIcon} serviceOrUser={'service'} size={'round-image-container-page'}/>
                             <div className="heading-primary overflow-control-wrap">{service.name}</div>
                         </div>
                         <ButtonComponent 

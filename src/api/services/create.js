@@ -1,32 +1,28 @@
-import { uploadFile } from "../../utils/web3storage/web3storage";
 import { apiCall } from "../api-call";
 
-export const createService = async (serviceData, onSuccessFunction, onErrorFunction) => {
+export const createService = async (serviceData) => {
     try{
-        if(!serviceData.icon){
-            const data = await apiCall('/services/create-service', 'POST', {name: serviceData.name, description: serviceData.description, icon: undefined});
-            return data;
-        }else{
-            const rootCid = uploadFile([serviceData.icon], onSuccessFunction, onErrorFunction);
-            const data = await apiCall('/services/create-service', 'POST', {name: serviceData.name, description: serviceData.description, icon: rootCid})
-            return data;
-        }
+
+        const serviceDataForm = new FormData(); //!Needs to be in that format for Multer to accept the image on the backend
+        serviceDataForm.append('picture', serviceData.picture); //! Name on backend and this name need to be the same
+        serviceDataForm.append('name', serviceData.name); 
+        serviceDataForm.append('description', serviceData.description);
+        serviceDataForm.append('userId', serviceData.userId);
+        serviceDataForm.append('creditsPerHour', serviceData.creditsPerHour);
+
+        const data = await apiCall('/services/create-service', 'POST', {serviceDataForm: serviceDataForm})
+        return data;
     } catch(error){
         console.log(error)
         throw new Error('Failed to create service...')
     }
 }
 
-export const createServiceAndAddToUserServices = async (serviceData, userId, credtisPerHour, onSuccessFunction, onErrorFunction) => {
+export const createServiceAndAddToUserServices = async (serviceData, userId, credtisPerHour) => {
     try{
-        if(!serviceData.icon){
-            const data = await apiCall('/services/create-service-and-add-to-user-services', 'POST', {name: serviceData.name, description: serviceData.description, icon: undefined, userId: userId, creditsPerHour: credtisPerHour});
-            return data;
-        }else{
-            const rootCid = await uploadFile([serviceData.icon], onSuccessFunction, onErrorFunction);
-            const data = await apiCall('/services/create-service-and-add-to-user-services', 'POST', {name: serviceData.name, description: serviceData.description, icon: rootCid, userId: userId, creditsPerHour: credtisPerHour});
-            return data;
-        }
+        console.log(serviceData);
+        const data = await apiCall('/services/create-service-and-add-to-user-services', 'POST', {name: serviceData.name, description: serviceData.description, userId: userId, creditsPerHour: credtisPerHour});
+        return data;
     } catch(error){
         console.log(error)
         throw new Error('Failed to create service and add to services...')

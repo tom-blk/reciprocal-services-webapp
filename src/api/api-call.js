@@ -19,6 +19,7 @@ export const apiCall = async ( endpoint, METHOD, payload ) => {
         const response = await axios(parameters)
         return await response.data
     } catch(error){
+        console.log(error);
         if(error.response === undefined){
             console.log(error)
             throw new Error('Connection Failed.')
@@ -38,7 +39,7 @@ export const apiCall = async ( endpoint, METHOD, payload ) => {
         }
         if(error.response.status === 500){
             console.log(error)
-            throw new Error('Error 500: Server Error.')
+            throw new Error('Error 500: Internal Server Error.')
         }
     }
 }

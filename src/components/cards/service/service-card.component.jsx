@@ -11,13 +11,12 @@ import RoundImageContainer from "../../round-image-container/round-image-contain
 import { useNavigate } from "react-router";
 
 import { getLocalServiceProviderCount } from "../../../api/services/read";
-import { getFileUrl } from "../../../utils/web3storage/web3storage";
 
 import './service-card.styles.scss';
 import { UserContext } from "../../../context/user.context";
 
 const ServiceCard = ({ service, providerInfo }) => {
-    const { creditsPerHour, id, icon, name, description } = service;
+    const { creditsPerHour, id, name, description } = service;
 
     const { user } = useContext(UserContext);
     const { toggleModal } = useContext(ModalContext);
@@ -27,13 +26,8 @@ const ServiceCard = ({ service, providerInfo }) => {
 
     const [serviceOrdered, setServiceOrdered] = useState(false);
     const [localServiceProviderCount, setLocalServiceProviderCount] = useState(0);
-    const [serviceIcon, setServiceIcon] = useState(undefined);
 
     useEffect(() => {
-        if(icon)
-        getFileUrl(icon, displayError)
-            .then(response => setServiceIcon(response))
-            .catch(error => displayError(error))
         if(!providerInfo)
         getLocalServiceProviderCount(service.id, user.country, user.postCode, user.id)
             .then(response => setLocalServiceProviderCount(response))
@@ -66,7 +60,7 @@ const ServiceCard = ({ service, providerInfo }) => {
             
             <div className="service-card-main-data-container">
                 <div className="service-card-left-data-container overflow-control">
-                    <RoundImageContainer picture={serviceIcon} serviceOrUser={'service'} size={'round-image-container-card'}/>
+                    <RoundImageContainer serviceOrUserId={id} serviceOrUser={'service'} size={'round-image-container-card'}/>
                     <div className="overflow-control">
                         <div className="heading-secondary overflow-control">{name}</div>
                         <div className="text overflow-control">{description}</div>

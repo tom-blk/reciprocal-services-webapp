@@ -42,7 +42,7 @@ const ImageCropComponent = ({handleCroppedImage, optionalWidth}) => {
             image.naturalHeight / 100 * percentCrop.height,
             )
             canvas.toBlob((blob) => {
-                handleCroppedImage(new File([blob], `cropped-profile-picture-user-${user.id}`))
+                handleCroppedImage(new File([blob], 'picture'))
             })
         }
     }

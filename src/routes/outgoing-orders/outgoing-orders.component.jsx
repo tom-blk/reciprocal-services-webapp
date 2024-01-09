@@ -19,6 +19,7 @@ const OutgoingOrders = () => {
 
     return(
         <PageContainer>
+            <h1>Outgoing Orders</h1>
             <div>Pending Orders</div>
             <OrdersList orders={[...outgoingOrders.new, ...outgoingOrders.accepted, ...outgoingOrders.fulfilled]}/>
             <div>Completed Orders</div>

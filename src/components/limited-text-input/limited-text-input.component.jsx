@@ -2,11 +2,9 @@ import React, { useEffect, useState } from 'react'
 
 import './limited-text-input.style.scss';
 
-const LimitedTextInput = ({inputLabel, numberOfTextRows, numberOfCharacters, onChangeHandler, defaultValue}) => {
+const LimitedTextInput = ({inputLabel, numberOfTextRows, numberOfCharacters, onChangeHandler, defaultValue, name}) => {
 
     const [input, setInput] = useState('');
-
-    console.log(defaultValue);
 
     const inputLengthBelowLimit = () => input.length <= numberOfCharacters;
 
@@ -33,7 +31,7 @@ const LimitedTextInput = ({inputLabel, numberOfTextRows, numberOfCharacters, onC
                 <span>{inputLabel}</span>
                 <span className={`${!inputLengthBelowLimit() && 'warning-text'}`}>{`${input.length}/${numberOfCharacters} Characters`}</span>
             </div>
-            <textarea defaultValue={defaultValue} className="limited-message-text-area" onChange={e => setInput(e.target.value)} type='text' rows={numberOfTextRows}></textarea>
+            <textarea name={name} defaultValue={defaultValue} className="limited-message-text-area" onChange={e => setInput(e.target.value)} type='text' rows={numberOfTextRows}></textarea>
         </div>
     )
 }

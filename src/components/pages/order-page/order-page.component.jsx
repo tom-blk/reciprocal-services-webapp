@@ -20,7 +20,6 @@ import { useParams } from "react-router";
 import "./order-page.styles.scss"
 import { returnAppropriateOrderModal } from "../../../helper-functions/orders/returnAppropriateOrderModal";
 import { setOrderStageToDenied } from "../../../helper-functions/orders/setOrderStageToDenied";
-import { getFileUrl } from "../../../utils/web3storage/web3storage";
 
 const OrderPage = () => {
 
@@ -34,7 +33,6 @@ const OrderPage = () => {
 
     const [tempOrder, setTempOrder] = useState(undefined); //MIMICS THE CHANGES IN THE DATABASE SO THAT CHANGES BECOME APPARENT WITHOUT HAVING TO REFETCH THE DATA
     const [service, setService] = useState(undefined);
-    const [serviceIcon, setServiceIcon] = useState(undefined);
     const [correspondingUser, setCorrespondingUser] = useState(undefined);
     
     const orderStatus = useOrderStatus(tempOrder, user.id);
@@ -61,13 +59,6 @@ const OrderPage = () => {
             }
         }
     }, [tempOrder])
-
-    useEffect(() => {
-        if(service)
-        if(service.icon)
-        getFileUrl(service.icon)
-            .then(response => setServiceIcon(response));
-    }, [service])
 
      // Needs to be passed all the way through to the function that ultimately calls the api to update the database so that it can update the frontend after update is successful (makes updating process feel faster)
      const onOrderStageModified = () => {
@@ -107,7 +98,7 @@ const OrderPage = () => {
         return(
             <div className="page-container-item-group">
                 <h2>Date Completed:</h2>
-                <h2 className="page-container-content"> ${tempOrder.dateCompleted.toLocaleString()}</h2>
+                <h2 className="page-container-content"> {tempOrder.dateCompleted.toLocaleString()}</h2>
             </div>
         )
     }
@@ -129,7 +120,7 @@ const OrderPage = () => {
                 ?
                 <Fragment>
                     <div className="order-page-heading">
-                        <RoundImageContainer picture={serviceIcon} serviceOrUser={'service'} size={'round-image-container-page'}/>
+                        <RoundImageContainer serviceOrUserId={service.id} serviceOrUser={'service'} size={'round-image-container-page'}/>
                         <div className="order-page-heading-flex overflow-control">
                             <h1 className="overflow-control-wrap">{`Order Of ${service.name}`}</h1>
                             <div className="flex">

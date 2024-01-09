@@ -19,7 +19,6 @@ import { useNavigate } from "react-router";
 import { updateUser } from "../../api/users/update";
 import { getUserSpecificServices } from "../../api/users/read";
 import { getAllCountries } from "../../api/countries/read";
-import { getFileUrl } from "../../utils/web3storage/web3storage";
 
 import './edit-user-profile.styles.scss';
 
@@ -31,7 +30,6 @@ const EditUserProfile = () => {
 
     const [tempUser, setTempUser] = useState(user);
     const [userServices, setUserServices] = useState([]);
-    const [profilePicture, setProfilePicture] = useState(undefined);
 
     const navigate = useNavigate();
 
@@ -41,23 +39,13 @@ const EditUserProfile = () => {
             .catch(error => displayError(error));
     }, [])
 
-    useEffect(() => {
-        if(user.profilePicture)
-        getFileUrl(user.profilePicture, displayError)
-            .then(response => setProfilePicture(response));
-    }, [user])
-
     const selectNewProfilePicture = () => {
         toggleModal(
             <SelectProfilePictureModal
                 userId={user.id}
-                setUpdatedProfilePictureCallback={setUpdatedProfilePicture}
+                setUpdatedProfilePictureCallback={() => {return}}
             />
         );
-    }
-
-    const setUpdatedProfilePicture = (newProfilePicture) => {
-        setProfilePicture(URL.createObjectURL(newProfilePicture))
     }
 
     const editServicesButtonOnClickHandler = () => navigate(`/userProfile-edit/edit-services`);
@@ -83,7 +71,7 @@ const EditUserProfile = () => {
         <PageContainer>
             <h2>Profile Picture</h2>
             <OnHoverEdit onClickFunction={selectNewProfilePicture} size={'round-image-container-page'}>
-                <RoundImageContainer size={'round-image-container-page'} serviceOrUser={'user'} picture={profilePicture}/>
+                <RoundImageContainer  serviceOrUserId={user.id} size={'round-image-container-page'} serviceOrUser={'user'} picture={user.profilePicture}/>
             </OnHoverEdit>
             <LimitedTextInput inputLabel={'First Name'} defaultValue={user.firstName} numberOfTextRows={1} numberOfCharacters={45} onChangeHandler={(input) => {setTempUser({...tempUser, firstName: input})}}/>
             <LimitedTextInput inputLabel={'Last Name'} defaultValue={user.lastName} numberOfTextRows={1} numberOfCharacters={45} onChangeHandler={(input) => {setTempUser({...tempUser, lastName: input})}}/>

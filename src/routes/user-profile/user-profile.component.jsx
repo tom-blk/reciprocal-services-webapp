@@ -14,10 +14,8 @@ import { useNavigate } from "react-router";
 import { assertDisplayName } from "../../helper-functions/users/assertDisplayName";
 
 import { getUserCountry, getUserSpecificServices } from "../../api/users/read";
-import { getFileUrl } from "../../utils/web3storage/web3storage";
 
 import './user-profile.styles.scss';
-
 
 const UserProfile = () => {
 
@@ -26,7 +24,6 @@ const UserProfile = () => {
 
     const { displayError } = useContext(AlertMessageContext);
 
-    const [profilePicture, setProfilePicture] = useState(undefined);
     const [userServices, setUserServices] = useState([]);
     const [userCountry, setUserCountry] = useState('');
 
@@ -41,14 +38,6 @@ const UserProfile = () => {
             .catch(error => displayError(error))
     }, [])
 
-    useEffect(() => {
-        if(user)
-        if(user.profilePicture)
-        getFileUrl(user.profilePicture, displayError)
-            .then(response => setProfilePicture(response))
-            .catch(error => displayError(error))
-    }, [user])
-
     const navigateToUserEditProfile = () => {
         navigate('/userProfile-edit')
     }
@@ -61,7 +50,7 @@ const UserProfile = () => {
                 <Fragment>
                     <div className="profile-heading-and-edit-button-container">
                         <div className="user-profile-heading-container">
-                            <RoundImageContainer size="round-image-container-page" serviceOrUser={'user'} picture={profilePicture}/>
+                            <RoundImageContainer serviceOrUserId={user.id} size="round-image-container-page" serviceOrUser={'user'} picture={user.profilePicture}/>
                             <div className="name-and-username-container">
                                 <h2 className="overflow-control">{assertDisplayName(user)}</h2>
                                 <span className="sub-text">{`@${userName}`}</span>

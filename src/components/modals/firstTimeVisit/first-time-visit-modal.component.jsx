@@ -5,8 +5,6 @@ import { ModalContext } from '../../../context/modal.context'
 import Distancer from '../../../utils/distancer/distancer.component'
 import ButtonComponent from '../../buttons/button.component'
 
-import { ReactComponent as Arrow} from '../../../assets/vectors/arrow.svg';
-
 import './first-time-visit-modal.styles.scss';
 
 const FirstTimeVisitModal = () => {
@@ -47,8 +45,9 @@ const FirstTimeVisitModal = () => {
             </div>
             <Distancer size={2}/>
             <div className='disclaimer-text'>
-                Disclaimer: The Embers that you trade are not backed by a blockchain or similar technology, so this is not a replacement for 'real' currencies and the database that they are being stored on is not designed for maximum security.
-                The Platform is not to be used to circumvent paying taxes, it is merely a way to share skills and further cooperation within a community.
+                Disclaimer: So far this application is not functional in the real world for a number of reasons, but you are welcome to try it out anyway.
+                The Embers that you trade are not backed by a blockchain or similar technology, so this is not a replacement for 'real' currencies and the database that they are being stored on is not designed for maximum security.
+                Most of the data that you upload here can be accessed by anyone, as anyone can register for this app and view your profile so do not store any private or sensitive data. Profile pictures are saved permanently on web3.storage. You can learn about that <a href='https://web3.storage/products/web3storage/'>here</a>.
             </div>
             <Distancer size={2}/>
             <div className='center-div'>

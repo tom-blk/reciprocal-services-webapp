@@ -1,4 +1,3 @@
-import { uploadFile } from "../../utils/web3storage/web3storage"
 import { apiCall } from "../api-call"
 
 export const updateUser = async ( user ) => {
@@ -18,17 +17,6 @@ export const updateUserSpecificServices = async (userId, servicesToBeChanged) =>
     }catch(error){
         console.log(error)
         throw new Error('Failed to update user services...')
-    }
-}
-
-export const uploadNewProfilePictureAndCreateDatabaseEntryWithCid = async ( userId, image ) => {
-
-    try{
-        const cid = await uploadFile([image])
-        apiCall('/users/update-profile-picture', 'PUT', { userId: userId, profilePicture: cid })
-    } catch(error){
-        console.log(error)
-        throw new Error('Failed to upload new profile picture...')
     }
 }
 
