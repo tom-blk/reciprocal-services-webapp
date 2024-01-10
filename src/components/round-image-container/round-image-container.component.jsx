@@ -5,9 +5,9 @@ import { ReactComponent as AvatarIcon } from '../../assets/vectors/avatar.svg';
 import { useState } from 'react';
 
 
-const RoundImageContainer = ({serviceOrUserId, serviceOrUser, size}) => {
+const RoundImageContainer = ({pictureIsPresent, serviceOrUserId, serviceOrUser, size}) => {
 
-    const [fallback, setFallback] = useState(false);
+    const [fallback, setFallback] = useState(!pictureIsPresent);
 
     const renderFallback = () => {
         if(serviceOrUser === 'user'){

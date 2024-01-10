@@ -8,7 +8,7 @@ import ButtonComponent from "../../buttons/button.component";
 import ImageCropComponent from "../../image-crop/image-crop-component";
 import LimitedTextInput from "../../limited-text-input/limited-text-input.component";
 
-import { createService } from "../../../api/storage/create-service.js";
+import { createService } from "../../../api/services/create.js";
 
 const AddServiceModal = () => {
 
@@ -21,16 +21,13 @@ const AddServiceModal = () => {
         description:'',
         picture: undefined,
         userId: undefined,
-        creditsPerHour: undefined
+        creditsPerHour: undefined,
+        icon: undefined
     }
 
     const [addToUserServices, setAddToUserServices] = useState(false);
     const [serviceData, setServiceData] = useState(serviceDataTemplate);
     const [displayCropper, setDisplayCropper] = useState(false);
-
-    useEffect(() => {
-        console.log(serviceData)
-    }, [serviceData])
 
     useEffect(() => {
         if(addToUserServices){
@@ -73,7 +70,7 @@ const AddServiceModal = () => {
     }
 
     const croppedImageHandler = (croppedImage) => {
-        setServiceData({...serviceData, picture: croppedImage});
+        setServiceData({...serviceData, picture: croppedImage});    
     }
      
     const displayCropperHandler = () => {

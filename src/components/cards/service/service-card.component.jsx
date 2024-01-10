@@ -16,7 +16,7 @@ import './service-card.styles.scss';
 import { UserContext } from "../../../context/user.context";
 
 const ServiceCard = ({ service, providerInfo }) => {
-    const { creditsPerHour, id, name, description } = service;
+    const { creditsPerHour, id, name, description, icon } = service;
 
     const { user } = useContext(UserContext);
     const { toggleModal } = useContext(ModalContext);
@@ -60,7 +60,7 @@ const ServiceCard = ({ service, providerInfo }) => {
             
             <div className="service-card-main-data-container">
                 <div className="service-card-left-data-container overflow-control">
-                    <RoundImageContainer serviceOrUserId={id} serviceOrUser={'service'} size={'round-image-container-card'}/>
+                    <RoundImageContainer pictureIsPresent={icon} serviceOrUserId={id} serviceOrUser={'service'} size={'round-image-container-card'}/>
                     <div className="overflow-control">
                         <div className="heading-secondary overflow-control">{name}</div>
                         <div className="text overflow-control">{description}</div>

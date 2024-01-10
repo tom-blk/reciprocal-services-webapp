@@ -6,7 +6,7 @@ import { AlertMessageContext } from "../../../context/alert-message.context";
 import ImageCropComponent from "../../image-crop/image-crop-component";
 import ButtonComponent from "../../buttons/button.component";
 
-import { uploadUserOrServicePicture } from "../../../api/storage/upload-profile-picture";
+import { uploadProfilePicture } from "../../../api/users/update";
 
 const SelectProfilePictureModal = ({ userId, setUpdatedProfilePictureCallback }) => {
 
@@ -25,7 +25,7 @@ const SelectProfilePictureModal = ({ userId, setUpdatedProfilePictureCallback })
         if(!croppedImage){
             displayError(new Error('Please Crop Your Image First!'))
         }else{
-            uploadUserOrServicePicture(croppedImage, userId, 'user')
+            uploadProfilePicture(croppedImage, userId)
                 .then(response => {
                     displaySuccessMessage(response);
                     setUpdatedProfilePictureCallback();

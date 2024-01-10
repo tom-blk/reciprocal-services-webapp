@@ -48,6 +48,11 @@ const EditUserProfile = () => {
         );
     }
 
+    useEffect(() => {
+        if(userServices)
+        console.log(userServices)
+    }, [userServices])
+
     const editServicesButtonOnClickHandler = () => navigate(`/userProfile-edit/edit-services`);
 
     const cancelButtonOnClickHandler = () => navigate('/userProfile');
@@ -71,7 +76,7 @@ const EditUserProfile = () => {
         <PageContainer>
             <h2>Profile Picture</h2>
             <OnHoverEdit onClickFunction={selectNewProfilePicture} size={'round-image-container-page'}>
-                <RoundImageContainer  serviceOrUserId={user.id} size={'round-image-container-page'} serviceOrUser={'user'} picture={user.profilePicture}/>
+                <RoundImageContainer pictureIsPresent={user.profilePicture}  serviceOrUserId={user.id} size={'round-image-container-page'} serviceOrUser={'user'} picture={user.profilePicture}/>
             </OnHoverEdit>
             <LimitedTextInput inputLabel={'First Name'} defaultValue={user.firstName} numberOfTextRows={1} numberOfCharacters={45} onChangeHandler={(input) => {setTempUser({...tempUser, firstName: input})}}/>
             <LimitedTextInput inputLabel={'Last Name'} defaultValue={user.lastName} numberOfTextRows={1} numberOfCharacters={45} onChangeHandler={(input) => {setTempUser({...tempUser, lastName: input})}}/>
