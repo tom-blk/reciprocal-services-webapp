@@ -21,15 +21,12 @@ export const apiCall = async ( endpoint, METHOD, payload ) => {
     } catch(error){
         console.log(error);
         if(error.response === undefined){
-            console.log(error)
             throw new Error('Connection Failed.')
         }
-
-        if(error.response.status === 401){
-            console.log(error)
-            throw new Error('Error 401: User Not Authenticated.')
+        if(error.response){
+            throw new Error(`Error ${error.response.status}: ${error.response.data}`)
         }
-        if(error.response.status === 403){
+/*         if(error.response.status === 403){
             console.log(error)
             throw new Error('Error 403: User Not Authorized.')
         }
@@ -40,6 +37,6 @@ export const apiCall = async ( endpoint, METHOD, payload ) => {
         if(error.response.status === 500){
             console.log(error)
             throw new Error('Error 500: Internal Server Error.')
-        }
+        } */
     }
 }
