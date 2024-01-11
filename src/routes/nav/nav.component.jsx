@@ -1,4 +1,4 @@
-import { Fragment, useContext, useEffect, useState } from "react";
+import { Fragment, useContext, useState } from "react";
 import { Outlet } from "react-router"
 import { Link } from "react-router-dom"
 
@@ -21,7 +21,6 @@ const Nav = () => {
     const { user, setUser } = useContext(UserContext);
     const { toggleModal } = useContext(ModalContext);
     
-    const [loginScreenShown, setLoginScreenShown] = useState(false);
     const [mobileNavActive, setMobileNavActive] = useState(false);
 
     const toggleMobileNav = (e) => {

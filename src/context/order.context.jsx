@@ -58,6 +58,8 @@ export const OrderContextProvider = (input) => {
             case 'denied':
                 statusInt = 5;
                 break;
+            default:
+                statusInt = 5;
         }
 
         getOrdersWithSpecificStatusAndDirection(userId, statusInt, orderDirection, onErrorFunction)

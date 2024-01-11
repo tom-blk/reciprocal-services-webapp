@@ -44,6 +44,12 @@ function useOrderStatus(order, userId) {
             orderStatus.buttonClassName = 'order-denied'
             orderStatus.text = 'Declined';
             break;
+          default:
+            orderStatus.currentStage = 5;
+            orderStatus.nextStage = undefined;
+            orderStatus.buttonClassName = 'order-denied'
+            orderStatus.text = 'Error';
+            break;
         }
       }
   
@@ -80,6 +86,12 @@ function useOrderStatus(order, userId) {
             orderStatus.nextStage = undefined;
             orderStatus.buttonClassName = 'order-denied';
             orderStatus.text = 'Declined';
+            break;
+          default:
+            orderStatus.currentStage = 5;
+            orderStatus.nextStage = undefined;
+            orderStatus.buttonClassName = 'order-denied'
+            orderStatus.text = 'Error';
             break;
         }
       }

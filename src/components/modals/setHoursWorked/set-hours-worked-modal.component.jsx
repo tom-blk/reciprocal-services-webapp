@@ -17,7 +17,7 @@ const SetHoursWorkedModal = ({orderId, confirmedCompletionCallback}) => {
     const [doubleConfirmButtonVisible, setDoubleConfirmButtonVisible] = useState(false); // Failsafe so that user doesn't accidentally input wrong number of hours
 
     const confirmWorkedHoursAndCloseModal = () => {
-        if(hoursWorked === 0 || hoursWorked === false || hoursWorked.length === 0 || hoursWorked === NaN){
+        if(hoursWorked === 0 || hoursWorked === false || hoursWorked.length === 0 || isNaN(hoursWorked)){
             displayError(new Error("Please Specify How Many Hours Were Provided!"))
         }else{
             specifyProvidedHours(orderId, hoursWorked, displaySuccessMessage, displayError)

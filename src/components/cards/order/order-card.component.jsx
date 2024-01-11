@@ -48,6 +48,7 @@ const OrderCard = ({order}) => {
         getSingleUser(order.receivingUserId, displayError)
             .then(response => setRecipient(response))
             .catch(error => displayError(error))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     
     const cardOnClickHandler = () => {
@@ -99,7 +100,7 @@ const OrderCard = ({order}) => {
     }
 
     const returnConditionalTotalEmbers = () => {
-        if(orderStatus.currentStage >= 3 && orderStatus.currentStage !== 5)
+        if(orderStatus.currentStage >= 3 && orderStatus.currentStage !== 5 && order.hoursProvided)
         return(
             <div>
                 <div className="bold">Total Embers: </div>

@@ -1,16 +1,11 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 
 import ReactCrop from 'react-image-crop'
-import ButtonComponent from '../buttons/button.component'
-
-import { UserContext } from '../../context/user.context';
 
 import 'react-image-crop/src/ReactCrop.scss'
 import './image-crop.styles.scss';
 
 const ImageCropComponent = ({handleCroppedImage, optionalWidth}) => {
-
-    const {user} = useContext(UserContext);
 
     const [src, setSrc] = useState();
     const [percentCrop, setPercentCrop] = useState({unit: '%', x: 0, y: 0, width: 0, height: 0});
@@ -25,8 +20,6 @@ const ImageCropComponent = ({handleCroppedImage, optionalWidth}) => {
         image.src = src;
         image.onload = () => {
             const canvas = document.createElement('canvas');
-            const scaleX = image.naturalWidth / image.width;
-            const scaleY = image.naturalHeight / image.height;
             canvas.width = image.naturalWidth / 100 * percentCrop.width;
             canvas.height = image.naturalHeight / 100 * percentCrop.height;
             const ctx = canvas.getContext('2d');
@@ -58,7 +51,7 @@ const ImageCropComponent = ({handleCroppedImage, optionalWidth}) => {
             {src && (
                 <div className='image-crop-border-and-size' style={optionalWidth && {width:`${optionalWidth}`}}>
                     <ReactCrop src={src} aspect={1} circularCrop ruleOfThirds crop={percentCrop} onChange={(crop, percentCrop) => setPercentCrop(percentCrop)} onComplete={onCropComplete} >
-                        <img src={src}/>
+                        <img alt='cropped profile picture' src={src}/>
                     </ReactCrop>
                 </div>
             )}

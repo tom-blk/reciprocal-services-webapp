@@ -14,7 +14,7 @@ const LogIn = () => {
     const navigate = useNavigate()
 
     const { displayError, displaySuccessMessage } = useContext(AlertMessageContext);
-    const { setUser, setAuthToken } = useContext(UserContext);
+    const { setUser } = useContext(UserContext);
 
     const emptyLoginForm = {
         email: '',

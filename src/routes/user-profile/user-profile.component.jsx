@@ -64,7 +64,7 @@ const UserProfile = () => {
                         ?
                         <div className="page-container-item-group">
                             <h2>Location</h2>
-                            <span className="page-container-content">{user.postCode}{user.city && ` ${user.city}`}{(user.city && userCountry || user.postCode && userCountry) && ', '}{userCountry && `${userCountry}`}</span>
+                            <span className="page-container-content">{user.postCode}{user.city && ` ${user.city}`}{((user.city && userCountry) || (user.postCode && userCountry)) && ', '}{userCountry && `${userCountry}`}</span>
                             <span className="page-container-content">{user.travellingForOrders ? 'Travelling For Orders' :  'Not Travelling For Orders'}</span>
                         </div>
                         :

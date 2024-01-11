@@ -13,10 +13,9 @@
     "react-image-crop": "^10.0.9",
     "react-router": "^6.6.1",
     "react-router-dom": "^6.6.1",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "sass": "^1.57.1",
-    "web-vitals": "^2.1.4",
-    "web3.storage": "^4.5.4"
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "env-cmd -f .env.development react-scripts start",

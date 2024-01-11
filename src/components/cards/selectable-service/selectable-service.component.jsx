@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import RoundButton from '../../buttons/round-button/round-button.component';
 
@@ -7,7 +7,6 @@ import './selectable-service.styles.scss';
 
 const SelectableServiceCard = ({service, onClickHandler, updateEmbersPerHour}) => {
 
-    const [isSelected, setIsSelected] = useState(service.isSelected);
     const [editModeEnabled, setEditModeEnabled] = useState(false);
     const [embersPerHour, setEmbersPerHour] = useState(service.embersPerHour)
 
@@ -18,7 +17,7 @@ const SelectableServiceCard = ({service, onClickHandler, updateEmbersPerHour}) =
 
     const applyEmbersPerHour = (e) => {
         e.stopPropagation();
-        if(embersPerHour != service.embersPerHour && embersPerHour !== 0 && embersPerHour !== undefined && embersPerHour !== null)
+        if(embersPerHour !== service.embersPerHour && embersPerHour !== 0 && embersPerHour !== undefined && embersPerHour !== null)
             updateEmbersPerHour(service.id, embersPerHour);
         setEditModeEnabled(false);
     }

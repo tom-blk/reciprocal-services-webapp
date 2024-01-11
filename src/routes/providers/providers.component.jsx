@@ -7,7 +7,7 @@ import PageContainer from "../../utils/page-container/page-container.component";
 import Distancer from '../../utils/distancer/distancer.component';
 
 import { AlertMessageContext } from "../../context/alert-message.context";
-import { getUserList, getUsersInLocation } from "../../api/users/read";
+import { getUsersInLocation } from "../../api/users/read";
 import { UserContext } from "../../context/user.context";
 
 import "./providers.styles.scss";

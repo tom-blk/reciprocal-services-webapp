@@ -28,7 +28,7 @@ const RoundImageContainer = ({pictureIsPresent, serviceOrUserId, serviceOrUser, 
                     src={`http://localhost:5000/${serviceOrUser}-pictures/${serviceOrUser}-${serviceOrUserId}-${serviceOrUser}-picture.png?${new Date().getTime()}`} //! Query parameter is added so that the (profile) image reloads automatically on update (would not do that otherwise bc it always has the same URL)
                     onError={(error) => (setFallback(true))} 
                     className={size}
-                    
+                    alt={`${serviceOrUser} picture`}
                 />
             }
         </div>

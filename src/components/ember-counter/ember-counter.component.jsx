@@ -42,7 +42,7 @@ const EmberCounter = () => {
             </div>
             <div className={`ember-counter-container  ${visible === 'init' ? '' : visible && 'visible'}`}>
                 <div className='ember-counter-data-container'>
-                    <img className='ember-icon' src={ember}/>
+                    <img alt='ember icon' className='ember-icon' src={ember}/>
                     <span>Your Embers: </span>
                     <span className='bold'>{user.credits}</span> 
                 </div>

@@ -12,7 +12,6 @@ import { useNavigate } from 'react-router';
 
 import { updateUserSpecificServices } from '../../api/users/update';
 import { getServiceList } from '../../api/services/read';
-import { getUserSpecificServices } from '../../api/users/read';
 
 import './edit-user-services.styles.scss';
 import Distancer from '../../utils/distancer/distancer.component';

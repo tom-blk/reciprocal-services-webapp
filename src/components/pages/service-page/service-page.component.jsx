@@ -23,13 +23,12 @@ const ServicePage = () => {
 
     let { serviceId } = useParams(); 
 
-    const { displayError, displaySuccessMessage } = useContext(AlertMessageContext);
+    const { displayError } = useContext(AlertMessageContext);
     const { toggleModal } = useContext(ModalContext);
     const { user } = useContext(UserContext);
 
     const [service, setService] = useState(undefined);
     const [serviceProviders, setServiceProviders] = useState([]);
-    const [serviceIcon, setServiceIcon] = useState(undefined);
     const [providedByCurrentUser, setProvidedByCurrentUser] = useState(false);
     const [averageCreditsPerHour, setAverageCreditsPerHour] = useState(undefined);
 
