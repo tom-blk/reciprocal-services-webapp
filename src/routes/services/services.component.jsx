@@ -23,10 +23,14 @@ const Services = () => {
     const [superficialServiceDetails, setSuperficialServiceDetails] = useState([]);
     const [filteredServices, setFilteredServices] = useState(superficialServiceDetails);
 
-    useEffect(() => {
-        getServiceList(displayError)
+    const getServices = () => {
+        getServiceList()
             .then(response => setSuperficialServiceDetails(response))
             .catch(error=> displayError(error));
+    }
+
+    useEffect(() => {
+        getServices();
     }, [])
 
     useEffect(() => {
@@ -47,7 +51,7 @@ const Services = () => {
 
     const onAddButtonClick = () => {
         toggleModal(
-            <AddServiceModal/>
+            <AddServiceModal onServiceCreatedCallback={getServices}/>
         )
     }
 

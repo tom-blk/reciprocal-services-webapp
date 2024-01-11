@@ -50,7 +50,7 @@ const UserProfile = () => {
                 <Fragment>
                     <div className="profile-heading-and-edit-button-container">
                         <div className="user-profile-heading-container">
-                            <RoundImageContainer pictureIsPresent={user.profilePicture} serviceOrUserId={user.id} size="round-image-container-page" serviceOrUser={'user'} picture={user.profilePicture}/>
+                            <RoundImageContainer pictureIsPresent={user.profilePicture} serviceOrUserId={user.id} size="round-image-container-page" serviceOrUser={'user'}/>
                             <div className="name-and-username-container">
                                 <h2 className="overflow-control">{assertDisplayName(user)}</h2>
                                 <span className="sub-text">{`@${userName}`}</span>

@@ -120,7 +120,7 @@ const OrderPage = () => {
                 ?
                 <Fragment>
                     <div className="order-page-heading">
-                        <RoundImageContainer serviceOrUserId={service.id} serviceOrUser={'service'} size={'round-image-container-page'}/>
+                        <RoundImageContainer pictureIsPresent={service.icon} serviceOrUserId={service.id} serviceOrUser={'service'} size={'round-image-container-page'}/>
                         <div className="order-page-heading-flex overflow-control">
                             <h1 className="overflow-control-wrap">{`Order Of ${service.name}`}</h1>
                             <div className="flex">

@@ -50,7 +50,7 @@ const ProviderProfilePage = () => {
                 ?
                 <PageContainer>
                     <div className="povider-profile-heading-container">
-                        <RoundImageContainer serviceOrUserId={providerId} serviceOrUser={'user'} size={'round-image-container-page'}/>
+                        <RoundImageContainer pictureIsPresent={provider.profilePicture} serviceOrUserId={providerId} serviceOrUser={'user'} size={'round-image-container-page'}/>
                         <div className="name-and-username-container">
                             <h2 className="overflow-control-wrap">{assertDisplayName(provider)}</h2>
                             <div className="sub-text overflow-control">{'@' + provider.userName}</div>

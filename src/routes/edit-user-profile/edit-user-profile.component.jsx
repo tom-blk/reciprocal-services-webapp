@@ -43,7 +43,7 @@ const EditUserProfile = () => {
         toggleModal(
             <SelectProfilePictureModal
                 userId={user.id}
-                setUpdatedProfilePictureCallback={() => {return}}
+                setUpdatedProfilePictureCallback={fetchUser}
             />
         );
     }
@@ -76,7 +76,7 @@ const EditUserProfile = () => {
         <PageContainer>
             <h2>Profile Picture</h2>
             <OnHoverEdit onClickFunction={selectNewProfilePicture} size={'round-image-container-page'}>
-                <RoundImageContainer pictureIsPresent={user.profilePicture}  serviceOrUserId={user.id} size={'round-image-container-page'} serviceOrUser={'user'} picture={user.profilePicture}/>
+                <RoundImageContainer key={user.profilePicture} pictureIsPresent={user.profilePicture}  serviceOrUserId={user.id} size={'round-image-container-page'} serviceOrUser={'user'}/>
             </OnHoverEdit>
             <LimitedTextInput inputLabel={'First Name'} defaultValue={user.firstName} numberOfTextRows={1} numberOfCharacters={45} onChangeHandler={(input) => {setTempUser({...tempUser, firstName: input})}}/>
             <LimitedTextInput inputLabel={'Last Name'} defaultValue={user.lastName} numberOfTextRows={1} numberOfCharacters={45} onChangeHandler={(input) => {setTempUser({...tempUser, lastName: input})}}/>

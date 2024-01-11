@@ -13,7 +13,6 @@ import AddOrRemoveSingleUserServiceModal from "../../modals/addSingleServiceToUs
 import { useParams } from "react-router"
 
 import { getAverageCreditsPerHour, getLocalServiceSpecificUsers} from "../../../api/services/read";
-import { getFileUrl } from "../../../utils/web3storage/web3storage";
 import { getServiceUserAffiliation } from "../../../api/users/read";
 import { getService } from "../../../api/services/read";
 
@@ -49,18 +48,6 @@ const ServicePage = () => {
             .catch(error => displayError(error))
     }, [])
 
-    useEffect(() => {
-        console.log(averageCreditsPerHour);
-    }, [averageCreditsPerHour])
-
-    useEffect(() => {
-        if(service)
-        if(service.icon)
-            getFileUrl(service.icon, displayError)
-                .then(response => setServiceIcon(response))
-                .catch(error => displayError(error))
-    }, [service])
-
     const toggleProvidedByCurrentUser = (addOrRemove) => {
         if(addOrRemove === "add")
             setProvidedByCurrentUser(true)
@@ -80,7 +67,7 @@ const ServicePage = () => {
                 <PageContainer>
                     <div className="service-page-heading">
                         <div className="flex overflow-control">
-                            <RoundImageContainer serviceOrUserId={serviceId} picture={serviceIcon} serviceOrUser={'service'} size={'round-image-container-page'}/>
+                            <RoundImageContainer pictureIsPresent={service.icon} serviceOrUserId={serviceId} serviceOrUser={'service'} size={'round-image-container-page'}/>
                             <div className="heading-primary overflow-control-wrap">{service.name}</div>
                         </div>
                         <ButtonComponent 

@@ -57,7 +57,7 @@ export const rateUser = async (userId, rating) => {
 export const uploadProfilePicture = async (picture, userId) => {
     //! userOrServiceString is specified as 'user' or 'service' in the componenent that calls the function to specify what kind of upload this is
 
-    console.log('called with /users/upload-service-picture endpoint');
+    console.log('called with /users/upload-profile-picture endpoint');
 
     const pictureForm = new FormData(); //! To be accepted by the Multer library on the server, the image must be multipart/form-data
     pictureForm.append('picture', picture); //! Name on backend and this name need to be the same 

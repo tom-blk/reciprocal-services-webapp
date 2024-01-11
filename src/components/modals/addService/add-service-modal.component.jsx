@@ -10,7 +10,7 @@ import LimitedTextInput from "../../limited-text-input/limited-text-input.compon
 
 import { createService } from "../../../api/services/create.js";
 
-const AddServiceModal = () => {
+const AddServiceModal = ({onServiceCreatedCallback}) => {
 
     const { toggleModal } = useContext(ModalContext);
     const { user } = useContext(UserContext);
@@ -45,6 +45,7 @@ const AddServiceModal = () => {
                 createService(serviceData, displaySuccessMessage, displayError)
                 .then(response => {
                     displaySuccessMessage(response.successMessage);
+                    onServiceCreatedCallback();
                     toggleModal();
                 })
                 .catch(error => displayError(error))

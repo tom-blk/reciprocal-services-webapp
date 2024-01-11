@@ -14,7 +14,7 @@ import { assertDisplayName } from "../../../helper-functions/users/assertDisplay
 import './provider-card.styles.scss';
 
 const ProviderCard = ({ user, serviceId, serviceName, isServiceRelated, embersPerHour }) => {
-    const {id, firstName, lastName, rating, ratingCount} = user;
+    const {id, firstName, lastName, rating, ratingCount, profilePicture} = user;
 
     const { toggleModal } = useContext(ModalContext);
 
@@ -50,7 +50,7 @@ const ProviderCard = ({ user, serviceId, serviceName, isServiceRelated, embersPe
             <div className={`provider-card-main-container ${isServiceRelated ? 'provider-card-main-container-grid' : 'provider-card-main-container-flex'}`}>
 
                 <div className="provider-card-left-data-container overflow-control">
-                    <RoundImageContainer serviceOrUserId={id} serviceOrUser={'user'} size={'round-image-container-card'}/>
+                    <RoundImageContainer pictureIsPresent={profilePicture} serviceOrUserId={id} serviceOrUser={'user'} size={'round-image-container-card'}/>
                     <div className="heading-secondary overflow-control">{assertDisplayName(user)}</div>  
                 </div>
 
