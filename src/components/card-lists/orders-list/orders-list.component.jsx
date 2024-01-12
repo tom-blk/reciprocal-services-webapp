@@ -2,10 +2,12 @@ import OrderCard from "../../cards/order/order-card.component";
 
 const OrdersList = ({ orders }) => {
 
+    console.log(orders)
+
     return(
         <div className="card-list">
             {
-                orders
+                orders && orders.length > 0
                 ?
                 orders.map((order) => {
                     return(
@@ -14,7 +16,7 @@ const OrdersList = ({ orders }) => {
                     } 
                 )
                 :
-                <div className="text">No orders currently pending...</div>
+                <div className="text">No orders here...</div>
             }
         </div>
     )

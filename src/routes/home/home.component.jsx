@@ -5,7 +5,7 @@ import { UserContext } from "../../context/user.context";
 import { AlertMessageContext } from "../../context/alert-message.context";
 
 import PageContainer from "../../utils/page-container/page-container.component";
-import OrderList from "../../components/card-lists/orders-list/orders-list.component";
+import OrdersList from "../../components/card-lists/orders-list/orders-list.component";
 import ServicesList from "../../components/card-lists/services-list/services-list.component";
 
 import { getTrendingServices } from "../../api/services/read";
@@ -32,9 +32,9 @@ const Home = () => {
       <h2>trending services</h2>
       <ServicesList services={trendingServices}/>
       <h2>incoming orders</h2>
-      <OrderList completed={false} orders={incomingOrders.new}/>
+      <OrdersList completed={false} orders={incomingOrders.new}/>
       <h2>updates on your outgoing orders</h2>
-      <OrderList completed={false} orders={outgoingOrders.fulfilled}/>
+      <OrdersList completed={false} orders={outgoingOrders.fulfilled}/>
     </PageContainer>
   );
 }
