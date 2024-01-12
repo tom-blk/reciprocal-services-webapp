@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import ButtonComponent from "../../components/buttons/button.component";
@@ -55,6 +55,12 @@ const LogIn = () => {
         navigate('/sign-up');
     }
 
+    const handleKeyDown = (e) => {
+        if(e.key === 'Enter'){
+            loginButtonOnClickHandler()
+        }
+    }
+
     return(
         <div className="auth-pages-container">
             <div className="auth-pages-centered">
@@ -65,6 +71,7 @@ const LogIn = () => {
                     name='email'
                     placeholder="Email" 
                     onChange={handleLogInFormChange}
+                    onKeyDown={handleKeyDown}
                 />
                 <input 
                     className="input auth-input"
@@ -72,6 +79,7 @@ const LogIn = () => {
                     name='password'
                     placeholder="Password"
                     onChange={handleLogInFormChange}
+                    onKeyDown={handleKeyDown}
                 />
                 <ButtonComponent onClickHandler={loginButtonOnClickHandler} buttonType="confirm">Login</ButtonComponent>
                 <ButtonComponent onClickHandler={signUpButtonOnClickHandler} buttonType="secondary-confirm secondary-confirm-hover">Sign Up</ButtonComponent>
