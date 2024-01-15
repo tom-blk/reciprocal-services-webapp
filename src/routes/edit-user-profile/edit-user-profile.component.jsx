@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 
 import { UserContext } from "../../context/user.context";
 import { AlertMessageContext } from "../../context/alert-message.context";
@@ -30,6 +30,8 @@ const EditUserProfile = () => {
 
     const [tempUser, setTempUser] = useState(user);
     const [userServices, setUserServices] = useState([]);
+    const [countries, setCountries] = useState(undefined);
+    const [defaultCountryName, setDefaultCountryName] = useState(undefined);
 
     const navigate = useNavigate();
 
@@ -37,7 +39,18 @@ const EditUserProfile = () => {
         getUserSpecificServices(user.id)
             .then(response => setUserServices(response))
             .catch(error => displayError(error));
-    }, [])
+    }, [user.id, displayError])
+
+    useEffect(() => {
+        getAllCountries()
+            .then(response => setCountries(response))
+            .catch(error => displayError(error))
+    }, [displayError])
+
+    useEffect(() => {
+        if(countries && user.country)
+        setDefaultCountryName(countries.filter((country) => {return country.id === user.country})[0].name)
+    }, [countries, user.country])
 
     const selectNewProfilePicture = () => {
         toggleModal(
@@ -47,11 +60,6 @@ const EditUserProfile = () => {
             />
         );
     }
-
-    useEffect(() => {
-        if(userServices)
-        console.log(userServices)
-    }, [userServices])
 
     const editServicesButtonOnClickHandler = () => navigate(`/userProfile-edit/edit-services`);
 
@@ -81,9 +89,14 @@ const EditUserProfile = () => {
             <LimitedTextInput inputLabel={'First Name'} defaultValue={user.firstName} numberOfTextRows={1} numberOfCharacters={45} onChangeHandler={(input) => {setTempUser({...tempUser, firstName: input})}}/>
             <LimitedTextInput inputLabel={'Last Name'} defaultValue={user.lastName} numberOfTextRows={1} numberOfCharacters={45} onChangeHandler={(input) => {setTempUser({...tempUser, lastName: input})}}/>
             <div className="location-definition-div">
-                <DropdownMenu defaultCountry={user.country} getListContent={getAllCountries} onSelect={(input) => setTempUser({...tempUser, country: input})}/>
-                <LimitedTextInput inputLabel={'ZIP Code'} defaultValue={user.postCode} numberOfTextRows={1} numberOfCharacters={45} onChangeHandler={(input) => {setTempUser({...tempUser, postCode: input})}}/>
-                <LimitedTextInput inputLabel={'City'} defaultValue={user.city} numberOfTextRows={1} numberOfCharacters={45} onChangeHandler={(input) => {setTempUser({...tempUser, city: input})}}/>
+            {
+                (countries && defaultCountryName)&&
+                <Fragment>
+                    <DropdownMenu defaultCountry={defaultCountryName} content={countries} onSelect={(input) => setTempUser({...tempUser, country: input})}/>
+                    <LimitedTextInput inputLabel={'ZIP Code'} defaultValue={user.postCode} numberOfTextRows={1} numberOfCharacters={45} onChangeHandler={(input) => {setTempUser({...tempUser, postCode: input})}}/>
+                    <LimitedTextInput inputLabel={'City'} defaultValue={user.city} numberOfTextRows={1} numberOfCharacters={45} onChangeHandler={(input) => {setTempUser({...tempUser, city: input})}}/>
+                </Fragment>
+            }
             </div> 
             <div className="travelling-for-orders-div">
                 <h3>Travelling For Orders</h3>

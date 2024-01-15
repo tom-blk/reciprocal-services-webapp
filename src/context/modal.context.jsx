@@ -1,4 +1,5 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
+import FirstTimeVisitModal from "../components/modals/firstTimeVisit/first-time-visit-modal.component";
 
 export const ModalContext = createContext();
 
@@ -12,6 +13,12 @@ export const ModalContextProvider = (input) => {
         setModalType(modalType);
         setModalIsOpen(!modalIsOpen);
     }
+
+    useEffect(() => {
+        if(!localStorage.getItem('prometheusFirstTimeVisitToken'))
+        toggleModal(<FirstTimeVisitModal/>);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const value = {
         toggleModal,

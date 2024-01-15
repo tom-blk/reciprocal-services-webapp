@@ -1,4 +1,4 @@
-import { useContext, Fragment, useState, useEffect } from "react";
+import { useContext, Fragment, useState } from "react";
 
 import { ModalContext } from "../../../context/modal.context";
 import { AlertMessageContext } from "../../../context/alert-message.context";
@@ -14,10 +14,6 @@ const SelectProfilePictureModal = ({ userId, setUpdatedProfilePictureCallback })
     const { displayError, displaySuccessMessage } = useContext(AlertMessageContext);
     
     const [croppedImage, setCroppedImage] = useState(undefined);
-
-    useEffect(() => {
-        console.log(croppedImage)
-    }, [croppedImage])
 
     console.log("Modal toggled")
 

@@ -18,8 +18,15 @@ export const UserContextProvider = (input) => {
     }, [user])
 
     useEffect(() => {
-        fetchUser()
+        fetchUser()   
     }, [])
+
+    useEffect(() => {
+        if(user)
+        getUserSpecificServices(user.id)
+            .then(response => setUserServices(response))
+            .catch(error => displayError(error))
+    }, [user, displayError])
 
     const fetchUser = () => {
         getUser()
@@ -31,18 +38,11 @@ export const UserContextProvider = (input) => {
             }); 
     }
 
-    const fetchUserServices = () => {
-        getUserSpecificServices(user.id)
-            .then(response => setUserServices(response))
-            .catch(error => displayError(error))
-    }
-
     const value = {
         user,
         fetchUser,
         setUser, // For Logout
-        userServices,
-        fetchUserServices
+        userServices
     }
 
     return (

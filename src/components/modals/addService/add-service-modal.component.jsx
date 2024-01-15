@@ -14,6 +14,8 @@ const AddServiceModal = ({onServiceCreatedCallback}) => {
 
     const { toggleModal } = useContext(ModalContext);
     const { user } = useContext(UserContext);
+    const { id } = user; 
+
     const { displayError, displaySuccessMessage } = useContext(AlertMessageContext);
 
     const serviceDataTemplate = {
@@ -31,11 +33,11 @@ const AddServiceModal = ({onServiceCreatedCallback}) => {
 
     useEffect(() => {
         if(addToUserServices){
-            setServiceData({ ...serviceData, userId: user.id })
+            setServiceData(s => ({ ...s, userId: id }))
         } else {
-            setServiceData({ ...serviceData, userId: undefined, creditsPerHour: undefined})
+            setServiceData(s => ({ ...s, userId: undefined, creditsPerHour: undefined}))
         }
-    }, [addToUserServices])
+    }, [addToUserServices, id])
 
     const onCreateServiceHandler = () => {
         if(serviceData.name && serviceData.name.length > 0 && serviceData.description && serviceData.description.length > 0){

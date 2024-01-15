@@ -8,10 +8,11 @@ const LimitedTextInput = ({inputLabel, numberOfTextRows, numberOfCharacters, onC
 
     const inputLengthBelowLimit = () => input.length <= numberOfCharacters;
 
-    const checkLimitAndTriggerHandler = () => {
-        if(inputLengthBelowLimit()){
+    const checkLimitAndSetInput = (input) => {
+        setInput(input)
+        if(input.length <= numberOfCharacters){
             onChangeHandler(input);
-        } else if(!inputLengthBelowLimit()){
+        } else {
             onChangeHandler(false);
         }
     }
@@ -19,11 +20,7 @@ const LimitedTextInput = ({inputLabel, numberOfTextRows, numberOfCharacters, onC
     useEffect(() => {
         if(defaultValue)
             setInput(defaultValue)
-    }, [])
-
-    useEffect(() => {
-        checkLimitAndTriggerHandler()
-    }, [input])
+    }, [defaultValue])
 
     return (
         <div className="limited-message-container">
@@ -31,7 +28,7 @@ const LimitedTextInput = ({inputLabel, numberOfTextRows, numberOfCharacters, onC
                 <span>{inputLabel}</span>
                 <span className={`${!inputLengthBelowLimit() && 'warning-text'}`}>{`${input.length}/${numberOfCharacters} Characters`}</span>
             </div>
-            <textarea name={name} defaultValue={defaultValue} className="limited-message-text-area" onChange={e => setInput(e.target.value)} type='text' rows={numberOfTextRows}></textarea>
+            <textarea name={name} defaultValue={defaultValue} className="limited-message-text-area" onChange={e => checkLimitAndSetInput(e.target.value)} type='text' rows={numberOfTextRows}></textarea>
         </div>
     )
 }

@@ -16,25 +16,15 @@ const Providers = () => {
 
     const { displayError } = useContext(AlertMessageContext);
     const { user } = useContext(UserContext);
+    const {id, userName, firstName, lastName, country, postCode} = user;
 
     const [searchString, setSearchString] = useState('');
     const [providers, setProviders] = useState([]);
 
     const [filteredProviders, setFilteredProviders] = useState(providers);
 
-    useEffect(() => {
-        getUsersInLocation(user.id, user.country, user.postCode)
-            .then(response => setProviders(response))
-            .catch(error => displayError(error))
-    }, [])
-
-    useEffect(() => {
-        if(providers)
-        filterUsers();
-    }, [searchString, providers])
-
     const selectLocationFilterPorperties = (countryId, postCode) => {
-        getUsersInLocation(user.id, countryId, postCode)
+        getUsersInLocation(id, countryId, postCode)
             .then(response => setProviders(response))
             .catch(error => displayError(error))
     }
@@ -43,25 +33,36 @@ const Providers = () => {
         setSearchString(userInput)
     }
 
-    const filterUsers = () => {
-        setFilteredProviders(
-            providers.filter(
-                user => {
-                    if(user.firstName && user.lastName){
-                        const fullUserName = user.firstName.concat(' ', user.lastName);
-                        return fullUserName.toLocaleLowerCase().includes(searchString);
-                    } else {
-                        return user.userName.toLocaleLowerCase().includes(searchString);
+    useEffect(() => {
+        getUsersInLocation(id, country, postCode)
+            .then(response => setProviders(response))
+            .catch(error => displayError(error))
+    }, [id, country, postCode, displayError])
+
+    useEffect(() => {
+        const filterUsers = () => {
+            setFilteredProviders(
+                providers.filter(
+                    user => {
+                        if(firstName && lastName){
+                            const fullUserName = firstName.concat(' ', lastName);
+                            return fullUserName.toLocaleLowerCase().includes(searchString);
+                        } else {
+                            return userName.toLocaleLowerCase().includes(searchString);
+                        }
+                        
                     }
-                    
-                }
+                )
             )
-        )
-    }
+        }
+
+        if(providers)
+        filterUsers();
+    }, [searchString, providers, firstName, lastName, userName])
 
     return(
         <PageContainer>
-            <LocationFilter defaultPostCode={user.postCode} defaultCountry={user.country} onConfirm={selectLocationFilterPorperties}/>
+            <LocationFilter defaultPostCode={postCode} defaultCountry={country} onConfirm={selectLocationFilterPorperties}/>
             <SearchBar className="providers-search-bar" onSearchChange={onSearchChange} placeholder={"Providers"}/>
             <Distancer size={1}/>
             {

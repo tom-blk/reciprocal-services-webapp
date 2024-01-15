@@ -30,18 +30,21 @@ const EditUserServicesList = () => {
     const [services, setServices] = useState([]);
 
     useEffect(() => {
-        if(!userServices)
-        fetchUserServices(user.id)
-    }, [])
-
-    useEffect(() => {
         if(userServices)
         getServiceList()
             .then(response => setServices(markUserServicesAndSort(response, userServices)))
             .catch(error => displayError(error))
-    }, [userServices])
+    }, [userServices, displayError])
 
     useEffect(() => {
+        const filterServices = () => {
+            setFilteredServices(
+                services.filter(
+                    service => {return service.name.toLocaleLowerCase().includes(searchString)}
+                )
+            )
+        }
+
         filterServices()
     }, [searchString, services])
 
@@ -49,13 +52,7 @@ const EditUserServicesList = () => {
         setSearchString(userInput)
     }
 
-    const filterServices = () => {
-        setFilteredServices(
-            services.filter(
-                service => {return service.name.toLocaleLowerCase().includes(searchString)}
-            )
-        )
-    }
+
 
     const markUserServicesAndSort = (allServices, userServices) => {
         
@@ -121,10 +118,6 @@ const EditUserServicesList = () => {
     };
 
     const cancelButtonOnClickHandler = () => navigate(`/userProfile-edit`);
-
-    useEffect(() => {
-        console.log(services)
-    }, [services])
 
     return (
         <PageContainer>

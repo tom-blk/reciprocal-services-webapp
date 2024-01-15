@@ -1,33 +1,18 @@
-import React, { useEffect, useState, useContext } from 'react'
-
-import { AlertMessageContext } from '../../context/alert-message.context';
+import React, { useState } from 'react'
 
 import './dropdown-menu.styles.scss';
 
-const DropdownMenu = ({defaultCountry, getListContent, onSelect}) => {
-
-    const { displayError } = useContext(AlertMessageContext);
+const DropdownMenu = ({defaultCountry, content, onSelect}) => {
 
     const [dropdownIsActive, setDropdownIsActive] = useState(false);
-    const [dropdownContent, setDropDownContent] = useState([]);
-    const [activeChoice, setActiveChoice] = useState(undefined);
+    const [activeChoice, setActiveChoice] = useState(defaultCountry);
 
-    useEffect(() => {
-        getListContent()
-            .then(response => {
-                setDropDownContent(response)
-                if(defaultCountry)
-                    setActiveChoice(response.filter((option) => {return option.id === defaultCountry})[0].name)
-            })
-            .catch(error => displayError(error))
-    }, [])
-  
     const toggleDropdown = () => {
         setDropdownIsActive(!dropdownIsActive)
     }
 
-    const chooseOption = (option, optionId) => {
-        setActiveChoice(option);
+    const chooseOption = (optionName, optionId) => {
+        setActiveChoice(optionName);
         setDropdownIsActive(false);
         onSelect(optionId)
     }
@@ -42,9 +27,13 @@ const DropdownMenu = ({defaultCountry, getListContent, onSelect}) => {
         <div className="dropdown">
             <button onClick={() => toggleDropdown()} className={'dropbtn'}>{activeChoice ? activeChoice : 'Select Country'}</button>  
             <div className={`dropdown-content ${dropdownIsActive && 'show'}`}>
-                {dropdownContent.map(option => (
+                
+                {
+                content&&
+                content.map(option => (
                     <span key={option.id} onClick={() => {chooseOption(option.name, option.id)}}>{option.name}</span>
-                ))}
+                ))
+                }
             </div>
         </div>
     )

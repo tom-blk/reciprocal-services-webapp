@@ -1,7 +1,5 @@
 import { Route, Routes } from 'react-router';
 
-import { useContext, useEffect } from 'react';
-
 import Home from './routes/home/home.component';
 import Nav from './routes/nav/nav.component';
 import LogIn from './routes/login/login.component';
@@ -16,20 +14,10 @@ import EditUserProfile from './routes/edit-user-profile/edit-user-profile.compon
 import IncomingOrders from './routes/incoming-orders/incoming-orders.component';
 import OutgoingOrders from './routes/outgoing-orders/outgoing-orders.component';
 import EditUserServicesList from './components/edit-user-services/edit-user-services.component';
-import FirstTimeVisitModal from './components/modals/firstTimeVisit/first-time-visit-modal.component';
-
-import { ModalContext } from './context/modal.context';
 
 import './App.styles.scss';
 
 const App = () => {
-
-  const { toggleModal } = useContext(ModalContext);
-
-  useEffect(() => {
-    if(!localStorage.getItem('prometheusFirstTimeVisitToken'))
-      toggleModal(<FirstTimeVisitModal/>)
-  }, [])
 
   console.log(`Current Environment: ${process.env.REACT_APP_CURRENT_ENVIRONMENT}`)
 

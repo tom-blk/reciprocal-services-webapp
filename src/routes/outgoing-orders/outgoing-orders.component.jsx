@@ -1,21 +1,11 @@
 import PageContainer from "../../utils/page-container/page-container.component";
-import { useContext, useEffect } from "react";
-import { UserContext } from "../../context/user.context";
-import { AlertMessageContext } from "../../context/alert-message.context";
+import { useContext } from "react";
 import OrdersList from "../../components/card-lists/orders-list/orders-list.component";
 import { OrderContext } from "../../context/order.context";
 
 const OutgoingOrders = () => {
 
-    const { getAndSetAllOrdersWithSpecificDirection, outgoingOrders } = useContext(OrderContext)
-    const { user } = useContext(UserContext);
-    const { displayError } = useContext(AlertMessageContext);
-
-
-    useEffect(() => {
-        getAndSetAllOrdersWithSpecificDirection(user.id, 'outgoing', displayError);
-    }, [])
-
+    const { outgoingOrders } = useContext(OrderContext)
 
     return(
         <PageContainer>

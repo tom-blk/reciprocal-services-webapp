@@ -20,6 +20,7 @@ import { useParams } from "react-router";
 import "./order-page.styles.scss"
 import { returnAppropriateOrderModal } from "../../../helper-functions/orders/returnAppropriateOrderModal";
 import { setOrderStageToDenied } from "../../../helper-functions/orders/setOrderStageToDenied";
+import { assertDisplayName } from "../../../helper-functions/users/assertDisplayName";
 
 const OrderPage = () => {
 
@@ -36,29 +37,30 @@ const OrderPage = () => {
     const [correspondingUser, setCorrespondingUser] = useState(undefined);
     
     const orderStatus = useOrderStatus(tempOrder, user.id);
+    const orderDirection = orderStatus.orderDirection
 
     useEffect(() => {
         getSingleOrder(orderIdInt)
             .then(response => setTempOrder(response))
             .catch(error => displayError(error))
-    }, [])
+    }, [orderIdInt, displayError])
 
     useEffect(() => {
         if(tempOrder){
             getService(tempOrder.serviceId, displayError)
                 .then(response => setService(response))
                 .catch(error => displayError(error))
-            if(orderStatus.orderDirection === 'incoming'){
+            if(orderDirection === 'incoming'){
                 getSingleUser(tempOrder.receivingUserId, displayError)
                     .then(response => setCorrespondingUser(response))
                     .catch(error => displayError(error))
-            } else if(orderStatus.orderDirection === 'outgoing'){
+            } else if(orderDirection === 'outgoing'){
                 getSingleUser(tempOrder.providingUserId, displayError)
                     .then(response => setCorrespondingUser(response))
                     .catch(error => displayError(error))
             }
         }
-    }, [tempOrder])
+    }, [tempOrder, orderDirection, displayError])
 
      // Needs to be passed all the way through to the function that ultimately calls the api to update the database so that it can update the frontend after update is successful (makes updating process feel faster)
      const onOrderStageModified = () => {
@@ -137,7 +139,7 @@ const OrderPage = () => {
 
                     <div className="page-container-item-group">
                         <h2>{`${orderStatus.correspondingUserRole}:`}</h2>
-                        <h2 className="page-container-content">{`${correspondingUser.firstName} ${correspondingUser.lastName}`}</h2>
+                        <h2 className="page-container-content">{assertDisplayName(correspondingUser)}</h2>
                     </div>
 
                     <div className="page-container-item-group">

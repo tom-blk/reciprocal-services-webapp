@@ -33,10 +33,13 @@ const UserProfile = () => {
         getUserSpecificServices(user.id, displayError)
             .then(response => setUserServices(response))
             .catch(error => displayError(error))
+    }, [user.id, displayError])
+
+    useEffect(() => {
         getUserCountry(user.country)
             .then(response => setUserCountry(response.name))
             .catch(error => displayError(error))
-    }, [])
+    }, [user.country, displayError])
 
     const navigateToUserEditProfile = () => {
         navigate('/userProfile-edit')

@@ -14,17 +14,15 @@ const Home = () => {
 
   const { user } = useContext(UserContext)
   const { displayError } = useContext(AlertMessageContext);
-  const { getAndSetOrderWithSpecificStatusAndDirection, outgoingOrders, incomingOrders } = useContext(OrderContext)
+  const { outgoingOrders, incomingOrders } = useContext(OrderContext)
   
   const [trendingServices, setTrendingServices] = useState([]);
 
   useEffect(() => {
-    getAndSetOrderWithSpecificStatusAndDirection(user.id, 'incoming', 'new', displayError);
-    getAndSetOrderWithSpecificStatusAndDirection(user.id, 'outgoing', 'fulfilled', displayError);
     getTrendingServices()
       .then(response => setTrendingServices(response))
       .catch(error => displayError(error))
-  }, [])
+  }, [user.id, displayError])
 
   return (
     <PageContainer>

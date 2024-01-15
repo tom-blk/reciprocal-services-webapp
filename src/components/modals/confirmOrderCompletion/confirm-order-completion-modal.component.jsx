@@ -27,7 +27,7 @@ const ConfirmOrderCompletionModalComponent = ({providerId, order, confirmedCompl
     useEffect(() => {
         getSingleUser(providerId)
             .then(response => setProvider(response))
-    }, [])
+    }, [providerId])
 
     const onSetRating = (star) => {
         setRating(star);

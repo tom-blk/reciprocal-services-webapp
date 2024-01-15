@@ -26,6 +26,7 @@ const ServicePage = () => {
     const { displayError } = useContext(AlertMessageContext);
     const { toggleModal } = useContext(ModalContext);
     const { user } = useContext(UserContext);
+    const {id, country, postCode} = user;
 
     const [service, setService] = useState(undefined);
     const [serviceProviders, setServiceProviders] = useState([]);
@@ -36,16 +37,25 @@ const ServicePage = () => {
         getService(serviceId, displayError)
             .then(response => {setService(response)})
             .catch(error => displayError(error))
-        getLocalServiceSpecificUsers(serviceId, user.country, user.postCode, user.id)
+    }, [serviceId, displayError])
+
+    useEffect(() => {
+        getLocalServiceSpecificUsers(serviceId, country, postCode, id)
             .then(response => setServiceProviders(response))
             .catch(error => displayError(error))
-        getServiceUserAffiliation(user.id, serviceId, displayError)
+    }, [serviceId, country, postCode, id, displayError])
+
+    useEffect(() => {
+        getServiceUserAffiliation(id, serviceId, displayError)
             .then(response => setProvidedByCurrentUser(response))
             .catch(error => displayError(error))
-        getAverageCreditsPerHour(serviceId, user.country, user.postCode)
+    }, [id, serviceId, displayError])
+
+    useEffect(() => {
+        getAverageCreditsPerHour(serviceId, country, postCode)
             .then(response => setAverageCreditsPerHour(Math.round(response * 10) / 10))
             .catch(error => displayError(error))
-    }, [])
+    }, [serviceId, country, postCode, displayError])
 
     const toggleProvidedByCurrentUser = (addOrRemove) => {
         if(addOrRemove === "add")

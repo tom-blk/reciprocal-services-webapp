@@ -34,14 +34,14 @@ const ProviderProfilePage = () => {
         getUserSpecificServices(providerId)
             .then(response => setProviderServices(response))
             .catch(error => displayError(error))
-    }, [])
+    }, [providerId, displayError])
 
     useEffect(() => {
         if(provider)
         getUserCountry(provider.country)
             .then(response => setProviderCountry(response.name))
             .catch(error => displayError(error))
-    }, [provider])
+    }, [provider, displayError])
 
     return(
         <Fragment>

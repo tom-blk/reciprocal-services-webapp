@@ -22,18 +22,23 @@ const Services = () => {
     const [searchString, setSearchString] = useState('');
     const [superficialServiceDetails, setSuperficialServiceDetails] = useState([]);
     const [filteredServices, setFilteredServices] = useState(superficialServiceDetails);
+    const [serivcesCreated, setServicesCreated] = useState(0);
 
-    const getServices = () => {
+    useEffect(() => {
         getServiceList()
             .then(response => setSuperficialServiceDetails(response))
             .catch(error=> displayError(error));
-    }
+    }, [displayError])
 
     useEffect(() => {
-        getServices();
-    }, [])
-
-    useEffect(() => {
+        const filterServices = () => {
+            setFilteredServices(
+                superficialServiceDetails.filter(
+                    service => {return service.name.toLocaleLowerCase().includes(searchString)}
+                )
+            )
+        }
+        
         filterServices();
     }, [searchString, superficialServiceDetails])
 
@@ -41,17 +46,13 @@ const Services = () => {
         setSearchString(userInput)
     }
 
-    const filterServices = () => {
-        setFilteredServices(
-            superficialServiceDetails.filter(
-                service => {return service.name.toLocaleLowerCase().includes(searchString)}
-            )
-        )
+    const onServiceCreated = () => {
+        setServicesCreated(serivcesCreated + 1)
     }
 
     const onAddButtonClick = () => {
         toggleModal(
-            <AddServiceModal onServiceCreatedCallback={getServices}/>
+            <AddServiceModal onServiceCreatedCallback={onServiceCreated}/>
         )
     }
 

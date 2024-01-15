@@ -1,4 +1,4 @@
-import { useContext, Fragment, useEffect, useState } from "react";
+import { useContext, Fragment, useState } from "react";
 
 import { ModalContext } from "../../../context/modal.context";
 import { UserContext } from "../../../context/user.context";
@@ -26,8 +26,6 @@ const OrderServiceModal = ({ providingUserId, providingUserFirstName, providingU
     }
 
     const [orderData, setOrderData] = useState(orderDataTemplate);
-
-    useEffect(() => {console.log(orderData.message)},[orderData])
 
     const setOrderMessage = (orderMessage) => {
         setOrderData({...orderData, message: orderMessage})

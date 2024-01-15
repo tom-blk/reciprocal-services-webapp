@@ -19,6 +19,7 @@ const ServiceCard = ({ service, providerInfo }) => {
     const { creditsPerHour, id, name, description, icon } = service;
 
     const { user } = useContext(UserContext);
+
     const { toggleModal } = useContext(ModalContext);
     const { displayError } = useContext(AlertMessageContext);
 
@@ -29,10 +30,10 @@ const ServiceCard = ({ service, providerInfo }) => {
 
     useEffect(() => {
         if(!providerInfo)
-        getLocalServiceProviderCount(service.id, user.country, user.postCode, user.id)
+        getLocalServiceProviderCount(id, user.country, user.postCode, user.id)
             .then(response => setLocalServiceProviderCount(response))
             .catch(error => displayError(error))
-    }, [])
+    }, [id, user, providerInfo, displayError])
 
     const onClickHandler = () => navigate(`/services/${id}`)
 

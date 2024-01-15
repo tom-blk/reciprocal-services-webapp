@@ -7,7 +7,6 @@ export const AlertMessageContextProvider = (input) => {
     const [errorMessages, setErrors] = useState([]);
     const [successMessages, setSuccessMessages] = useState([]);
 
-    //Function below and useEFfect for ErrorMessage handling need to be optimized
     const displayError = (error) => {
         setErrors(errorMessages.concat(error.message));
         setTimeout(() => {

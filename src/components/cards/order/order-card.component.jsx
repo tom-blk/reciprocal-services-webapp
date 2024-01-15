@@ -33,23 +33,26 @@ const OrderCard = ({order}) => {
 
     const navigate = useNavigate()
     const orderStatus = useOrderStatus(tempOrder, user.id);
+    const correspondingUserRole = orderStatus.correspondingUserRole;
 
     useEffect(() => {
         getService(order.serviceId, displayError)
             .then(response => setService(response))
             .catch(error => displayError(error))
-            
-        if(orderStatus.correspondingUserRole === 'Provider')
+        
+    }, [order.serviceId, displayError])
+
+    useEffect(() => {
+        if(correspondingUserRole === 'Provider')
         getSingleUser(order.providingUserId, displayError)
             .then(response => setProvider(response))
             .catch(error => displayError(error))
 
-        if(orderStatus.correspondingUserRole === 'Recipient')
+        if(correspondingUserRole === 'Recipient')
         getSingleUser(order.receivingUserId, displayError)
             .then(response => setRecipient(response))
             .catch(error => displayError(error))
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [order.providingUserId, order.receivingUserId, displayError, correspondingUserRole])
     
     const cardOnClickHandler = () => {
         navigate(`/outgoing-orders/${order.id}`)
