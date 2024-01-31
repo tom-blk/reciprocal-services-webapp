@@ -88,7 +88,7 @@ const OrderCard = ({order} : {order: Order}) => {
     }
 
     const returnConditionalDateContainer = () => {
-        if(orderStatus.currentStage === 4){
+        if(orderStatus.currentStage === 4 && order.dateCompleted){
             return(
                 <div>
                     <div className="bold nowrap">Date Completed: </div>
