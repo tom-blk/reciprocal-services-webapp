@@ -2,7 +2,7 @@ import './round-image-container.styles.scss';
 
 import { ReactComponent as ServiceIcon } from '../../assets/vectors/service.svg';
 import { ReactComponent as AvatarIcon } from '../../assets/vectors/avatar.svg';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 interface Props{
     pictureIsPresent: boolean;
