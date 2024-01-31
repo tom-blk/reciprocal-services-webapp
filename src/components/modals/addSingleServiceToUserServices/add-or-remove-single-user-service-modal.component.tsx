@@ -19,7 +19,7 @@ interface Props{
 const AddOrRemoveSingleUserServiceModal = ({service, addOrRemove, onConfirmCallback}: Props) => {
 
     const {toggleModal} = useContext(ModalContext)
-    const {user} = useContext(UserContext);
+    const {user, fetchUser} = useContext(UserContext);
 
     const [embersPerHour, setEmbersPerHour] = useState<string | undefined>(undefined);
 
@@ -30,6 +30,7 @@ const AddOrRemoveSingleUserServiceModal = ({service, addOrRemove, onConfirmCallb
             } else if(!isNaN(Number(embersPerHour))){
                 addServiceToUserServices(user!.id, service.id, Number(embersPerHour))
                 .then(() => {
+                    fetchUser()
                     onConfirmCallback(addOrRemove);
                     toggleModal();
                     toast(<AlertMessageComponent successMessage={`Service ${service.name} Successfully Added to Your Services with ${embersPerHour} Embers Per Hour.`}/>, successMessageOptions)
@@ -40,6 +41,7 @@ const AddOrRemoveSingleUserServiceModal = ({service, addOrRemove, onConfirmCallb
         if(addOrRemove === 'remove'){
             removeServiceFromUserServices(user!.id, service.id)
                 .then(() => {
+                    fetchUser()
                     onConfirmCallback(addOrRemove);
                     toggleModal();
                     toast(<AlertMessageComponent successMessage={`Service ${service.name} Successfully Removed from Your Services.`}/>, successMessageOptions);
