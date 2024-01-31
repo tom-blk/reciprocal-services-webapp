@@ -5,7 +5,6 @@ import { Provider } from "../../../types/users";
 
 import { ModalContext } from "../../../context/modal.context";
 import { UserContext } from "../../../context/user.context";
-import { OrderContext } from "../../../context/order.context";
 
 import useOrderStatus from "../../../hooks/useOrderStatus";
 
@@ -30,7 +29,6 @@ const OrderCard = ({order} : {order: Order}) => {
 
     const { user } = useContext(UserContext);
     const { toggleModal } = useContext(ModalContext);
-    const { refetchOrdersAfterUpdating } = useContext(OrderContext)
 
     const [service, setService] = useState<Service | undefined>(undefined);
     const [provider, setProvider] = useState<Provider | undefined>(undefined);
@@ -78,7 +76,7 @@ const OrderCard = ({order} : {order: Order}) => {
     const buttonOnClickHandler = (e: React.MouseEvent<HTMLElement>) => {
         e.stopPropagation();
         if(orderStatus.nextStage)
-        toggleModal(returnAppropriateOrderModal(user!.id, tempOrder, orderStatus.nextStage, onOrderStageModified, refetchOrdersAfterUpdating));
+        toggleModal(returnAppropriateOrderModal(user!.id, tempOrder, orderStatus.nextStage, onOrderStageModified));
     }
 
     const declineButtonOnClickHandler = (e: React.MouseEvent<HTMLElement>) => {

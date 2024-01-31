@@ -1,6 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
-
-import { OrderContext } from "../../context/order.context";
+import React, { useEffect, useState } from "react";
 
 import PageContainer from "../../utils/page-container/page-container.component";
 import OrdersList from "../../components/card-lists/orders-list/orders-list.component";
@@ -16,10 +14,8 @@ import AlertMessageComponent from "../../components/alerts/alert-message.compone
 
 const Home = () => {
 
-  const { outgoingOrders, incomingOrders } = useContext(OrderContext)
-
-  useFetchOrders('incoming');
-  useFetchOrders('outgoing');
+  const incomingOrders = useFetchOrders('incoming');
+  const outgoingOrders = useFetchOrders('outgoing');
   
   const [trendingServices, setTrendingServices] = useState([]);
 

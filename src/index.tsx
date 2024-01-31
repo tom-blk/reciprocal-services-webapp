@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 
 import ModalContextProvider from './context/modal.context';
 import UserContextProvider from './context/user.context';
-import OrderContextProvider from './context/order.context';
 
 import { HashRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -22,7 +21,6 @@ root.render(
   <React.StrictMode>
     <HashRouter basename='/'>
         <UserContextProvider>
-          <OrderContextProvider>
             <ModalContextProvider>
               <Background>
                 <App /> 
@@ -36,7 +34,6 @@ root.render(
               />
               <Modal/>
             </ModalContextProvider>
-          </OrderContextProvider>
         </UserContextProvider>
     </HashRouter>
   </React.StrictMode>

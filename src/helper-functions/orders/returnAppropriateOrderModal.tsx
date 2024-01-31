@@ -7,18 +7,10 @@ import ConfirmOrderCompletionModalComponent from "../../components/modals/confir
 
 import { advanceOrderStage } from "./advanceOrderStage";
 
-export const returnAppropriateOrderModal = (userId: number, order: Order, nextOrderStage: number, onOrderStageModified: () => void, refetchOrdersAfterUpdating: (direction: 'incoming' | 'outgoing') => void) => {
-
-    const refetchProperDirection = () => {
-        if((order.providingUserId === userId) && nextOrderStage === (2 | 3 | 4)){
-            refetchOrdersAfterUpdating('incoming')
-        }else{
-            refetchOrdersAfterUpdating('outgoing')
-        }
-    }
+export const returnAppropriateOrderModal = (userId: number, order: Order, nextOrderStage: number, onOrderStageModified: () => void) => {
 
     const onModalConfirm = () => {
-        advanceOrderStage(order, nextOrderStage, onOrderStageModified, refetchProperDirection);
+        advanceOrderStage(order, nextOrderStage, onOrderStageModified);
         
     }
 

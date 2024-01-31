@@ -5,7 +5,6 @@ import { Provider } from "../../../types/users";
 
 import { ModalContext } from "../../../context/modal.context";
 import { UserContext } from "../../../context/user.context";
-import { OrderContext } from "../../../context/order.context";
 
 import { useParams } from "react-router";
 
@@ -34,7 +33,6 @@ const OrderPage = () => {
 
     const { toggleModal } = useContext(ModalContext);
     const { user } = useContext(UserContext);
-    const { refetchOrdersAfterUpdating } = useContext(OrderContext)
 
     const { orderId } = useParams();
 
@@ -96,7 +94,7 @@ const OrderPage = () => {
 
     const buttonOnClickHandler = () => {
         if(orderStatus.nextStage && tempOrder){
-            toggleModal(returnAppropriateOrderModal(user!.id, tempOrder, orderStatus.nextStage, onOrderStageModified, refetchOrdersAfterUpdating));
+            toggleModal(returnAppropriateOrderModal(user!.id, tempOrder, orderStatus.nextStage, onOrderStageModified));
         } else {
             toast(<AlertMessageComponent errorMessage='Something Went Wrong.'/>, errorMessageOptions)
         }
