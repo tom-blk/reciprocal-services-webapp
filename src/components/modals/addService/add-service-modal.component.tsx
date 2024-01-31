@@ -43,7 +43,9 @@ const AddServiceModal = ({onServiceCreatedCallback}: {onServiceCreatedCallback: 
         if(serviceData.name && serviceData.name.length > 0 && serviceData.description && serviceData.description.length > 0){
             if(serviceData.userId !== undefined && serviceData.creditsPerHour === undefined){
                 toast(<AlertMessageComponent errorMessage={'Please specify the amount of embers per hour you would like to receive for providing the service.'}/>, errorMessageOptions )
-            } else {
+            } else if(isNaN(Number(serviceData.creditsPerHour))){
+                toast(<AlertMessageComponent errorMessage={'Please input a valid number of credits.'}/>, errorMessageOptions )
+            }else{
                 createService(serviceData)
                     .then(response => {
                         toast(<AlertMessageComponent successMessage={response.successMessage}/>, successMessageOptions );
