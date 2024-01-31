@@ -16,10 +16,12 @@ import "./services.styles.scss"
 import { toast } from "react-toastify"
 import AlertMessageComponent from "../../components/alerts/alert-message.component"
 import { errorMessageOptions } from "../../components/alerts/alertMessageTypes"
+import { UserContext } from "../../context/user.context"
 
 const Services = () => {
 
     const { toggleModal } = useContext(ModalContext);
+    const { fetchUser } = useContext(UserContext);
 
     const [searchString, setSearchString] = useState('');
     const [superficialServiceDetails, setSuperficialServiceDetails] = useState<MaybeUserSpecificService[]>([]);
@@ -51,6 +53,7 @@ const Services = () => {
         getServiceList()
             .then(response => setSuperficialServiceDetails(response))
             .catch(error => {toast(<AlertMessageComponent errorMessage={error.message}/>, errorMessageOptions)})
+        fetchUser()
     }
 
     const onAddButtonClick = () => {
