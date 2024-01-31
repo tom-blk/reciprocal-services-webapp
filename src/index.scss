@@ -65,6 +65,12 @@ span{
 }
 
 :root{
+  --toastify-color-error: var(--color-warning-and-error);
+  --toastify-color-progress-success: var(--color-secondary-accent);
+  --toastify-toast-background: red;
+  --toastify-toast-width: 40vw;
+  --toastify-color-light: var(--color-opaque-bg);
+
   --content-width: 960px;
   --nav-width: 1024px;
 
@@ -88,7 +94,7 @@ span{
   --round-button: 50px;
 
   --color-primary-accent: #48ffe0;
-  --color-secondary-accent: #cdfff7;
+  --color-secondary-accent: #cdffff;
 
   --color-secondary-accent-complement: #141457;
 
@@ -118,5 +124,6 @@ span{
     --font-small: 0.7rem;
     --font-large: 1.1rem;
     --font-very-large: 1.2rem;
+    --toastify-toast-width: 320px;
   }
 }

@@ -17,6 +17,8 @@
     top: -10%;
     left: -10%;
 
+    filter: blur(50px);
+
     background-image: url(../../assets/images/bubble-bg.jpg);
     background-position: center;
     background-repeat: no-repeat;
@@ -33,13 +35,11 @@
 
 @keyframes background-movement{
     0% {
-        filter: blur(100px);
         background-position: 45% 79%;
         background-size: 700%;
     }
   
     25% {
-        filter: blur(100px);
         background-position: 40% 82%;
         background-size: 680%;
         transform: rotate(90deg);
@@ -47,21 +47,18 @@
   
   
     50% {
-        filter: blur(100px);
         background-position: 35% 81%;
         background-size: 690%;
         transform: rotate(120deg);
     }
   
     75% {
-        filter: blur(100px);
         background-position: 38% 75%;
         background-size: 680%;
         transform: rotate(210deg);
     }
   
     100% {
-        filter: blur(100px);
         background-position: 40% 80%;
         background-size: 690%;
         transform: rotate(360deg);

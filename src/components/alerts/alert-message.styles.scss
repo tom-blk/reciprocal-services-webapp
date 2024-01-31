@@ -1,0 +1,55 @@
+.alert-message{
+    display: grid;
+    justify-content: center;
+
+    animation-name: opacity-shift;
+    animation-duration: 4s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+}
+
+.alert-toast{
+    width: 100%;
+    display: grid;
+    justify-content: center;
+    align-content: flex-end;
+
+    border-radius: 10px;
+}
+
+.error-alert-toast{
+    border: 1px solid var(--color-warning-and-error);
+}
+
+.error-alert-progress{
+    color: var(--color-warning-and-error);
+}
+
+
+.error-alert-message{
+    width: auto;
+    justify-self: center;
+    color: var(--color-warning-and-error);
+}
+
+.success-alert-toast{
+    border: 1px solid var(--color-secondary-accent);
+}
+
+.success-alert-progress{
+    color: red;
+}
+
+.success-alert-message{
+    width: auto;
+    justify-self: center;
+    color: var(--color-secondary-accent);
+}
+
+
+@keyframes opacity-shift {
+    0% {opacity: 0;}
+    10% {opacity: 100;}
+    95% {opacity: 100;}
+    100% {opacity: 0;}
+  }
