@@ -24,7 +24,6 @@ const Services = () => {
     const [searchString, setSearchString] = useState('');
     const [superficialServiceDetails, setSuperficialServiceDetails] = useState<MaybeUserSpecificService[]>([]);
     const [filteredServices, setFilteredServices] = useState(superficialServiceDetails);
-    const [serivcesCreated, setServicesCreated] = useState(0);
 
     useEffect(() => {
         getServiceList()
@@ -49,7 +48,9 @@ const Services = () => {
     }
 
     const onServiceCreated = () => {
-        setServicesCreated(serivcesCreated + 1)
+        getServiceList()
+            .then(response => setSuperficialServiceDetails(response))
+            .catch(error => {toast(<AlertMessageComponent errorMessage={error.message}/>, errorMessageOptions)})
     }
 
     const onAddButtonClick = () => {
