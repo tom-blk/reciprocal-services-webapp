@@ -2,7 +2,7 @@
 
 ## Visit the application at https://frontend.prometheus-backend.top (unfortunate domain name, I know...)
 
-## Associated Backend: https://gitfront.io/r/tom-blk/XivoMxcDC6rw/reciprocal-services-backend/
+## Associated Backend: https://github.com/tom-blk/reciprocal-services-backend
 
 ## Purpose
 
