@@ -6,7 +6,7 @@
 
 ## Purpose
 
-## The main purpose of this app is to serve as a practice/portfolio project, because I wanted to do something different than an Instagram clone
+The main purpose of this app is to serve as a practice/portfolio project, because I wanted to do something different than an Instagram clone
 
 ## Idea
 The idea behind this project was that it might be a good idea to split economic goods and services into two classes, one being centralized and focused on trading non-essential goods and services (regular economy) and one being decentralized, where people separated by their location (in this case postal code) can have their own 'trading clusters' where they can provide essential goods and services (local food etc.) to each other locally. This would improve the stability, ecology and health implications of the economy.
