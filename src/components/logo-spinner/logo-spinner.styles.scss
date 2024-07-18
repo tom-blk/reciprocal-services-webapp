@@ -1,0 +1,130 @@
+.parent{
+  position: relative;
+  background-color: black;
+  aspect-ratio: 1/1;
+}
+
+.oval {
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #26C6DA, white);
+  background-size: 800%;
+  height: 23%;
+  aspect-ratio: 1/2;
+  padding: 10px;
+  background-clip: padding-box;
+  background-color: red;
+}
+
+.circle{
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #26C6DA, white);
+  background-size: 800%;
+  height: 5%;
+  aspect-ratio: 1/1;
+}
+
+.oval-1{
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(90deg);
+  animation: b-1 3s infinite ease-in-out;
+}
+
+.circle-1{
+  top: 19%;
+  left: 59%;
+  animation: b-2 3s infinite ease-in-out;
+}
+
+.oval-2{
+  top: 22.5%;
+  left: 77.5%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  animation: b-3 3s infinite ease-in-out;
+}
+
+.circle-2{
+  top: 36%;
+  left: 76%;
+  animation: b-4 3s infinite ease-in-out;
+}
+
+.oval-3{
+  top: 50%;
+  left: 89%;
+  transform: translate(-50%, -50%);
+  animation: b-5 3s infinite ease-in-out;
+}
+
+.circle-3{
+  top: 60%;
+  left: 76%;
+  animation: b-6 3s infinite ease-in-out;
+}
+
+.oval-4{
+  left: 77.5%;
+  top: 77.5%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  animation: b-7 3s infinite ease-in-out;
+}
+
+.circle-4{
+  top: 77%;
+  left: 59%;
+  animation: b-8 3s infinite ease-in-out;
+}
+
+.oval-5{
+  left: 50%;
+  top: 90%;
+  transform: translate(-50%, -50%) rotate(90deg);
+  animation: b-9 3s infinite ease-in-out;
+}
+
+.circle-5{
+  top: 77%;
+  left: 36.5%;
+  animation: b-10 3s infinite ease-in-out;
+}
+
+.oval-6{
+  left: 22.5%;
+  top: 77.4%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  animation: b-11 3s infinite ease-in-out;
+}
+
+.circle-6{
+  top: 59%;
+  left: 20%;
+  animation: b-12 3s infinite ease-in-out;
+}
+
+.oval-7{
+  left: 11%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  animation: b-13 3s infinite ease-in-out;
+}
+
+.circle-7{
+  top: 36%;
+  left: 20%;
+  animation: b-14 3s infinite ease-in-out;
+}
+
+.oval-8{
+  left: 22.5%;
+  top: 22.5%;
+  transform: translate(-50%, -50%) rotate(-315deg);
+  animation: b-15 3s infinite ease-in-out;
+}
+
+.circle-8{
+  top: 19%;
+  left: 36.5%;
+  animation: b-16 3s infinite ease-in-out;
+}

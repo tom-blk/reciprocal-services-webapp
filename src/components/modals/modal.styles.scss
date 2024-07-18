@@ -22,10 +22,11 @@
     width: max(768px, 50%);
     max-height: 100vh;
 
-    background-color: #000000b6;
-    border: 2px solid var(--color-secondary-accent);
+    background-color: #111111b6;
+    border: 2px solid var(--color-border-soft);
+    border-radius: var(--border-radius-1);
 
-    overflow-y: scroll;
+    overflow: auto;
 
     display: grid;
     gap: var(--space-4);

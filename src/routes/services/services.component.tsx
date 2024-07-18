@@ -6,9 +6,9 @@ import { ModalContext } from "../../context/modal.context"
 import SearchBar from "../../components/search-bar/search-bar.component"
 import AddServiceModal from "../../components/modals/addService/add-service-modal.component"
 import ServicesList from "../../components/card-lists/services-list/services-list.component"
-import AddButton from "../../components/buttons/add-button-component/add-button.component"
 import PageContainer from "../../utils/page-container/page-container.component"
 import Distancer from "../../utils/distancer/distancer.component"
+import ButtonComponent from "../../components/buttons/button.component"
 
 import { getServiceList } from "../../api/services/read"
 
@@ -66,7 +66,7 @@ const Services = () => {
         <PageContainer>
             <div className="services-search-and-add-service-container">
                 <SearchBar className="services-search-bar" onSearchChange={onSearchChange} placeholder={"Services"}/>
-                <AddButton onClickHandler={onAddButtonClick}>+</AddButton>
+                <ButtonComponent buttonType={"secondary-confirm secondary-confirm-hover"} additionalStyles={{height: "40px", display: 'grid', alignContent: 'center'}} onClickHandler={onAddButtonClick}>+</ButtonComponent>
             </div>
             <Distancer size={1}/>
             <ServicesList services={filteredServices}/>

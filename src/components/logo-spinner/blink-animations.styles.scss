@@ -1,0 +1,239 @@
+@keyframes b-1 { 
+  0% {
+    background-position: left;
+    box-shadow: 10px 10px 10px #26C6DA, -10px -10px 20px #26C6DA, 10px -10px 20px #26C6DA, -10px 10px 20px #26C6DA;
+  }
+  6.25% {
+    background-position: right;
+    box-shadow: 10px 10px 20px #03A9F4, -10px -10px 10px #03A9F4, 10px -10px 30px #03A9F4, -10px 10px 10px #03A9F4;
+  }
+  100%{
+    background-position: left;
+    box-shadow: 10px 10px 20px #03A9F4, -10px -10px 10px #03A9F4, 10px -10px 30px #03A9F4, -10px 10px 10px #03A9F4;
+  }
+}
+
+@keyframes b-2 { 
+  6.25% {
+    background-position: left;
+    box-shadow: 10px 10px 10px #26C6DA, -10px -10px 20px #26C6DA, 10px -10px 20px #26C6DA, -10px 10px 20px #26C6DA;
+  }
+  12.5% {
+    background-position: right;
+    box-shadow: 10px 10px 20px #03A9F4, -10px -10px 10px #03A9F4, 10px -10px 30px #03A9F4, -10px 10px 10px #03A9F4;
+  }
+  6.25%{
+    background-position: right;
+    box-shadow: 10px 10px 20px #03A9F4, -10px -10px 10px #03A9F4, 10px -10px 30px #03A9F4, -10px 10px 10px #03A9F4;
+  }
+}
+
+@keyframes b-3 { 
+  12.5% {
+    background-position: left;
+    box-shadow: 10px 10px 10px #26C6DA, -10px -10px 20px #26C6DA, 10px -10px 20px #26C6DA, -10px 10px 20px #26C6DA;
+  }
+  18.75% {
+    background-position: right;
+    box-shadow: 10px 10px 20px #03A9F4, -10px -10px 10px #03A9F4, 10px -10px 30px #03A9F4, -10px 10px 10px #03A9F4;
+  }
+ 12.5%{
+    background-position: right;
+    box-shadow: 10px 10px 20px #03A9F4, -10px -10px 10px #03A9F4, 10px -10px 30px #03A9F4, -10px 10px 10px #03A9F4;
+  }
+}
+
+@keyframes b-4 { 
+  18.75% {
+    background-position: left;
+    box-shadow: 10px 10px 10px #26C6DA, -10px -10px 20px #26C6DA, 10px -10px 20px #26C6DA, -10px 10px 20px #26C6DA;
+  }
+  25% {
+    background-position: right;
+    box-shadow: 10px 10px 20px #03A9F4, -10px -10px 10px #03A9F4, 10px -10px 30px #03A9F4, -10px 10px 10px #03A9F4;
+  }
+ 18.75% {
+    background-position: right;
+    box-shadow: 10px 10px 20px #03A9F4, -10px -10px 10px #03A9F4, 10px -10px 30px #03A9F4, -10px 10px 10px #03A9F4;
+  }
+}
+
+@keyframes b-5 { 
+  25% {
+    background-position: left;
+    box-shadow: 10px 10px 10px #26C6DA, -10px -10px 20px #26C6DA, 10px -10px 20px #26C6DA, -10px 10px 20px #26C6DA;
+  }
+  31.25% {
+    background-position: right;
+    box-shadow: 10px 10px 20px #03A9F4, -10px -10px 10px #03A9F4, 10px -10px 30px #03A9F4, -10px 10px 10px #03A9F4;
+  }
+  25% {
+    background-position: right;
+    box-shadow: 10px 10px 20px #03A9F4, -10px -10px 10px #03A9F4, 10px -10px 30px #03A9F4, -10px 10px 10px #03A9F4;
+  }
+}
+
+@keyframes b-6 { 
+  31.25% {
+    background-position: left;
+    box-shadow: 10px 10px 10px #26C6DA, -10px -10px 20px #26C6DA, 10px -10px 20px #26C6DA, -10px 10px 20px #26C6DA;
+  }
+  37.5% {
+    background-position: right;
+    box-shadow: 10px 10px 20px #03A9F4, -10px -10px 10px #03A9F4, 10px -10px 30px #03A9F4, -10px 10px 10px #03A9F4;
+  }
+  31.25% {
+    background-position: right;
+    box-shadow: 10px 10px 20px #03A9F4, -10px -10px 10px #03A9F4, 10px -10px 30px #03A9F4, -10px 10px 10px #03A9F4;
+  }
+}
+
+@keyframes b-7 { 
+  37.5% {
+    background-position: left;
+    box-shadow: 10px 10px 10px #26C6DA, -10px -10px 20px #26C6DA, 10px -10px 20px #26C6DA, -10px 10px 20px #26C6DA;
+  }
+  43.75% {
+    background-position: right;
+    box-shadow: 10px 10px 20px #03A9F4, -10px -10px 10px #03A9F4, 10px -10px 30px #03A9F4, -10px 10px 10px #03A9F4;
+  }
+  37.5% {
+    background-position: right;
+    box-shadow: 10px 10px 20px #03A9F4, -10px -10px 10px #03A9F4, 10px -10px 30px #03A9F4, -10px 10px 10px #03A9F4;
+  }
+}
+
+@keyframes b-8 { 
+  43.75% {
+    background-position: left;
+    box-shadow: 10px 10px 10px #26C6DA, -10px -10px 20px #26C6DA, 10px -10px 20px #26C6DA, -10px 10px 20px #26C6DA;
+  }
+  50% {
+    background-position: right;
+    box-shadow: 10px 10px 20px #03A9F4, -10px -10px 10px #03A9F4, 10px -10px 30px #03A9F4, -10px 10px 10px #03A9F4;
+  }
+  43.75% {
+    background-position: right;
+    box-shadow: 10px 10px 20px #03A9F4, -10px -10px 10px #03A9F4, 10px -10px 30px #03A9F4, -10px 10px 10px #03A9F4;
+  }
+}
+
+@keyframes b-9 { 
+  50% {
+    background-position: left;
+    box-shadow: 10px 10px 10px #26C6DA, -10px -10px 20px #26C6DA, 10px -10px 20px #26C6DA, -10px 10px 20px #26C6DA;
+  }
+  56.25% {
+    background-position: right;
+    box-shadow: 10px 10px 20px #03A9F4, -10px -10px 10px #03A9F4, 10px -10px 30px #03A9F4, -10px 10px 10px #03A9F4;
+  }
+  50%{
+    background-position: right;
+    box-shadow: 10px 10px 20px #03A9F4, -10px -10px 10px #03A9F4, 10px -10px 30px #03A9F4, -10px 10px 10px #03A9F4;
+  }
+}
+
+@keyframes b-10 { 
+  56.25% {
+    background-position: left;
+    box-shadow: 10px 10px 10px #26C6DA, -10px -10px 20px #26C6DA, 10px -10px 20px #26C6DA, -10px 10px 20px #26C6DA;
+  }
+  62.5% {
+    background-position: right;
+    box-shadow: 10px 10px 20px #03A9F4, -10px -10px 10px #03A9F4, 10px -10px 30px #03A9F4, -10px 10px 10px #03A9F4;
+  }
+  56.25% {
+    background-position: right;
+    box-shadow: 10px 10px 20px #03A9F4, -10px -10px 10px #03A9F4, 10px -10px 30px #03A9F4, -10px 10px 10px #03A9F4;
+  }
+}
+
+@keyframes b-11 { 
+  62.5% {
+    background-position: left;
+    box-shadow: 10px 10px 10px #26C6DA, -10px -10px 20px #26C6DA, 10px -10px 20px #26C6DA, -10px 10px 20px #26C6DA;
+  }
+  68.75% {
+    background-position: right;
+    box-shadow: 10px 10px 20px #03A9F4, -10px -10px 10px #03A9F4, 10px -10px 30px #03A9F4, -10px 10px 10px #03A9F4;
+  }
+  62.5% {
+    background-position: right;
+    box-shadow: 10px 10px 20px #03A9F4, -10px -10px 10px #03A9F4, 10px -10px 30px #03A9F4, -10px 10px 10px #03A9F4;
+  }
+}
+
+@keyframes b-12 { 
+  68.75% {
+    background-position: left;
+    box-shadow: 10px 10px 10px #26C6DA, -10px -10px 20px #26C6DA, 10px -10px 20px #26C6DA, -10px 10px 20px #26C6DA;
+  }
+  75% {
+    background-position: right;
+    box-shadow: 10px 10px 20px #03A9F4, -10px -10px 10px #03A9F4, 10px -10px 30px #03A9F4, -10px 10px 10px #03A9F4;
+  }
+  68.75% {
+    background-position: right;
+    box-shadow: 10px 10px 20px #03A9F4, -10px -10px 10px #03A9F4, 10px -10px 30px #03A9F4, -10px 10px 10px #03A9F4;
+  }
+}
+
+@keyframes b-13 { 
+  75% {
+    background-position: left;
+    box-shadow: 10px 10px 10px #26C6DA, -10px -10px 20px #26C6DA, 10px -10px 20px #26C6DA, -10px 10px 20px #26C6DA;
+  }
+  81.25% {
+    background-position: right;
+    box-shadow: 10px 10px 20px #03A9F4, -10px -10px 10px #03A9F4, 10px -10px 30px #03A9F4, -10px 10px 10px #03A9F4;
+  }
+  75% {
+    background-position: right;
+    box-shadow: 10px 10px 20px #03A9F4, -10px -10px 10px #03A9F4, 10px -10px 30px #03A9F4, -10px 10px 10px #03A9F4;
+  }
+}
+
+@keyframes b-14 { 
+  81.25% {
+    background-position: left;
+    box-shadow: 10px 10px 10px #26C6DA, -10px -10px 20px #26C6DA, 10px -10px 20px #26C6DA, -10px 10px 20px #26C6DA;
+  }
+  87.5% {
+    background-position: right;
+    box-shadow: 10px 10px 20px #03A9F4, -10px -10px 10px #03A9F4, 10px -10px 30px #03A9F4, -10px 10px 10px #03A9F4;
+  }
+  81.25% {
+    background-position: right;
+    box-shadow: 10px 10px 20px #03A9F4, -10px -10px 10px #03A9F4, 10px -10px 30px #03A9F4, -10px 10px 10px #03A9F4;
+  }
+}
+
+@keyframes b-15 { 
+  87.5% {
+    background-position: left;
+    box-shadow: 10px 10px 10px #26C6DA, -10px -10px 20px #26C6DA, 10px -10px 20px #26C6DA, -10px 10px 20px #26C6DA;
+  }
+  93.75% {
+    background-position: right;
+    box-shadow: 10px 10px 20px #03A9F4, -10px -10px 10px #03A9F4, 10px -10px 30px #03A9F4, -10px 10px 10px #03A9F4;
+  }
+  87.5% {
+    background-position: right;
+    box-shadow: 10px 10px 20px #03A9F4, -10px -10px 10px #03A9F4, 10px -10px 30px #03A9F4, -10px 10px 10px #03A9F4;
+  }
+}
+
+@keyframes b-16 { 
+  93.75% {
+    background-position: left;
+    box-shadow: 10px 10px 10px #26C6DA, -10px -10px 20px #26C6DA, 10px -10px 20px #26C6DA, -10px 10px 20px #26C6DA;
+  }
+  100% {
+    background-position: right;
+    box-shadow: 10px 10px 20px #03A9F4, -10px -10px 10px #03A9F4, 10px -10px 30px #03A9F4, -10px 10px 10px #03A9F4;
+  }
+  93.75% {
+    background-position: right;
+    box-shadow: 10px 10px 20px #03A9F4, -10px -10px 10px #03A9F4, 10px -10px 30px #03A9F4, -10px 10px 10px #03A9F4;
+  }
+}

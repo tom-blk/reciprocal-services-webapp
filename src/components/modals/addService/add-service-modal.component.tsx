@@ -104,7 +104,7 @@ const AddServiceModal = ({onServiceCreatedCallback}: {onServiceCreatedCallback: 
             <div style={{display: 'flex', gap: 'var(--space-3'}}>
                 <span>Add this to your services after creation?</span>
                 <input type="checkbox" onChange={e => setAddToUserServices(!addToUserServices)}/>
-                { addToUserServices && <input type="text" placeholder="Credits Per Hour" onChange={e => onServiceUserCredisPerHourChangeHandler(e.target.value)}/>}
+                { addToUserServices && <input className="number-input" type="text" placeholder="Credits Per Hour" onChange={e => onServiceUserCredisPerHourChangeHandler(e.target.value)}/>}
             </div>
             <ButtonComponent buttonType={'secondary-confirm secondary-confirm-hover'} onClickHandler={onCreateServiceHandler}>{'Confirm'}</ButtonComponent>
             <ButtonComponent buttonType={'cancel'} onClickHandler={onCancel}>{'Cancel'}</ButtonComponent>

@@ -8,7 +8,9 @@
     text-align: center;
     gap: var(--space-4);
     border: 2px solid var(--color-secondary-accent);
+    border-radius: var(--border-radius-1);
     padding: var(--space-4);
+    background-color: var(--color-lifted-bg); 
 
     @media screen and (max-width: 768px) {
         display: flex;

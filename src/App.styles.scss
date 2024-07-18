@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .heading-primary{
     font-size: var(--font-very-large);
 }
@@ -59,11 +63,14 @@
 
 .text-area{
     padding: var(--space-3);
-    background-color: #cefff7;
-    color: var(--color-secondary-accent-complement);
+    background-color: var(--color-lifted-bg);
+    color: var(--color-secondary-accent);
     border: none;
     width: 90%;
     align-self: center;
+
+    box-shadow: 1px 1px 1px #48ffe0, -1px -1px 1px #06ffac, 1px -1px 1px #06ffac, -1px 1px 1px #06ffac;
+    border-radius: var(--border-radius-2);
 
     &:hover{
         animation: select-text-area .2s;
@@ -71,6 +78,14 @@
     }
 
     outline: none;
+
+    ::placeholder{
+        color: var(--color-primary-accent);
+    }
+
+    ::ms-input-placeholder{
+        color: var(--color-primary-accent);
+    }
 }
 
 .text-area-modal{
@@ -80,6 +95,12 @@
 .image-icon{
     height: 50px;
     width: 50px;
+}
+
+.number-input{
+  color: var(--color-secondary-accent);
+  background-color: var(--color-lifted-bg);
+  border-radius: var(--border-radius-2);
 }
 
 .background-icon{
@@ -120,20 +141,15 @@
 }
 
 .text-area::placeholder{
-    color: #141457c2;
+    color: #AAAAAAAA;
 }
 
 @keyframes select-text-area{
     0% {
-        border-radius: 0;
-        transform: scale(1);
-        box-shadow: 0;
-    }
-
-    100% {
-        border-radius: 2px;
-        transform: scale(1.001);
         box-shadow: 1px 1px 1px #48ffe0, -1px -1px 1px #06ffac, 1px -1px 1px #06ffac, -1px 1px 1px #06ffac;
+    }
+    100% {
+        box-shadow: 1px 1px 5px #48ffe0, -1px -1px 5px #06ffac, 1px -1px 5px #06ffac, -1px 1px 5px #06ffac;
     }
 }
 

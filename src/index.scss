@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
   margin: 0;
   box-sizing: border-box;
@@ -71,13 +75,13 @@ span{
   --toastify-toast-width: 40vw;
   --toastify-color-light: var(--color-opaque-bg);
 
-  --content-width: 960px;
+  --content-width: 900px;
   --nav-width: 1024px;
 
   --font-small: 0.8rem;
   --font-normal: 1rem;
-  --font-large: 1.6rem;
-  --font-very-large: 2rem;
+  --font-large: 1.125rem;
+  --font-very-large: 1.25rem;
   --font-banner: 3.8rem;
 
   --space-1: 0.1em;
@@ -85,6 +89,10 @@ span{
   --space-3: 0.4em;
   --space-4: 1em;
   --space-5: 2em;
+
+  --border-radius-1: 12px;
+  --border-radius-2: 8px;
+  --border-radius-3: 4px;
 
   
 
@@ -94,15 +102,22 @@ span{
   --round-button: 50px;
 
   --color-primary-accent: #48ffe0;
+  --color-primary-accent-opaque: #48ffe080;
   --color-secondary-accent: #cdffff;
 
   --color-secondary-accent-complement: #141457;
 
   --color-warning-and-error: #af0135;
+  --color-warning-and-error-opaque: #af013580;
 
   --color-alert-opaque-background: #000000ea;
 
   --color-opaque-bg: #000000ea;
+
+  --color-lifted-bg: #CFCECE18;
+
+  --color-border-soft: #333333ea;
+
 
   @media screen and (max-width: 1024px) {
     --font-large: 1.2rem;

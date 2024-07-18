@@ -16,23 +16,19 @@
 } 
 
 .confirm{
-    background-color: var(--color-secondary-accent);
-    color: var(--color-secondary-accent-complement);
-
-    &:hover{
-        box-shadow: 1px 1px 3px #48ffe0, -1px -1px 3px #06ffac, -1px 1px 3px #48ffe0, 1px -1px 3px #06ffac;
-    }
+    color: var(--color-secondary-accent);
+    background: linear-gradient(45deg, var(--color-lifted-bg) 20%, var(--color-primary-accent-opaque) 50%, var(--color-lifted-bg) 70%);
+    background-size: 400% 400%;
+    background-position: right;
 }
 
 .secondary-confirm{
-    background-color: var(--color-secondary-accent);
-    color: var(--color-secondary-accent-complement);
-    background-color: white;
-
-    &:hover{
-        box-shadow: 1px 1px 3px #ffffff, -1px -1px 3px #ffffff, -1px 1px 3px #ffffff, 1px -1px 3px #ffffff;
-    }
+    color: var(--color-secondary-accent);
+    background: linear-gradient(45deg, var(--color-lifted-bg) 20%, var(--color-primary-accent-opaque) 50%, var(--color-lifted-bg) 70%);
+    background-size: 400% 400%;
+    background-position: right;
 }
+
 
 .secondary-confirm-no-hover{
     // For order-card, since in this case the secondary confrim colors are used for an inactive button
@@ -43,11 +39,39 @@
 
 .cancel{
     color: var(--color-warning-and-error);
-    background-color: white;
+    background: linear-gradient(45deg, var(--color-lifted-bg) 20%, var(--color-warning-and-error-opaque) 50%, var(--color-lifted-bg) 70%);
+    background-size: 400% 400%;
+    background-position: right;
+}
 
-    &:hover{
-        box-shadow: 2px 2px 5px var(--color-warning-and-error), -2px -2px 5px var(--color-warning-and-error), -2px 2px 5px var(--color-warning-and-error), 2px -2px 5px var(--color-warning-and-error);
-    }
+.button-mouse-enter{
+  animation-name: move-gradient-in;
+  animation-duration: .5s;
+  animation-fill-mode: forwards;
+}
+
+.button-mouse-leave{
+  animation-name: move-gradient-out;
+  animation-duration: .5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes move-gradient-in {
+  0%{
+    background-position: right;
+  }
+  100%{
+    background-position: left;
+  }
+}
+
+@keyframes move-gradient-out {
+  0%{
+    background-position: left;
+  }
+  100%{
+    background-position: right;
+  }
 }
 
 .inactive{

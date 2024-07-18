@@ -11,6 +11,7 @@
     "@types/react-image-crop": "^8.1.6",
     "axios": "^1.2.2",
     "env-cmd": "^10.1.0",
+    "file-loader": "^6.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-error-boundary": "^4.0.12",
@@ -45,5 +46,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.4"
   }
 }
